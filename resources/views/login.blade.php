@@ -39,13 +39,13 @@
 				<div class="login-form">
 					<form name="myForm" action="" method="post">
 						<div class="row">
-							<p class="fw-block">EMAIL</p>
+							<p class="fw-block label">EMAIL</p>
 						</div>
 						<div class="input">
 								<input type="email" id="email" name="email" placeholder="example@example.co.jp" required>
 						</div>
 						<div class="row">
-							<p class="fw-block">PASSWORD</p>
+							<p class="fw-block label">PASSWORD</p>
 						</div>
 						<div class="input">
 							<input type="password" id="password" name="password" placeholder="your password" required>
