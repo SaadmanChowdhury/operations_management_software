@@ -26,11 +26,11 @@ class CreateProjectsTable extends Migration
             $table->tinyInteger('work_engineering_id')->nullable();
             $table->bigInteger('amount_of_sales')->nullable();
             $table->Integer('transfer_amount')->nullable();
-            $table->string('estimate_id', 16);
+            $table->string('estimate_id', 16); // it should be integer as it's an id
             $table->tinyInteger('estimate_status_id')->nullable();
             $table->string('remark', 100)->nullable();
             $table->string('ec_estimate_storage_location', 100)->nullable();
-           
+
             $table->timestamps();
         });
     }
