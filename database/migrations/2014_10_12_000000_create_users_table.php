@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->date('exit_day')->nullable();
             $table->integer('unit_price');
             $table->integer('user_authority');
-            $table->date('delete_day');
+            $table->date('delete_day')->nullable();
 
             $table->rememberToken();
             $table->timestamps();
