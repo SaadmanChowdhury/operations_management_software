@@ -32,6 +32,13 @@ class CreateUsersTable extends Migration
 
             $table->rememberToken();
             $table->timestamps();
+
+            $table->unsignedInteger('created_id')->nullable();
+            $table->unsignedInteger('updated_id')->nullable();
+            $table->unsignedInteger('deleted_id')->nullable();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
