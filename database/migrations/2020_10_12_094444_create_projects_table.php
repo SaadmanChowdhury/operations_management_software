@@ -15,17 +15,19 @@ class CreateProjectsTable extends Migration
     public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->string('project_id', 10)->primary();
-            $table->Integer('customer_id');
+            $table->increments('project_id')->unsigned();
+
             $table->string('project_name', 100);
-            $table->Integer('manager_id');
+            $table->unsignedInteger('customer_id')->length(10);
+            $table->unsignedInteger('manager_id')->length(10);
+
             $table->date('order_month')->nullable();
             $table->date('inspection_month')->nullable();
             $table->tinyInteger('order_status')->nullable();
             $table->tinyInteger('business_situation')->nullable();
             $table->tinyInteger('development_stage')->nullable();
             $table->bigInteger('sales_total')->nullable();
-            $table->Integer('transferred_amount')->nullable();
+            $table->integer('transferred_amount')->nullable();
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();

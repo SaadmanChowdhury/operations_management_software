@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class CreateAssignsTable extends Migration
+class CreateAssignTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,14 @@ class CreateAssignsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assigns', function (Blueprint $table) {
-            $table->Integer('assign_id')->primary();
-            $table->Integer('project_id', 10);
-            $table->Integer('staff_id');
-            $table->tinyInteger('year')->nullable();
-            $table->tinyInteger('month')->nullable();
+        Schema::create('assign', function (Blueprint $table) {
+            $table->increments('assign_id')->unsigned();
+
+            $table->unsignedInteger('project_id')->length(10);
+            $table->unsignedInteger('staff_id')->length(10);
+            $table->unsignedInteger('year')->length(4);
+            $table->unsignedInteger('month')->length(2);
+
             $table->double('plan_month_year', 2)->nullable();
             $table->double('execution', 2)->nullable();
 
@@ -39,6 +41,6 @@ class CreateAssignsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assigns');
+        Schema::dropIfExists('assign');
     }
 }

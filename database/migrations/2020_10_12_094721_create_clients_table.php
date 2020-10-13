@@ -15,10 +15,10 @@ class CreateClientsTable extends Migration
     public function up()
     {
         Schema::create('clients', function (Blueprint $table) {
-            // $table->id();
-            $table->Integer('customer_id')->primary();
+            $table->increments('customer_id')->unsigned();
+
             $table->string('customer_name', 50);
-            $table->Integer('point_of_contact_person_id');
+            $table->unsignedInteger('point_of_contact_person_id')->length(10);;
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();
