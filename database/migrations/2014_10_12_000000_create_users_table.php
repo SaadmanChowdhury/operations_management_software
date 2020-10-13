@@ -20,12 +20,12 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
-            $table->integer('company');
-            $table->string('commercial_distribute');
+            $table->integer('company')->nullable();
+            $table->string('commercial_distribute')->nullable();
             $table->integer('tel');
             $table->integer('position');
             $table->date('admission_day');
-            $table->date('exit_day');
+            $table->date('exit_day')->nullable();
             $table->integer('unit_price');
             $table->integer('user_authority');
             $table->date('delete_day');
