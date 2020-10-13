@@ -14,11 +14,9 @@ class CreateAssignsTable extends Migration
     public function up()
     {
         Schema::create('assigns', function (Blueprint $table) {
-            // $table->id();
-            $table->Integer('assign_no')->primary(); // won't it be better to use id or assign_id
-            $table->string('project_id', 10); // it should be int as it is an id
+            $table->Integer('assign_id')->primary();
+            $table->Integer('project_id', 10);
             $table->Integer('staff_id');
-            $table->double('last_year', 2); // why it is double ? if it is double then shouldn't it be like $table->double('last_year', 10, 2);
             $table->tinyInteger('year')->nullable();
             $table->tinyInteger('month')->nullable();
             $table->double('plan_month_year', 2)->nullable();
