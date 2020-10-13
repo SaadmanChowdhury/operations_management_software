@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateProjectsTable extends Migration
 {
@@ -14,7 +15,6 @@ class CreateProjectsTable extends Migration
     public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
-            // $table->id();
             $table->string('project_id', 10)->primary();
             $table->Integer('customer_id');
             $table->string('project_name', 100);
@@ -27,7 +27,12 @@ class CreateProjectsTable extends Migration
             $table->bigInteger('sales_total')->nullable();
             $table->Integer('transferred_amount')->nullable();
 
-            $table->timestamps();
+            $table->unsignedInteger('created_id')->nullable();
+            $table->unsignedInteger('updated_id')->nullable();
+            $table->unsignedInteger('deleted_id')->nullable();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
