@@ -31,9 +31,6 @@ class CreateUsersTable extends Migration
             $table->integer('user_authority');
             $table->date('delete_day')->nullable();
 
-            $table->rememberToken();
-            $table->timestamps();
-
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();
             $table->unsignedInteger('deleted_id')->nullable();
