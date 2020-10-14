@@ -166,8 +166,8 @@ body {
   left: 30%;
   right:30%;
   width: 40%;
-  height: 55%;
-  padding-bottom: 8%;
+  min-height: 55%;
+  padding-bottom: 4%;
 
 }
 .login-form{
@@ -184,20 +184,23 @@ body {
     margin-top: -10%;
 }
 
+.input{
+  padding: 3px 5px;
+}
 .input input{
-  display:block;
+  display: block;
   outline: none;
   font-size: 11px;
   width: 100%;
   height: 25px;
   border-radius: 6px;
-  padding: 3px 5px;
 }
 
 
 /*BUTTONS*/
 
 .btn{
+  text-align: center;
   min-width: 55%;
   padding: 4% 22%;
   border-radius: 8px;
@@ -226,6 +229,13 @@ footer{
   font-size: 11px;
 }
 
+/*ERROR*/
+.error-msg{
+  color:yellow;
+  margin: 1% 0;
+  display: none;
+}
+
 
 /* MEDIA QUERIES */
 
@@ -238,6 +248,12 @@ footer{
   }
   .input input{
     height:12px;
+  }
+  .login-body{
+    right: 10%;
+    left: 10%;
+    width: 80%;
+    min-height: 45%;
   }
 }
 
@@ -271,14 +287,15 @@ footer{
   .mb{
     margin-bottom: 5%;
   }
+  
 }
 
-/* Large devices (large laptops and desktops, 1024px and down) */
-@media only screen and (max-width: 1024px) {
+/* Medium devices (large laptops and desktops, 1024px and down) */
+@media only screen and (min-width: 600px) and (max-width: 1024px) {
   .login-body{
     right: 20%;
     left: 20%;
     width: 60%;
-    height: 45%;
+    min-height: 45%;
   }
 }

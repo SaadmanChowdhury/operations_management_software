@@ -37,18 +37,20 @@
 					<p class="text-lg">LOGIN</p>
 				</div>
 				<div class="login-form">
-					<form name="myForm" action="" method="post">
+					<form name="myForm" action="" onsubmit="return validateForm()" method="get">
 						<div class="row">
 							<p class="fw-block label">EMAIL</p>
 						</div>
 						<div class="input">
-								<input type="email" id="email" name="email" placeholder="example@example.co.jp" required>
+								<input type="text" id="email" name="email" placeholder="example@example.co.jp">
+								<p class="text-xs error-msg">Required!</p>
 						</div>
 						<div class="row">
 							<p class="fw-block label">PASSWORD</p>
 						</div>
 						<div class="input">
-							<input type="password" id="password" name="password" placeholder="your password" required>
+							<input type="password" id="password" name="password" placeholder="your password">
+							<p class="text-xs error-msg">Required!</p>
 						</div>
 					
 						<div class="text-right mt mb">
@@ -69,5 +71,7 @@
 			</div>
 		</footer>
 	</div>
+	<!-- Template Main Javascript File -->
+	<script src="/js/main.js"></script>
 </body>
 </html>
