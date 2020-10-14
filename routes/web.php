@@ -37,3 +37,6 @@ Route::get('/user-list', function () {
 Route::get('/client-list', function () {
     return view('client_list');
 });
+Route::get('/login', function () {
+    return view('login');
+});
