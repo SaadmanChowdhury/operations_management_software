@@ -12,13 +12,13 @@ function validateForm() {
 
 
 	if (x == ""&&y=="") {
-		error[0].innerHTML = "Required";
+		error[0].innerHTML = "Required!";
 	    error[0].style.display="block";
 	    error[1].style.display="block";
 	    return false;
 	  }
 	 else if (x == "") {
-	  	error[0].innerHTML = "Required";
+	  	error[0].innerHTML = "Required!";
 	    error[0].style.display="block";
 	    error[1].style.display="none";
 	    return false;
