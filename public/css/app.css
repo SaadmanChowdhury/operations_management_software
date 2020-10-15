@@ -278,7 +278,7 @@ width: 100%;
 }
 
 #nav li a:hover{
-color: #9b91ff;
+color:#6996c9eb;
 }
 .list-unstyled {
 padding-left: 0;
@@ -288,6 +288,7 @@ list-style: none;
 .label-text{
 font-size: 15px;
 margin-left: 15px;
+padding-right: 15%;
 }
 .fa{
 width: 25%;
@@ -299,7 +300,7 @@ display: none;
 .logo-holder{
 min-height: 11%;
 margin-top: 0;
-background-color: #59529feb;
+background-color: #52769feb;
 color: white;
 }
 #header_top .box-shadow{

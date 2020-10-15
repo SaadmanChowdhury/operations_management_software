@@ -64,7 +64,7 @@ function sidebar_expand(sidebar){
 		text[i].style.display="inline-block";
 	}
 	sidebar.style.transition="none";
-	sidebar.style.width="200px";
+	sidebar.style.width="210px";
 	menu.classList.add('fade-left');
 	
 }
