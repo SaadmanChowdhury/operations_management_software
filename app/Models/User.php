@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -42,4 +43,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * retrieving all users information
+     */
+    public function readUserList()
+    {
+        $list = DB::table('users')->get();
+        return $list;
+    }
+
+    /**
+     * retrieving single user information
+     */
+    public function readUser($id)
+    {
+        $user = User::findOrFail($id);
+        return $user;
+    }
 }
