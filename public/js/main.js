@@ -53,3 +53,28 @@ function validateForm() {
 			return false;
 		}
 }
+
+////========SIDEBAR MENU==========////
+
+var text=document.getElementsByClassName('label-text');
+var menu=document.getElementById('header_top');
+function sidebar_expand(sidebar){
+	for(var i=0;i<5;i++)
+	{
+		text[i].style.display="inline-block";
+	}
+	sidebar.style.transition="none";
+	sidebar.style.width="200px";
+	menu.classList.add('fade-left');
+	
+}
+function normalsideBar(sidebar){
+	
+	for(var i=0;i<5;i++)
+	{
+		text[i].style.display="none";
+	}
+	sidebar.style.width="60px";
+	sidebar.style.transition="1s ease";
+	menu.classList.remove('fade-left');
+}
