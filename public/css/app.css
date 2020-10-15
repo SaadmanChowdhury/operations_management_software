@@ -235,84 +235,78 @@ footer{
   margin: 1% 0;
   display: none;
 }
-
-
-
-
 /* ////========SIDEBAR MENU==========//// */
 
 #header_top{
 
-    background-color: #0b1841e3;
-    z-index: 1030;
-    position: fixed;
-    width: 60px;
-    height: 100%;
-    top: 0;
-    left: 0;
-    padding: 0 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: left;
-    
+  background-color: #0b1841e3;
+  z-index: 1030;
+  position: fixed;
+  width: 60px;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  padding: 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  
 }
 
 
 #header_top .container{
 
-    color: white;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  color: white;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 #nav{
-  margin-top: 1rem;
+margin-top: 1rem;
 }
 #nav li{
-  display: inline-flex;
-  width: 100%;
-  padding: 12px;
-  margin-top: 1rem;
+display: inline-flex;
+width: 100%;
+padding: 12px;
+margin-top: 1rem;
 }
 #nav li a{
-  width: 100%;
+width: 100%;
 }
 
 #nav li a:hover{
-  color: #9b91ff;
+color: #9b91ff;
 }
 .list-unstyled {
-  padding-left: 0;
-  list-style: none;
+padding-left: 0;
+list-style: none;
 }
-.label{
-  font-size: 25px;
-}
+
 .label-text{
-  font-size: 15px;
-  margin-left: 15px;
+font-size: 15px;
+margin-left: 15px;
 }
 .fa{
-  width: 25%;
+width: 25%;
 }
 
 .hide{
-  display: none;
+display: none;
 }
 .logo-holder{
-  min-height: 11%;
-  margin-top: 0;
-  background-color: #59529feb;
-  color: white;
+min-height: 11%;
+margin-top: 0;
+background-color: #59529feb;
+color: white;
 }
 #header_top .box-shadow{
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 0px 1px;
+box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 0px 1px;
 }
 .fade-left{
-  animation: appear 1s;
+animation: appear 1s;
 }
 
 
@@ -328,7 +322,7 @@ footer{
 }
 
 
-/* MEDIA QUERIES */
+/*////==== MEDIA QUERIES===//// */
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 599px) {
