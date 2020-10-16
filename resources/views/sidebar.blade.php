@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="sidebar-container-fluid">
     <div id="header_top" onmouseover="sidebar_expand(this)" onmouseout="sidebar_mouseOutHandler(this)">
 
         <div class="logo-holder box-shadow">
