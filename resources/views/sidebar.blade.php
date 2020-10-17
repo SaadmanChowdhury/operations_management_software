@@ -1,41 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Sidebar</title>
+<div class="container-fluid">
+    <div id="header_top" onmouseover="sidebar_expand(this)" onmouseout="sidebar_mouseOutHandler(this)">
 
-	<!-- Required meta tags always come first -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <div class="logo-holder box-shadow">
+            <div class="header-icon row">
+                <img src="img/favicon.png">
+                <h6 class="label-text hide">実績管理システム</h6>
 
-    <link rel="stylesheet" href="/css/app.css">
+            </div>
+        </div>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
+        <div class="container">
+            <div class="p-r list-unstyled" id="nav">
 
-	<div class="container-fluid">
-		<div id="header_top" onmouseover="sidebar_expand(this)" onmouseout="normalsideBar(this)">
-			<div class="logo-holder box-shadow">
-				<div class="header-icon row">
-					<img src="img/favicon.png">
-					<h6 class="label-text hide">実績管理システム</h6>
-					
-				</div>
-			</div>
+                <li>
+                    <a href="">
+                        <span class="fa fa-home fa-2x" id="sidebar-assign"></span>
+                        <span class="label-text hide">アサインサマリー</span>
+                    </a>
+                </li>
 
-			<div class="container">
-				<div class="p-r list-unstyled" id="nav">
-					<li><a href=""><span class="fa fa-home fa-2x" id="assign"></span><span class="label-text hide">アサイン</span></a></li>
-					<li><a href=""><span class="fa fa-newspaper-o fa-2x" id="project"></span><span class="label-text hide">プロジェクト</span></a></li>
-					<li><a href=""><span class="fa fa-user fa-2x" id="user"></span><span class="label-text hide">ユーザー</span></a></li>
-					<li><a href=""><span class="fa fa-users fa-2x" id="client"></span><span class="label-text hide">クライアント</span></a></li>
-				</div>
-			</div>
-			
-		</div>
-	</div>
-     <!-- Template Main Javascript File -->
-	<script src="/js/main.js"></script>
-</body>
-</html>
+                <li>
+                    <a href="">
+                        <span class="fa fa-newspaper-o fa-2x" id="sidebar-project"></span>
+                        <span class="label-text hide">案件一覧</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <span class="fa fa-user fa-2x" id="sidebar-user"></span>
+                        <span class="label-text hide">ユーザー一覧</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <span class="fa fa-users fa-2x" id="sidebar-client"></span>
+                        <span class="label-text hide">顧客一覧</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <span class="fa fa-sign-out fa-2x" id="sidebar-logout"></span>
+                        <span class="label-text hide">ログアウト</span>
+                    </a>
+                </li>
+
+            </div>
+        </div>
+    </div>
+</div>
