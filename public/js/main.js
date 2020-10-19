@@ -53,20 +53,25 @@ function validateForm() {
 
 ////========SIDEBAR MENU==========////
 
-var text = document.getElementsByClassName('label-text');
+var text = document.getElementsByClassName('hide');
 var menu = document.getElementById('header_top');
 var shade = document.getElementById('background-shade');
+var content = document.getElementsByClassName('page-container');
+
 
 var isMouseOnSideBar = false;
 var isMenuUndergoingCloseOperation = false;
 
 function sidebar_expand(sidebar) {
     sidebar.style.transition = "0.4s ease-out";
-    sidebar.style.width = "250px";
+    sidebar.style.width = "225px";
+    content[0].style.left="225px";
+    content[0].style.width = "calc(100% - 325px)";
+    content[0].style.transition = "0.4s ease-out";
     // menu.classList.add('fade-left');
 
     setTimeout(function () {
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i < 4; i++) {
             text[i].style.display = "inline-block";
         }
     }, 200);
@@ -98,11 +103,13 @@ function normalSideBar(sidebar) {
         return;
 
     setTimeout(function () {
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i < 4; i++) {
             text[i].style.display = "none";
         }
     }, 0);
     sidebar.style.width = "60px";
+    content[0].style.left="60px";
+    content[0].style.width = "calc(100% - 100px)";
     sidebar.style.transition = "0.4s cubic-bezier(.51,.84,.77,.99)";
     menu.classList.remove('fade-left');
 

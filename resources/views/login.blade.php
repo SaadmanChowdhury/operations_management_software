@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Login System</title>
+	<title>GT宮崎 実績管理システム</title>
 	{{-- STYLE SHEET --}}
 	<link rel="stylesheet" href="/css/app.css">
 	
@@ -17,7 +17,7 @@
 		<div class="section-body" id="page-top">
 			<div class="container-fluid">
 				<div class="page-header">
-					<div class="header-icon row">
+					<div class="header-icon row center">
 						<img src="img/favicon.png">
 						<div class="text-lg">実績管理システム</div>
 						
@@ -33,7 +33,7 @@
 				<div class="profile-icon">
 					<img src="img/pro_icon2.png" alt="profile-icon">
 				</div>
-				<div class="row p-r">
+				<div class="row p-r center">
 					<p class="text-lg">LOGIN</p>
 				</div>
 				<div class="login-form">
