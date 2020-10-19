@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
 
             $table->integer('company')->nullable();
             $table->string('commercial_distribute')->nullable();
-            $table->integer('tel');
+            $table->string('tel');
             $table->integer('position');
             $table->date('admission_day');
             $table->date('exit_day')->nullable();
