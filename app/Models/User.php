@@ -49,16 +49,44 @@ class User extends Authenticatable
      */
     public function readUserList()
     {
-        $list = DB::table('users')->get();
+        $list = DB::table('users')->select(
+            'name',
+            'email',
+            'company',
+            'commercial_distribute',
+            'tel',
+            'position',
+            'admission_day',
+            'exit_day',
+            'user_authority',
+            'delete_day'
+        )->get();
         return $list;
     }
 
     /**
      * retrieving single user information
      */
-    public function readUser($id)
+    public function adminReadUser($id)
     {
         $user = User::findOrFail($id);
+        return $user;
+    }
+
+    public function loggedInReadUser($id)
+    {
+        $user = User::select([
+            'name',
+            'email',
+            'company',
+            'commercial_distribute',
+            'tel',
+            'position',
+            'admission_day',
+            'exit_day',
+            'user_authority',
+            'delete_day'
+        ])->where('user_id', $id)->first();
         return $user;
     }
 }
