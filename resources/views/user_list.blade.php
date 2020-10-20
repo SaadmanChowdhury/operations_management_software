@@ -29,6 +29,7 @@
                             <li >氏名 <span class="fa fa-caret-down"></span></li>
                             <li >所属 <span class="fa fa-caret-down"></span></li>
                             <li >ポジション <span class="fa fa-caret-down"></span></li>
+                            <li>入場日 <span class="fa fa-caret-down"></span></li>
                             <li >経過月数 <span class="fa fa-caret-down"></span></li>
                             <li >単価(最新) <span class="fa fa-caret-down"></span></li>
     
@@ -38,23 +39,7 @@
                       
                 </div>
                 <div>
-                    <div class="card">
-                        <div class="card-header">
-                            <a >
-                              <div class="display list-unstyled">
-                                <li>0001</li>
-                                <li><img src="img/user.png" class="smallpic"><div>ソフィア</div></li>
-                                <li>宮崎</li>
-                                <li>SE</li>
-                                <li>1月</li>
-                                <li>220000円</li>
-                                <li><span class="fa fa-ellipsis-v"></span></li>
-                                                                                
-                              </div>
-                            </a>
-                          
-                        </div>
-                    </div>
+                    
                     <div class="card">
                         <div class="card-header">
                             <a >
@@ -63,6 +48,7 @@
                                 <li><img src="img/pro_icon.png" class="smallpic"><div>サドマン</div></li>
                                 <li>宮崎</li>
                                 <li>SE</li>
+                                <li>1/1/2020</li>
                                 <li>1年</li>
                                 <li>220000円</li>
                                 <li><span class="fa fa-ellipsis-v"></span></li>
@@ -80,6 +66,7 @@
                                 <li><img src="img/user.png" class="smallpic"><div>スマイや</div></li>
                                 <li>宮崎</li>
                                 <li>SE</li>
+                                <li>1/1/2020</li>
                                 <li>1年</li>
                                 <li>220000円</li>
                                 <li><span class="fa fa-ellipsis-v"></span></li>
@@ -97,6 +84,25 @@
                                 <li><img src="img/pro_icon.png" class="smallpic"><div>ウトショブ</div></li>
                                 <li>宮崎</li>
                                 <li>SE</li>
+                                <li>10/1/2020</li>
+                                <li>1月</li>
+                                <li>220000円</li>
+                                <li><span class="fa fa-ellipsis-v"></span></li>
+                                                                                
+                              </div>
+                            </a>
+                          
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <a >
+                              <div class="display list-unstyled">
+                                <li>0001</li>
+                                <li><img src="img/user.png" class="smallpic"><div>ソフィア</div></li>
+                                <li>宮崎</li>
+                                <li>SE</li>
+                                <li>10/1/2020</li>
                                 <li>1月</li>
                                 <li>220000円</li>
                                 <li><span class="fa fa-ellipsis-v"></span></li>
@@ -114,6 +120,7 @@
                                 <li><img src="img/pro_icon.png" class="smallpic"><div>サミウル</div></li>
                                 <li>宮崎</li>
                                 <li>SE</li>
+                                <li>10/1/2020</li>
                                 <li>1月</li>
                                 <li>220000円</li>
                                 <li><span class="fa fa-ellipsis-v"></span></li>

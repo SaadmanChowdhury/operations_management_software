@@ -124,3 +124,9 @@ function normalSideBar(sidebar) {
         isMenuUndergoingCloseOperation = false;
     }, 410);
 }
+
+
+////====USER-LIST====////
+
+
+var item=document.querySelectorAll('.display li')
