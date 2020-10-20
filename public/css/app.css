@@ -561,7 +561,7 @@ footer {
 }
 .userlist-nav a:nth-child(1){
     background-color: orange;
-    color: black;
+    
 }
 .userlist-nav a:nth-child(2){
     background-color:#28c128;
@@ -571,6 +571,10 @@ footer {
 }
 .userlist-nav a:nth-child(4){
     background-color: #f86128;
+}
+
+.userlist-nav a:hover{
+    background-color: #7f7f7f;
 }
 
 
