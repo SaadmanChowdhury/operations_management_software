@@ -58,6 +58,7 @@ class User extends Authenticatable
             'position',
             'admission_day',
             'exit_day',
+            'unit_price',
             'user_authority',
             'delete_day'
         )->get()->toArray();
@@ -79,6 +80,7 @@ class User extends Authenticatable
             'position',
             'admission_day',
             'exit_day',
+            'unit_price',
             'user_authority',
             'delete_day'
         ])->where('user_id', $id)->first();
