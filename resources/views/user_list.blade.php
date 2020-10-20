@@ -14,17 +14,17 @@
             <div class="content-width">
                 
                 
-                <ul class="nav">
-                    <a href=""><li class="nav-item"> 全て</li></a>
-                    <a href=""><li class="nav-item"> PM</li></a>
-                    <a href=""><li class="nav-item"> SE</li></a>
-                    <a href=""><li class="nav-item"> PG</li></a>
+                <ul class="userlist-nav center list-unstyled">
+                    <a href=""><li> 全て</li></a>
+                    <a href=""><li> PM</li></a>
+                    <a href=""><li> SE</li></a>
+                    <a href=""><li> PG</li></a>
                 </ul>
                 <hr/>
     
                 <div id="table-nav" class="primary">
                     <div class="flex-col">
-                        <ul class="header list-unstyled">
+                        <ul class="display list-unstyled">
                             <li> コード <span class="fa fa-caret-down"></span></li>
                             <li >氏名 <span class="fa fa-caret-down"></span></li>
                             <li >所属 <span class="fa fa-caret-down"></span></li>
@@ -37,11 +37,11 @@
                     </div>    	
                       
                 </div>
-                <div id="accordian">
+                <div>
                     <div class="card">
-                        <div class="card-header" id="row1head">
+                        <div class="card-header">
                             <a >
-                              <div class="header list-unstyled">
+                              <div class="display list-unstyled">
                                 <li>0001</li>
                                 <li><img src="img/user.png" class="smallpic"><div>ソフィア</div></li>
                                 <li>宮崎</li>
@@ -56,9 +56,9 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header"  id="row1head">
+                        <div class="card-header">
                             <a >
-                              <div class="header list-unstyled">
+                              <div class="display list-unstyled">
                                 <li>0002</li>
                                 <li><img src="img/pro_icon.png" class="smallpic"><div>サドマン</div></li>
                                 <li>宮崎</li>
@@ -73,9 +73,9 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header"  id="row1head">
+                        <div class="card-header" >
                             <a >
-                              <div class="header list-unstyled">
+                              <div class="display list-unstyled">
                                 <li>0003</li>
                                 <li><img src="img/user.png" class="smallpic"><div>スマイや</div></li>
                                 <li>宮崎</li>
@@ -90,9 +90,9 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header"  id="row1head">
+                        <div class="card-header">
                             <a >
-                              <div class="header list-unstyled">
+                              <div class="display list-unstyled">
                                 <li>0004</li>
                                 <li><img src="img/pro_icon.png" class="smallpic"><div>ウトショブ</div></li>
                                 <li>宮崎</li>
@@ -107,9 +107,9 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header"  id="row1head">
+                        <div class="card-header">
                             <a >
-                              <div class="header list-unstyled">
+                              <div class="display list-unstyled">
                                 <li>0005</li>
                                 <li><img src="img/pro_icon.png" class="smallpic"><div>サミウル</div></li>
                                 <li>宮崎</li>
