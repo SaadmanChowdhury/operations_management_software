@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
 {
@@ -14,26 +15,28 @@ class UserController extends Controller
          * checking the user is logged in or not
          */
         if (!Auth::check()) {
-            return redirect('/login');
+            // return redirect('/login');
         }
 
         $user = new User();
         $list = $user->readUserList();
-        return $list;
+        $viewParams["list"] = $list;
+        // \Illuminate\Support\Facades\Log::debug($list);
+        return view('user_list', $viewParams);
     }
 
-    public function show($id)
+    public function readUser($id)
     {
         $loggedUser = auth()->user();
 
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             $user = new User();
-            $info = $user->adminReadUser($id);
+            $info = $user->readUser($id);
             return $info;
         } else {
             if ($loggedUser->user_id == $id) {
                 $user = new User();
-                $info = $user->loggedInReadUser($id);
+                $info = $user->readUser($id);
                 return $info;
             } else {
                 return;

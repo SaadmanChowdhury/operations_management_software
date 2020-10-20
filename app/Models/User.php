@@ -60,20 +60,15 @@ class User extends Authenticatable
             'exit_day',
             'user_authority',
             'delete_day'
-        )->get();
+        )->get()->toArray();
         return $list;
     }
 
     /**
      * retrieving single user information
      */
-    public function adminReadUser($id)
-    {
-        $user = User::findOrFail($id);
-        return $user;
-    }
 
-    public function loggedInReadUser($id)
+    public function readUser($id)
     {
         $user = User::select([
             'name',

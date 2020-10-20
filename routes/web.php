@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,9 @@ Route::get('/project-list', function () {
     return view('project_list');
 });
 
-Route::get('/user-list', function () {
-    return view('user_list');
-});
+// Route::get('/user-list', function () {
+//     return view('user_list');
+// });
 
 Route::get('/client-list', function () {
     return view('client_list');
@@ -42,5 +43,5 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{id}', [UserController::class, 'show']);
+Route::get('/user', [UserController::class, 'index']);
+Route::get('/readUser/{id}', [UserController::class, 'readUser']);

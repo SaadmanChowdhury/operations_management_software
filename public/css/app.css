@@ -450,5 +450,6 @@ footer {
     left: 60px;
     width: calc(100% - 60px);
     height: 100%;
+    color: black;
     z-index: 1;
 }
