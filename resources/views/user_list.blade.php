@@ -38,16 +38,16 @@
                     </div>    	
                       
                 </div>
-                <div>
-                    
+
+                <div class="staffs">
                     <div class="card">
                         <div class="card-header">
-                            <a >
+                            <a>
                               <div class="display list-unstyled">
-                                <li>0002</li>
+                                <li>0001</li>
                                 <li><img src="img/pro_icon.png" class="smallpic"><div>サドマン</div></li>
                                 <li>宮崎</li>
-                                <li>SE</li>
+                                <li class="pos">PM</li>
                                 <li>1/1/2020</li>
                                 <li>1年</li>
                                 <li>220000円</li>
@@ -62,10 +62,10 @@
                         <div class="card-header" >
                             <a >
                               <div class="display list-unstyled">
-                                <li>0003</li>
+                                <li>0002</li>
                                 <li><img src="img/user.png" class="smallpic"><div>スマイや</div></li>
                                 <li>宮崎</li>
-                                <li>SE</li>
+                                <li class="pos">SE</li>
                                 <li>1/1/2020</li>
                                 <li>1年</li>
                                 <li>220000円</li>
@@ -80,10 +80,10 @@
                         <div class="card-header">
                             <a >
                               <div class="display list-unstyled">
-                                <li>0004</li>
+                                <li>0003</li>
                                 <li><img src="img/pro_icon.png" class="smallpic"><div>ウトショブ</div></li>
                                 <li>宮崎</li>
-                                <li>SE</li>
+                                <li class="pos">SE</li>
                                 <li>10/1/2020</li>
                                 <li>1月</li>
                                 <li>220000円</li>
@@ -98,10 +98,10 @@
                         <div class="card-header">
                             <a >
                               <div class="display list-unstyled">
-                                <li>0001</li>
+                                <li>0004</li>
                                 <li><img src="img/user.png" class="smallpic"><div>ソフィア</div></li>
                                 <li>宮崎</li>
-                                <li>SE</li>
+                                <li class="pos">SE</li>
                                 <li>10/1/2020</li>
                                 <li>1月</li>
                                 <li>220000円</li>
@@ -119,7 +119,7 @@
                                 <li>0005</li>
                                 <li><img src="img/pro_icon.png" class="smallpic"><div>サミウル</div></li>
                                 <li>宮崎</li>
-                                <li>SE</li>
+                                <li class="pos">PG</li>
                                 <li>10/1/2020</li>
                                 <li>1月</li>
                                 <li>220000円</li>

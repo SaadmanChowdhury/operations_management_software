@@ -499,8 +499,7 @@ footer {
     position: absolute;
     top: 8%;
     left: 60px;
-    margin: 30px 40px;
-    width: calc(100% - 100px);
+    width: calc(100% - 60px);
     height: 100%;
     z-index: 1;
 }
@@ -510,10 +509,11 @@ footer {
 .user-list {
     color: black;
     position: relative;
+    margin: 30px 40px;
 }
 
 .user-list .d-flex .row-content {
-    padding: 1% 5% 1% 2%;
+    padding: 1% 2%;
 }
 
 .page-title {
@@ -521,7 +521,7 @@ footer {
 }
 
 .btn-holder {
-    width: 47%;
+    width: 50%;
 }
 
 .register-btn {
