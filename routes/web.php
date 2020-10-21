@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -31,7 +31,7 @@ Route::get('/assign-summary', function () {
 Route::get('/project-list', function () {
     return view('project_list');
 });
-
+ 
 // Route::get('/user-list', function () {
 //     return view('user_list');
 // });
@@ -45,3 +45,10 @@ Route::get('/login', function () {
 
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/readUser/{id}', [UserController::class, 'readUser']);
+
+Route::get('/user-modal', function () {
+    return view('user-modal');
+});
+
+
+
