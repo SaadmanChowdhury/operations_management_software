@@ -23,7 +23,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'company',
+        'commercial_distribute',
+        'tel',
+        'position',
+        'admission_day',
+        'exit_day',
+        'unit_price',
+        'user_authority',
+        'delete_day'
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -85,5 +95,26 @@ class User extends Authenticatable
             'delete_day'
         ])->where('user_id', $id)->first();
         return $user;
+    }
+
+    public function createUser($request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'company' => '',
+            'commercial_distribute' => '',
+            'tel' => 'required',
+            'position' => 'required',
+            'admission_day' => 'required',
+            'exit_day' => '',
+            'unit_price' => 'required',
+            'user_authority' => 'required',
+            'delete_day' => '',
+        ]);
+
+        //saving new record
+        User::create($validatedData);
     }
 }

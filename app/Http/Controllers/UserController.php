@@ -43,4 +43,15 @@ class UserController extends Controller
             }
         }
     }
+
+    public function store(Request $request)
+    {
+        $loggedUser = auth()->user();
+        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+            $user = new User();
+            $user->createUser($request);
+            return 'User is successfully created.';
+        }
+        return;
+    }
 }
