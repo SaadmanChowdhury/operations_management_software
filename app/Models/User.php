@@ -114,6 +114,8 @@ class User extends Authenticatable
             'delete_day' => '',
         ]);
 
+        $validatedData['password'] = bcrypt($request->password);
+
         //saving new record
         User::create($validatedData);
     }
