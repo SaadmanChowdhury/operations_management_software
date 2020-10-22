@@ -12,29 +12,33 @@
     ];
     $loggedInAuthority = config('constants.User_authority.一般ユーザー');
 ?>
-<div class="container">
+<div class="form-container">
     <form id="formInput" action="" method="post"> 
+        <div class="form-h-container">
+            <h1 class="form-h1">User Edit Form</h3>
+            <h3 class="form-h3">Edit and save your information below</h4>
+        </div>
         @csrf
         <div class='user-modal-row'>
                 {{-- Name Field Starts --}}
             <div><label for="name">Name</label></div>
-            <div class='user-modal-c2'><input type="text" id="nameInput" name="name"></div>
+            <div><input type="text" id="nameInput" name="name"></div>
             {{-- Name Field Ends --}}
     
             {{-- Email Field Starts --}}
             <div><label for="email">Email</label></div>
-            <div class='user-modal-c2'><input type="email" id="emailInput" name="email"></div>
+            <div><input type="email" id="emailInput" name="email"></div>
             {{-- Email Field Ends --}}
     
             {{-- Password Field Starts --}}
             <div><label for="password">Password</label></div>
-            <div class='user-modal-c2'><input type="password" id="passwordInput" name="password"></div>
+            <div><input type="password" id="passwordInput" name="password"></div>
             {{-- Password Field Ends --}}
         </div>
     
         {{-- Location Dropdown Starts --}}
         <div class='user-modal-drop'>
-            <div class='user-modal-c2'><label>Location</label></div>
+            <div><label>Location</label></div>
                 <div class="custom-select">
                     <select id="locationInput">
                         <option>Miyazaki</option>
@@ -47,7 +51,7 @@
         
         {{-- Position Dropdown Starts --}}
         <div class='user-modal-drop'>
-            <div class='user-modal-c2'><label>Position</label></div>
+            <div><label>Position</label></div>
                 <div class="custom-select">
                     <select id="positionInput">
                         @foreach(config('constants.Position') as $position => $value)
@@ -61,40 +65,39 @@
         {{-- Starting_year Field Starts --}}
         <div><label for="starting_year">Starting Year</label></div>
         @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-            <div class='user-modal-c2'><input type="date" id="starting_yearInput" name="starting_year"></div>
+            <div><input type="date" id="starting_yearInput" name="starting_year"></div>
         @else
-            <div class='user-modal-c2'>{{ $loggedInUser->admission_day }}</div>
+            <div>{{ $loggedInUser->admission_day }}</div>
         @endif
         {{-- Starting_year Field Ends --}}
     
         {{-- Resignation_year Field Starts --}}
         <div><label for="resignation_year">Resignation Year</label></div>
         @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-            <div class='user-modal-c2'><input type="date" id="resignation_yearInput" name="resignation_year"></div>
+            <div><input type="date" id="resignation_yearInput" name="resignation_year"></div>
         @else
-            <div class='user-modal-c2'>{{ $loggedInUser->exit_day }}</div>
+            <div>{{ $loggedInUser->exit_day }}</div>
         @endif
         {{-- Resignation_year Field Ends --}}
     
         {{-- Salary Field Starts --}}
         <div><label for="salary">Salary ¥</label></div>
         @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-            <div class='user-modal-c2'><input type="number" id="salaryInput" name="salary"></div> 
+            <div><input type="number" id="salaryInput" name="salary"></div> 
         @else
-            <div class='user-modal-c2'>{{ $loggedInUser->unit_price }}</div>
+            <div>{{ $loggedInUser->unit_price }}</div>
         @endif
         {{-- Salary Field Ends --}}
     
         {{-- buttons start --}}
-        <a class="submit-button" id="submit-button">Submit</a>
-
+        <a class="button submit-button" id="submit-button"><i class="fa fa-cloud" aria-hidden="true"></i>   Save</i></a>
         @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-        <a class="delete-button" id="delete-button">Delete</a>
+        <a class="delete-button" id="delete-button"><i class="fa fa-trash-o" aria-hidden="true">  Delete</i></a>
         @endif
         {{-- buttons end --}}
     
     </form>
-    
+
 </div>
 
 
