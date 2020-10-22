@@ -52,9 +52,12 @@
             '一般管理者' => 1,    //General administrator    //config('constants.User_authority.一般管理者')
             '一般ユーザー' => 2,    // General user    //config('constants.User_authority.一般ユーザー')
         ],
+
+        // スタッフの職場
+        'Location' => [
+            '宮崎' => 0,    // Miyazaki    //config('constants.Location.宮崎')
+            '東京' => 1,    // Tokyo       //config('constants.Location.東京')
+            '福岡' => 2,    // Fukuoka     //config('constants.Location.福岡')
+        ],
         
     ];
-
-?>
-
-

@@ -27,8 +27,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => bcrypt('password'), // password
-            'company' => $this->faker->numberBetween(1, 10),
-            'commercial_distribute' => $this->faker->company,
+            'location' => $this->faker->numberBetween(1, 10),
             'tel' => $this->faker->phoneNumber,
             'position' => $this->faker->numberBetween(1, 10),
             'admission_day' => $this->faker->date,
