@@ -1,3 +1,5 @@
+@include("header")
+
 <?php
     // $loggedInUser = auth()->user();
     // $loggedInAuthority = $loggedInUser->user_authority;
@@ -5,6 +7,8 @@
     $loggedInUser =  (object)[
         "name" => "Samiul",
         "admission_day" => "Today",
+        "exit_day" => "N/A",
+        "unit_price" => "200,000円"
     ];
     $loggedInAuthority = config('constants.User_authority.一般ユーザー');
 ?>
@@ -75,7 +79,7 @@
         {{-- Salary Field Starts --}}
         <div><label for="salary">Salary ¥</label></div>
         @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-            <div class='user-modal-c2'><input type="number" id="salaryInput" name="salary"></div>
+            <div class='user-modal-c2'><input type="number" id="salaryInput" name="salary"></div> 
         @else
             <div class='user-modal-c2'>{{ $loggedInUser->unit_price }}</div>
         @endif
@@ -93,18 +97,18 @@
 </div>
 
 
-<script src=""></script>
 <script>
     const submitButton = document.querySelector('.submit-button');
     const deleteButton = document.querySelector('.delete-button');
 
-    submitButton.addEventListener('click', saveData);
-    deleteButton.addEventListener('click', deleteData);
+    // submitButton.addEventListener('click', saveData);
+    // deleteButton.addEventListener('click', deleteData);
 
     function deleteData(e) {
         e.preventDefault();
         var myobj = document.getElementById("formInput");
         myobj.remove();
+    }
 
     function saveData(e) {
         e.preventDefault();
@@ -136,7 +140,7 @@
         const savedData = {
             name: document.querySelector('#nameInput').value,
             email: document.querySelector('#emailInput').value,
-            password: document.querySelector('#passwordInput'.value,
+            password: document.querySelector('#passwordInput').value,
             location: document.querySelector('#locationInput').value,
             position: document.querySelector('#positionInput').value,
             starting_year: document.querySelector('#starting_yearInput').value,
@@ -148,3 +152,4 @@
     
 </script>
 
+@include("footer")
