@@ -22,7 +22,7 @@ class UserController extends Controller
         $list = $user->readUserList();
         $viewParams["list"] = $list;
         // \Illuminate\Support\Facades\Log::debug($list);
-        return view('user_list', $viewParams);
+        return view('user_list', ['users' => $list]);
     }
 
     public function readUser($id)

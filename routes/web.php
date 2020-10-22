@@ -43,5 +43,5 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/user', [UserController::class, 'index']);
+Route::get('/user-list', [UserController::class, 'index']);
 Route::get('/readUser/{id}', [UserController::class, 'readUser']);

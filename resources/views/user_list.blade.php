@@ -48,105 +48,28 @@
                 </div>
 
                 <div class="staffs">
-                    <div class="card">
-                        <div class="card-header">
-                            <a>
-                                <div class="display list-unstyled">
-                                    <li>0001</li>
-                                    <li><img src="img/pro_icon.png" class="smallpic">
-                                        <div>サドマン</div>
-                                    </li>
-                                    <li>宮崎</li>
-                                    <li class="pos">PM</li>
-                                    <li>1/1/2020</li>
-                                    <li>1年</li>
-                                    <li>220000円</li>
-                                    <li><span class="fa fa-ellipsis-v"></span></li>
+                    @foreach ($users as $user)
+                        <div class="card" id="user-row">
+                            <div class="card-header">
+                                <a>
+                                    <div class="display list-unstyled">
+                                        <li>{{ $user->user_id }}</li>
+                                        <li><img src="img/pro_icon.png" class="smallpic">
+                                            <div>{{ $user->name }}</div>
+                                        </li>
+                                        <li>宮崎</li>
+                                        <li class="pos">{{ $user->position }}</li>
+                                        <li>{{ $user->admission_day }}</li>
+                                        <li>1年</li>
+                                        <li>{{ $user->unit_price }}</li>
+                                        <li><span class="fa fa-ellipsis-v"></span></li>
 
-                                </div>
-                            </a>
+                                    </div>
+                                </a>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <a>
-                                <div class="display list-unstyled">
-                                    <li>0002</li>
-                                    <li><img src="img/user.png" class="smallpic">
-                                        <div>スマイや</div>
-                                    </li>
-                                    <li>宮崎</li>
-                                    <li class="pos">SE</li>
-                                    <li>1/1/2020</li>
-                                    <li>1年</li>
-                                    <li>220000円</li>
-                                    <li><span class="fa fa-ellipsis-v"></span></li>
-
-                                </div>
-                            </a>
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <a>
-                                <div class="display list-unstyled">
-                                    <li>0003</li>
-                                    <li><img src="img/pro_icon.png" class="smallpic">
-                                        <div>ウトショブ</div>
-                                    </li>
-                                    <li>宮崎</li>
-                                    <li class="pos">SE</li>
-                                    <li>10/1/2020</li>
-                                    <li>1月</li>
-                                    <li>220000円</li>
-                                    <li><span class="fa fa-ellipsis-v"></span></li>
-
-                                </div>
-                            </a>
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <a>
-                                <div class="display list-unstyled">
-                                    <li>0004</li>
-                                    <li><img src="img/user.png" class="smallpic">
-                                        <div>ソフィア</div>
-                                    </li>
-                                    <li>宮崎</li>
-                                    <li class="pos">SE</li>
-                                    <li>10/1/2020</li>
-                                    <li>1月</li>
-                                    <li>220000円</li>
-                                    <li><span class="fa fa-ellipsis-v"></span></li>
-
-                                </div>
-                            </a>
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <a>
-                                <div class="display list-unstyled">
-                                    <li>0005</li>
-                                    <li><img src="img/pro_icon.png" class="smallpic">
-                                        <div>サミウル</div>
-                                    </li>
-                                    <li>宮崎</li>
-                                    <li class="pos">PG</li>
-                                    <li>10/1/2020</li>
-                                    <li>1月</li>
-                                    <li>220000円</li>
-                                    <li><span class="fa fa-ellipsis-v"></span></li>
-
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

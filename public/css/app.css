@@ -500,7 +500,7 @@ footer {
     top: 8%;
     left: 60px;
     width: calc(100% - 60px);
-    height: 100%;
+    height: auto;
     color: black;
     z-index: 1;
 }
