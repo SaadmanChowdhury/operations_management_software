@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>稼働管理</title>
+    <title>GT宮崎 稼働管理</title>
 
     <!-- Required meta tags always come first -->
     <meta charset="utf-8">

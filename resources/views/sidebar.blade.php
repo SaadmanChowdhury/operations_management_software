@@ -1,13 +1,22 @@
-<div class="sidebar-container-fluid">
-    <div id="header_top" onmouseover="sidebar_expand(this)" onmouseout="sidebar_mouseOutHandler(this)">
-
-        <div class="logo-holder box-shadow">
-            <div class="header-icon row">
-                <img src="img/favicon.png">
-                <h6 class="label-text hide">実績管理システム</h6>
-
+<div class="container-fluid">
+{{-- ////====HEADER====//// --}}
+    <div class="logo-holder box-shadow">
+        <div class="header-icon row">
+            <div class="sys-name">
+                <img class="float-left" src="img/favicon.png">
+                <h6 class="label-text float-left">実績管理システム</h6>
+            </div>
+            <div class="user-profile">
+                <a href="" class="fa fa-sign-out float-right" id="sidebar-logout"></a>
+                <p class="label-text float-right">ソフィア<br><span class="text-xs">ユーザー</span></p>
+                <img class="float-right" src="img/pro_icon2.png">
+                
             </div>
         </div>
+    </div>
+    
+
+    <div id="header_top" onmouseover="sidebar_expand(this)" onmouseout="sidebar_mouseOutHandler(this)">
 
         <div class="container">
             <div class="p-r list-unstyled" id="nav">
@@ -40,12 +49,12 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="">
                         <span class="fa fa-sign-out fa-2x" id="sidebar-logout"></span>
                         <span class="label-text hide">ログアウト</span>
                     </a>
-                </li>
+                </li> --}}
 
             </div>
         </div>
