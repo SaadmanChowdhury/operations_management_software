@@ -49,7 +49,7 @@
 
                 <div class="staffs">
                     @foreach ($users as $user)
-                        <div class="card" id="user-row">
+                        <div class="card" id="user-row-{{ $user->user_id }}">
                             <div class="card-header">
                                 <a>
                                     <div class="display list-unstyled">
@@ -57,7 +57,7 @@
                                         <li><img src="img/pro_icon.png" class="smallpic">
                                             <div>{{ $user->name }}</div>
                                         </li>
-                                        <li>宮崎</li>
+                                        <li>{{ $user->company }}</li>
                                         <li class="pos">{{ $user->position }}</li>
                                         <li>{{ $user->admission_day }}</li>
                                         <li>1年</li>

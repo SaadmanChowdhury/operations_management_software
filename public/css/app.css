@@ -643,7 +643,15 @@ footer {
 }
 .display li:nth-child(2)
 {
-    min-width: 15%;
+    display: flex;
+    justify-content: flex-start;
+    min-width: 20%;
+}
+#table-nav .display li:nth-child(2)
+{
+    display: flex;
+    justify-content: center;
+    min-width: 20%;
 }
 
 .smallpic {
