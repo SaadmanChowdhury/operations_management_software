@@ -86,9 +86,10 @@
         {{-- Salary Field Ends --}}
     
         {{-- buttons start --}}
-        <a class="submit-button">Submit</a>
+        <a class="submit-button" id="submit-button">Submit</a>
+
         @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-        <a class="delete-button">Delete</a>
+        <a class="delete-button" id="delete-button">Delete</a>
         @endif
         {{-- buttons end --}}
     
@@ -98,11 +99,12 @@
 
 
 <script>
-    const submitButton = document.querySelector('.submit-button');
-    const deleteButton = document.querySelector('.delete-button');
+    const submitButton = document.getElementById('submit-button');
+    const deleteButton = document.getElementById('delete-button');
 
-    // submitButton.addEventListener('click', saveData);
-    // deleteButton.addEventListener('click', deleteData);
+    submitButton.addEventListener('click', saveData);
+    if(deleteButton!=null)
+        deleteButton.addEventListener('click', deleteData);
 
     function deleteData(e) {
         e.preventDefault();
