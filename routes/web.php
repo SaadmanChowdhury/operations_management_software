@@ -47,3 +47,5 @@ Route::get('/user', [UserController::class, 'index']);
 Route::get('/readUser/{id}', [UserController::class, 'readUser']);
 Route::get('user/create', [UserController::class, 'create']);
 Route::post('user', [UserController::class, 'store'])->name('user.store');
+Route::get('user/edit/{id}', [UserController::class, 'edit']);
+Route::put('user/{id}', [UserController::class, 'update'])->name('user.update');

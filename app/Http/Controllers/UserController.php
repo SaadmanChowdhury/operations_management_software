@@ -59,4 +59,21 @@ class UserController extends Controller
         }
         return;
     }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return view('user.edit', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $loggedUser = auth()->user();
+        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+            $user = new User();
+            $user->updateUser($request, $id);
+            return redirect('/user');
+        }
+        return;
+    }
 }

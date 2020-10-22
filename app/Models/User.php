@@ -119,4 +119,38 @@ class User extends Authenticatable
         //saving new record
         User::create($validatedData);
     }
+
+    public function updateUser($request, $id)
+    {
+        //validation rules
+        $rules = [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'company' => '',
+            'commercial_distribute' => '',
+            'tel' => 'required',
+            'position' => 'required',
+            'admission_day' => 'required',
+            'exit_day' => '',
+            'unit_price' => 'required',
+            'user_authority' => 'required',
+            'delete_day' => '',
+        ];
+
+        //getting user details
+        $user = User::find($id);
+        if ($user->email == $request->email) {
+            $rules['email'] = '';
+        }
+
+        //validating data
+        $validatedData = $request->validate($rules);
+
+        //hashing password
+        $validatedData['password'] = bcrypt($request->password);
+
+        //updating record
+        User::where('user_id', $id)->update($validatedData);
+    }
 }
