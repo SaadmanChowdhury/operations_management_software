@@ -50,6 +50,7 @@ class User extends Authenticatable
     public function readUserList()
     {
         $list = DB::table('users')->select(
+            'user_id',
             'name',
             'email',
             'company',
@@ -60,8 +61,10 @@ class User extends Authenticatable
             'exit_day',
             'unit_price',
             'user_authority',
-            'delete_day'
-        )->get()->toArray();
+            'resign_day'
+        )
+            ->whereNull("deleted_at")
+            ->get()->toArray();
         return $list;
     }
 
@@ -72,6 +75,7 @@ class User extends Authenticatable
     public function readUser($id)
     {
         $user = User::select([
+            'user_id',
             'name',
             'email',
             'company',
@@ -82,8 +86,10 @@ class User extends Authenticatable
             'exit_day',
             'unit_price',
             'user_authority',
-            'delete_day'
-        ])->where('user_id', $id)->first();
+            'resign_day'
+        ])->where('user_id', $id)
+            ->whereNull("deleted_at")
+            ->first();
         return $user;
     }
 }

@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->date('exit_day')->nullable();
             $table->integer('unit_price');
             $table->integer('user_authority');
-            $table->date('delete_day')->nullable();
+            $table->date('resign_day')->nullable();
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();

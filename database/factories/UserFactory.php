@@ -35,7 +35,7 @@ class UserFactory extends Factory
             'exit_day' => $this->faker->date,
             'unit_price' => $this->faker->numberBetween(100, 1000),
             'user_authority' => $this->faker->numberBetween(10, 50),
-            'delete_day' => $this->faker->date,
+            'resign_day' => $this->faker->date,
         ];
     }
 }
