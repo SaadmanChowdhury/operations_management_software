@@ -47,6 +47,12 @@
 
                 </div>
 
+                @php
+                    use Carbon\Carbon;
+                    $mytime=Carbon::today();
+                    
+                @endphp
+
                 <div class="staffs">
                     @foreach ($users as $user)
                         <div class="card" id="user-row-{{ $user->user_id }}">
@@ -57,10 +63,10 @@
                                         <li><img src="img/pro_icon.png" class="smallpic">
                                             <div>{{ $user->name }}</div>
                                         </li>
-                                        <li>{{ $user->company }}</li>
+                                        <li>{{ $user->location }}</li>
                                         <li class="pos">{{ $user->position }}</li>
                                         <li>{{ $user->admission_day }}</li>
-                                        <li>1年</li>
+                                        <li>{{ floor(($mytime->diffInDays($user->admission_day))/365) }}年</li>
                                         <li>{{ $user->unit_price }}</li>
                                         <li><span class="fa fa-ellipsis-v"></span></li>
 

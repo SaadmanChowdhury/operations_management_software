@@ -57,14 +57,13 @@ var menu = document.getElementById('header_top');
 var shade = document.getElementById('background-shade');
 var content = document.getElementsByClassName('page-container');
 
-
 var isMouseOnSideBar = false;
 var isMenuUndergoingCloseOperation = false;
 
 function sidebar_expand(sidebar) {
     sidebar.style.transition = "0.4s ease-out";
     sidebar.style.width = "225px";
-    content[0].style.left="225px";
+    content[0].style.left = "225px";
     content[0].style.width = "calc(100% - 225px)";
     content[0].style.transition = "0.4s ease-out";
     // menu.classList.add('fade-left');
@@ -107,7 +106,7 @@ function normalSideBar(sidebar) {
         }
     }, 0);
     sidebar.style.width = "60px";
-    content[0].style.left="60px";
+    content[0].style.left = "60px";
     content[0].style.width = "calc(100% - 60px)";
     sidebar.style.transition = "0.4s cubic-bezier(.51,.84,.77,.99)";
     menu.classList.remove('fade-left');
@@ -128,66 +127,58 @@ function normalSideBar(sidebar) {
 ////====USER-LIST====////
 
 
-const pos=document.querySelector('.userlist-nav');
-const staffList=document.querySelectorAll('.staffs .card');
-var item=document.querySelectorAll('.pos');
+const pos = document.querySelector('.userlist-nav');
+const staffList = document.querySelectorAll('.staffs .card');
+var item = document.querySelectorAll('.pos');
 
-pos.addEventListener("click",filterPos);
+pos.addEventListener("click", filterPos);
 
-function filterPos(e){
+function filterPos(e) {
     e.preventDefault();
     console.log(e.target.innerText);
-    switch(e.target.innerText)
-    {
+    switch (e.target.innerText) {
         case "全て":
-        {
-            for(i=0;i<item.length;i++)
             {
-                staffList[i].style.display="flex";
-            }   
-            break;
-        }
+                for (i = 0; i < item.length; i++) {
+                    staffList[i].style.display = "flex";
+                }
+                break;
+            }
         case "PM":
-        {
-            for(i=0;i<item.length;i++)
             {
-                if(item[i].innerText=="PM")
-                {
-                    staffList[i].style.display="flex";
+                for (i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PM") {
+                        staffList[i].style.display = "flex";
+                    }
+                    else {
+                        staffList[i].style.display = "none";
+                    }
                 }
-                else{
-                    staffList[i].style.display="none";
-                }
+                break;
             }
-            break;
-        }
         case "SE":
-        {
-            for(i=0;i<item.length;i++)
             {
-                if(item[i].innerText=="SE")
-                {
-                    staffList[i].style.display="flex";
+                for (i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "SE") {
+                        staffList[i].style.display = "flex";
+                    }
+                    else {
+                        staffList[i].style.display = "none";
+                    }
                 }
-                else{
-                    staffList[i].style.display="none";
-                }
+                break;
             }
-            break;
-        }
         case "PG":
-        {
-            for(i=0;i<item.length;i++)
             {
-                if(item[i].innerText=="PG")
-                {
-                    staffList[i].style.display="flex";
+                for (i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PG") {
+                        staffList[i].style.display = "flex";
+                    }
+                    else {
+                        staffList[i].style.display = "none";
+                    }
                 }
-                else{
-                    staffList[i].style.display="none";
-                }
+                break;
             }
-            break;
-        }
     }
 }
