@@ -49,12 +49,21 @@
 
                 @php
                     use Carbon\Carbon;
-                    $mytime=Carbon::today();
-                    
                 @endphp
 
                 <div class="staffs">
                     @foreach ($users as $user)
+                        @php
+                            
+                            $mytime=Carbon::today();
+                            $time_diff=floor(($mytime->diffInDays($user->admission_day))/365);
+                            $unit='年';
+                            if($time_diff==0)
+                            {
+                                $time_diff=floor(($mytime->diffInDays($user->admission_day))/30);
+                                $unit='月';
+                            }
+                        @endphp
                         <div class="card" id="user-row-{{ $user->user_id }}">
                             <div class="card-header">
                                 <a>
@@ -66,7 +75,7 @@
                                         <li>{{ $user->location }}</li>
                                         <li class="pos">{{ $user->position }}</li>
                                         <li>{{ $user->admission_day }}</li>
-                                        <li>{{ floor(($mytime->diffInDays($user->admission_day))/365) }}年</li>
+                                        <li>{{ $time_diff}}{{ $unit }}</li>
                                         <li>{{ $user->unit_price }}</li>
                                         <li><span class="fa fa-ellipsis-v"></span></li>
 
