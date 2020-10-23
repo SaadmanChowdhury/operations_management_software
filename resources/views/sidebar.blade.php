@@ -1,5 +1,5 @@
 <div class="container-fluid">
-{{-- ////====HEADER====//// --}}
+    {{-- ////====HEADER====//// --}}
     <div class="logo-holder box-shadow">
         <div class="header-icon row">
             <div class="sys-name">
@@ -10,11 +10,11 @@
                 <a href="" class="fa fa-sign-out float-right" id="sidebar-logout"></a>
                 <p class="label-text float-right">ソフィア<br><span class="text-xs">ユーザー</span></p>
                 <img class="float-right" src="img/pro_icon2.png">
-                
+
             </div>
         </div>
     </div>
-    
+
 
     <div id="header_top" onmouseover="sidebar_expand(this)" onmouseout="sidebar_mouseOutHandler(this)">
 
@@ -24,28 +24,28 @@
                 <li>
                     <a href="">
                         <span class="fa fa-home fa-2x" id="sidebar-assign"></span>
-                        <span class="label-text hide">アサインサマリー</span>
+                        <span class="label-text sidebar hide">アサインサマリー</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="">
                         <span class="fa fa-newspaper-o fa-2x" id="sidebar-project"></span>
-                        <span class="label-text hide">案件一覧</span>
+                        <span class="label-text sidebar hide">案件一覧</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="">
                         <span class="fa fa-user fa-2x" id="sidebar-user"></span>
-                        <span class="label-text hide">ユーザー一覧</span>
+                        <span class="label-text sidebar hide">ユーザー一覧</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="">
                         <span class="fa fa-users fa-2x" id="sidebar-client"></span>
-                        <span class="label-text hide">顧客一覧</span>
+                        <span class="label-text sidebar hide">顧客一覧</span>
                     </a>
                 </li>
 

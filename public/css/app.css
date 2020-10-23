@@ -111,6 +111,7 @@ body {
 }
 
 /* ////====COLORS====//// */
+
 .primary {
     background-color: #3AA0DE;
     color: white;
@@ -185,7 +186,7 @@ body {
 .header-icon img {
     height: 2.5rem;
     width: 2.5rem;
-    margin-top: 0.9rem;
+    margin: 10px 0 0 10px;
 }
 
 .bg-image {
@@ -294,7 +295,7 @@ footer {
 
 #header_top {
     /* background-color: #23305c; */
-    background-color: #0b1841e3;
+    background-color: #0b1841;
     z-index: 1030;
     position: fixed;
     width: 60px;
@@ -316,6 +317,16 @@ footer {
     height: 100vh;
 }
 
+#sidebar-user {
+    padding-left: 6px;
+    margin-right: -6px;
+}
+
+#sidebar-assign {
+    padding-left: 4px;
+    margin-right: -4px
+}
+
 #nav {
     margin-top: 5rem;
 }
@@ -335,13 +346,25 @@ footer {
     color: #587bd3eb;
 }
 
-.header-icon>.label-text {
-    font-size: 15px;
-}
-
 .label-text {
     font-size: 12px;
-    margin-left: 15px;
+}
+
+.sys-name .label-text {
+    margin-left: 20px;
+}
+
+.label-text.float-right {
+    margin: 15px;
+}
+
+.header-icon>.label-text {
+    font-size: 15px;
+    margin: 15px;
+}
+
+.sidebar.label-text {
+    margin-top: -5px;
 }
 
 .fa {
@@ -370,7 +393,7 @@ footer {
     position: fixed;
     left: 0;
     width: 100%;
-    max-height: 8%;
+    height: 60px;
     margin-top: 0;
     background-color: #587bd3;
     color: white;
@@ -382,8 +405,9 @@ footer {
 }
 
 .logo-holder h6 {
-    margin-top: 1rem;
+    margin-top: 18px;
     font-size: 1rem;
+    margin-block-end: unset;
 }
 
 .sys-name {
@@ -397,12 +421,18 @@ footer {
 
 .user-profile img {
     border-radius: 50%;
-    margin: 1%;
+    margin: 10px;
 }
 
 .user-profile .fa {
     width: 5%;
-    margin: 3% 1%;
+    margin: 11px 10px;
+    font-size: 35px;
+    color: white;
+}
+
+.user-profile .fa:hover {
+    color: #0b1841;
 }
 
 /*////====ANIMATIONS====////*/
@@ -484,7 +514,7 @@ footer {
 
 #background-shade {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 60px;
     width: calc(100% - 60px);
@@ -536,7 +566,6 @@ footer {
     font-size: 85%;
 }
 
-
 .content-width {
     width: 100%;
 }
@@ -551,7 +580,8 @@ footer {
     line-height: 0.8rem;
     margin-bottom: 0.2rem;
 }
-.userlist-nav a{
+
+.userlist-nav a {
     margin-right: 0.5rem;
     border-radius: 8px;
     color: white;
@@ -560,24 +590,26 @@ footer {
 .userlist-nav a li {
     padding: 0.5rem 1rem;
 }
-.userlist-nav a:nth-child(1){
+
+.userlist-nav a:nth-child(1) {
     background-color: orange;
-    
 }
-.userlist-nav a:nth-child(2){
-    background-color:#28c128;
+
+.userlist-nav a:nth-child(2) {
+    background-color: #28c128;
 }
-.userlist-nav a:nth-child(3){
+
+.userlist-nav a:nth-child(3) {
     background-color: blue;
 }
-.userlist-nav a:nth-child(4){
+
+.userlist-nav a:nth-child(4) {
     background-color: #f86128;
 }
 
-.userlist-nav a:hover{
+.userlist-nav a:hover {
     background-color: #7f7f7f;
 }
-
 
 #table-nav {
     font-size: 80%;
@@ -630,6 +662,7 @@ footer {
     justify-content: flex-center;
     width: 100%;
 }
+
 .display li {
     position: relative;
     display: flex;
@@ -641,14 +674,14 @@ footer {
     font-size: 100%;
     justify-content: center;
 }
-.display li:nth-child(2)
-{
+
+.display li:nth-child(2) {
     display: flex;
     justify-content: flex-start;
     min-width: 20%;
 }
-#table-nav .display li:nth-child(2)
-{
+
+#table-nav .display li:nth-child(2) {
     display: flex;
     justify-content: center;
     min-width: 20%;
