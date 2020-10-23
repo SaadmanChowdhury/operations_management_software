@@ -2,7 +2,7 @@
 <div class="user-list container-fluid">
     <div class="p-r row">
         <div class="page-title float-left">
-            <h2 style="color: black">ユーザー一覧</h2>
+            <h2 style="color: black;margin-left:21px">ユーザー一覧</h2>
         </div>
         <div class="btn-holder float-right">
             <a href="" class="register-btn btn-orange"><span class="fa fa-plus"></span> Register</a>
@@ -70,7 +70,7 @@
                                     <div class="display list-unstyled">
                                         <li>{{ $user->user_id }}</li>
                                         <li><img src="img/pro_icon.png" class="smallpic">
-                                            <div>{{ $user->name }}</div>
+                                            <div class="user-name">{{ $user->name }}</div>
                                         </li>
                                         <li>{{ $user->location }}</li>
                                         <li class="pos">{{ $user->position }}</li>

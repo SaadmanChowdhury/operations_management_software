@@ -52,7 +52,7 @@ function validateForm() {
 
 ////========SIDEBAR MENU==========////
 
-const mainContainerFlexFlag = false;
+const mainContainerFlexFlag = true;
 
 var text = document.getElementsByClassName('hide');
 var menu = document.getElementById('header_top');
