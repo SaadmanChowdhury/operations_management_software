@@ -73,6 +73,21 @@ class UserController extends Controller
             $user = new User();
             $user->updateUser($request, $id);
             return redirect('/user');
+        } else {
+            if ($loggedUser->user_id == $id) {
+                $user = new User();
+                $user->updateUser($request, $id);
+                return redirect('/user');
+            } else {
+                return;
+            }
+        }
+
+        $loggedUser = auth()->user();
+        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+            $user = new User();
+            $user->updateUser($request, $id);
+            return redirect('/user');
         }
         return;
     }

@@ -133,7 +133,7 @@ class User extends Authenticatable
             'position' => 'required',
             'admission_day' => 'required',
             'exit_day' => '',
-            'unit_price' => 'required',
+            // 'unit_price' => 'required',
             'user_authority' => 'required',
             'delete_day' => '',
         ];
