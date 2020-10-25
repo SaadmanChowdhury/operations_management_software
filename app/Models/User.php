@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $primaryKey = 'user_id';
 
@@ -71,7 +72,8 @@ class User extends Authenticatable
             'unit_price',
             'user_authority',
             'delete_day'
-        )->get()->toArray();
+        )->whereNull('deleted_at')->get()->toArray();
+
         return $list;
     }
 
@@ -152,5 +154,12 @@ class User extends Authenticatable
 
         //updating record
         User::where('user_id', $id)->update($validatedData);
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        //soft delete
+        $user->delete();
     }
 }
