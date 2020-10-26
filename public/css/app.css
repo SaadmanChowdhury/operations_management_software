@@ -116,6 +116,10 @@ body {
     background-color: #3AA0DE;
     color: white;
 }
+.midori{
+    background-color: #28c128;
+    color: white;
+}
 
 /*////====MARGIN====////*/
 
@@ -271,7 +275,7 @@ body {
 
 .btn-orange:hover {
     background-color: #0088ff;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 footer {
@@ -673,7 +677,7 @@ footer {
     /* min-width: 7.5%; */
     padding: 0px 5px;
     font-size: 100%;
-    justify-content: space-around;
+    justify-content: center;
     margin: auto;
 }
 
@@ -688,7 +692,8 @@ footer {
 }
 
 .display li .user-name {
-    margin: auto;
+    
+    justify-content: center;
 }
 
 .smallpic {
@@ -698,4 +703,15 @@ footer {
     height: 1.5rem;
     width: 1.5rem;
     margin: 0px 5px;
+}
+
+
+/* ////======CLIENT LIST======//// */
+.clients .card .card-header a .display li{
+    justify-content: space-evenly;
+}
+.clients .card .card-header a .display li:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+    min-width: 7.5%;
 }
