@@ -63,17 +63,70 @@
                                 $time_diff=floor(($mytime->diffInDays($user->admission_day))/30);
                                 $unit='月';
                             }
+
+                            // USER_ICON URL
+                            switch ($user->gender) {
+                                case '0':
+                                    $pro_icon='pro_icon';
+                                    break;
+                                case '1':
+                                    $pro_icon='pro_icon3';
+                                    break;
+                                
+                                default:
+                                    $pro_icon='pro_icon';
+                                    break;
+                            }
+
+                            // USER_LOCATION
+                            switch ($user->location) {
+                                case '0':
+                                    $loc='宮崎';
+                                    break;
+                                case '1':
+                                    $loc='東京';
+                                    break;
+                                case '2':
+                                    $loc='福岡';
+                                    break;
+                                
+                                default:
+                                    $loc='宮崎';
+                                    break;
+                            }
+
+                            // USER_POSITION
+                            switch ($user->position) {
+                                case '0':
+                                    $position='PM';
+                                    break;
+                                case '1':
+                                    $position='PL';
+                                    break;
+                                case '2':
+                                    $position='SE';
+                                    break;
+                                case '3':
+                                    $position='PG';
+                                    break;
+                                
+                                default:
+                                    $position='SE';
+                                    break;
+                            }
+
+
                         @endphp
                         <div class="card" id="user-row-{{ $user->user_id }}">
                             <div class="card-header">
                                 <a>
                                     <div class="display list-unstyled">
                                         <li>{{ $user->user_id }}</li>
-                                        <li><img src="img/pro_icon.png" class="smallpic">
+                                        <li><img src="img/{{ $pro_icon }}.png" class="smallpic">
                                             <div class="user-name">{{ $user->name }}</div>
                                         </li>
-                                        <li>{{ $user->location }}</li>
-                                        <li class="pos">{{ $user->position }}</li>
+                                        <li>{{ $loc }}</li>
+                                        <li class="pos">{{ $position }}</li>
                                         <li>{{ $user->admission_day }}</li>
                                         <li>{{ $time_diff}}{{ $unit }}</li>
                                         <li>{{ $user->unit_price }}</li>
