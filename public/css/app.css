@@ -457,10 +457,62 @@ footer {
 /* user-modal-css' below*/
 
 .form-container {
-    /* border-radius: 45px; */
-    /* background-color: #f2f2f2; */
-    padding: 50px;
+    padding: 50px; 
+}
+
+.column {
+    float: left;
+    padding: 10px;
+  }
+  
+.left {
+width: 20%;
+}
+
+.right {
+width: 80%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+label {
     text-align: left;
+    font-weight: bold;
+}
+
+img.dp {
+    height: auto; 
+    width: auto; 
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 150px; 
+    max-height: 150px;
+    border-radius: 17px;
+    display: block;  
+}
+
+.close {
+    cursor: pointer;
+    position: absolute;
+    top: 11.7%;
+    right: 3%;
+    padding: 10px;
+    transform: translate(0%, -50%);
+}
+
+img.cross {
+    cursor: pointer;
+    /* position: absolute; */
+    padding: 25px;
+    width: 45px;
+    height: 45px;
+    top: calc(50% - 39px/2 - 409.5px);
+    border-radius: 110px;
 }
 
 input[type=text], 
@@ -469,17 +521,32 @@ input[type=password],
 input[type=date], 
 input[type=number],
 select {
-    width: 100%;
-    padding: 12px 20px;
+    width: 90%;
+    height: 100%;
+    padding: 10px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1.5px solid #0b1841e3;
-    border-radius: 4px;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.58);
     box-sizing: border-box;
+    border-radius: 7px;
+}
+
+h1.form-ht {
+    font-size: 35px;
+    background: #587BD3;
+    text-align: center;
+    color: #FFFBFB;
+    border: none;
+    border-radius: 7px;
+    box-sizing: border-box;
+    left: calc(50% - 144px/2 - 5px);
+    top: calc(50% - 42px/2 - 407px);
+    line-height: 60px;
+    margin-bottom: 5%;
 }
 
 .button {
-    background-color: #4CAF50; /* Green */
     border: none;
     color: white;
     padding: 16px 32px;
@@ -490,50 +557,32 @@ select {
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    margin-top: 5%;
 }
 .submit-button {
-    background-color: white; 
-    color: #587bd3eb; 
-    border: 2px solid #587bd3eb;
-    text-align: left;
-    border-radius: 7px;
+    color: #43A1F8;
+    border: 2px solid#43A1F8;
+    text-align: center;
+    float: left;
   }
   
 .submit-button:hover {
-    background-color:  #587bd3eb;
+    background-color:  #43A1F8;
     color: white;
 }
 
-
 .delete-button {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #f44336;
-    border-radius: 7px;
-    text-align: right;
+    color: #EB2222; 
+    border: 2px solid #EB2222;
+    text-align: center;
+    float: right;
+    right: 10%;
 }
 
 .delete-button:hover {
-    background-color: #f44336;
-    color: white;
-}
-.form-h-container {
-    text-align: center;
-    border: none;
-    background-color: #587bd3eb;
-    color: white;
-    border-radius: 7px;
-    box-sizing: border-box;
-    /* top: 0; */
-    
-}
-.form-h1 {
-    font-size: 3rem;
+    background-color: #EB2222;
     color: white;
 }
 
-.form-h3 {
-
-}
-
-}

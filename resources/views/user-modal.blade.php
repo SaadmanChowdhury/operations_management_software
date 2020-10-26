@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+</style>
+<body>
+
 @include("header")
 
 <?php
@@ -14,44 +21,50 @@
 ?>
 <div class="form-container">
     <form id="formInput" action="" method="post"> 
-        <div class="form-h-container">
-            <h1 class="form-h1">User Edit Form</h3>
-            <h3 class="form-h3">Edit and save your information below</h4>
+    @csrf
+        <div>
+            <h1 class="form-ht">Edit User<span class="close"><img src="img/cross.png" class="cross" alt="cross button"></span></h1>
         </div>
-        @csrf
-        <div class='user-modal-row'>
+        
+        <div class="row">
+            <div class="column left">
+                {{-- Img Field Starts --}}
+                <div>
+                    {{-- <h4>Image</h4> --}}
+                    <img src="img/dp.png" class="dp" alt="display photo">
+                </div>
+                {{-- Img Field Ends --}}
+            </div>
+
+            <div class="column right">
                 {{-- Name Field Starts --}}
-            <div><label for="name">Name</label></div>
-            <div><input type="text" id="nameInput" name="name"></div>
-            {{-- Name Field Ends --}}
-    
-            {{-- Email Field Starts --}}
-            <div><label for="email">Email</label></div>
-            <div><input type="email" id="emailInput" name="email"></div>
-            {{-- Email Field Ends --}}
-    
-            {{-- Password Field Starts --}}
-            <div><label for="password">Password</label></div>
-            <div><input type="password" id="passwordInput" name="password"></div>
-            {{-- Password Field Ends --}}
-        </div>
-    
-        {{-- Location Dropdown Starts --}}
-        <div class='user-modal-drop'>
-            <div><label>Location</label></div>
+                <div><label for="name">Name</label></div>
+                <div><input type="text" id="nameInput" name="name"></div>
+                {{-- Name Field Ends --}}
+
+                {{-- Email Field Starts --}}
+                <div><label for="email">Email</label></div>
+                <div><input type="email" id="emailInput" name="email"></div>
+                {{-- Email Field Ends --}}
+
+                {{-- Password Field Starts --}}
+                <div><label for="password">Password</label></div>
+                <div><input type="password" id="passwordInput" name="password"></div>
+                {{-- Password Field Ends --}}
+            
+                {{-- Location Dropdown Starts --}}
+                <div><label>Location</label></div>
                 <div class="custom-select">
                     <select id="locationInput">
                         <option>Miyazaki</option>
                         <option>Tokyo</option>
                         <option>Fukuoka</option>
                     </select>
-            </div>
-        </div>
-        {{-- Location Dropdown Ends --}}
-        
-        {{-- Position Dropdown Starts --}}
-        <div class='user-modal-drop'>
-            <div><label>Position</label></div>
+                </div>
+                {{-- Location Dropdown Ends --}}
+            
+                {{-- Position Dropdown Starts --}}
+                <div><label>Position</label></div>
                 <div class="custom-select">
                     <select id="positionInput">
                         @foreach(config('constants.Position') as $position => $value)
@@ -59,45 +72,46 @@
                         @endforeach
                     </select>
                 </div>
+                {{-- Position Dropdown Ends --}}
+
+                {{-- Starting_year Field Starts --}}
+                <div><label for="starting_year">Starting Year</label></div>
+                @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
+                    <div><input type="date" id="starting_yearInput" name="starting_year"></div>
+                @else
+                    <div>{{ $loggedInUser->admission_day }}</div>
+                @endif
+                {{-- Starting_year Field Ends --}}
+            
+                {{-- Resignation_year Field Starts --}}
+                <div><label for="resignation_year">Resignation Year</label></div>
+                @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
+                    <div><input type="date" id="resignation_yearInput" name="resignation_year"></div>
+                @else
+                    <div>{{ $loggedInUser->exit_day }}</div>
+                @endif
+                {{-- Resignation_year Field Ends --}}
+            
+                {{-- Salary Field Starts --}}
+                <div><label for="salary">Salary ¥</label></div>
+                @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
+                    <div><input type="number" id="salaryInput" name="salary"></div> 
+                @else
+                    <div>{{ $loggedInUser->unit_price }}</div>
+                @endif
+                {{-- Salary Field Ends --}}
+            
+                {{-- buttons start --}}
+                <a class="button submit-button" id="submit-button"><i class="fa fa-floppy-o" aria-hidden="true"></i>   Save</i></a>
+                @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
+                <a class="delete-button" id="delete-button"><i class="fa fa-trash-o" aria-hidden="true">  Delete</i></a>
+                @endif
+                {{-- buttons end --}}
+                
+            </div>
         </div>
-        {{-- Position Dropdown Ends --}}
-    
-        {{-- Starting_year Field Starts --}}
-        <div><label for="starting_year">Starting Year</label></div>
-        @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-            <div><input type="date" id="starting_yearInput" name="starting_year"></div>
-        @else
-            <div>{{ $loggedInUser->admission_day }}</div>
-        @endif
-        {{-- Starting_year Field Ends --}}
-    
-        {{-- Resignation_year Field Starts --}}
-        <div><label for="resignation_year">Resignation Year</label></div>
-        @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-            <div><input type="date" id="resignation_yearInput" name="resignation_year"></div>
-        @else
-            <div>{{ $loggedInUser->exit_day }}</div>
-        @endif
-        {{-- Resignation_year Field Ends --}}
-    
-        {{-- Salary Field Starts --}}
-        <div><label for="salary">Salary ¥</label></div>
-        @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-            <div><input type="number" id="salaryInput" name="salary"></div> 
-        @else
-            <div>{{ $loggedInUser->unit_price }}</div>
-        @endif
-        {{-- Salary Field Ends --}}
-    
-        {{-- buttons start --}}
-        <a class="button submit-button" id="submit-button"><i class="fa fa-cloud" aria-hidden="true"></i>   Save</i></a>
-        @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-        <a class="delete-button" id="delete-button"><i class="fa fa-trash-o" aria-hidden="true">  Delete</i></a>
-        @endif
-        {{-- buttons end --}}
     
     </form>
-
 </div>
 
 
@@ -154,7 +168,9 @@
         };
                 
     }
-    
 </script>
 
 @include("footer")
+
+</body>
+</html>
