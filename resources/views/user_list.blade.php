@@ -5,7 +5,7 @@
             <h2 style="color: black;margin-left:21px">ユーザー一覧</h2>
         </div>
         <div class="btn-holder float-right">
-            <a href="" class="register-btn btn-orange"><span class="fa fa-plus"></span> Register</a>
+            <a href="" class="register-btn btn-orange"><span class="fa fa-plus"></span>新規追加</a>
         </div>
     </div>
     <div class="d-flex">
