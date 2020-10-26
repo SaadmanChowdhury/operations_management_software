@@ -77,7 +77,7 @@
                                         <li>{{ $user->admission_day }}</li>
                                         <li>{{ $time_diff}}{{ $unit }}</li>
                                         <li>{{ $user->unit_price }}</li>
-                                        <li><span class="fa fa-ellipsis-v"></span></li>
+                                        <li><span class="fa fa-edit"></span></li>
 
                                     </div>
                                 </a>
