@@ -27,13 +27,14 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => bcrypt('password'), // password
-            'location' => $this->faker->numberBetween(1, 10),
+            'gender' => $this->faker->numberBetween(0, 1),
+            'location' => $this->faker->numberBetween(0, 2),
             'tel' => $this->faker->phoneNumber,
-            'position' => $this->faker->numberBetween(1, 10),
+            'position' => $this->faker->numberBetween(0, 3),
             'admission_day' => $this->faker->date,
             'exit_day' => $this->faker->date,
             'unit_price' => $this->faker->numberBetween(100, 1000),
-            'user_authority' => $this->faker->numberBetween(10, 50),
+            'user_authority' => $this->faker->numberBetween(0, 2),
             'resign_day' => $this->faker->date,
         ];
     }
