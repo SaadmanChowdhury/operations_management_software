@@ -130,7 +130,7 @@
                                         <li>{{ $user->admission_day }}</li>
                                         <li>{{ $time_diff}}{{ $unit }}</li>
                                         <li>{{ $user->unit_price }}</li>
-                                        <li><span class="fa fa-edit"></span></li>
+                                        <li><span><img src="img/edit.png" alt=""></span></li>
 
                                     </div>
                                 </a>
