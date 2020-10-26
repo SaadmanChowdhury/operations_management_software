@@ -140,6 +140,12 @@ class User extends Authenticatable
             'delete_day' => '',
         ];
 
+        //only admin can change the unit_price
+        $loggedUser = auth()->user();
+        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+            $rules['unit_price'] = 'required';
+        }
+
         //getting user details
         $user = User::find($id);
         if ($user->email == $request->email) {
