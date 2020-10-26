@@ -674,7 +674,7 @@ footer {
     padding: 0px 5px;
     font-size: 100%;
     justify-content: space-around;
-    /* justify-content: center; */
+    margin: auto;
 }
 
 .display li:nth-child(2) {
@@ -684,11 +684,10 @@ footer {
 }
 
 #table-nav .display li:nth-child(2) {
-
     justify-content: space-around;
-
 }
-.display li .user-name{
+
+.display li .user-name {
     margin: auto;
 }
 
