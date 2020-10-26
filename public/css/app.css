@@ -275,7 +275,7 @@ body {
 
 .btn-orange:hover {
     background-color: #0088ff;
-    transform: scale(1.05);
+    transform: scaleY(1.05);
 }
 
 footer {
@@ -677,7 +677,7 @@ footer {
     /* min-width: 7.5%; */
     padding: 0px 5px;
     font-size: 100%;
-    justify-content: center;
+    justify-content: space-around;
     margin: auto;
 }
 
@@ -708,10 +708,9 @@ footer {
 
 /* ////======CLIENT LIST======//// */
 .clients .card .card-header a .display li{
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 .clients .card .card-header a .display li:nth-child(2) {
-    display: flex;
     justify-content: space-between;
     min-width: 7.5%;
 }
