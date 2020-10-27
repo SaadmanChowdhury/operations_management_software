@@ -19,6 +19,9 @@
                         <li> 全て</li>
                     </a>
                     <a href="">
+                        <li> PL</li>
+                    </a>
+                    <a href="">
                         <li> PM</li>
                     </a>
                     <a href="">
@@ -99,15 +102,19 @@
                             switch ($user->position) {
                                 case '0':
                                     $position='PM';
+                                    $bg_color=' #28c128';
                                     break;
                                 case '1':
                                     $position='PL';
+                                    $bg_color='orange';
                                     break;
                                 case '2':
                                     $position='SE';
+                                    $bg_color=' blue';
                                     break;
                                 case '3':
                                     $position='PG';
+                                    $bg_color=' #f86128';
                                     break;
                                 
                                 default:
@@ -126,7 +133,7 @@
                                             <div class="user-name">{{ $user->name }}</div>
                                         </li>
                                         <li>{{ $loc }}</li>
-                                        <li class="pos">{{ $position }}</li>
+                                        <li><div class="pos" style="background-color: {{ $bg_color }}">{{ $position }}</div></li>
                                         <li>{{ $user->admission_day }}</li>
                                         <li>{{ $time_diff}}{{ $unit }}</li>
                                         <li>{{ $user->unit_price }}</li>
