@@ -1,9 +1,8 @@
-var reg_btn=document.querySelector('#client-list .register-btn');
+var edit_btn=document.querySelector('.clients .edit');
 var modal=document.querySelector('#client-modal');
 var cross=document.querySelector('#client-modal .cross');
 
-console.log(modal);
-reg_btn.addEventListener("click", client_modal_open);
+edit_btn.addEventListener("click", client_modal_open);
 cross.addEventListener("click", client_modal_close);
 
 function client_modal_open(e){

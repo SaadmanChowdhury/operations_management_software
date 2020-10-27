@@ -38,8 +38,8 @@
                                         <li>001</li>
                                         <li>GT宮崎</li>
                                         <li><img src="img/pro_icon.png" class="smallpic"><div class="user-name">ソフィア</div></li>
-                                        <li class="pos">100000</li>
-                                        <li>Y50,00000</li>
+                                        <li>100000</li>
+                                        <li>50,00000円</li>
                                         <li><span><img class="edit" src="img/edit.png" alt=""></span></li>
 
                                     </div>
@@ -54,8 +54,8 @@
                                         <li>002</li>
                                         <li>GT宮崎</li>
                                         <li><img src="img/pro_icon.png" class="smallpic"><div class="user-name">ソフィア</div></li>
-                                        <li class="pos">100000</li>
-                                        <li>Y50,00000</li>
+                                        <li>100000</li>
+                                        <li>50,00000円</li>
                                         <li><span><img src="img/edit.png" alt=""></span></li>
 
                                     </div>
@@ -70,8 +70,8 @@
                                         <li>003</li>
                                         <li>GT宮崎</li>
                                         <li><img src="img/pro_icon.png" class="smallpic"><div class="user-name">ソフィア</div></li>
-                                        <li class="pos">100000</li>
-                                        <li>Y50,00000</li>
+                                        <li>100000</li>
+                                        <li>50,00000円</li>
                                         <li><span><img src="img/edit.png" alt=""></span></li>
 
                                     </div>
