@@ -5,7 +5,7 @@
             <h2 style="color: black;margin-left:21px">ユーザー一覧</h2>
         </div>
         <div class="btn-holder float-right">
-            <a href="" class="register-btn btn-orange"><span class="fa fa-plus"></span> Register</a>
+            <a href="" class="register-btn btn-orange"><span class="fa fa-plus"></span>新規追加</a>
         </div>
     </div>
     <div class="d-flex">
@@ -17,6 +17,9 @@
                 <ul class="userlist-nav center list-unstyled">
                     <a href="">
                         <li> 全て</li>
+                    </a>
+                    <a href="">
+                        <li> PL</li>
                     </a>
                     <a href="">
                         <li> PM</li>
@@ -63,21 +66,78 @@
                                 $time_diff=floor(($mytime->diffInDays($user->admission_day))/30);
                                 $unit='月';
                             }
+
+                            // USER_ICON URL
+                            switch ($user->gender) {
+                                case '0':
+                                    $pro_icon='pro_icon';
+                                    break;
+                                case '1':
+                                    $pro_icon='pro_icon3';
+                                    break;
+                                
+                                default:
+                                    $pro_icon='pro_icon';
+                                    break;
+                            }
+
+                            // USER_LOCATION
+                            switch ($user->location) {
+                                case '0':
+                                    $loc='宮崎';
+                                    break;
+                                case '1':
+                                    $loc='東京';
+                                    break;
+                                case '2':
+                                    $loc='福岡';
+                                    break;
+                                
+                                default:
+                                    $loc='宮崎';
+                                    break;
+                            }
+
+                            // USER_POSITION
+                            switch ($user->position) {
+                                case '0':
+                                    $position='PM';
+                                    $bg_color=' #28c128';
+                                    break;
+                                case '1':
+                                    $position='PL';
+                                    $bg_color='orange';
+                                    break;
+                                case '2':
+                                    $position='SE';
+                                    $bg_color=' blue';
+                                    break;
+                                case '3':
+                                    $position='PG';
+                                    $bg_color=' #f86128';
+                                    break;
+                                
+                                default:
+                                    $position='SE';
+                                    break;
+                            }
+
+
                         @endphp
                         <div class="card" id="user-row-{{ $user->user_id }}">
                             <div class="card-header">
                                 <a>
                                     <div class="display list-unstyled">
                                         <li>{{ $user->user_id }}</li>
-                                        <li><img src="img/pro_icon.png" class="smallpic">
+                                        <li><img src="img/{{ $pro_icon }}.png" class="smallpic">
                                             <div class="user-name">{{ $user->name }}</div>
                                         </li>
-                                        <li>{{ $user->location }}</li>
-                                        <li class="pos">{{ $user->position }}</li>
+                                        <li>{{ $loc }}</li>
+                                        <li><div class="pos" style="background-color: {{ $bg_color }}">{{ $position }}</div></li>
                                         <li>{{ $user->admission_day }}</li>
                                         <li>{{ $time_diff}}{{ $unit }}</li>
                                         <li>{{ $user->unit_price }}</li>
-                                        <li><span class="fa fa-edit"></span></li>
+                                        <li><span><img src="img/edit.png" alt=""></span></li>
 
                                     </div>
                                 </a>
