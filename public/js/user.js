@@ -12,47 +12,59 @@ function filterPos(e) {
     console.log(e.target.innerText);
     switch (e.target.innerText) {
         case "全て":
-            {
-                for (i = 0; i < item.length; i++) {
+        {
+            for (i = 0; i < item.length; i++) {
+                staffList[i].style.display = "flex";
+            }
+            break;
+        }
+        case "PM":
+        {
+            for (i = 0; i < item.length; i++) {
+                if (item[i].innerText == "PM") {
                     staffList[i].style.display = "flex";
                 }
-                break;
-            }
-        case "PM":
-            {
-                for (i = 0; i < item.length; i++) {
-                    if (item[i].innerText == "PM") {
-                        staffList[i].style.display = "flex";
-                    }
-                    else {
-                        staffList[i].style.display = "none";
-                    }
+                else {
+                    staffList[i].style.display = "none";
                 }
-                break;
             }
+            break;
+        }
         case "SE":
-            {
-                for (i = 0; i < item.length; i++) {
-                    if (item[i].innerText == "SE") {
-                        staffList[i].style.display = "flex";
-                    }
-                    else {
-                        staffList[i].style.display = "none";
-                    }
+        {
+            for (i = 0; i < item.length; i++) {
+                if (item[i].innerText == "SE") {
+                    staffList[i].style.display = "flex";
                 }
-                break;
+                else {
+                    staffList[i].style.display = "none";
+                }
             }
+            break;
+        }
         case "PG":
-            {
-                for (i = 0; i < item.length; i++) {
-                    if (item[i].innerText == "PG") {
-                        staffList[i].style.display = "flex";
-                    }
-                    else {
-                        staffList[i].style.display = "none";
-                    }
+        {
+            for (i = 0; i < item.length; i++) {
+                if (item[i].innerText == "PG") {
+                    staffList[i].style.display = "flex";
                 }
-                break;
+                else {
+                    staffList[i].style.display = "none";
+                }
             }
+            break;
+        }
+        case "PL":
+        {
+            for (i = 0; i < item.length; i++) {
+                if (item[i].innerText == "PL") {
+                    staffList[i].style.display = "flex";
+                }
+                else {
+                    staffList[i].style.display = "none";
+                }
+            }
+            break;
+        }
     }
 }
