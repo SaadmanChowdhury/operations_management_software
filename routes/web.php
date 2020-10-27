@@ -48,6 +48,10 @@ Route::get('/readUser/{id}', [UserController::class, 'readUser']);
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/readUser/{id}', [UserController::class, 'readUser']);
 
-Route::get('/user-modal', function () {
+Route::get('/user-edit', function () {
     return view('user-modal');
+});
+
+Route::get('/user-register', function () {
+    return view('user_register');
 });
