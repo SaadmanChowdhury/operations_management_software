@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<style>
-
-</style>
-<body>
-
 @include("header")
 
 <?php
@@ -18,14 +11,24 @@
         "unit_price" => "200,000円"
     ];
     $loggedInAuthority = config('constants.User_authority.一般ユーザー');
+    // $loggedInAuthority = config('constants.User_authority.システム管理者');
 ?>
+
+<div>
+    <h1 class="form-ht">
+        Edit User
+    </h1>
+
+    <span class="close">
+        <img src="img/cross.png" class="cross" alt="cross button">
+    </span>
+</div>
+
 <div class="form-container">
-    <form id="formInput" action="" method="post"> 
-    @csrf
-        <div>
-            <h1 class="form-ht">Edit User<span class="close"><img src="img/cross.png" class="cross" alt="cross button"></span></h1>
-        </div>
+    <form id="formInput" action="" method="post">
+        @csrf
         
+
         <div class="row">
             <div class="column left">
                 {{-- Img Field Starts --}}
@@ -51,7 +54,7 @@
                 <div><label for="password">Password</label></div>
                 <div><input type="password" id="passwordInput" name="password"></div>
                 {{-- Password Field Ends --}}
-            
+
                 {{-- Location Dropdown Starts --}}
                 <div><label>Location</label></div>
                 <div class="custom-select">
@@ -62,12 +65,12 @@
                     </select>
                 </div>
                 {{-- Location Dropdown Ends --}}
-            
+
                 {{-- Position Dropdown Starts --}}
                 <div><label>Position</label></div>
                 <div class="custom-select">
                     <select id="positionInput">
-                        @foreach(config('constants.Position') as $position => $value)
+                        @foreach (config('constants.Position') as $position => $value)
                             <option>{{ $position }}</option>
                         @endforeach
                     </select>
@@ -76,41 +79,45 @@
 
                 {{-- Starting_year Field Starts --}}
                 <div><label for="starting_year">Starting Year</label></div>
-                @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
+                @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
                     <div><input type="date" id="starting_yearInput" name="starting_year"></div>
                 @else
                     <div>{{ $loggedInUser->admission_day }}</div>
                 @endif
                 {{-- Starting_year Field Ends --}}
-            
+
                 {{-- Resignation_year Field Starts --}}
                 <div><label for="resignation_year">Resignation Year</label></div>
-                @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
+                @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
                     <div><input type="date" id="resignation_yearInput" name="resignation_year"></div>
                 @else
                     <div>{{ $loggedInUser->exit_day }}</div>
                 @endif
                 {{-- Resignation_year Field Ends --}}
-            
+
                 {{-- Salary Field Starts --}}
                 <div><label for="salary">Salary ¥</label></div>
-                @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-                    <div><input type="number" id="salaryInput" name="salary"></div> 
+                @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
+                    <div><input type="number" id="salaryInput" name="salary"></div>
                 @else
                     <div>{{ $loggedInUser->unit_price }}</div>
                 @endif
                 {{-- Salary Field Ends --}}
-            
+
                 {{-- buttons start --}}
-                <a class="button submit-button" id="submit-button"><i class="fa fa-floppy-o" aria-hidden="true"></i>   Save</i></a>
-                @if($loggedInAuthority == config('constants.User_authority.システム管理者'))
-                <a class="delete-button" id="delete-button"><i class="fa fa-trash-o" aria-hidden="true">  Delete</i></a>
+                <a class="button submit-button" id="submit-button">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    更新</a>
+                @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
+                    <a class="button delete-button" id="delete-button">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            削除</a>
                 @endif
                 {{-- buttons end --}}
-                
+
             </div>
         </div>
-    
+
     </form>
 </div>
 
@@ -120,7 +127,7 @@
     const deleteButton = document.getElementById('delete-button');
 
     submitButton.addEventListener('click', saveData);
-    if(deleteButton!=null)
+    if (deleteButton != null)
         deleteButton.addEventListener('click', deleteData);
 
     function deleteData(e) {
@@ -166,11 +173,9 @@
             resignation_year: document.querySelector('#resignation_yearInput').value,
             salary: document.querySelector('#salaryInput').value,
         };
-                
+
     }
+
 </script>
 
 @include("footer")
-
-</body>
-</html>
