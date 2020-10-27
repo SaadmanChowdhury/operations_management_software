@@ -48,5 +48,5 @@ Route::get('/readUser/{id}', [UserController::class, 'readUser']);
 Route::get('user/create', [UserController::class, 'create']);
 Route::post('user', [UserController::class, 'store'])->name('user.store');
 Route::get('user/edit/{id}', [UserController::class, 'edit']);
-Route::put('user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::put('user/update', [UserController::class, 'update'])->name('user.update');
 Route::get('user/delete/{id}', [UserController::class, 'delete']);

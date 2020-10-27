@@ -10,6 +10,8 @@
     @csrf
     @method('put')
     <div>
+        <input type="hidden" id="id" value="{{ $user->user_id }}">
+
         <label>Name:</label>
         <input type="text" id="name" name="name" value="{{ $user->name }}">
     </div>
@@ -56,6 +58,7 @@
         $('#edit_form').submit(function(e) {
             e.preventDefault();
 
+            var id = $('#id').val();
             var name = $('#name').val();
             var email = $('#email').val();
             var password = $('#password').val();
@@ -68,8 +71,9 @@
 
             $.ajax({
                 type: "put",
-                url: "{{ route('user.update', $user->user_id) }}",
+                url: "{{ route('user.update') }}",
                 data: {
+                    id: id,
                     name: name,
                     email: email,
                     password: password,

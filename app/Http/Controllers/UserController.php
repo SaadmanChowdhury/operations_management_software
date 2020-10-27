@@ -66,8 +66,10 @@ class UserController extends Controller
         return view('user.edit', compact('user'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        //user id
+        $id = $request->id;
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             $user = new User();
