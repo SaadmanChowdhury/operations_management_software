@@ -844,3 +844,68 @@ h1.form-ht {
     justify-content: space-between;
     min-width: 7.5%;
 }
+
+/* ////======CLIENT_MODAL======//// */
+
+#client-modal{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3000;
+    background-color: white;
+    display: none;
+  }
+  #client-modal .container-fluid{
+    margin: 0;
+    padding: 0;
+    height: 100%
+  }
+  #client-modal .container-fluid .container{
+    margin: 4rem;
+    
+  }
+
+  .box1{
+    position: relative;
+    width: 30%;
+    color: black;
+    display: flex;
+    justify-content: center;
+  }
+  .box1 img{
+    width: 50%;
+    height: 50%;
+  }
+  .box2{
+    position: relative;
+    width: 70%;
+    color: black;
+  }
+  .box2 input{
+    width:80%;
+    height: 2rem;
+    border-radius: 4px;
+    line-height: 1.5rem;
+  }
+  
+  .box2 .btn{
+    min-width: 20%;
+    width: 20%;
+    padding: 1rem;
+    margin-top: 5rem;
+    height: auto;
+  }
+  .blue{
+    background-color: #587BD3;
+  }
+  #client-modal .submit-button{
+      font-size: 17px;
+      margin-left: -20%;
+  }
+  #client-modal .close img{
+      height: 40px;
+      width: 40px;
+      margin-block-start: 15%;
+
+  }

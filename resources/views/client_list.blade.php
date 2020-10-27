@@ -4,7 +4,7 @@
         <div class="page-title float-left">
             <h2 style="color: black;margin-left:21px">お客様一覧</h2>
         </div>
-        <div class="btn-holder float-right">
+        <div id="client-list" class="btn-holder float-right">
             <a href="" class="register-btn btn-orange"><span class="fa fa-plus"></span> 新 規 追 加</a>
         </div>
     </div>
@@ -40,7 +40,7 @@
                                         <li><img src="img/pro_icon.png" class="smallpic"><div class="user-name">ソフィア</div></li>
                                         <li class="pos">100000</li>
                                         <li>Y50,00000</li>
-                                        <li><span><img src="img/edit.png" alt=""></span></li>
+                                        <li><span><img class="edit" src="img/edit.png" alt=""></span></li>
 
                                     </div>
                                 </a>
@@ -85,7 +85,5 @@
         </div>
     </div>
 </div>
-
-
-
 @include("footer")
+

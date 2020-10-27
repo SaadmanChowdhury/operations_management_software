@@ -6,7 +6,11 @@
         </footer>
 
     </div>
+    @include("client-modal")
     <script src="/js/main.js"></script>
+    <script src="/js/client.js"></script>
+    
     </body>
+    
 
-    </html>
+</html>

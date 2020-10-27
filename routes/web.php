@@ -51,3 +51,6 @@ Route::get('/readUser/{id}', [UserController::class, 'readUser']);
 Route::get('/user-modal', function () {
     return view('user-modal');
 });
+Route::get('/client-modal', function () {
+    return view('client-modal');
+});
