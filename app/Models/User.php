@@ -32,7 +32,7 @@ class User extends Authenticatable
         'exit_day',
         'unit_price',
         'user_authority',
-        'delete_day'
+        'resign_day'
     ];
 
 
@@ -118,7 +118,7 @@ class User extends Authenticatable
             'exit_day' => '',
             'unit_price' => 'required',
             'user_authority' => 'required',
-            'delete_day' => '',
+            'resign_day' => '',
         ]);
 
         $validatedData['password'] = bcrypt($request->password);
@@ -141,8 +141,7 @@ class User extends Authenticatable
             'admission_day' => 'required',
             'exit_day' => '',
             // 'unit_price' => 'required',
-            'user_authority' => 'required',
-            'delete_day' => '',
+            // 'resign_day' => '',
         ];
 
         //only admin can change the unit_price

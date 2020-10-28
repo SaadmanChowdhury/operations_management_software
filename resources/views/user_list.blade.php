@@ -152,5 +152,5 @@
 </div>
 
 
-
+<script src="/js/user.js"></script>
 @include("footer")

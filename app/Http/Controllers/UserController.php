@@ -5,24 +5,53 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
+use App\Http\Utilities\JSONHandler;
 
 class UserController extends Controller
 {
+
     public function index()
     {
-        /**
-         * checking the user is logged in or not
-         */
         if (!Auth::check()) {
-            // return redirect('/login');
+            return redirect('/login');
         }
 
         $user = new User();
         $list = $user->readUserList();
         $viewParams["list"] = $list;
-        // \Illuminate\Support\Facades\Log::debug($list);
         return view('user_list', ['users' => $list]);
+    }
+
+    public function getCreateView()
+    {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
+        return view('user.create');
+    }
+
+    public function getEditView($id)
+    {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = User::find($id);
+        return view('user.edit', compact('user'));
+    }
+
+    public function createUser(Request $request)
+    {
+        $loggedUser = auth()->user();
+
+        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+            $user = new User();
+            $user->createUser($request);
+            return JSONHandler::emptySuccessfulJSONPackage();
+        }
+
+        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
     public function readUser($id)
@@ -30,70 +59,56 @@ class UserController extends Controller
         $loggedUser = auth()->user();
 
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+
             $user = new User();
             $info = $user->readUser($id);
-            return $info;
+            return JSONHandler::packagedJSONData($info);
         } else {
+
             if ($loggedUser->user_id == $id) {
+
                 $user = new User();
                 $info = $user->readUser($id);
-                return $info;
+                return JSONHandler::packagedJSONData($info);
             } else {
-                return;
+                return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
             }
         }
     }
 
-    public function create()
+    public function updateUser(Request $request)
     {
-        return view('user.create');
-    }
-
-    public function store(Request $request)
-    {
-        $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
-            $user = new User();
-            $user->createUser($request);
-            return 'User is successfully created.';
-        }
-        return;
-    }
-
-    public function edit($id)
-    {
-        $user = User::find($id);
-        return view('user.edit', compact('user'));
-    }
-
-    public function update(Request $request)
-    {
-        //user id
         $id = $request->id;
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+
             $user = new User();
             $user->updateUser($request, $id);
-            return 'updated successfully';
+            return JSONHandler::emptySuccessfulJSONPackage();
         } else {
+
             if ($loggedUser->user_id == $id) {
+
                 $user = new User();
                 $user->updateUser($request, $id);
-                return 'updated successfully';
+                return JSONHandler::emptySuccessfulJSONPackage();
             } else {
-                return;
+                return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
             }
         }
     }
 
-    public function delete($id)
+    public function deleteUser($id)
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+
             $user = new User();
             $user->deleteUser($id);
+            return JSONHandler::emptySuccessfulJSONPackage();
         } else {
-            return;
+
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
         }
     }
 }

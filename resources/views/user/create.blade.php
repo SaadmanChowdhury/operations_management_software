@@ -1,7 +1,7 @@
 @include("header")
 
 <h3>Create User</h3>
-<form action="{{ route('user.store') }}" method="POST">
+<form action="" method="POST">
     @csrf
     <div>
         <label>Name:</label>

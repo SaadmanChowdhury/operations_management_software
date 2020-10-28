@@ -1,14 +1,10 @@
 @include("header")
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-    crossorigin="anonymous"></script>
-
 <h3>Create User</h3>
 
-<form id="edit_form" action="{{ route('user.update', $user->user_id) }}" method="POST">
+<form id="edit_form" action="">
     @csrf
-    @method('put')
+    {{-- @method('put') --}}
     <div>
         <input type="hidden" id="id" value="{{ $user->user_id }}">
 
@@ -47,54 +43,62 @@
     </div>
 
     <div>
-        <button type="submit">Update User</button>
+        <button type="submit" onclick="">Update User</button>
     </div>
 
     <div id="message"></div>
 </form>
 
 <script>
+    function getFormData() {
+        return {
+            id: $('#id').val(),
+            name: $('#name').val(),
+            email: $('#email').val(),
+            password: $('#password').val(),
+            tel: $('#tel').val(),
+            position: $('#position').val(),
+            admission_day: $('#admission_day').val(),
+            unit_price: $('#unit_price').val(),
+            user_authority: $('#user_authority').val(),
+            _token: $('input[name=_token]').val()
+        };
+    }
+
+    function handleAJAXResponse(response) {
+
+        if (response["resultStatus"]["isSuccess"])
+            $('#message').html("Operation Succesful");
+
+        else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
+            $('#message').html("You are not authorized to make this change");
+
+        else
+            $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
+    }
+
+    function handleAJAXError(err) {
+        console.log(err);
+    }
+
     $(document).ready(function() {
         $('#edit_form').submit(function(e) {
             e.preventDefault();
 
-            var id = $('#id').val();
-            var name = $('#name').val();
-            var email = $('#email').val();
-            var password = $('#password').val();
-            var tel = $('#tel').val();
-            var position = $('#position').val();
-            var admission_day = $('#admission_day').val();
-            var unit_price = $('#unit_price').val();
-            var user_authority = $('#user_authority').val();
-            var _token = $('input[name=_token]').val();
-
             $.ajax({
-                type: "put",
-                url: "{{ route('user.update') }}",
-                data: {
-                    id: id,
-                    name: name,
-                    email: email,
-                    password: password,
-                    tel: tel,
-                    position: position,
-                    admission_day: admission_day,
-                    unit_price: unit_price,
-                    user_authority: user_authority,
-                    _token: _token
-                },
+                type: "post",
+                url: "/API/updateUser",
+                data: getFormData(),
                 cache: false,
-                success: function(data) {
-                    $('#message').html(data);
-                    console.log(data);
+                success: function(response) {
+                    handleAJAXResponse(response);
                 },
                 error: function(err) {
-                    console.log(err);
+                    handleAJAXError(err);
                 }
-            }); // end of ajax method
-        }); //end of form submit
-    }); //end of document ready
+            });
+        });
+    });
 
 </script>
 
