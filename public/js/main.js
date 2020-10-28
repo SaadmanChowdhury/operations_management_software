@@ -1,6 +1,7 @@
-
-
 function validateForm() {
+
+    event.preventDefault();
+
     var x = document.forms["myForm"]["email"].value;
     var y = document.forms["myForm"]["password"].value;
     var error = document.getElementsByClassName('error-msg');
@@ -36,18 +37,22 @@ function validateForm() {
 
     if (x != "" && x.match(mailformat) && y != "") {
         error[0].style.display = "none";
-        return true;
-    }
-    if (x != "" && x.match(mailformat) && y == "") {
-        error[0].style.display = "none";
-        error[1].style.display = "block";
-        return false;
+        // return true;
     }
     else {
-        error[0].innerHTML = "Invalid Email";
-        error[0].style.display = "block";
-        return false;
+        if (x != "" && x.match(mailformat) && y == "") {
+            error[0].style.display = "none";
+            error[1].style.display = "block";
+            return false;
+        }
+        else {
+            error[0].innerHTML = "Invalid Email";
+            error[0].style.display = "block";
+            return false;
+        }
     }
+
+    document.getElementById("loginForm").submit();
 }
 
 ////========SIDEBAR MENU==========////
