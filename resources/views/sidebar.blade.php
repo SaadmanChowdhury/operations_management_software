@@ -7,7 +7,11 @@
                 <h6 class="label-text float-left">実績管理システム</h6>
             </div>
             <div class="user-profile">
-                <a href="" class="fa fa-sign-out float-right" id="sidebar-logout"></a>
+                <a href="{{ route('logout') }}" class="fa fa-sign-out float-right" id="sidebar-logout"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"></a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
                 <p class="label-text float-right">ソフィア<br><span class="text-xs">ユーザー</span></p>
                 <img class="float-right" src="img/pro_icon2.png">
 

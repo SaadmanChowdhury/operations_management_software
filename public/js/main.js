@@ -1,6 +1,7 @@
-
-
 function validateForm() {
+
+    event.preventDefault();
+
     var x = document.forms["myForm"]["email"].value;
     var y = document.forms["myForm"]["password"].value;
     var error = document.getElementsByClassName('error-msg');
@@ -36,18 +37,22 @@ function validateForm() {
 
     if (x != "" && x.match(mailformat) && y != "") {
         error[0].style.display = "none";
-        return true;
-    }
-    if (x != "" && x.match(mailformat) && y == "") {
-        error[0].style.display = "none";
-        error[1].style.display = "block";
-        return false;
+        // return true;
     }
     else {
-        error[0].innerHTML = "Invalid Email";
-        error[0].style.display = "block";
-        return false;
+        if (x != "" && x.match(mailformat) && y == "") {
+            error[0].style.display = "none";
+            error[1].style.display = "block";
+            return false;
+        }
+        else {
+            error[0].innerHTML = "Invalid Email";
+            error[0].style.display = "block";
+            return false;
+        }
     }
+
+    document.getElementById("loginForm").submit();
 }
 
 ////========SIDEBAR MENU==========////
@@ -136,66 +141,58 @@ function normalSideBar(sidebar) {
 ////====USER-LIST====////
 
 
-const pos=document.querySelector('.userlist-nav');
-const staffList=document.querySelectorAll('.staffs .card');
-var item=document.querySelectorAll('.pos');
+const pos = document.querySelector('.userlist-nav');
+const staffList = document.querySelectorAll('.staffs .card');
+var item = document.querySelectorAll('.pos');
 
-pos.addEventListener("click",filterPos);
+pos.addEventListener("click", filterPos);
 
-function filterPos(e){
+function filterPos(e) {
     e.preventDefault();
     console.log(e.target.innerText);
-    switch(e.target.innerText)
-    {
+    switch (e.target.innerText) {
         case "全て":
-        {
-            for(i=0;i<item.length;i++)
             {
-                staffList[i].style.display="flex";
-            }   
-            break;
-        }
+                for (i = 0; i < item.length; i++) {
+                    staffList[i].style.display = "flex";
+                }
+                break;
+            }
         case "PM":
-        {
-            for(i=0;i<item.length;i++)
             {
-                if(item[i].innerText=="PM")
-                {
-                    staffList[i].style.display="flex";
+                for (i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PM") {
+                        staffList[i].style.display = "flex";
+                    }
+                    else {
+                        staffList[i].style.display = "none";
+                    }
                 }
-                else{
-                    staffList[i].style.display="none";
-                }
+                break;
             }
-            break;
-        }
         case "SE":
-        {
-            for(i=0;i<item.length;i++)
             {
-                if(item[i].innerText=="SE")
-                {
-                    staffList[i].style.display="flex";
+                for (i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "SE") {
+                        staffList[i].style.display = "flex";
+                    }
+                    else {
+                        staffList[i].style.display = "none";
+                    }
                 }
-                else{
-                    staffList[i].style.display="none";
-                }
+                break;
             }
-            break;
-        }
         case "PG":
-        {
-            for(i=0;i<item.length;i++)
             {
-                if(item[i].innerText=="PG")
-                {
-                    staffList[i].style.display="flex";
+                for (i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PG") {
+                        staffList[i].style.display = "flex";
+                    }
+                    else {
+                        staffList[i].style.display = "none";
+                    }
                 }
-                else{
-                    staffList[i].style.display="none";
-                }
+                break;
             }
-            break;
-        }
     }
 }

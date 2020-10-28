@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,39 +15,57 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+function redirection($route)
+{
+    return redirect($route);
+}
+
+Auth::routes();
+
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+
+Route::get('/user', [UserController::class, 'index']);
+Route::get('/home', function () {
+    return redirect('user');
+});
+Route::get('/user-list', function () {
+    return redirect('user');
 });
 
-
-// Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/assign-summary', function () {
-    return view('assign_summary');
-});
-
-Route::get('/project-list', function () {
-    return view('project_list');
-});
-
-// Route::get('/user-list', function () {
-//     return view('user_list');
-// });
-
-Route::get('/client-list', function () {
-    return view('client_list');
-});
-Route::get('/login', function () {
-    return view('login');
-});
-
-Route::get('/user-list', [UserController::class, 'index']);
 Route::get('/readUser/{id}', [UserController::class, 'readUser']);
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/readUser/{id}', [UserController::class, 'readUser']);
 
 Route::get('/user-modal', function () {
     return view('user-modal');
+});
+
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+
+
+Route::get('/assign', function () {
+    return view('assign_summary');
+});
+
+
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+
+
+Route::get('/project', function () {
+    return view('project_list');
+});
+
+
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+
+Route::get('/client', function () {
+    return view('client_list');
 });
