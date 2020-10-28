@@ -26,28 +26,28 @@
             <div class="p-r list-unstyled" id="nav">
 
                 <li>
-                    <a href="">
+                    <a href="/assign">
                         <span class="fa fa-home fa-2x" id="sidebar-assign"></span>
                         <span class="label-text sidebar hide">アサインサマリー</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="/project">
                         <span class="fa fa-newspaper-o fa-2x" id="sidebar-project"></span>
                         <span class="label-text sidebar hide">案件一覧</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="/user">
                         <span class="fa fa-user fa-2x" id="sidebar-user"></span>
                         <span class="label-text sidebar hide">ユーザー一覧</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="/client">
                         <span class="fa fa-users fa-2x" id="sidebar-client"></span>
                         <span class="label-text sidebar hide">顧客一覧</span>
                     </a>

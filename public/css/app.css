@@ -300,7 +300,8 @@ footer {
 
 #header_top {
     /* background-color: #23305c; */
-    background-color: #0b1841e3;
+    /* background-color: #0b1841e3; */
+    background-color: #0b1841;
     z-index: 1030;
     position: fixed;
     width: 60px;
