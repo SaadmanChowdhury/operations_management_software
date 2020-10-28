@@ -658,7 +658,7 @@ footer {
 
 .card-header {
     font-size: 80%;
-    padding: .75rem 3rem .75rem 0rem;
+    padding: .75rem 2rem .75rem 0rem;
     margin-bottom: 0;
     background-color: rgba(0, 0, 0, .03);
     border-bottom: 1px solid rgba(0, 0, 0, .125);
@@ -850,15 +850,20 @@ h1.form-ht {
 
 /* ////======CLIENT LIST======//// */
 
-.clients .card .card-header a .display li {
-    justify-content: space-around;
-}
 
 .clients .card .card-header a .display li:nth-child(2) {
-    justify-content: space-between;
+
     min-width: 7.5%;
 }
-
+.clients .card-header{
+    padding-left: 2rem;
+}
+.clients .display li{
+    justify-content: space-evenly;
+}
+.clients .smallpic{
+    margin-left: 4px;
+}
 /* ////======CLIENT_MODAL======//// */
 
 #client-modal{
@@ -915,11 +920,21 @@ h1.form-ht {
   }
   #client-modal .submit-button{
       font-size: 17px;
-      margin-left: -20%;
+  }
+  #client-modal .delete-button{
+    margin-right: 10%;
   }
   #client-modal .close img{
       height: 40px;
       width: 40px;
       margin-block-start: 15%;
-
+  }
+  .modal{
+    padding: 5rem 1rem;
+    background-color: #f9f6f6;
+    border-radius: 17px;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
+    margin: auto;
+    width: 70%;
   }

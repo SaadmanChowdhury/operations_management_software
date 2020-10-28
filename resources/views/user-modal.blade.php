@@ -11,7 +11,7 @@
         "unit_price" => "200,000円"
     ];
     $loggedInAuthority = config('constants.User_authority.一般ユーザー');
-    // $loggedInAuthority = config('constants.User_authority.システム管理者');
+    //$loggedInAuthority = config('constants.User_authority.システム管理者');
 ?>
 
 <div>
