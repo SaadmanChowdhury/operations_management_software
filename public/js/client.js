@@ -52,10 +52,10 @@ function client_modal_close(e){
     function saveData(e) {
         e.preventDefault();
         const savedData = {
-            company_name: input_company.value,
-            contact_person: input_contact.value,
-            
+            company_name: input_company[0].value,
+            contact_person: input_contact[0].value
         };
+        console.log(savedData);
     }
 
 

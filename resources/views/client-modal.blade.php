@@ -1,7 +1,7 @@
 <div id="client-modal">
     <div class="container-fluid">
         <div class="row blue center box-shadow">
-            <h2 class="text-center">お客様の編集</h2>
+            <h2 class="text-center"> お客様の編集</h2>
             <span class="close">
                 <img src="img/cross.png" class="cross" alt="cross button">
             </span>
