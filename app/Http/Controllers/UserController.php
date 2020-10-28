@@ -43,4 +43,57 @@ class UserController extends Controller
             }
         }
     }
+
+    public function create()
+    {
+        return view('user.create');
+    }
+
+    public function store(Request $request)
+    {
+        $loggedUser = auth()->user();
+        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+            $user = new User();
+            $user->createUser($request);
+            return 'User is successfully created.';
+        }
+        return;
+    }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return view('user.edit', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        //user id
+        $id = $request->id;
+        $loggedUser = auth()->user();
+        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+            $user = new User();
+            $user->updateUser($request, $id);
+            return 'updated successfully';
+        } else {
+            if ($loggedUser->user_id == $id) {
+                $user = new User();
+                $user->updateUser($request, $id);
+                return 'updated successfully';
+            } else {
+                return;
+            }
+        }
+    }
+
+    public function delete($id)
+    {
+        $loggedUser = auth()->user();
+        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+            $user = new User();
+            $user->deleteUser($id);
+        } else {
+            return;
+        }
+    }
 }
