@@ -802,9 +802,9 @@ h1.form-ht {
     width: calc(100vw - 60px);
 }
 
-.button {
+.button, button, input[type="submit"] {
     border: none;
-    color: white;
+    background-color: white;
     padding: 16px 32px;
     text-align: center;
     text-decoration: none;
@@ -819,14 +819,14 @@ h1.form-ht {
     min-width: 60px;
 }
 
-.submit-button {
+.submit-button, button {
     color: #43A1F8;
     border: 2px solid#43A1F8;
     text-align: center;
     float: left;
 }
 
-.submit-button:hover {
+.submit-button:hover, button:hover {
     background-color: #43A1F8;
     color: white;
 }
