@@ -31,20 +31,31 @@ Route::get('/user', [UserController::class, 'index']);
 Route::get('/home', function () {
     return redirect('user');
 });
+
+
 Route::get('/user-list', function () {
     return redirect('user');
 });
-
-Route::get('/readUser/{id}', [UserController::class, 'readUser']);
-Route::get('/user', [UserController::class, 'index']);
-Route::get('/readUser/{id}', [UserController::class, 'readUser']);
-
 Route::get('/user-edit', function () {
     return view('user-edit');
 });
 Route::get('/user-register', function () {
     return view('user_register');
 });
+
+Route::get('user/create', [UserController::class, 'getCreateView']);
+Route::get('user/edit/{id}', [UserController::class, 'getEditView']);
+
+Route::post("/API/createUser", [UserController::class, 'createUser']);
+Route::post("/API/readUser",   [UserController::class, 'readUser']);
+Route::post("/API/updateUser", [UserController::class, 'updateUser']);
+Route::post("/API/deleteUser", [UserController::class, 'deleteUser']);
+
+
+// Route::post('user', [UserController::class, 'store'])->name('user.createUser');
+// Route::get('/readUser/{id}', [UserController::class, 'readUser']);
+// Route::put('user/update', [UserController::class, 'updateUser'])->name('user.update');
+// Route::get('user/delete/{id}', [UserController::class, 'deleteUser']);
 
 //----------------------------------------------------------------------------
 //----------------------------------------------------------------------------
@@ -73,15 +84,3 @@ Route::get('/project', function () {
 Route::get('/client', function () {
     return view('client_list');
 });
-//user routes
-Route::get('/user', [UserController::class, 'index']);
-Route::get('/readUser/{id}', [UserController::class, 'readUser']);
-Route::get('user/create', [UserController::class, 'create']);
-Route::post('user', [UserController::class, 'store'])->name('user.store');
-Route::get('user/edit/{id}', [UserController::class, 'edit']);
-Route::put('user/update', [UserController::class, 'update'])->name('user.update');
-Route::get('user/delete/{id}', [UserController::class, 'delete']);
-
-//clients routes
-Route::get('client/create', [ClientController::class, 'create']);
-Route::post('client', [ClientController::class, 'store'])->name('client.store');
