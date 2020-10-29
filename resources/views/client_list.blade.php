@@ -53,6 +53,7 @@
 
                 <div class="clients">
                     
+                        {{-- row starts --}}
                         <div class="card"">
                             <div class="card-header">
                                 <div class="flex-col">
@@ -73,6 +74,9 @@
 
                             </div>
                         </div>
+                        {{-- row ends --}}
+
+                        {{-- row starts --}}
                         <div class="card" id="client-row">
                             <div class="card-header">
                                 <div class="flex-col">
@@ -93,12 +97,15 @@
 
                             </div>
                         </div>
+                        {{-- row ends --}}
+
+                        {{-- row starts --}}
                         <div class="card"">
                             <div class="card-header">
                                 <div class="flex-col">
                                     <div class="display list-unstyled">
                                         <li> 0003 </span></li>
-                                        <li>GT宮崎 </span></li>
+                                        <li>Kishida Dengyou </span></li>
                                         <li><img src="img/pro_icon.png" class="smallpic"><div class="user-name">ソフィア</div></li>
                                         <li>10,000 </span></li>
                                         @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
@@ -113,7 +120,7 @@
 
                             </div>
                         </div>
-                   
+                        {{-- row ends --}}
                 </div>
             </div>
         </div>
