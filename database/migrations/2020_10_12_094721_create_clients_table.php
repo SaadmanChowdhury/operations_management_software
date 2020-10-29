@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
             $table->increments('customer_id')->unsigned();
 
             $table->string('customer_name', 50);
-            $table->unsignedInteger('point_of_contact_person_id')->length(10);
+            $table->unsignedInteger('user_id')->length(10);
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();

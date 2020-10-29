@@ -19,71 +19,84 @@
                             <li> コード <span class="fa fa-caret-down"></span></li>
                             <li>会社名 <span class="fa fa-caret-down"></span></li>
                             <li>責任者 <span class="fa fa-caret-down"></span></li>
-                            <li>受注顧合計 <span class="fa fa-caret-down"></span></li>
-                            <li>実績粗利 <span class="fa fa-caret-down"></span></li>
+
+                            @if (auth()->user()->user_authority == config('constants.User_authority.システム管理者'))
+                                <li>受注顧合計<span class="fa fa-caret-down"></span></li>
+                                <li>実績粗利<span class="fa fa-caret-down"></span></li>
+                            @endif
                             <li><span class="fa fa-filter fa-lg"></span><span class="fa fa-caret-down"></span></li>
                         </ul>
                     </div>
-
                 </div>
 
-               
 
                 <div class="clients">
-                    
-                        <div class="card"">
-                            <div class="card-header">
-                                <a>
-                                    <div class="display list-unstyled">
-                                        <li>001</li>
-                                        <li>GT宮崎</li>
-                                        <li><img src="img/pro_icon.png" class="smallpic"><div class="user-name">ソフィア</div></li>
-                                        <li class="pos">100000</li>
-                                        <li>Y50,00000</li>
-                                        <li><span><img src="img/edit.png" alt=""></span></li>
+                    <div class="card"">
+                            <div class=" card-header">
+                        <a>
+                            <div class="display list-unstyled">
+                                <li>001</li>
+                                <li>GT宮崎</li>
+                                <li><img src="img/pro_icon.png" class="smallpic">
+                                    <div class="user-name">ソフィア</div>
+                                </li>
+                                @if (auth()->user()->user_authority == config('constants.User_authority.システム管理者'))
+                                    <li class="pos">100000</li>
+                                    <li>Y50,00000</li>
+                                @endif
 
-                                    </div>
-                                </a>
-
-                            </div>
-                        </div>
-                        <div class="card"">
-                            <div class="card-header">
-                                <a>
-                                    <div class="display list-unstyled">
-                                        <li>002</li>
-                                        <li>GT宮崎</li>
-                                        <li><img src="img/pro_icon.png" class="smallpic"><div class="user-name">ソフィア</div></li>
-                                        <li class="pos">100000</li>
-                                        <li>Y50,00000</li>
-                                        <li><span><img src="img/edit.png" alt=""></span></li>
-
-                                    </div>
-                                </a>
+                                <li><span><img src="img/edit.png" alt=""></span></li>
 
                             </div>
-                        </div>
-                        <div class="card"">
-                            <div class="card-header">
-                                <a>
-                                    <div class="display list-unstyled">
-                                        <li>003</li>
-                                        <li>GT宮崎</li>
-                                        <li><img src="img/pro_icon.png" class="smallpic"><div class="user-name">ソフィア</div></li>
-                                        <li class="pos">100000</li>
-                                        <li>Y50,00000</li>
-                                        <li><span><img src="img/edit.png" alt=""></span></li>
+                        </a>
 
-                                    </div>
-                                </a>
+                    </div>
+                </div>
+                <div class="card"">
+                            <div class=" card-header">
+                    <a>
+                        <div class="display list-unstyled">
+                            <li>002</li>
+                            <li>GT宮崎</li>
+                            <li><img src="img/pro_icon.png" class="smallpic">
+                                <div class="user-name">ソフィア</div>
+                            </li>
+                            @if (auth()->user()->user_authority == config('constants.User_authority.システム管理者'))
+                                    <li class="pos">100000</li>
+                                    <li>Y50,00000</li>
+                                @endif
+                            <li><span><img src="img/edit.png" alt=""></span></li>
 
-                            </div>
                         </div>
-                   
+                    </a>
+
                 </div>
             </div>
+            <div class="card"">
+                            <div class=" card-header">
+                <a>
+                    <div class="display list-unstyled">
+                        <li>003</li>
+                        <li>GT宮崎</li>
+                        <li><img src="img/pro_icon.png" class="smallpic">
+                            <div class="user-name">ソフィア</div>
+                        </li>
+
+                        @if (auth()->user()->user_authority == config('constants.User_authority.システム管理者'))
+                                    <li class="pos">100000</li>
+                                    <li>Y50,00000</li>
+                                @endif
+                        <li><span><img src="img/edit.png" alt=""></span></li>
+                    </div>
+                </a>
+
+            </div>
         </div>
+
     </div>
+</div>
+</div>
+</div>
 </div>
 
 

@@ -18,7 +18,7 @@ class CreateAssignTable extends Migration
             $table->increments('assign_id')->unsigned();
 
             $table->unsignedInteger('project_id')->length(10);
-            $table->unsignedInteger('staff_id')->length(10);
+            $table->unsignedInteger('user_id')->length(10);
             $table->unsignedInteger('year')->length(4);
             $table->unsignedInteger('month')->length(2);
 
