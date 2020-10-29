@@ -17,8 +17,8 @@
                     <input type="text" name="company_name" placeholder="GT宮崎">
                     <p>責任者</p>
                     <input type="text" name="contact_person" placeholder="ソフィア　ネヘリン">
-                    <p>受注顧合計: 1000000</p>
-                    <p>実績粗利: 5000000円</p>
+                    <p class="client-order">受注顧合計: 1000000</p>
+                    <p class="client-profit">実績粗利: 5000000円</p>
                     <a class="button submit-button" id="client-submit-button">
                         <i class="fa fa-floppy-o"></i>更新
                     </a> 

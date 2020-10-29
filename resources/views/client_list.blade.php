@@ -52,7 +52,7 @@
                 {{-- ///====CLIENT-TABLE DETAILS====/// --}}
 
                 <div class="clients">
-                    
+
                         {{-- row starts --}}
                         <div class="card"">
                             <div class="card-header">
@@ -84,7 +84,7 @@
                                         <li> 0002 </span></li>
                                         <li>Core.NET </span></li>
                                         <li><img src="img/pro_icon.png" class="smallpic"><div class="user-name">ソフィア</div></li>
-                                        <li>10,000 </span></li>
+                                        <li>20,000 </span></li>
                                         @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
                                             <li>50000000円 </span></li>
                                         @endif
@@ -107,7 +107,7 @@
                                         <li> 0003 </span></li>
                                         <li>Kishida Dengyou </span></li>
                                         <li><img src="img/pro_icon.png" class="smallpic"><div class="user-name">ソフィア</div></li>
-                                        <li>10,000 </span></li>
+                                        <li>30,000 </span></li>
                                         @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
                                             <li>50000000円 </span></li>
                                         @endif

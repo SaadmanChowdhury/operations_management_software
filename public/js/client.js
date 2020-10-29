@@ -5,7 +5,8 @@ const cross=document.querySelector('#client-modal .cross'); //cross button
 const input_company=document.getElementsByName('company_name'); //company input field name
 const input_contact=document.getElementsByName('contact_person'); //contact person field name
 const code=document.querySelector('.client-code') // client code
-
+const order=document.querySelector('.client-order') // client code
+const profit=document.querySelector('.client-profit') // client code
 
 ///====EVENT LISTENER====////
 edit_btn.addEventListener("click", client_modal_open);
@@ -16,7 +17,9 @@ cross.addEventListener("click", client_modal_close);
 function client_modal_open(e){
     e.preventDefault();
     code.innerText="コード: ";
-    
+    order.innerText="受注顧合計: ";
+    profit.innerText="実績粗利: ";
+
     const target=e.target;
     //console.log(target);
     const target_parent=e.target.parentElement.parentElement.parentElement;
@@ -25,7 +28,11 @@ function client_modal_open(e){
     const target_code= target_parent.childNodes[1]; //client-code
     const target_company= target_parent.childNodes[3]; //company name
     const target_contact= target_parent.childNodes[5]; //contact person
-    code.innerText=code.innerText+target_code.innerText; 
+    const target_orders= target_parent.childNodes[7]; //orders
+    const target_profit= target_parent.childNodes[9]; //profit
+    code.innerText=code.innerText+target_code.innerText;
+    order.innerText=order.innerText+target_orders.innerText;
+    profit.innerText=profit.innerText+target_profit.innerText; 
 
     input_company[0].value=target_company.innerText; //Initial company input value from list
     input_contact[0].value=target_contact.innerText; //Initial contact input value from list
