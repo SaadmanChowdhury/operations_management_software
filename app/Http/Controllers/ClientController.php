@@ -23,4 +23,18 @@ class ClientController extends Controller
         }
         return;
     }
+
+    //getting total sale from a client
+    public function getTotalSale($id)
+    {
+        $client = new Client();
+        return $client->getTotalSale($id);
+    }
+
+    //getting total profit from a client
+    public function getTotalProfit($id)
+    {
+        $client = new Client();
+        return $client->getTotalProfit($id);
+    }
 }

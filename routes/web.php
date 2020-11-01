@@ -84,3 +84,7 @@ Route::get('/project', function () {
 Route::get('/client', function () {
     return view('client_list');
 });
+
+//for testing the method
+Route::get('/client/total-sale/{id}', [ClientController::class, 'getTotalSale']);
+Route::get('/client/total-profit/{id}', [ClientController::class, 'getTotalProfit']);
