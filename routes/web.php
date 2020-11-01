@@ -81,6 +81,13 @@ Route::get('/project', function () {
 //----------------------------------------------------------------------------
 //----------------------------------------------------------------------------
 
-Route::get('/client', function () {
-    return view('client_list');
-});
+
+Route::get('/client', [ClientController::class, 'index']); //all clients' list
+
+Route::get('client/create', [UserController::class, 'getCreateView']);
+Route::get('client/edit/{id}', [UserController::class, 'getEditView']);
+
+Route::post("/API/createClient", [UserController::class, 'createClient']);
+Route::post("/API/readClient",   [UserController::class, 'readClient']);
+Route::post("/API/updateClient", [UserController::class, 'updateClient']);
+Route::post("/API/deleteClient", [UserController::class, 'deleteClient']);
