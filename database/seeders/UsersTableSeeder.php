@@ -27,10 +27,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123645789',
                 'position' => 0, //PM
                 'admission_day' => '2019-01-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 400000,
                 'user_authority' => 0,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Konaka',
@@ -42,10 +42,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 1, //PL
                 'admission_day' => '2019-01-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 350000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Maruta',
@@ -57,10 +57,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 2, //SE
                 'admission_day' => '2019-04-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 300000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Tominaga',
@@ -72,10 +72,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 2, //SE
                 'admission_day' => '2019-04-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 280000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Kanai',
@@ -87,10 +87,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2019-04-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 240000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Daiki',
@@ -102,10 +102,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2019-04-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 240000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Saadman',
@@ -117,10 +117,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2020-01-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 220000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Sumaya',
@@ -132,10 +132,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2020-01-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 220000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Kaku',
@@ -147,10 +147,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2020-01-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 220000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Kameshima',
@@ -162,10 +162,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 220000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Tamura',
@@ -177,10 +177,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 220000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Matsumoto',
@@ -192,10 +192,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 220000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Samiul',
@@ -207,10 +207,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 220000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Sofia',
@@ -222,10 +222,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 220000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
             [
                 'name' => 'Utshab',
@@ -237,10 +237,10 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 3, //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '',
+                'exit_day' => null,
                 'unit_price' => 220000,
                 'user_authority' => 2,
-                'resign_day' => '',
+                'resign_day' => null,
             ],
         ];
 

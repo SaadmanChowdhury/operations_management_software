@@ -14,6 +14,23 @@ class ClientsTableSeeder extends Seeder
      */
     public function run()
     {
-        Client::factory(10)->create();
+        // Client::factory(10)->create();
+
+        $data = [
+            [
+                'customer_name' => 'Internal',
+                'user_id' => 1,
+            ],
+            [
+                'customer_name' => 'ASE',
+                'user_id' => 1,
+            ],
+            [
+                'customer_name' => 'PIVOT',
+                'user_id' => 1,
+            ],
+        ];
+
+        Client::insert($data);
     }
 }

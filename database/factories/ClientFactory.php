@@ -23,7 +23,7 @@ class ClientFactory extends Factory
     {
         return [
             'customer_name' => $this->faker->name,
-            'point_of_contact_person_id' => $this->faker->numberBetween(1, 10),
+            'user_id' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

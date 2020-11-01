@@ -23,7 +23,7 @@ class AssignFactory extends Factory
     {
         return [
             'project_id' => $this->faker->numberBetween(1, 10),
-            'staff_id' => $this->faker->numberBetween(1, 10),
+            'user_id' => $this->faker->numberBetween(1, 10),
             'year' => $this->faker->numberBetween(2000, 2030),
             'month' => $this->faker->numberBetween(1, 12),
             'plan_month_year' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 1, $max = 100),
