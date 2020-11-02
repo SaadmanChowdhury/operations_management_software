@@ -149,8 +149,12 @@
                                         <li><div class="pos" style="background-color: {{ $bg_color }}">{{ $position }}</div></li>
                                         <li>{{ $user->admission_day }}</li>
                                         <li>{{ $time_diff}}{{ $unit }}</li>
-                                        <li>{{ $user->unit_price }}</li>
-                                        <li><span><img src="img/edit.png" alt=""></span></li>
+                                        <li>{{ $user->unit_price }} 円</li>
+                                        <li>
+                                            <div class="edit">
+                                                <span style="font-size: 11px" class="center"><img src="img/edit.png" style="float: left;" alt="">編集</span>
+                                            </div>
+                                        </li>
 
                                     </div>
                                 </a>

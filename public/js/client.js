@@ -24,12 +24,12 @@ function client_modal_open(e){
     //console.log(target);
     const target_parent=e.target.parentElement.parentElement.parentElement;
     //console.log(target_parent);
-
-    const target_code= target_parent.childNodes[1]; //client-code
-    const target_company= target_parent.childNodes[3]; //company name
-    const target_contact= target_parent.childNodes[5]; //contact person
-    const target_orders= target_parent.childNodes[7]; //orders
-    const target_profit= target_parent.childNodes[9]; //profit
+    const child=Array.prototype.slice.call(target_parent.children);
+    const target_code= child[0]; //client-code
+    const target_company= child[1]; //company name
+    const target_contact= child[2] //contact person
+    const target_orders= child[3] //orders
+    const target_profit= child[4]; //profit
     code.innerText=code.innerText+target_code.innerText;
     order.innerText=order.innerText+target_orders.innerText;
     profit.innerText=profit.innerText+target_profit.innerText; 
