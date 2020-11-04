@@ -29,6 +29,9 @@ class ClientController extends Controller
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             return view('client.create');
         }
+        else {
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        }
     }
 
 
@@ -67,7 +70,9 @@ class ClientController extends Controller
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             $client = Client::find($id);
             return view('client.edit', compact('client'));
-        }   
+        } else {
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        }
     }
 
 

@@ -2,7 +2,7 @@
 
 <h3>Edit Client</h3>
 
-<form id="edit_form" action="">
+<form id="edit_form" action="" method="">
     @csrf
     {{-- @method('put') --}}
     <div>
