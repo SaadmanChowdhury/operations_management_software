@@ -1,9 +1,13 @@
 @include("header")
 <div class="user-list container-fluid">
     <div class="p-r row">
+
+        {{-- ///====PAGE TITLE --}}
         <div class="page-title float-left">
             <h2 style="color: black;margin-left:21px">ユーザー一覧</h2>
         </div>
+
+        {{-- ///====REGISTER BUTTON====/// --}}
         <div class="btn-holder float-right">
             <a href="" class="register-btn btn-orange"><span class="fa fa-plus"></span>新規追加</a>
         </div>
@@ -13,7 +17,7 @@
         <div class="row row-content">
             <div class="content-width">
 
-
+                {{-- ///====FILTER NAVIGATION====/// --}}
                 <ul class="userlist-nav center list-unstyled">
                     <a href="">
                         <li> 全て</li>
@@ -33,6 +37,7 @@
                 </ul>
                 <hr />
 
+                {{-- ///====USER-TABLE HEADER====/// --}}
                 <div id="table-nav" class="primary">
                     <div class="flex-col">
                         <ul class="display list-unstyled">
@@ -50,11 +55,14 @@
 
                 </div>
 
+                {{-- ///====CARBON USED FOR TIME====/// --}}
                 @php
                     use Carbon\Carbon;
                 @endphp
 
                 <div class="staffs">
+
+                    {{-- ///====ELAPSED TIME CALCULATION====/// --}}
                     @foreach ($users as $user)
                         @php
                             
@@ -66,6 +74,9 @@
                                 $time_diff=floor(($mytime->diffInDays($user->admission_day))/30);
                                 $unit='月';
                             }
+
+
+                            ///====CONVERTING INT TO TEXT====///
 
                             // USER_ICON URL
                             switch ($user->gender) {
@@ -124,6 +135,8 @@
 
 
                         @endphp
+
+                        {{-- ///====USER-TABLE DETAILS====/// --}}
                         <div class="card" id="user-row-{{ $user->user_id }}">
                             <div class="card-header">
                                 <a>
@@ -136,8 +149,12 @@
                                         <li><div class="pos" style="background-color: {{ $bg_color }}">{{ $position }}</div></li>
                                         <li>{{ $user->admission_day }}</li>
                                         <li>{{ $time_diff}}{{ $unit }}</li>
-                                        <li>{{ $user->unit_price }}</li>
-                                        <li><span><img src="img/edit.png" alt=""></span></li>
+                                        <li>{{ $user->unit_price }} 円</li>
+                                        <li>
+                                            <div class="edit">
+                                                <span style="font-size: 11px" class="center"><img src="img/edit.png" style="float: left;" alt="">編集</span>
+                                            </div>
+                                        </li>
 
                                     </div>
                                 </a>

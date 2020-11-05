@@ -88,3 +88,9 @@ Route::get('/client', function () {
 //for testing the method
 Route::get('/client/total-sale/{id}', [ClientController::class, 'getTotalSale']);
 Route::get('/client/total-profit/{id}', [ClientController::class, 'getTotalProfit']);
+Route::get('/user-modal', function () {
+    return view('user-modal');
+});
+Route::get('/client-modal', function () {
+    return view('client-modal');
+});
