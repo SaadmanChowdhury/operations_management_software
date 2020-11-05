@@ -1,33 +1,34 @@
 @include("header")
 
-<h3>Edit Client</h3>
+<h1 class="form-ht">Edit Client</h1>
 
+<div class="form-container">
 <form id="edit_form" action="" method="">
     @csrf
     {{-- @method('put') --}}
-    <div>
-        <input type="hidden" id="id" value="{{ $client->customer_id }}">
 
-        <label>Name</label>
-        <input type="text" id="name" name="name" value="{{ $client->customer_name }}">
-    </div>
+    <div><input type="hidden" id="id" value="{{ $client->customer_id }}"></div>
+
     <div>
-        <label>Point of Contact Person ID</label>
-        <input type="number" id="point_of_contact_person_id" name="point_of_contact_person_id" value="{{ $client->point_of_contact_person_id }}">
+        <div><label>Name</label></div>
+        <div><input type="text" id="name" name="name" value="{{ $client->customer_name }}"></div>
     </div>
 
     <div>
-        <button type="submit" onclick="">Update Client</button>
+        <div><label>Point of Contact Person ID</label></div>
+        <div><input type="number" id="point_of_contact_person_id" name="point_of_contact_person_id" value="{{ $client->point_of_contact_person_id }}"></div> 
     </div>
 
+    <div><button type="submit" onclick="">Update Client</button></div>
     <div id="message"></div>
 </form>
+</div>
 
 <script>
     function getFormData() {
         return {
             id: $('#id').val(),
-            name: $('#name').val(),
+            customer_name: $('#name').val(),
             point_of_contact_person_id: $('#point_of_contact_person_id').val(),
             _token: $('input[name=_token]').val()
         };
@@ -51,6 +52,7 @@
 
     $(document).ready(function() {
         $('#edit_form').submit(function(e) {
+            console.log(getFormData());
             e.preventDefault();
 
             $.ajax({

@@ -43,8 +43,11 @@ class ClientController extends Controller
             $client->createClient($request);
             // return 'Client is successfully created.';
             return JSONHandler::emptySuccessfulJSONPackage();
+            
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
+        
     }
 
 
