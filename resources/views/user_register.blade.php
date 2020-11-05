@@ -44,9 +44,9 @@
                 <div><label>Location</label></div>
                 <div class="custom-select">
                     <select id="locationInput" required>
-                        <option>Miyazaki</option>
-                        <option>Tokyo</option>
-                        <option>Fukuoka</option>
+                        @foreach (config('constants.Location') as $location => $value)
+                            <option>{{ $location }}</option>
+                        @endforeach
                     </select>
                 </div>
                 {{-- Location Dropdown Ends --}}
