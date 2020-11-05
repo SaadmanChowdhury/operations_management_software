@@ -48,6 +48,14 @@
 
     function handleAJAXError(err) {
         console.log(err);
+        if (err.status == "422") {
+            if (err.responseJSON.errors.point_of_contact_person_id != null) {
+                $('#message').html("エラー　： " + "担当者が入力していないです。");
+            }
+            if (err.responseJSON.errors.customer_name != null) {
+                $('#message').html("エラー　： " + "顧客名が入力していないです。");
+            }
+        }
     }
 
     $(document).ready(function() {

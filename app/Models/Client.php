@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
-use App\Http\Utilities\JSONHandler;
+
 
 class Client extends Model
 {
@@ -42,13 +42,9 @@ class Client extends Model
             ]);
 
             //Creating record-- a client record can be created if any user exists as a point_of_contact_person
-            if (User::where('user_id', '=', $request->input('point_of_contact_person_id'))->first() === null) {
-                // User does not exist
-                return JSONHandler::errorJSONPackage("CONTACT_PERSON_NOT_EXISTS");
-            } else {
-                // User exits //Creating new client
+            if (User::where('user_id', '=', $request->input('point_of_contact_person_id'))->first() != null) {
                 Client::create($validatedData);
-            }
+            } 
             
          }
     }
@@ -120,11 +116,7 @@ class Client extends Model
         $validatedData = $request->validate($rules);
 
         //updating record-- a client record can be updated if any user exists as a point_of_contact_person
-        if (User::where('user_id', '=', $request->input('point_of_contact_person_id'))->first() === null) {
-            // User does not exist
-            return JSONHandler::errorJSONPackage("CONTACT_PERSON_NOT_EXISTS");
-        } else {
-            // User exits //updating record
+        if (User::where('user_id', '=', $request->input('point_of_contact_person_id'))->first() != null) {
             Client::where('customer_id', $id)->update($validatedData);
         }
     }
