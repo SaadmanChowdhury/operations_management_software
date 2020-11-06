@@ -12,59 +12,59 @@ function filterPos(e) {
     console.log(e.target.innerText);
     switch (e.target.innerText) {
         case "全て":
-        {
-            for (i = 0; i < item.length; i++) {
-                staffList[i].style.display = "flex";
+            {
+                for (i = 0; i < item.length; i++) {
+                    showCard(staffList[i])
+                }
+                break;
             }
-            break;
-        }
         case "PM":
-        {
-            for (i = 0; i < item.length; i++) {
-                if (item[i].innerText == "PM") {
-                    staffList[i].style.display = "flex";
+            {
+                for (i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PM") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
                 }
-                else {
-                    staffList[i].style.display = "none";
-                }
+                break;
             }
-            break;
-        }
         case "SE":
-        {
-            for (i = 0; i < item.length; i++) {
-                if (item[i].innerText == "SE") {
-                    staffList[i].style.display = "flex";
+            {
+                for (i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "SE") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
                 }
-                else {
-                    staffList[i].style.display = "none";
-                }
+                break;
             }
-            break;
-        }
         case "PG":
-        {
-            for (i = 0; i < item.length; i++) {
-                if (item[i].innerText == "PG") {
-                    staffList[i].style.display = "flex";
+            {
+                for (i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PG") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
                 }
-                else {
-                    staffList[i].style.display = "none";
-                }
+                break;
             }
-            break;
-        }
         case "PL":
-        {
-            for (i = 0; i < item.length; i++) {
-                if (item[i].innerText == "PL") {
-                    staffList[i].style.display = "flex";
+            {
+                for (i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PL") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
                 }
-                else {
-                    staffList[i].style.display = "none";
-                }
+                break;
             }
-            break;
-        }
     }
 }

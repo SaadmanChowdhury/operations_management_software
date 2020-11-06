@@ -166,5 +166,13 @@ function adjustRowHeight() {
             break;
     }
 
+    function showCard(cardDom) {
+        cardDom.style.display = "flex";
+    }
+
+    function hideCard(cardDom) {
+        cardDom.style.display = "none";
+    }
+
 
 }
