@@ -137,3 +137,34 @@ function normalSideBar(sidebar) {
     }, 410);
 }
 
+ROW_STATE = 0;
+
+function adjustRowHeight() {
+
+    event.preventDefault();
+
+    switch (ROW_STATE) {
+        case 0:
+            ROW_STATE++;
+            $(".card").addClass("row-adjust-adjacent");
+            break;
+        case 1:
+            ROW_STATE++;
+            $(".card-header").addClass("row-adjust-compressed");
+            $(".smallpic").addClass("row-adjust-smaller-pic");
+            $(".pos").addClass("row-adjust-tiny-pos");
+            break;
+        case 2:
+            ROW_STATE++;
+            $(".card").removeClass("row-adjust-adjacent");
+            break;
+        case 3:
+            ROW_STATE = 0;
+            $(".card-header").removeClass("row-adjust-compressed");
+            $(".smallpic").removeClass("row-adjust-smaller-pic");
+            $(".pos").removeClass("row-adjust-tiny-pos");
+            break;
+    }
+
+
+}

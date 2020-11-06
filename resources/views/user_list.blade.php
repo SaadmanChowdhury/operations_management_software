@@ -28,6 +28,13 @@
                 <li> PG</li>
             </a>
         </ul>
+        
+        <ul class="userlist-nav center list-unstyled" style="float: right;">
+            <a href="" onclick="adjustRowHeight()">
+                <li class="fa fa-list"> </li>
+            </a>
+        </ul>
+
         <hr />
 
         
