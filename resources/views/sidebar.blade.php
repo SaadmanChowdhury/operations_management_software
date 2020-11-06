@@ -1,6 +1,6 @@
 <div class="container-fluid">
     {{-- ////====HEADER====//// --}}
-    <div class="logo-holder box-shadow">
+    {{-- <div class="logo-holder box-shadow">
         <div class="header-icon row">
             <div class="sys-name">
                 <img class="float-left" src="img/favicon.png">
@@ -17,7 +17,7 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <div id="header_top" onmouseover="sidebar_expand(this)" onmouseout="sidebar_mouseOutHandler(this)">

@@ -8,6 +8,7 @@ html {
     -ms-text-size-adjust: 100%;
     -ms-overflow-style: scrollbar;
     -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
 }
 
 @-ms-viewport {
@@ -47,9 +48,10 @@ body {
 
 .row-content {
     position: relative;
-    margin-right: 5px;
-    margin-left: 5px;
-    padding: 1rem;
+    padding: 15px 30px 10px 30px;
+    width: 100%;
+    height: calc(100vh - 80px);
+    overflow: hidden;
 }
 
 .container {
@@ -60,8 +62,8 @@ body {
 }
 
 .container-fluid {
-    padding-right: 15px;
-    padding-left: 15px;
+    /* padding-right: 15px;
+    padding-left: 15px; */
     margin-right: auto;
     margin-left: auto;
 }
@@ -534,7 +536,6 @@ footer {
 
 .page-container {
     position: absolute;
-    top: 8%;
     left: 60px;
     width: calc(100% - 60px);
     height: auto;
@@ -547,7 +548,6 @@ footer {
 .user-list {
     color: black;
     position: relative;
-    margin: 30px 40px;
 }
 
 .user-list .d-flex .row-content {
@@ -555,7 +555,13 @@ footer {
 }
 
 .page-title {
-    width: 50%;
+    width: calc(100% - 60px);
+    padding: 15px 40px 10px 40px;
+    color: #505050;
+    font-size: 30px;
+    letter-spacing: 15px;
+    border-bottom: 1px solid #10101040;
+    box-shadow: 0 1px 4px #10101040;
 }
 
 .btn-holder {
@@ -627,7 +633,9 @@ footer {
     width: auto;
     padding: 1px;
     border-radius: 4px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 5px;
+    border-bottom: 3px solid #068bde;
+    box-shadow: 0 3px 4px #00000050;
 }
 
 #table-nav .flex-col {
@@ -640,29 +648,31 @@ footer {
     padding: 2px;
 }
 
+.table-body {
+    overflow: scroll;
+    height: calc(100vh - 230px);
+    padding-bottom: 10px;
+}
+
 .card {
-    width: 85%;
+    width: 99%;
     position: relative;
+    margin: auto;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
     flex-direction: column;
-    width: auto;
     word-wrap: break-word;
     background-color: #fff;
-    box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, .125);
-    border-radius: .25rem;
-    box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
-    margin-bottom: 0.5rem;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.40) 0px 2px 4px 0px;
+    margin-top: 0.8rem;
 }
 
 .card-header {
     font-size: 80%;
-    padding: .75rem 2rem .75rem 0rem;
-    margin-bottom: 0;
-    background-color: rgba(0, 0, 0, .03);
-    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    padding: 1.5rem 2rem 1.5rem 0rem;
     display: block;
 }
 
@@ -706,8 +716,8 @@ footer {
     border-radius: 25%;
     float: left;
     margin: 0 .5rem 0 -.5rem;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 40px;
+    width: 40px;
     margin: 0px 5px;
 }
 
@@ -859,23 +869,25 @@ h1.form-ht {
 
 /* ////======CLIENT LIST======//// */
 
-
 .clients .card .card-header a .display li:nth-child(2) {
-
     min-width: 7.5%;
 }
-.clients .card-header{
+
+.clients .card-header {
     padding-left: 2rem;
 }
-.clients .display li{
+
+.clients .display li {
     justify-content: space-evenly;
 }
-.clients .smallpic{
+
+.clients .smallpic {
     margin-left: 4px;
 }
+
 /* ////======CLIENT_MODAL======//// */
 
-#client-modal{
+#client-modal {
     position: fixed;
     top: 0;
     width: 100%;
@@ -883,62 +895,71 @@ h1.form-ht {
     z-index: 3000;
     background-color: white;
     display: none;
-  }
-  #client-modal .container-fluid{
+}
+
+#client-modal .container-fluid {
     margin: 0;
     padding: 0;
     height: 100%
-  }
-  #client-modal .container-fluid .container{
-    margin: 4rem;
-    
-  }
+}
 
-  .box1{
+#client-modal .container-fluid .container {
+    margin: 4rem;
+}
+
+.box1 {
     position: relative;
     width: 30%;
     color: black;
     display: flex;
     justify-content: center;
-  }
-  .box1 img{
+}
+
+.box1 img {
     width: 50%;
     height: 50%;
-  }
-  .box2{
+}
+
+.box2 {
     position: relative;
     width: 70%;
     color: black;
-  }
-  .box2 input{
-    width:80%;
+}
+
+.box2 input {
+    width: 80%;
     height: 2rem;
     border-radius: 4px;
     line-height: 1.5rem;
-  }
-  
-  .box2 .btn{
+}
+
+.box2 .btn {
     min-width: 20%;
     width: 20%;
     padding: 1rem;
     margin-top: 5rem;
     height: auto;
-  }
-  .blue{
+}
+
+.blue {
     background-color: #587BD3;
-  }
-  #client-modal .submit-button{
-      font-size: 17px;
-  }
-  #client-modal .delete-button{
+}
+
+#client-modal .submit-button {
+    font-size: 17px;
+}
+
+#client-modal .delete-button {
     margin-right: 10%;
-  }
-  #client-modal .close img{
-      height: 40px;
-      width: 40px;
-      margin-block-start: 15%;
-  }
-  .modal{
+}
+
+#client-modal .close img {
+    height: 40px;
+    width: 40px;
+    margin-block-start: 15%;
+}
+
+.modal {
     padding: 5rem 1rem;
     background-color: #f9f6f6;
     border-radius: 17px;
@@ -946,4 +967,4 @@ h1.form-ht {
     box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
     margin: auto;
     width: 70%;
-  }
+}
