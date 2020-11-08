@@ -591,7 +591,7 @@ footer {
 .userlist-nav a {
     margin-right: 0.5rem;
     border-radius: 8px;
-    color: white;
+    color: black;
 }
 
 .userlist-nav a li {
@@ -599,28 +599,45 @@ footer {
 }
 
 .userlist-nav a:nth-child(1) {
-    background-color: #7e6cf4;
-}
+    border: 2px solid #7e6cf4;
 
+}
+.userlist-nav a:nth-child(1):hover {
+    background-color:  #7e6cf4;
+    color: white;
+}
 .userlist-nav a:nth-child(2) {
-    background-color: orange;
+    border: 2px solid orange;
+}
+.userlist-nav a:nth-child(2):hover {
+    background-color:  orange;
+    color: white;
 }
 
 .userlist-nav a:nth-child(3) {
-    background-color: #28c128;
+    border: 2px solid #28c128;
+}
+.userlist-nav a:nth-child(3):hover {
+    background-color:#28c128;
+    color: white;
 }
 
 .userlist-nav a:nth-child(4) {
+    border: 2px solid blue;
+}
+.userlist-nav a:nth-child(4):hover {
     background-color: blue;
+    color: white;
 }
 
 .userlist-nav a:nth-child(5) {
-    background-color: #f86128;
+    border: 2px solid#f86128;
+}
+.userlist-nav a:nth-child(5):hover {
+    background-color:#f86128;
+    color: white;
 }
 
-.userlist-nav a:hover {
-    background-color: #7f7f7f;
-}
 
 #table-nav {
     font-size: 80%;
