@@ -1,8 +1,8 @@
 ////====USER-LIST====////
 
 
-const pos = document.querySelector('.userlist-nav');
-const staffList = document.querySelectorAll('.staffs .card');
+var pos = document.querySelector('.userlist-nav');
+var staffList = document.querySelectorAll('.staffs .card');
 var item = document.querySelectorAll('.pos');
 
 pos.addEventListener("click", filterPos);
@@ -67,4 +67,9 @@ function filterPos(e) {
             break;
         }
     }
+}
+function numberWithCommas(x) {
+    var z= x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); 
+    console.log("hey");
+    document.getElementsByClassName('salary').innerText=z;
 }

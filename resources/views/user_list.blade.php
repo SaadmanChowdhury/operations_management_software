@@ -75,9 +75,9 @@
                                 $unit='月';
                             }
 
-
+                    
                             ///====CONVERTING INT TO TEXT====///
-
+                            $salary= number_format($user->unit_price);
                             // USER_ICON URL
                             switch ($user->gender) {
                                 case '0':
@@ -137,7 +137,7 @@
                         @endphp
 
                         {{-- ///====USER-TABLE DETAILS====/// --}}
-                        <div class="card" id="user-row-{{ $user->user_id }}">
+                        <div class="card" id="user-row-{{ $user->user_id }}" onload="numberWithCommas({{ $user->unit_price }})">
                             <div class="card-header">
                                 <a>
                                     <div class="display list-unstyled">
@@ -149,7 +149,7 @@
                                         <li><div class="pos" style="background-color: {{ $bg_color }}">{{ $position }}</div></li>
                                         <li>{{ $user->admission_day }}</li>
                                         <li>{{ $time_diff}}{{ $unit }}</li>
-                                        <li>{{ $user->unit_price }} 円</li>
+                                        <li class="salary">{{ $salary }}円</li>
                                         <li>
                                             <div class="edit">
                                                 <span style="font-size: 11px" class="center"><img src="img/edit.png" style="float: left;" alt="">編集</span>
