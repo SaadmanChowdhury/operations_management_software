@@ -77,7 +77,18 @@
 
                     
                             ///====CONVERTING INT TO TEXT====///
-                            $salary= number_format($user->unit_price);
+
+                            //Converting japanese salary to comma separated string
+                            $salary= strval($user->unit_price);
+                            if(strlen($salary)>=4)
+                            {
+                                $new_salary=substr_replace($salary, ',', -4, 0);
+                                
+                            }
+                            else {
+                                # code...
+                                $new_salary=$salary;
+                            }
                             // USER_ICON URL
                             switch ($user->gender) {
                                 case '0':
@@ -149,7 +160,7 @@
                                         <li><div class="pos" style="background-color: {{ $bg_color }}">{{ $position }}</div></li>
                                         <li>{{ $user->admission_day }}</li>
                                         <li>{{ $time_diff}}{{ $unit }}</li>
-                                        <li class="salary">{{ $salary }}円</li>
+                                        <li class="salary">{{ $new_salary }}円</li>
                                         <li>
                                             <div class="edit">
                                                 <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
