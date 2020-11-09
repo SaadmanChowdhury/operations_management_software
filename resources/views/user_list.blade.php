@@ -148,7 +148,7 @@
                                     <div class="user-name">{{ $user->name }}</div>
                                 </li>
                                 <li>{{ $loc }}</li>
-                                <li><div class="pos" style="background-color: {{ $bg_color }}">{{ $position }}</div></li>
+                                <li><div class="pos pos-{{$position}}">{{ $position }}</div></li>
                                 <li>{{ $user->admission_day }}</li>
                                 <li>{{ $time_diff}}{{ $unit }}</li>
                                 <li>{{ $user->unit_price }} 円</li>
