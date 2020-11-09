@@ -276,32 +276,12 @@ body {
     cursor: pointer;
     transition-duration: 0.4s;
 }
-.btn-orange:after{
-    content: "";
-    background-color:#fec0a8;
-    display: block;
-    position: absolute;
-    padding-top: 300%;
-    padding-left: 350%;
-    margin-left: -20px!important;
-    margin-top: -120%;
-    opacity: 0;
-    transition: all 0.8s;
-
-}
-.btn-orange:hover:after {
-    padding: 0;
-    margin: 0;
-    opacity: 1;
-    transition: 0s
-    /* transform: scale(1.05); */
-}
-.btn-orange:active:after {
-    padding: 0;
-    margin: 0;
-    opacity: 1;
-    transition: 0s
-    /* transform: scale(1.05); */
+.btn-orange:hover{
+    transition: all ease-in 0.3s;
+    border: 2px solid #f65f27;
+    color:  #f65f27;
+    background-color: transparent;
+    /* #ff895d; */
 }
 
 footer {
@@ -479,11 +459,11 @@ footer {
 }
 @keyframes fadeIn{
     0%{
-        background-color: #ff7744;
+        opacity: 0;;
     }
     100%{
         
-        background-color: #f65f27;
+        opacity:1;
     }
 }
 /*////==== MEDIA QUERIES===//// */
@@ -636,6 +616,7 @@ footer {
 
 }
 .userlist-nav a:nth-child(1):hover {
+    transition: all ease-in 0.3s;
     background-color:  #7e6cf4;
     color: white;
 }
@@ -643,6 +624,7 @@ footer {
     border: 2px solid orange;
 }
 .userlist-nav a:nth-child(2):hover {
+    transition: all ease-in 0.3s;
     background-color:  orange;
     color: white;
 }
@@ -651,6 +633,7 @@ footer {
     border: 2px solid #28c128;
 }
 .userlist-nav a:nth-child(3):hover {
+    transition: all ease-in 0.3s;
     background-color:#28c128;
     color: white;
 }
@@ -659,6 +642,7 @@ footer {
     border: 2px solid blue;
 }
 .userlist-nav a:nth-child(4):hover {
+    transition: all ease-in 0.3s;
     background-color: blue;
     color: white;
 }
@@ -667,6 +651,7 @@ footer {
     border: 2px solid#f86128;
 }
 .userlist-nav a:nth-child(5):hover {
+    transition: all ease-in 0.3s;
     background-color:#f86128;
     color: white;
 }
@@ -782,6 +767,11 @@ footer {
     border-radius: 10px;
     width: 50px;
     color: grey;
+}
+.edit:hover{
+    transition: all ease-in 0.3s;
+    background-color: #b9b8b8;
+    color: white;
 }
 
 /* ////======== USER MODAL ==========//// */

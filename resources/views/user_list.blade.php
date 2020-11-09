@@ -152,7 +152,7 @@
                                         <li class="salary">{{ $salary }}円</li>
                                         <li>
                                             <div class="edit">
-                                                <span style="font-size: 11px" class="center"><img src="img/edit.png" style="float: left;" alt="">編集</span>
+                                                <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
                                             </div>
                                         </li>
 
