@@ -68,18 +68,18 @@ var isMouseOnSideBar = false;
 var isMenuUndergoingCloseOperation = false;
 
 function sidebar_expand(sidebar) {
-    sidebar.style.transition = "0.4s ease-out";
-    sidebar.style.width = "225px";
+    sidebar.style.transition = "0.3s ease-out";
+    sidebar.style.width = "250px";
 
     if (mainContainerFlexFlag) {
-        content[0].style.left = "225px";
-        content[0].style.width = "calc(100% - 225px)";
-        content[0].style.transition = "0.4s ease-out";
+        content[0].style.left = "250px";
+        content[0].style.width = "calc(100% - 250px)";
+        content[0].style.transition = "0.3s ease-out";
     }
     // menu.classList.add('fade-left');
 
     setTimeout(function () {
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 5; i++) {
             text[i].style.display = "inline-block";
         }
     }, 200);
@@ -110,14 +110,12 @@ function normalSideBar(sidebar) {
     if (isMouseOnSideBar)
         return;
 
-    setTimeout(function () {
-        for (var i = 0; i < 4; i++) {
-            text[i].style.display = "none";
-        }
-    }, 0);
+    for (var i = 0; i < 5; i++) {
+        text[i].style.display = "none";
+    }
 
     sidebar.style.width = "60px";
-    sidebar.style.transition = "0.4s cubic-bezier(.51,.84,.77,.99)";
+    sidebar.style.transition = "0.3s cubic-bezier(.51,.84,.77,.99)";
     menu.classList.remove('fade-left');
 
     if (mainContainerFlexFlag) {
@@ -165,14 +163,49 @@ function adjustRowHeight() {
             $(".pos").removeClass("row-adjust-tiny-pos");
             break;
     }
+}
 
-    function showCard(cardDom) {
-        cardDom.style.display = "flex";
+function showCard(cardDom) {
+
+    $(cardDom).show();
+    $(cardDom).removeClass("row-adjust-card-no-shadow");
+
+    cardHeader = $(cardDom).children('.card-header');
+    $(cardHeader).removeClass("row-adjust-card-hide");
+    $(cardHeader).find('.smallpic').show();
+    $(cardHeader).find('.pos').css('transition', 'unset');
+
+    $(cardHeader).find('.pos').show();
+    $(cardHeader).find('.edit').show();
+
+    showCard_Inner(cardHeader);
+
+    function showCard_Inner(val) {
+        let cardHeader = val;
+        setTimeout(function () {
+            $(cardHeader).find('.pos').css('transition', '0.3s ease');
+        }, 300)
     }
+}
 
-    function hideCard(cardDom) {
-        cardDom.style.display = "none";
+function hideCard(cardDom) {
+
+    $(cardDom).addClass("row-adjust-card-no-shadow");
+
+    cardHeader = $(cardDom).children('.card-header');
+    $(cardHeader).addClass("row-adjust-card-hide");
+    $(cardHeader).find('.smallpic').hide();
+
+    $(cardHeader).find('.pos').hide();
+
+    $(cardHeader).find('.edit').hide();
+
+    hideCard_Inner(cardDom);
+
+    function hideCard_Inner(val) {
+        let cardDom = val;
+        setTimeout(function () {
+            $(cardDom).hide();
+        }, 300)
     }
-
-
 }
