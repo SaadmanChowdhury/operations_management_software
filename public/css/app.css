@@ -262,11 +262,17 @@ body {
     text-align: center;
     border: none;
     font-weight: 600;
+    overflow: hidden;
+    cursor: pointer;
+    transition-duration: 0.4s;
 }
 
 .btn-orange:hover {
-    background-color: #f65f27;
-    transform: scale(1.05);
+    transition: all ease-in 0.3s;
+    border: 2px solid #f65f27;
+    color: #f65f27;
+    background-color: transparent;
+    /* #ff895d; */
 }
 
 footer {
@@ -448,6 +454,16 @@ footer {
     }
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        ;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 /*////==== MEDIA QUERIES===//// */
 
 /* Extra small devices (phones, 600px and down) */
@@ -597,7 +613,7 @@ footer {
 .userlist-nav a {
     margin-right: 0.5rem;
     border-radius: 8px;
-    color: white;
+    color: black;
 }
 
 .userlist-nav a li {
@@ -605,27 +621,53 @@ footer {
 }
 
 .userlist-nav a:nth-child(1) {
+    border: 2px solid #7e6cf4;
+}
+
+.userlist-nav a:nth-child(1):hover {
+    transition: all ease-in 0.3s;
     background-color: #7e6cf4;
+    color: white;
 }
 
 .userlist-nav a:nth-child(2) {
+    border: 2px solid orange;
+}
+
+.userlist-nav a:nth-child(2):hover {
+    transition: all ease-in 0.3s;
     background-color: orange;
+    color: white;
 }
 
 .userlist-nav a:nth-child(3) {
+    border: 2px solid #28c128;
+}
+
+.userlist-nav a:nth-child(3):hover {
+    transition: all ease-in 0.3s;
     background-color: #28c128;
+    color: white;
 }
 
 .userlist-nav a:nth-child(4) {
+    border: 2px solid blue;
+}
+
+.userlist-nav a:nth-child(4):hover {
+    transition: all ease-in 0.3s;
     background-color: blue;
+    color: white;
 }
 
 .userlist-nav a:nth-child(5) {
-    background-color: #f86128;
+    border: 2px solid#f86128;
 }
 
-.userlist-nav a:hover {
-    background-color: #7f7f7f;
+.userlist-nav a:nth-child(5):hover {
+    transition: all ease-in 0.3s;
+    background-color: #f86128;
+    color: white;
 }
 
 #table-nav {
@@ -651,6 +693,10 @@ footer {
     overflow: scroll;
     height: calc(100vh - 230px);
     padding-bottom: 10px;
+}
+
+#table-nav .fa {
+    margin-left: 10px;
 }
 
 .card {
@@ -695,19 +741,21 @@ footer {
     flex-direction: row;
     flex: 1;
     flex-wrap: wrap;
-    /* min-width: 7.5%; */
+    min-width: 7.5%;
     padding: 0px 5px;
     font-size: 100%;
-    justify-content: space-around;
+    justify-content: center;
     margin: auto;
 }
 
 .display li:nth-child(2) {
     min-width: 20%;
+    margin-left: 5%;
 }
 
 #table-nav .display li:nth-child(2) {
     justify-content: space-around;
+    min-width: 20%;
 }
 
 .display li .user-name {
@@ -754,13 +802,19 @@ footer {
     border: 2px solid #76A6F8;
 }
 
-/* .edit{
+.edit {
     padding: 6px;
     border: 1px solid #b9b8b8;
     border-radius: 10px;
     width: 50px;
     color: grey;
-} */
+}
+
+.edit:hover {
+    transition: all ease-in 0.3s;
+    background-color: #b9b8b8;
+    color: white;
+}
 
 /* ////======== USER MODAL ==========//// */
 
@@ -845,7 +899,7 @@ h1.form-ht {
     width: calc(100vw - 60px);
 }
 
-.button, button, input[type="submit"] {
+.button, button {
     border: none;
     background-color: white;
     padding: 16px 32px;

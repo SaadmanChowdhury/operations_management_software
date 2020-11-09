@@ -63,7 +63,7 @@
 
         <div class="staffs table-body">
 
-            {{-- ///====ELAPSED TIME CALCULATION====/// --}}
+        {{-- ///====ELAPSED TIME CALCULATION====/// --}}
             @foreach ($users as $user)
                 @php
                     
@@ -76,9 +76,20 @@
                         $unit='月';
                     }
 
-
+            
                     ///====CONVERTING INT TO TEXT====///
 
+                    //Converting japanese salary to comma separated string
+                    $salary= strval($user->unit_price);
+                    if(strlen($salary)>=4)
+                    {
+                        $new_salary=substr_replace($salary, ',', -4, 0);
+                        
+                    }
+                    else {
+                        # code...
+                        $new_salary=$salary;
+                    }
                     // USER_ICON URL
                     switch ($user->gender) {
                         case '0':
@@ -133,12 +144,11 @@
                             $position='SE';
                             break;
                     }
-
-
                 @endphp
 
+
                 {{-- ///====USER-TABLE DETAILS====/// --}}
-                <div class="card" id="user-row-{{ $user->user_id }}">
+                <div class="card" id="user-row-{{ $user->user_id }}" onload="numberWithCommas({{ $user->unit_price }})">
                     <div class="card-header">
                         <a>
                             <div class="display list-unstyled">
@@ -149,10 +159,10 @@
                                 <li>{{ $loc }}</li>
                                 <li><div class="pos pos-{{$position}}">{{ $position }}</div></li>
                                 <li>{{ $time_diff}}{{ $unit }}</li>
-                                <li>{{ $user->unit_price }} 円</li>
+                                <li class="salary">{{ $new_salary }}円</li>
                                 <li>
                                     <div class="edit">
-                                        <span style="font-size: 11px" class="center"><img src="img/edit.png" style="float: left;" alt="">編集</span>
+                                        <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
                                     </div>
                                 </li>
 
