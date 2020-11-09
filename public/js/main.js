@@ -151,6 +151,7 @@ function adjustRowHeight() {
             $(".card-header").addClass("row-adjust-compressed");
             $(".smallpic").addClass("row-adjust-smaller-pic");
             $(".pos").addClass("row-adjust-tiny-pos");
+            $(".edit").addClass("row-adjust-button-compressed")
             break;
         case 2:
             ROW_STATE++;
@@ -161,6 +162,7 @@ function adjustRowHeight() {
             $(".card-header").removeClass("row-adjust-compressed");
             $(".smallpic").removeClass("row-adjust-smaller-pic");
             $(".pos").removeClass("row-adjust-tiny-pos");
+            $(".edit").removeClass("row-adjust-button-compressed")
             break;
     }
 }
@@ -174,6 +176,7 @@ function showCard(cardDom) {
     $(cardHeader).removeClass("row-adjust-card-hide");
     $(cardHeader).find('.smallpic').show();
     $(cardHeader).find('.pos').css('transition', 'unset');
+    $(cardHeader).find('.edit').css('transition', 'unset');
 
     $(cardHeader).find('.pos').show();
     $(cardHeader).find('.edit').show();
@@ -184,6 +187,7 @@ function showCard(cardDom) {
         let cardHeader = val;
         setTimeout(function () {
             $(cardHeader).find('.pos').css('transition', '0.3s ease');
+            $(cardHeader).find('.edit').css('transition', '0.3s ease-out all');
         }, 300)
     }
 }
@@ -197,7 +201,6 @@ function hideCard(cardDom) {
     $(cardHeader).find('.smallpic').hide();
 
     $(cardHeader).find('.pos').hide();
-
     $(cardHeader).find('.edit').hide();
 
     hideCard_Inner(cardDom);

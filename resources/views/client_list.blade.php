@@ -42,7 +42,7 @@
                         @endif
 
                         @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
-                            <li><span class="fa fa-filter fa-lg"></span><span class="fa fa-caret-down"></span></li>
+                            <li><span class="fa fa-filter fa-lg fa-color-midori">Filter</span></li>
                         @endif
                     </ul>
                 </div>
@@ -70,7 +70,13 @@
                                     <li>5000,0000 円</li>
                                     <li>1200,0000 円</li>
                                 @endif
-                                <li><span><img src="img/edit.png" alt=""></span></li>
+
+                                <li>
+                                    <div class="edit">
+                                        <span style="font-size: 11px; margin:6px;width:auto"
+                                            class="fa fa-pencil"></span>編集
+                                    </div>
+                                </li>
                             </div>
                         </div>
                     </div>

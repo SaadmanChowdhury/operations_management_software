@@ -16,10 +16,10 @@
                 <li> 全て</li>
             </a>
             <a href="">
-                <li> PL</li>
+                <li> PM</li>
             </a>
             <a href="">
-                <li> PM</li>
+                <li> PL</li>
             </a>
             <a href="">
                 <li> SE</li>
@@ -43,14 +43,25 @@
         <div id="table-nav" class="primary">
             <div class="flex-col">
                 <ul class="display list-unstyled">
+                    {{-- 
                     <li> コード <span class="fa fa-caret-down"></span></li>
                     <li>氏名 <span class="fa fa-caret-down"></span></li>
                     <li>所属 <span class="fa fa-caret-down"></span></li>
                     <li>ポジション <span class="fa fa-caret-down"></span></li>
                     <li>経過月数 <span class="fa fa-caret-down"></span></li>
-                    <li>単価(最新) <span class="fa fa-caret-down"></span></li>
-
+                    <li>単価(最新) <span class="fa fa-caret-down"></span></li> 
                     <li><span class="fa fa-filter fa-lg"></span><span class="fa fa-caret-down"></span></li>
+                    --}}
+                    
+
+                    <li> コード</li>
+                    <li>氏名</li>
+                    <li>所属</li>
+                    <li>ポジション</li>
+                    <li>経過月数</li>
+                    <li>単価(最新)</li>
+
+                    <li><span class="fa fa-filter fa-lg fa-color-primary">Filter</span> </li>
                 </ul>
             </div>
 

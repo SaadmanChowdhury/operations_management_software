@@ -612,61 +612,68 @@ footer {
 
 .userlist-nav a {
     margin-right: 0.5rem;
-    border-radius: 8px;
-    color: black;
+    border-radius: 0px;
+    transition: all ease-out 0.3s;
+    border: 2px solid black;
+    border-width: 0 0 2px 0;
+    font-weight: 600;
+}
+
+.userlist-nav a:hover {
+    border-radius: 4px;
 }
 
 .userlist-nav a li {
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 1.3rem 0.5rem 1.3rem;
 }
 
 .userlist-nav a:nth-child(1) {
-    border: 2px solid #7e6cf4;
+    border-color: #7e6cf4;
+    color: #7e6cf4;
 }
 
 .userlist-nav a:nth-child(1):hover {
-    transition: all ease-in 0.3s;
     background-color: #7e6cf4;
     color: white;
 }
 
 .userlist-nav a:nth-child(2) {
-    border: 2px solid orange;
+    border-color: #ED5D2A;
+    color: #ED5D2A;
 }
 
 .userlist-nav a:nth-child(2):hover {
-    transition: all ease-in 0.3s;
-    background-color: orange;
+    background-color: #ED5D2A;
     color: white;
 }
 
 .userlist-nav a:nth-child(3) {
-    border: 2px solid #28c128;
+    border-color: orange;
+    color: orange;
 }
 
 .userlist-nav a:nth-child(3):hover {
-    transition: all ease-in 0.3s;
-    background-color: #28c128;
+    background-color: orange;
     color: white;
 }
 
 .userlist-nav a:nth-child(4) {
-    border: 2px solid blue;
+    border-color: #55AF33;
+    color: #55AF33;
 }
 
 .userlist-nav a:nth-child(4):hover {
-    transition: all ease-in 0.3s;
-    background-color: blue;
+    background-color: #55AF33;
     color: white;
 }
 
 .userlist-nav a:nth-child(5) {
-    border: 2px solid#f86128;
+    border-color: blue;
+    color: blue;
 }
 
 .userlist-nav a:nth-child(5):hover {
-    transition: all ease-in 0.3s;
-    background-color: #f86128;
+    background-color: blue;
     color: white;
 }
 
@@ -696,7 +703,13 @@ footer {
 }
 
 #table-nav .fa {
-    margin-left: 10px;
+    margin-left: -10px;
+    background-color: white;
+    width: 50px;
+    padding: 7px 7px;
+    border-radius: 5px;
+    font-size: 13px;
+    text-align: center;
 }
 
 .card {
@@ -808,10 +821,11 @@ footer {
     border-radius: 10px;
     width: 50px;
     color: grey;
+    transition: all ease-out 0.3s;
+    cursor: pointer;
 }
 
 .edit:hover {
-    transition: all ease-in 0.3s;
     background-color: #b9b8b8;
     color: white;
 }
@@ -1047,6 +1061,8 @@ h1.form-ht {
     width: 70%;
 }
 
+/* ////====ROW ADJUSTMENTS====//// */
+
 .row-adjust-adjacent {
     border-radius: unset;
     box-shadow: unset;
@@ -1065,7 +1081,7 @@ h1.form-ht {
 
 .row-adjust-tiny-pos {
     padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+    border-radius: 3px;
     border: unset;
 }
 
@@ -1079,6 +1095,13 @@ h1.form-ht {
     padding-top: 0;
     padding-bottom: 0;
     font-size: 0;
+}
+
+.row-adjust-button-compressed {
+    padding: 0;
+    font-size: 0;
+    border-radius: 4px;
+    width: 22px;
 }
 
 /* ////====COLORS====//// */
@@ -1099,4 +1122,12 @@ h1.form-ht {
     background-color: lightgray;
     border-bottom: 3px solid gray;
     color: gray;
+}
+
+.fa-color-primary {
+    color: #3AA0DE;
+}
+
+.fa-color-midori {
+    color: #28c128;
 }
