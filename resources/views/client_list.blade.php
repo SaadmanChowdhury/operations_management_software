@@ -2,7 +2,7 @@
 
 {{-- ///====PAGE TITLE --}}
 <div class="page-title">
-    <span class="fa fa-users" style="height: 40px; width: 40px; font-size: 40px; color: #505050;"></span>
+    <span class="fa fa-users"></span>
     顧客一覧
 </div>
 

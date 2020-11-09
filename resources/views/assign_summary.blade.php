@@ -1,5 +1,64 @@
 @include("header")
 
-<h1>Assign Summary view testing text</h1>
+{{-- ///====PAGE TITLE --}}
+<div class="page-title">
+    <span class="fa fa-home"></span>
+    アサインサマリー
+</div>
+
+{{-- ///====REGISTER BUTTON====/// --}}
+{{-- <div id="client-list" class="btn-holder float-right">
+    <a href="" class="register-btn btn-orange"><span class="fa fa-plus"></span> 新 規 追 加</a>
+</div> --}}
+
+<div class="d-flex">
+
+    <div class="row row-content">
+        <div class="content-width">
+
+            <ul class="userlist-nav center list-unstyled">
+                <a href="">
+                    <li> 全て</li>
+                </a>
+            </ul>
+            <ul class="userlist-nav center list-unstyled" style="float: right;">
+                <a href="" onclick="adjustRowHeight()">
+                    <li class="fa fa-list"> </li>
+                </a>
+            </ul>
+
+            <hr />
+
+            {{-- ///====ASSIGN-SUMMARY-TABLE HEADER====///
+            --}}
+            <div id="table-nav" class="gray">
+                <div class="flex-col">
+                    <ul class="display list-unstyled">
+                        <li> コード</li>
+                        <li> コード</li>
+                        <li> コード</li>
+                        <li> コード</li>
+                        <li> コード</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            {{-- ///====ASSIGN-SUMMARY-TABLE DETAILS====///
+            --}}
+
+            <div class="assign-summary table-body">
+
+                <div class="card" id="assign-summary-row-">
+                    <div class=" card-header">
+                        <div class="display list-unstyled">
+                            <li>準備中</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @include("footer")

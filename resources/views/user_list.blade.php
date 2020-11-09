@@ -2,7 +2,7 @@
 
 {{-- ///====PAGE TITLE --}}
 <div class="page-title">
-    <span class="fa fa-user" style="height: 40px; width: 40px; font-size: 40px; color: #505050;"></span>
+    <span class="fa fa-user"></span>
     ユーザー一覧
 </div>
 

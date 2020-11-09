@@ -112,18 +112,6 @@ body {
     float: left;
 }
 
-/* ////====COLORS====//// */
-
-.primary {
-    background-color: #3AA0DE;
-    color: white;
-}
-
-.midori {
-    background-color: #28c128;
-    color: white;
-}
-
 /*////====MARGIN====////*/
 
 .ml-auto {
@@ -569,6 +557,13 @@ footer {
     box-shadow: 0 1px 4px #10101040;
 }
 
+.page-title span {
+    height: 40px;
+    width: 40px;
+    font-size: 40px;
+    color: #505050;
+}
+
 .btn-holder {
     width: 50%;
 }
@@ -639,7 +634,6 @@ footer {
     padding: 1px;
     border-radius: 4px;
     margin-bottom: 5px;
-    border-bottom: 3px solid #068bde;
     box-shadow: 0 3px 4px #00000050;
 }
 
@@ -1031,4 +1025,24 @@ h1.form-ht {
     padding-top: 0;
     padding-bottom: 0;
     font-size: 0;
+}
+
+/* ////====COLORS====//// */
+
+.primary {
+    background-color: #3AA0DE;
+    border-bottom: 3px solid #068bde;
+    color: white;
+}
+
+.midori {
+    background-color: #28c128;
+    border-bottom: 3px solid #278627;
+    color: white;
+}
+
+.gray {
+    background-color: lightgray;
+    border-bottom: 3px solid gray;
+    color: gray;
 }
