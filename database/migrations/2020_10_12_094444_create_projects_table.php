@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration
             $table->increments('project_id')->unsigned();
 
             $table->string('project_name', 100);
-            $table->unsignedInteger('customer_id')->length(10);
+            $table->unsignedInteger('client_id')->length(10);
             $table->unsignedInteger('manager_id')->length(10);
 
             $table->date('order_month')->nullable();

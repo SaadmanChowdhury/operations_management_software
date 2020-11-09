@@ -18,15 +18,15 @@ class ClientsTableSeeder extends Seeder
 
         $data = [
             [
-                'customer_name' => 'Internal',
+                'client_name' => 'Internal',
                 'user_id' => 1,
             ],
             [
-                'customer_name' => 'ASE',
+                'client_name' => 'ASE',
                 'user_id' => 1,
             ],
             [
-                'customer_name' => 'PIVOT',
+                'client_name' => 'PIVOT',
                 'user_id' => 1,
             ],
         ];

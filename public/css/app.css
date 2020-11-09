@@ -709,8 +709,6 @@ footer {
 }
 
 .display li:nth-child(2) {
-    display: flex;
-    justify-content: flex-start;
     min-width: 20%;
 }
 

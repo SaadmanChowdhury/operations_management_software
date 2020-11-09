@@ -4,9 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
+
+    public function index()
+    {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
+        $client = new Client();
+        $list = $client->readClientList();
+        $viewParams["list"] = $list;
+        $viewParams["loggedInAuthority"] = auth()->user()->user_authority;
+        return view('client_list', $viewParams);
+    }
 
     public function create()
     {

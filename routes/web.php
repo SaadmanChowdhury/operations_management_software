@@ -81,8 +81,9 @@ Route::get('/project', function () {
 //----------------------------------------------------------------------------
 //----------------------------------------------------------------------------
 
-Route::get('/client', function () {
-    return view('client_list');
+Route::get('/client', [ClientController::class, 'index']);
+Route::get('/client-list', function () {
+    return redirect('client');
 });
 
 //for testing the method
