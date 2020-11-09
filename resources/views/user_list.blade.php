@@ -47,7 +47,6 @@
                     <li>氏名 <span class="fa fa-caret-down"></span></li>
                     <li>所属 <span class="fa fa-caret-down"></span></li>
                     <li>ポジション <span class="fa fa-caret-down"></span></li>
-                    <li>入場日 <span class="fa fa-caret-down"></span></li>
                     <li>経過月数 <span class="fa fa-caret-down"></span></li>
                     <li>単価(最新) <span class="fa fa-caret-down"></span></li>
 
@@ -149,7 +148,6 @@
                                 </li>
                                 <li>{{ $loc }}</li>
                                 <li><div class="pos pos-{{$position}}">{{ $position }}</div></li>
-                                <li>{{ $user->admission_day }}</li>
                                 <li>{{ $time_diff}}{{ $unit }}</li>
                                 <li>{{ $user->unit_price }} 円</li>
                                 <li>

@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
 
         $data = [
             [
-                'name' => 'Nakmura',
+                'name' => '中村',
                 'email' => 'nakamura@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Konaka',
+                'name' => '小中',
                 'email' => 'konaka@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -48,7 +48,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Maruta',
+                'name' => '丸田',
                 'email' => 'maruta@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -63,7 +63,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Tominaga',
+                'name' => '富永',
                 'email' => 'tominaga@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -78,7 +78,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Kanai',
+                'name' => '金井',
                 'email' => 'Kanai@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -93,7 +93,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Daiki',
+                'name' => '大起',
                 'email' => 'daiki@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -108,7 +108,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Saadman',
+                'name' => 'サードマン',
                 'email' => 'saadman@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -123,7 +123,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Sumaya',
+                'name' => 'スマイヤ',
                 'email' => 'sumaya@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -138,7 +138,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Kaku',
+                'name' => '賀来',
                 'email' => 'kaku@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -153,7 +153,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Kameshima',
+                'name' => '亀嶋',
                 'email' => 'kameshima@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -168,11 +168,11 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Tamura',
+                'name' => '田村',
                 'email' => 'tamura@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
-                'gender' => 0, //male
+                'gender' => 1, //female
                 'location' => 1, //tokyo
                 'tel' => '0123456789',
                 'position' => 3, //PG
@@ -183,7 +183,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Matsumoto',
+                'name' => '松本',
                 'email' => 'matsumoto@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -198,7 +198,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Samiul',
+                'name' => 'サミウール',
                 'email' => 'samiul@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -213,7 +213,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Sofia',
+                'name' => 'ソフィア',
                 'email' => 'sofia@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
@@ -228,7 +228,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'Utshab',
+                'name' => 'ウッシャブ',
                 'email' => 'utshab@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
