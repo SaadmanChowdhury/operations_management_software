@@ -644,8 +644,8 @@ footer {
 }
 
 #table-nav .flex-col {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 14vw;
+    padding-right: 15vw;
 }
 
 #table-nav .row {
@@ -670,8 +670,8 @@ footer {
     word-wrap: break-word;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, .125);
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px 0px;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 5px 0px;
     margin-top: 0.8rem;
     transition: 0.3s ease;
 }
@@ -682,7 +682,7 @@ footer {
 
 .card-header {
     font-size: 80%;
-    padding: 1.5rem 2rem 1.5rem 0rem;
+    padding: 1.2rem 15vw 1.1rem 14vw;
     display: block;
     transition: 0.3s ease;
 }
