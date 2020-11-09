@@ -28,7 +28,12 @@ class UserController extends Controller
             return redirect('/login');
         }
 
-        return view('user.create');
+        $loggedUser = auth()->user();
+        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+            return view('user.create');
+        } else {
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        }
     }
 
     public function getEditView($id)
@@ -37,8 +42,9 @@ class UserController extends Controller
             return redirect('/login');
         }
 
+        $loggedUser = auth()->user();
         $user = User::find($id);
-        return view('user.edit', compact('user'));
+        return view('user.edit', compact('user', 'loggedUser'));
     }
 
     public function createUser(Request $request)
@@ -98,13 +104,13 @@ class UserController extends Controller
         }
     }
 
-    public function deleteUser($id)
+    public function deleteUser(Request $request)
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
 
             $user = new User();
-            $user->deleteUser($id);
+            $user->deleteUser($request->id);
             return JSONHandler::emptySuccessfulJSONPackage();
         } else {
 
