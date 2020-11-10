@@ -264,6 +264,9 @@ body {
     font-weight: 600;
     overflow: hidden;
     cursor: pointer;
+    height:50px;
+    width: 80px;
+    padding: 2px 10px;
     transition-duration: 0.4s;
 }
 
@@ -271,6 +274,8 @@ body {
     transition: all ease-in 0.3s;
     border: 2px solid #f65f27;
     color: #f65f27;
+    width: fixed;
+    height:fixed;
     background-color: transparent;
     /* #ff895d; */
 }
@@ -1123,7 +1128,11 @@ h1.form-ht {
     border-bottom: 3px solid gray;
     color: gray;
 }
-
+.orange{
+    background-color: orange;
+    border-bottom: 3px solid #ff895d;
+    color: white;
+}
 .fa-color-primary {
     color: #3AA0DE;
 }
@@ -1131,3 +1140,95 @@ h1.form-ht {
 .fa-color-midori {
     color: #28c128;
 }
+
+
+
+/* ////====PROJECT-LIST====//// */
+
+.collapse{
+    display: none;
+  }
+
+.card-body{
+    width: 95%;
+    position: relative;
+    padding: 1.25rem;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+
+}
+
+.round-btn{
+    border-radius: 50%;
+  }
+  .danger{
+    background-color: red;
+    color: white;
+  
+  }
+  .success{
+    background-color: #6AF141;
+    color: white;
+  }
+  #accordian .row {
+  
+    position: relative;
+      display: inline-flex;
+    flex-direction: row;
+      box-sizing: border-box;
+    justify-content: center;
+    
+  }
+  #accordian table{
+    position: relative;
+   border-collapse: collapse;
+   font-size: 65%;
+   border-radius: 7px;
+   box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
+   margin-bottom: 0px;
+   width: 100%;
+
+ }
+ th:first-of-type {
+ border-top-left-radius: 5px;
+ }
+ th:last-of-type {
+   border-top-right-radius: 5px;
+ }
+ tr:last-of-type td:first-of-type {
+   border-bottom-left-radius: 5px;
+ }
+ tr:last-of-type td:last-of-type {
+   border-bottom-right-radius: 5px;
+ }
+ th{
+   border-top-left-radius: 2px;
+   border-top-right-radius: 2px;
+   background-color: #3AA0DE;
+   color: white;
+ }
+ td, th {
+
+   border: 0.5px solid #dddddd;
+   padding: .5rem; 
+   vertical-align: top;
+   width: 100%;
+   text-align: center;
+   overflow-wrap: break-word;
+ }
+
+ #table-nav th{
+    border: 0px solid #dddddd;
+    margin: 0;
+    font-size: 100%;
+  }
+  
+  td img{
+    border-radius: 25%;
+      float: left;
+      margin: 0 .5rem 0 -.5rem;
+      height: 1rem;
+      width: 1rem;
+      margin: 0px 5px;
+  
+  }
