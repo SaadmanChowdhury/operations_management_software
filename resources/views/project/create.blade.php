@@ -15,6 +15,11 @@
         <label>manager_id:</label>
         <input type="number" name="manager_id">
     </div>
+    <div>
+        <label>sales_total:</label>
+        <input type="number" name="sales_total">
+    </div>
+
 
     <div>
         <button type="submit">Add Project</button>

@@ -16,6 +16,10 @@
         <label>manager_id:</label>
         <input type="number" name="manager_id" value="{{ $project->manager_id }}">
     </div>
+    <div>
+        <label>sales_total:</label>
+        <input type="number" name="sales_total" value="{{ $project->sales_total }}">
+    </div>
 
     <div>
         <button type="submit">Update Project</button>

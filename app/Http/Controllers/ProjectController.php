@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Utilities\JSONHandler;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,49 +42,27 @@ class ProjectController extends Controller
 
     public function createProject(Request $request)
     {
-        $loggedUser = auth()->user();
-
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
-            $project = new Project();
-            $project->createProject($request);
-            return JSONHandler::emptySuccessfulJSONPackage();
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        $project = new Project();
+        $project->createProject($request);
     }
 
     public function readProject($id)
     {
-        if (Auth::check()) {
-            $project = new Project();
-            $info = $project->readProject($id);
-            return JSONHandler::packagedJSONData($info);
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        $project = new Project();
+        $project->readProject($id);
     }
 
     public function updateProject(Request $request)
     {
 
         $project_id = $request->project_id;
-        $loggedUser = auth()->user();
-
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
-            $project = new Project();
-            $project->updateProject($request, $project_id);
-            return JSONHandler::emptySuccessfulJSONPackage();
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        $project = new Project();
+        $project->updateProject($request, $project_id);
     }
 
     public function deleteProject($id)
     {
-        $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
-            $project = new Project();
-            $project->deleteProject($id);
-            return JSONHandler::emptySuccessfulJSONPackage();
-        } else {
-            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
-        }
+        $project = new Project();
+        $project->deleteProject($id);
     }
 }
