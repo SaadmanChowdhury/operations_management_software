@@ -28,6 +28,7 @@ class User extends Authenticatable
         'commercial_distribute',
         'tel',
         'position',
+        'location',
         'admission_day',
         'exit_day',
         'unit_price',
@@ -54,6 +55,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // protected $telFormat = 'Y-m-d';
 
     /**
      * retrieving all users information
@@ -114,6 +117,7 @@ class User extends Authenticatable
             'commercial_distribute' => '',
             'tel' => 'required',
             'position' => 'required',
+            'location' => 'required',
             'admission_day' => 'required',
             'exit_day' => '',
             'unit_price' => 'required',
@@ -122,10 +126,42 @@ class User extends Authenticatable
         ]);
 
         $validatedData['password'] = bcrypt($request->password);
+        $validatedData['position'] = $this->convertPositionToInt($request->position);
+        $validatedData['user_authority'] = $this->convertAuthToInt($request->user_authority);
+        $validatedData['location'] = $this->convertLocationToInt($request->location);
 
         //saving new record
         User::create($validatedData);
     }
+
+    public function convertPositionToInt($sentPos) {
+        $allPos = config('constants.Position');
+        foreach($allPos as $pos => $intPos) {
+            if($pos==$sentPos) {
+                return $intPos;
+            }
+        }
+    }
+
+    public function convertAuthToInt($sentAuth) {
+        $allAuth = config('constants.User_authority');
+        foreach($allAuth as $auth => $intAuth) {
+            if($auth==$sentAuth) {
+                return $intAuth;
+            }
+        }
+    }
+
+    public function convertLocationToInt($sentLoc) {
+        $allLoc = config('constants.Location');
+        foreach($allLoc as $Loc => $intLoc) {
+            if($Loc==$sentLoc) {
+                return $intLoc;
+            }
+        }
+    }
+
+
 
     public function updateUser($request, $id)
     {
@@ -157,6 +193,8 @@ class User extends Authenticatable
         }
 
         //validating data
+        $validatedData['position'] = $this->convertPositionToInt($request->position);
+        $validatedData['location'] = $this->convertLocationToInt($request->location);
         $validatedData = $request->validate($rules);
 
         //hashing password
