@@ -30,7 +30,7 @@
             <hr />
 
             {{-- ///====PROJECT-TABLE HEADER====/// --}}
-            <div id="table-nav" class="orange">
+            <div id="table-nav" class="primary">
                 <div class="flex-col">
                     <ul class="display list-unstyled">
                         <li> 案件名</li>

@@ -1163,11 +1163,13 @@ h1.form-ht {
   }
   .danger{
     background-color: red;
+    border: 1px solid red;
     color: white;
   
   }
   .success{
     background-color: #6AF141;
+    border: 1px solid #6AF141;
     color: white;
   }
   #accordian .row {
@@ -1189,6 +1191,25 @@ h1.form-ht {
    width: 100%;
 
  }
+ .table-right{
+    float: right;
+    margin-right: 3%;
+    width: auto;
+    height: auto;
+   
+  }
+  .table-left{
+    position: relative;
+    float: left;
+    margin-right: auto;
+    margin-left: 0; 
+    width: auto;
+  }
+
+  .table-left table td{
+    
+    width:4rem; 
+  }
  th:first-of-type {
  border-top-left-radius: 5px;
  }
