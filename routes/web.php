@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -95,3 +96,14 @@ Route::get('/user-modal', function () {
 Route::get('/client-modal', function () {
     return view('client-modal');
 });
+
+
+
+Route::get('project/create', [ProjectController::class, 'getCreateView']);
+Route::get('project/edit/{id}', [ProjectController::class, 'getEditView']);
+
+Route::get('/project', [ProjectController::class, 'index']);
+Route::post("/API/createProject", [ProjectController::class, 'createProject']);
+Route::post("/API/readProject",   [ProjectController::class, 'readProject']);
+Route::post("/API/updateProject", [ProjectController::class, 'updateProject']);
+Route::post("/API/deleteProject", [ProjectController::class, 'deleteProject']);
