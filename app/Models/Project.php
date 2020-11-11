@@ -41,7 +41,7 @@ class Project extends Model
             'development_stage',
             'sales_total',
             'transferred_amount',
-        ])->get();
+        ])->whereNull("deleted_at")->get()->toArray();
 
         return $project;
     }
