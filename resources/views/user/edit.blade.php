@@ -1,116 +1,128 @@
 @include("header")
 
-<div>
-    <h1 class="form-ht">Edit User</h1>
-    <span class="close"><img src="img/cross.png" class="cross" alt="cross button"></span>
-</div>
 
-<div class="form-container">
-    <form id="edit_form" action="" method="">
-        @csrf
+<div class="modal-container" id="user-edit-modal">
 
-        <div class="row">
-            <div class="column left">
+    <div class="modal-title primary">
+        <span class="form-ht">ユーザー編集</span>
+        <span class="fa fa-chevron-right close" onclick="closeModal('user-edit-modal')"></span>
+    </div>
 
-                {{-- Img Field Starts --}}
-                <div>
-                    <img src="img/dp.png" class="dp" alt="display photo">
+    <div class="form-container">
+        <form id="edit_form" action="" method="">
+            @csrf
+
+            <div class="row">
+
+                <div class="column left">
+                    <div>
+                        <img src="{{ asset('img/dp.png') }}" class="dp" alt="display photo">
+                    </div>
+
+                    <div>
+                        <button type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> 更新</button>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="cancel"><i class="fa fa-times" aria-hidden="true"
+                                onclick="closeModal('user-edit-modal')"></i> 戻る</button>
+                    </div>
+
+                    @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
+                        <div>
+                            <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
+                                    aria-hidden="true"></i>
+                                削除</a>
+                        </div>
+                    @endif
                 </div>
-                {{-- Img Field Ends --}}
+
+                <div class="column right">
+                    <input type="hidden" id="id" value="{{ $user->user_id }}">
+
+
+                    <div><label for="name">名前</label></div>
+                    <div><input type="text" id="nameInput" name="name" value="{{ $user->name }}" required></div>
+
+
+                    <div><label for="email">メールアドレス</label></div>
+                    <div><input type="email" id="emailInput" name="email" value="{{ $user->email }}"></div>
+
+
+                    <div><label for="password">パスワード</label></div>
+                    <div><input type="password" id="passwordInput" name="password"></div>
+
+
+                    <div><label for="tel">電話番号</label></div>
+                    <div><input type="text" id="telInput" name="tel" value="{{ $user->tel }}"></div>
+
+
+                    <div><label>職場</label></div>
+                    <div class="custom-select">
+                        <select id="locationInput">
+                            @foreach (config('constants.Location') as $location => $value)
+                                @if ($user->location == $value)
+                                    <option value="{{ $user->location }}" selected>{{ $location }}</option>
+                                @else
+                                    <option value="{{ $value }}">{{ $location }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+
+                    <div><label>ポジション</label></div>
+                    <div class="custom-select">
+                        <select id="positionInput">
+                            @foreach (config('constants.Position') as $position => $value)
+                                @if ($user->position == $value)
+                                    <option value="{{ $user->position }}" selected>{{ $position }}</option>
+                                @else
+                                    <option value="{{ $value }}">{{ $position }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+
+                    <div><label for="admission_day">入場日</label></div>
+                    @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
+                        <div><input type="date" id="admission_day" name="admission_day"
+                                value="{{ $user->admission_day }}">
+                        </div>
+                    @else
+                        <div>
+                            <p>{{ $user->admission_day }}</p>
+                        </div>
+                    @endif
+
+
+                    <div><label for="resignation_year">退職日</label></div>
+                    @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
+                        <div><input type="date" id="resignation_yearInput" name="resignation_year"></div>
+                    @else
+                        <div>
+                            <p>{{ $user->exit_day }}</p>
+                        </div>
+                    @endif
+
+
+                    <div><label for="salary">原価</label></div>
+                    @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
+                        <div><input type="number" id="salaryInput" name="salary" value="{{ $user->unit_price }}"
+                                required>
+                        </div>
+                    @else
+                        <div>
+                            <p>{{ $user->unit_price }}</p>
+                        </div>
+                    @endif
+
+                </div>
             </div>
 
-            <div class="column right">
-                <input type="hidden" id="id" value="{{ $user->user_id }}">
-                
-                {{-- Name Field Starts --}}
-                <div><label for="name">Name</label></div>
-                <div><input type="text" id="nameInput" name="name" value="{{ $user->name }}" required></div>
-                {{-- Name Field Ends --}}
-
-                {{-- Email Field Starts --}}
-                <div><label for="email">Email</label></div>
-                <div><input type="email" id="emailInput" name="email" value="{{ $user->email }}"></div>
-                {{-- Email Field Ends --}}
-
-                {{-- Password Field Starts --}}
-                <div><label for="password">Password</label></div>
-                <div><input type="password" id="passwordInput" name="password"></div>
-                {{-- Password Field Ends --}}
-
-                {{-- Telephone Field Starts --}}
-                <div><label for="tel">Telephone</label></div>
-                <div><input type="text" id="telInput" name="tel" value="{{ $user->tel }}"></div>
-                {{-- Telephone Field Ends --}}
-
-                {{-- Location Dropdown Starts --}}
-                <div><label>Location</label></div>
-                <div class="custom-select">
-                    <select id="locationInput" >
-                        @foreach (config('constants.Location') as $location => $value)
-                            @if ($user->location == $value) 
-                                <option value="{{ $user->location }}" selected>{{ $location }}</option> 
-                            @else
-                                <option value="{{ $value }}">{{ $location }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-                {{-- Location Dropdown Ends --}}
-
-                {{-- Position Dropdown Starts --}}
-                <div><label>Position</label></div>
-                <div class="custom-select">
-                    <select id="positionInput">
-                        @foreach (config('constants.Position') as $position => $value)
-                            @if ($user->position == $value) 
-                                <option value="{{ $user->position }}" selected>{{ $position }}</option> 
-                            @else
-                                <option value="{{ $value }}">{{ $position }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-                {{-- Position Dropdown Ends --}}
-
-                {{-- Admission_Day Field Starts --}}
-                <div><label for="admission_day">Admission Day</label></div>
-                @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                    <div><input type="date" id="admission_day" name="admission_day" value="{{ $user->admission_day }}"></div>
-                @else
-                    <div><p>{{ $user->admission_day }}</p></div>
-                @endif
-                {{-- Admission_Day Field Ends --}}
-
-                {{-- Resignation_year Field Starts --}}
-                <div><label for="resignation_year">Resignation Year</label></div>
-                @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                    <div><input type="date" id="resignation_yearInput" name="resignation_year"></div>
-                @else
-                    <div><p>{{ $user->exit_day }}</p></div>
-                @endif
-                {{-- Resignation_year Field Ends --}}
-
-                {{-- Salary Field Starts --}}
-                <div><label for="salary">Salary ¥</label></div>
-                @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                    <div><input type="number" id="salaryInput" name="salary" value="{{ $user->unit_price }}" required></div>
-                @else
-                    <div><p>{{ $user->unit_price }}</p></div>
-                @endif
-                {{-- Salary Field Ends --}}
-
-                {{-- buttons start --}}
-                {{-- <a class="button submit-button" id="submit-button"> <i class="fa fa-floppy-o" aria-hidden="true"></i> 更新</a> --}}
-                <div><button type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i>  更新</button> </div>
-                @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                    <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o" aria-hidden="true"></i> 削除</a>
-                @endif
-                {{-- buttons end --}}
-
-            </div>
-        </div>
-
-    </form>
+        </form>
+    </div>
 </div>
 
 
@@ -173,7 +185,7 @@
                 url: "/API/deleteUser",
                 data: {
                     id: $('#id').val(),
-                    _token: $('input[name=_token]').val() 
+                    _token: $('input[name=_token]').val()
                 },
                 cache: false,
                 success: function(response) {
@@ -182,13 +194,12 @@
                 error: function(err) {
                     handleAJAXError(err);
                 }
-            }); 
+            });
         });
-        
 
-        
+
+
     });
-
 
 </script>
 
