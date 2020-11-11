@@ -4,7 +4,7 @@
 
     <div class="modal-title primary">
         <span class="form-ht">ユーザー登録</span>
-        <span class="fa fa-chevron-right close" onclick="closeModal('user-create-modal')"></span>
+        <span class="fa fa-chevron-up close" onclick="closeModal('user-create-modal')"></span>
     </div>
 
     <div id="reg_modal" class="form-container">

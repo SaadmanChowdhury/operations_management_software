@@ -54,7 +54,7 @@
                     --}}
                     
 
-                    <li> コード</li>
+                    <li>コード</li>
                     <li>氏名</li>
                     <li>所属</li>
                     <li>ポジション</li>
@@ -164,7 +164,7 @@
                         <a>
                             <div class="display list-unstyled">
                                 <li>{{ $user->user_id }}</li>
-                                <li><img src="img/{{ $pro_icon }}.png" class="smallpic">
+                                <li><img src="{{asset("img/".$pro_icon.".png")}}" class="smallpic">
                                     <div class="user-name">{{ $user->name }}</div>
                                 </li>
                                 <li>{{ $loc }}</li>
@@ -172,7 +172,7 @@
                                 <li>{{ $time_diff}}{{ $unit }}</li>
                                 <li class="salary">{{ $new_salary }}円</li>
                                 <li>
-                                    <div class="edit">
+                                    <div class="edit" onclick="showModal('user-edit-modal')">
                                         <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
                                     </div>
                                 </li>
@@ -186,6 +186,8 @@
         </div>
     </div>
 </div>
+
+@include("user.edit")
 
 
 <script src="/js/user.js"></script>

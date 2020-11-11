@@ -1,6 +1,3 @@
-@include("header")
-
-
 <div class="modal-container" id="user-edit-modal">
 
     <div class="modal-title primary">
@@ -24,8 +21,9 @@
                     </div>
 
                     <div>
-                        <button type="submit" class="cancel"><i class="fa fa-times" aria-hidden="true"
-                                onclick="closeModal('user-edit-modal')"></i> 戻る</button>
+                        <button type="submit" class="cancel" onclick="closeModal('user-edit-modal')">
+                            <i class="fa fa-times" aria-hidden="true"></i> 戻る
+                        </button>
                     </div>
 
                     @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
@@ -38,15 +36,15 @@
                 </div>
 
                 <div class="column right">
-                    <input type="hidden" id="id" value="{{ $user->user_id }}">
+                    <input type="hidden" id="id" value="">
 
 
                     <div><label for="name">名前</label></div>
-                    <div><input type="text" id="nameInput" name="name" value="{{ $user->name }}" required></div>
+                    <div><input type="text" id="nameInput" name="name" value="" required></div>
 
 
                     <div><label for="email">メールアドレス</label></div>
-                    <div><input type="email" id="emailInput" name="email" value="{{ $user->email }}"></div>
+                    <div><input type="email" id="emailInput" name="email" value=""></div>
 
 
                     <div><label for="password">パスワード</label></div>
@@ -54,18 +52,14 @@
 
 
                     <div><label for="tel">電話番号</label></div>
-                    <div><input type="text" id="telInput" name="tel" value="{{ $user->tel }}"></div>
+                    <div><input type="text" id="telInput" name="tel" value=""></div>
 
 
                     <div><label>職場</label></div>
                     <div class="custom-select">
                         <select id="locationInput">
                             @foreach (config('constants.Location') as $location => $value)
-                                @if ($user->location == $value)
-                                    <option value="{{ $user->location }}" selected>{{ $location }}</option>
-                                @else
-                                    <option value="{{ $value }}">{{ $location }}</option>
-                                @endif
+                                <option value="{{ $value }}">{{ $location }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -75,11 +69,7 @@
                     <div class="custom-select">
                         <select id="positionInput">
                             @foreach (config('constants.Position') as $position => $value)
-                                @if ($user->position == $value)
-                                    <option value="{{ $user->position }}" selected>{{ $position }}</option>
-                                @else
-                                    <option value="{{ $value }}">{{ $position }}</option>
-                                @endif
+                                <option value="{{ $value }}">{{ $position }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -87,8 +77,8 @@
 
                     <div><label for="admission_day">入場日</label></div>
                     @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                        <div><input type="date" id="admission_day" name="admission_day"
-                                value="{{ $user->admission_day }}">
+                        <div>
+                            <input type="date" id="admission_day" name="admission_day" value="">
                         </div>
                     @else
                         <div>
@@ -99,7 +89,9 @@
 
                     <div><label for="resignation_year">退職日</label></div>
                     @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                        <div><input type="date" id="resignation_yearInput" name="resignation_year"></div>
+                        <div>
+                            <input type="date" id="resignation_yearInput" name="resignation_year">
+                        </div>
                     @else
                         <div>
                             <p>{{ $user->exit_day }}</p>
@@ -109,8 +101,8 @@
 
                     <div><label for="salary">原価</label></div>
                     @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                        <div><input type="number" id="salaryInput" name="salary" value="{{ $user->unit_price }}"
-                                required>
+                        <div>
+                            <input type="number" id="salaryInput" name="salary" value="" required>
                         </div>
                     @else
                         <div>
@@ -202,5 +194,3 @@
     });
 
 </script>
-
-@include("footer")

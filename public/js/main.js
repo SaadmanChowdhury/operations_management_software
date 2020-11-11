@@ -212,3 +212,13 @@ function hideCard(cardDom) {
         }, 300)
     }
 }
+
+function showModal(id) {
+    event.preventDefault();
+    $("#" + id).addClass("modal-show");
+}
+
+function closeModal(id) {
+    event.preventDefault();
+    $("#" + id).removeClass("modal-show");
+}

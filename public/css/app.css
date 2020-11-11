@@ -48,6 +48,7 @@ body {
 
 .row-content {
     position: relative;
+    top: 72px;
     padding: 15px 30px 10px 30px;
     width: 100%;
     height: calc(100vh - 80px);
@@ -553,10 +554,28 @@ footer {
 }
 
 .modal-container {
-    position: relative;
-    top: 60px;
-    height: calc(100vh - 60px);
-    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    /* top: 72px; */
+    height: calc(100vh - 60px - 4px);
+    width: calc(100% - 0px);
+    z-index: 1000;
+    /* border: 2px solid #505050; */
+    border-top: 1px solid #A0A0A0;
+    background-color: white;
+    /* transform: translateX(100%); */
+    transform: translateY(-100%);
+    /* transform: translateY(100%); */
+    opacity: 0.6;
+    transition: 0.5s ease;
+}
+
+.modal-show {
+    /* transform: translateX(0px); */
+    transform: translateY(72px);
+    /* transform: translateY(0px); */
+    opacity: 1;
 }
 
 /* ////======== USER LIST ==========//// */
@@ -571,13 +590,16 @@ footer {
 }
 
 .page-title {
+    position: fixed;
     width: calc(100% - 60px);
     padding: 15px 40px 10px 40px;
+    background-color: white;
     color: #505050;
     font-size: 30px;
     letter-spacing: 15px;
     border-bottom: 1px solid #10101040;
     box-shadow: 0 1px 4px #10101040;
+    z-index: 2000;
 }
 
 .page-title span {
@@ -737,7 +759,8 @@ footer {
 }
 
 .card:hover {
-    background-color: #00000010
+    background-color: #00000010;
+    background-color: #3AA0DE15;
 }
 
 .card-header {
@@ -904,7 +927,7 @@ img.dp {
 .close {
     cursor: pointer;
     position: absolute;
-    top: 20px;
+    top: 16px;
     right: 50px;
     color: white;
     width: unset;

@@ -19,7 +19,7 @@ class UserController extends Controller
         $user = new User();
         $list = $user->readUserList();
         $viewParams["list"] = $list;
-        return view('user_list', ['users' => $list]);
+        return view('user_list', ['users' => $list, 'loggedUser' => $user]);
     }
 
     public function getCreateView()
