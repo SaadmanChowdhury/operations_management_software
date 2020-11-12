@@ -45,7 +45,7 @@
                 {{-- Location Dropdown Starts --}}
                 <div><label>Location</label></div>
                 <div class="custom-select">
-                    <select id="locationInput" >
+                    <select id="locationInput">
                         @foreach (config('constants.Location') as $location => $value)
                             @if ($user->location == $value) 
                                 <option value="{{ $user->location }}" selected>{{ $location }}</option> 
