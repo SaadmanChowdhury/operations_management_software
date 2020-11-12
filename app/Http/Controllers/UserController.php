@@ -60,9 +60,10 @@ class UserController extends Controller
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
-    public function readUser($id)
+    public function readUser(Request $request)
     {
         $loggedUser = auth()->user();
+        $id = $request->userID;
 
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
 

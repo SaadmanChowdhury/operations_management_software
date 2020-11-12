@@ -59,81 +59,63 @@ function validateForm() {
 
 const mainContainerFlexFlag = false;
 
-var text = document.getElementsByClassName('hide');
+var text = $(".label-text.sidebar");
 var menu = document.getElementById('header_top');
 var shade = document.getElementById('background-shade');
 var content = document.getElementsByClassName('page-container');
+
+const sidebarCloseWidth = "60px";
+const sidebarOpenWidth = "250px";
+const sidebarDuration = "0.5s";
+const sidebarOpenCurve = "cubic-bezier(0,0.7,0.3,1.3)";
+const sidebarCloseCurve = "cubic-bezier(0,.7,.3,1)";
 
 var isMouseOnSideBar = false;
 var isMenuUndergoingCloseOperation = false;
 
 function sidebar_expand(sidebar) {
-    sidebar.style.transition = "0.3s ease-out";
-    sidebar.style.width = "250px";
+    sidebar.style.transition = sidebarDuration + " " + sidebarOpenCurve;
+    sidebar.style.width = sidebarOpenWidth;
 
     if (mainContainerFlexFlag) {
-        content[0].style.left = "250px";
+        content[0].style.left = sidebarOpenWidth;
         content[0].style.width = "calc(100% - 250px)";
-        content[0].style.transition = "0.3s ease-out";
+        content[0].style.transition = sidebarDuration + " " + sidebarOpenCurve;
     }
-    // menu.classList.add('fade-left');
 
     setTimeout(function () {
         for (var i = 0; i < 5; i++) {
             text[i].style.display = "inline-block";
         }
-    }, 200);
+    }, 150);
 
-    isMouseOnSideBar = true;
-
-
-    if (!isMenuUndergoingCloseOperation) {
-        shade.style.display = "block";
-        isMenuUndergoingCloseOperation = false;
-    }
-
+    shade.style.display = "block";
     setTimeout(function () {
         shade.style.opacity = 0.3;
     }, 0);
 }
 
-function sidebar_mouseOutHandler(sidebar) {
-    isMouseOnSideBar = false;
-
-    setTimeout(function () {
-        normalSideBar(sidebar)
-    }, 200);
-}
-
-function normalSideBar(sidebar) {
-
-    if (isMouseOnSideBar)
-        return;
+function sidebar_contract(sidebar) {
 
     for (var i = 0; i < 5; i++) {
         text[i].style.display = "none";
     }
 
-    sidebar.style.width = "60px";
-    sidebar.style.transition = "0.3s cubic-bezier(.51,.84,.77,.99)";
-    menu.classList.remove('fade-left');
+    sidebar.style.width = sidebarCloseWidth;
+    sidebar.style.transition = sidebarDuration + " " + sidebarCloseCurve;
 
     if (mainContainerFlexFlag) {
-        content[0].style.left = "60px";
-        content[0].style.width = "calc(100% - 60px)";
+        content[0].style.left = sidebarCloseWidth;
+        content[0].style.width = "calc(100% - " + sidebarCloseWidth + ")";
     }
-
-    isMenuUndergoingCloseOperation = true;
 
     shade.style.opacity = 0;
     setTimeout(function () {
-        if (isMouseOnSideBar)
-            return;
-
         shade.style.display = "none";
-        isMenuUndergoingCloseOperation = false;
-    }, 410);
+    }, 310);
 }
+
+////========ROW THICKNESS ADJUSTMENTS==========////
 
 ROW_STATE = 0;
 
@@ -215,10 +197,20 @@ function hideCard(cardDom) {
 
 function showModal(id) {
     event.preventDefault();
-    $("#" + id).addClass("modal-show");
+    $("#" + id).css('display', "block");
+    setTimeout(function () {
+        $("#" + id).addClass("modal-show");
+    }, 0)
 }
 
 function closeModal(id) {
     event.preventDefault();
     $("#" + id).removeClass("modal-show");
+    setTimeout(function () {
+        $("#" + id).css('display', "none");
+    }, 500)
+}
+
+function clearModalData(id) {
+    $("#" + id).find("input").val("");
 }
