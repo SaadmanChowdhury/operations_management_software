@@ -85,6 +85,9 @@ class UserController extends Controller
 
     public function updateUser(Request $request)
     {
+
+        \Illuminate\Support\Facades\Log::debug($request);
+
         $id = $request->id;
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {

@@ -122,6 +122,14 @@
 
 
 <script>
+    function userEditModalHandler(userID) {
+        event.preventDefault();
+        clearModalData('user-edit-modal');
+        showModal('user-edit-modal');
+
+        getUserData(userID);
+    }
+
     function getFormData() {
         return {
             id: $('#id').val(),
@@ -130,7 +138,9 @@
             password: $('#passwordInput').val(),
             tel: $('#telInput').val(),
             position: $('#positionInput').val(),
+            positionText: $("#positionInput").find(":selected").text(),
             location: $('#locationInput').val(),
+            locationText: $("#locationInput").find(":selected").text(),
             admission_day: $('#admission_day').val(),
             unit_price: $('#salaryInput').val(),
             user_authority: $('#authorityInput').val(),
@@ -141,7 +151,7 @@
     function handleAJAXResponse(response) {
 
         if (response["resultStatus"]["isSuccess"])
-            $('#message').html("Operation Succesful");
+            updateUserTable();
 
         else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
             $('#message').html("You are not authorized to make this change");
@@ -154,17 +164,52 @@
         console.log(err);
     }
 
-    $(document).ready(function() {
-        $('#edit_form').submit(function(e) {
-            console.log(getFormData());
-            e.preventDefault();
+    function updateUserTable(updatedData) {
+        console.log(updatedData);
 
-            $.ajax({
-                type: "post",
-                url: "/API/updateUser",
-                data: getFormData(),
-                cache: false,
-                success: function(response) {
+        console.log("UDPATE USER TABLE")
+
+        let row = $("#user-row-" + updatedData.id);
+
+        row.find(".user-name").html(updatedData.name);
+        row.find(".salary").html(updatedData.unit_price);
+
+        row.find(".user-location").html(updatedData.locationText);
+
+        positionDom = row.find(".pos");
+        positionDom.html(updatedData.positionText);
+        positionDom.removeClass();
+        positionDom.addClass("pos");
+        positionDom.addClass("pos-" + updatedData.positionText);
+
+    }
+
+    function updateUserEditModalData(data) {
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i] == null)
+                data[i] = "";
+        }
+
+        $("#id").val(data.user_id)
+        $("#nameInput").val(data.name)
+        $("#emailInput").val(data.email)
+        $("#telInput").val(data.tel)
+        $("#locationInput").val(data.location)
+        $("#positionInput").val(data.position)
+        $("#admission_day").val(data.admission_day)
+        $("#resignation_yearInput").val(data.resign_day)
+        $("#salaryInput").val(data.unit_price)
+    }
+
+    function getUserData(userID) {
+        $.ajax({
+            type: "post",
+            url: "/API/readUser",
+            data: {
+                userID: userID,
+                _token: $('input[name=_token]').val()
+            },
             cache: false,
             success: function(response) {
                 if (response["resultStatus"]["isSuccess"]) {

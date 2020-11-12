@@ -134,28 +134,31 @@ class User extends Authenticatable
         User::create($validatedData);
     }
 
-    public function convertPositionToInt($sentPos) {
+    public function convertPositionToInt($sentPos)
+    {
         $allPos = config('constants.Position');
-        foreach($allPos as $pos => $intPos) {
-            if($pos==$sentPos) {
+        foreach ($allPos as $pos => $intPos) {
+            if ($pos == $sentPos) {
                 return $intPos;
             }
         }
     }
 
-    public function convertAuthToInt($sentAuth) {
+    public function convertAuthToInt($sentAuth)
+    {
         $allAuth = config('constants.User_authority');
-        foreach($allAuth as $auth => $intAuth) {
-            if($auth==$sentAuth) {
+        foreach ($allAuth as $auth => $intAuth) {
+            if ($auth == $sentAuth) {
                 return $intAuth;
             }
         }
     }
 
-    public function convertLocationToInt($sentLoc) {
+    public function convertLocationToInt($sentLoc)
+    {
         $allLoc = config('constants.Location');
-        foreach($allLoc as $Loc => $intLoc) {
-            if($Loc==$sentLoc) {
+        foreach ($allLoc as $Loc => $intLoc) {
+            if ($Loc == $sentLoc) {
                 return $intLoc;
             }
         }
@@ -194,7 +197,7 @@ class User extends Authenticatable
 
         //validating data
         $validatedData['position'] = $this->convertPositionToInt($request->position);
-        $validatedData['location'] = $this->convertLocationToInt($request->location);
+        // $validatedData['location'] = $this->convertLocationToInt($request->location);
         $validatedData = $request->validate($rules);
 
         //hashing password
