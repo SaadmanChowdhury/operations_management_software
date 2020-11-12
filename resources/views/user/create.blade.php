@@ -7,7 +7,7 @@
         <span class="fa fa-chevron-up close" onclick="closeModal('user-create-modal')"></span>
     </div>
 
-    <div id="reg_modal" class="form-container">
+    <div id="reg_modal" class="modal-form-container">
         <form id="reg_form" action="" method="">
             @csrf
 

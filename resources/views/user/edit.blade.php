@@ -2,10 +2,10 @@
 
     <div class="modal-title primary">
         <span class="form-ht">ユーザー編集</span>
-        <span class="fa fa-chevron-right close" onclick="closeModal('user-edit-modal')"></span>
+        <span class="fa fa-chevron-up close" onclick="closeModal('user-edit-modal')"></span>
     </div>
 
-    <div class="form-container">
+    <div class="modal-form-container">
         <form id="edit_form" action="" method="">
             @csrf
 
@@ -17,7 +17,10 @@
                     </div>
 
                     <div>
-                        <button type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> 更新</button>
+                        <button type="submit" onclick="updateUser()">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            更新
+                        </button>
                     </div>
 
                     <div>
@@ -27,7 +30,7 @@
                     </div>
 
                     @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                        <div>
+                        <div onclick="deleteUser()">
                             <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
                                     aria-hidden="true"></i>
                                 削除</a>
@@ -82,7 +85,7 @@
                         </div>
                     @else
                         <div>
-                            <p>{{ $user->admission_day }}</p>
+                            <input type="date" id="admission_day" name="admission_day" value="" readonly>
                         </div>
                     @endif
 
@@ -90,11 +93,11 @@
                     <div><label for="resignation_year">退職日</label></div>
                     @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
                         <div>
-                            <input type="date" id="resignation_yearInput" name="resignation_year">
+                            <input type="date" id="resignation_yearInput" name="resignation_year" value="">
                         </div>
                     @else
                         <div>
-                            <p>{{ $user->exit_day }}</p>
+                            <input type="date" id="resignation_yearInput" name="resignation_year" value="" readonly>
                         </div>
                     @endif
 
@@ -106,7 +109,7 @@
                         </div>
                     @else
                         <div>
-                            <p>{{ $user->unit_price }}</p>
+                            <input type="number" id="salaryInput" name="salary" value="" readonly>
                         </div>
                     @endif
 
@@ -162,35 +165,60 @@
                 data: getFormData(),
                 cache: false,
                 success: function(response) {
+            cache: false,
+            success: function(response) {
+                if (response["resultStatus"]["isSuccess"]) {
+                    updateUserEditModalData(response["resultData"]);
+                } else
                     handleAJAXResponse(response);
-                },
-                error: function(err) {
-                    handleAJAXError(err);
-                }
-            });
+            },
+            error: function(err) {
+                handleAJAXError(err);
+            }
         });
+    }
 
-        $("#deleteButton").click(function(d) {
-            d.preventDefault();
-            $.ajax({
-                type: "post",
-                url: "/API/deleteUser",
-                data: {
-                    id: $('#id').val(),
-                    _token: $('input[name=_token]').val()
-                },
-                cache: false,
-                success: function(response) {
+    function updateUser() {
+        event.preventDefault();
+
+        modalData = getFormData();
+
+        $.ajax({
+            type: "post",
+            url: "/API/updateUser",
+            data: modalData,
+            cache: false,
+            success: function(response) {
+                if (response["resultStatus"]["isSuccess"]) {
+                    updateUserTable(modalData);
+                    closeModal('user-edit-modal');
+                } else
                     handleAJAXResponse(response);
-                },
-                error: function(err) {
-                    handleAJAXError(err);
-                }
-            });
+            },
+            error: function(err) {
+                handleAJAXError(err);
+            }
         });
+    }
 
+    function deleteUser() {
+        event.preventDefault();
 
-
-    });
+        $.ajax({
+            type: "post",
+            url: "/API/deleteUser",
+            data: {
+                id: $('#id').val(),
+                _token: $('input[name=_token]').val()
+            },
+            cache: false,
+            success: function(response) {
+                handleAJAXResponse(response);
+            },
+            error: function(err) {
+                handleAJAXError(err);
+            }
+        });
+    }
 
 </script>

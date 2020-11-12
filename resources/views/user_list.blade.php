@@ -167,12 +167,12 @@
                                 <li><img src="{{asset("img/".$pro_icon.".png")}}" class="smallpic">
                                     <div class="user-name">{{ $user->name }}</div>
                                 </li>
-                                <li>{{ $loc }}</li>
+                                <li class="user-location">{{ $loc }}</li>
                                 <li><div class="pos pos-{{$position}}">{{ $position }}</div></li>
                                 <li>{{ $time_diff}}{{ $unit }}</li>
                                 <li class="salary">{{ $new_salary }}円</li>
                                 <li>
-                                    <div class="edit" onclick="showModal('user-edit-modal')">
+                                    <div class="edit" onclick="userEditModalHandler({{ $user->user_id }})">
                                         <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
                                     </div>
                                 </li>

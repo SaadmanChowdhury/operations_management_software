@@ -52,6 +52,7 @@ body {
     padding: 15px 30px 10px 30px;
     width: 100%;
     height: calc(100vh - 80px);
+    background-color: #F8F8F8;
     overflow: hidden;
 }
 
@@ -388,14 +389,6 @@ footer {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 0px 1px;
 }
 
-.fade-left {
-    animation: appear 0.5s;
-}
-
-.fade-right {
-    animation: disappear 0.5s;
-}
-
 /* ////====LOGO_HOLDER====//// */
 
 .logo-holder {
@@ -540,7 +533,7 @@ footer {
     height: 100%;
     background-color: black;
     opacity: 0;
-    transition: 0.5s ease all;
+    transition: 0.3s ease all;
     z-index: 100;
 }
 
@@ -554,28 +547,40 @@ footer {
 }
 
 .modal-container {
+    display: none;
     position: absolute;
     top: 0px;
     left: 0px;
-    /* top: 72px; */
     height: calc(100vh - 60px - 4px);
     width: calc(100% - 0px);
     z-index: 1000;
-    /* border: 2px solid #505050; */
-    border-top: 1px solid #A0A0A0;
-    background-color: white;
-    /* transform: translateX(100%); */
-    transform: translateY(-100%);
-    /* transform: translateY(100%); */
-    opacity: 0.6;
-    transition: 0.5s ease;
+    background-color: #FAFAFA;
+    transform: translateY(42px);
+    opacity: 0;
+    transition: transform 0.3s 0.0s cubic-bezier(0, .4, .6, 1), opacity 0.5s cubic-bezier(0.5, .2, .8, 1);
 }
 
 .modal-show {
-    /* transform: translateX(0px); */
+    display: unset;
+    transition: 0.5s ease;
     transform: translateY(72px);
-    /* transform: translateY(0px); */
+    transition: transform 0.4s cubic-bezier(0.5, .5, .5, 1), opacity 0.5s ease-in;
     opacity: 1;
+}
+
+.modal-form-container {
+    width: 1000px;
+    position: relative;
+    margin: auto;
+    transform: translateY(-20px);
+    transition: transform 0.3s cubic-bezier(0, .4, .6, 1), opacity 0.5s cubic-bezier(0.5, .2, .8, 1);
+    z-index: 999;
+}
+
+.modal-show .modal-form-container {
+    transform: translateY(0px);
+    transition: transform 0.3s 0.2s cubic-bezier(0.5, .5, .5, 1.6), opacity 0.5s ease-in;
+    z-index: 1001;
 }
 
 /* ////======== USER LIST ==========//// */
@@ -753,14 +758,14 @@ footer {
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: 4px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 5px 0px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 5px 0px;
     margin-top: 0.8rem;
     transition: 0.3s ease;
 }
 
 .card:hover {
     background-color: #00000010;
-    background-color: #3AA0DE15;
+    background-color: #068bde15;
 }
 
 .card-header {
@@ -851,6 +856,7 @@ footer {
     border-radius: 10px;
     width: 50px;
     color: grey;
+    background-color: white;
     transition: all ease-out 0.3s;
     cursor: pointer;
 }
@@ -861,12 +867,6 @@ footer {
 }
 
 /* ////======== USER MODAL ==========//// */
-
-.form-container {
-    width: 1000px;
-    position: relative;
-    margin: auto;
-}
 
 .column {
     float: left;
@@ -884,17 +884,21 @@ footer {
 .column.right {
     height: calc(100vh - 200px);
     overflow: scroll;
-    border-radius: 15px;
+    border-radius: 10px;
     transition: 0.5s ease;
-}
-
-.column.right:hover {
-    background-color: #fafafa;
+    background-color: #F0F0F0;
 }
 
 .column.right div label {
     margin-left: 20px;
     color: #0b1841;
+}
+
+.column.left {
+    background-color: #F0F0F0;
+    text-align: center;
+    margin-right: 20px;
+    border-radius: 10px;
 }
 
 /* Clear floats after the columns */
@@ -915,8 +919,7 @@ img.dp {
     width: auto;
     max-width: 150px;
     max-height: 150px;
-    margin-top: 2px;
-    margin-bottom: 50px;
+    margin: 2px auto 50px;
     border-radius: 10px;
     display: block;
     border: 2px solid #3AA0DE;
@@ -927,7 +930,7 @@ img.dp {
 .close {
     cursor: pointer;
     position: absolute;
-    top: 16px;
+    top: 14px;
     right: 50px;
     color: white;
     width: unset;
@@ -957,17 +960,19 @@ input[type=text], input[type=email], input[type=password], input[type=date], inp
 }
 
 .modal-title {
-    font-size: 25px;
+    font-size: 24px;
     letter-spacing: 10px;
     text-align: center;
     color: #FFFBFB;
     border: none;
     box-sizing: border-box;
-    line-height: 60px;
+    height: 56px;
+    line-height: 56px;
     margin: unset;
     margin-bottom: 20px;
     width: calc(100vw - 60px);
     box-shadow: 0 3px 4px #00000050;
+    z-index: 1005;
 }
 
 .button, button {
@@ -1169,11 +1174,16 @@ button.cancel:hover {
     width: 22px;
 }
 
+.row-adjust-fast-animation {
+    transition: 0.3s ease;
+}
+
 /* ////====COLORS====//// */
 
 .primary {
     background-color: #3AA0DE;
     border-bottom: 3px solid #068bde;
+    border-top: 3px solid #45b6fb;
     color: white;
 }
 
