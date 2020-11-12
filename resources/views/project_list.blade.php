@@ -30,29 +30,31 @@
             <hr />
 
             {{-- ///====PROJECT-TABLE HEADER====/// --}}
-            <div id="table-nav" class="primary">
-                <div class="flex-col">
-                    <ul class="display list-unstyled">
-                        <li> 案件名</li>
-                        <li> 顧客</li>
-                        <li> 担当</li>
-                        <li>作業工程</li>
-                        <li> 見込</li>
-                        <li> 状況</li>
-                        <li> 受注月</li>
-                        <li> 検収月</li>
-                        <li> 売上高</li>
-                        <li> 売上原価</li>
-                        <li>売上総利益</li>
-                        <li> 利益率</li>
-                    </ul>
+            <div class="project">
+                <div id="table-nav" class="primary">
+                    <div class="flex-col">
+                        <ul class="display list-unstyled">
+                            <li> 案件名</li>
+                            <li> 顧客</li>
+                            <li> 担当</li>
+                            <li>作業工程</li>
+                            <li> 見込</li>
+                            <li> 状況</li>
+                            <li> 受注月</li>
+                            <li> 検収月</li>
+                            <li> 売上高</li>
+                            <li> 売上原価</li>
+                            <li>売上総利益</li>
+                            <li> 利益率</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
 
             {{-- ///====PROJECT-TABLE DETAILS====/// --}}
 
-            <div class="project table-body">
+            <div id="accordian" class="project table-body">
 
                 <div class="card" id="project-row-">
                     <div class="card-header" id="row1head">

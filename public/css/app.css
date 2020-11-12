@@ -1144,7 +1144,29 @@ h1.form-ht {
 
 
 /* ////====PROJECT-LIST====//// */
+.project #table-nav .flex-col {
+    
+    padding: 0;
+    padding-right:17px;
+    justify-content: space-around;
+}
 
+.project .card-header{
+    padding: 1.1rem 0;
+    border-bottom: 0.5px solid #00000010;
+}
+.project .display{
+    justify-content: space-around;
+}
+.project .display li:nth-child(2) {
+    min-width: 7.5%;
+    margin-left: 0;
+}
+
+#table-nav .display li:nth-child(2) {
+    min-width: 7.5%;
+    margin-left: 0;
+}
 .collapse{
     display: none;
   }
@@ -1158,31 +1180,56 @@ h1.form-ht {
 
 }
 
+.project .btn{
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+.project .fa{
+    width:100%;
+}
+
 .round-btn{
     border-radius: 50%;
-  }
-  .danger{
+}
+.danger{
     background-color: red;
     border: 1px solid red;
     color: white;
-  
-  }
-  .success{
+
+}
+.success{
     background-color: #6AF141;
     border: 1px solid #6AF141;
     color: white;
-  }
-  #accordian .row {
-  
+}
+.action{
     position: relative;
-      display: inline-flex;
+    margin-top:-30px;
+  }
+  .add{
+    position: relative;
+    margin-right: 1%;
+    height: 50px;
+  
+  }
+  .add button{
+    position: relative;
+   
+  }
+#accordian .row {
+
+    position: relative;
+    display: inline-flex;
     flex-direction: row;
-      box-sizing: border-box;
+    box-sizing: border-box;
     justify-content: center;
     
   }
-  #accordian table{
-    position: relative;
+#accordian table{
+   position: relative;
    border-collapse: collapse;
    font-size: 65%;
    border-radius: 7px;

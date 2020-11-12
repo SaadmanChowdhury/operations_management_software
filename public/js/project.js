@@ -9,11 +9,11 @@ function myFunction(view){
   if(view.matches)
   {
     var pos=document.getElementsByClassName('table-right')[1].getBoundingClientRect();
-    plusbtn[1].style.marginTop=`${pos.bottom-pos.top-50}px`;
+    plusbtn[1].style.marginTop=`${pos.bottom-pos.top+95}px`;
   }
   else{
    var pos=document.getElementsByClassName('table-right')[1].getBoundingClientRect();
-    plusbtn[1].style.marginTop=`${pos.bottom-pos.top-30}px`;
+    plusbtn[1].style.marginTop=`${pos.bottom-pos.top}px`;
   }
 }
 myFunction(view);
