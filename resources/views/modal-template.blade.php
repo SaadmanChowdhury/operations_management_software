@@ -1,11 +1,11 @@
-<div class="modal-container" id="user-edit-modal">
+<div class="modal-container" id="template-modal">
 
     <div class="modal-title primary">
-        <span class="form-ht">ユーザー編集</span>
-        <span class="fa fa-chevron-up close" onclick="closeModal('user-edit-modal')"></span>
+        <span class="form-ht">モーダル名前</span>
+        <span class="fa fa-chevron-up close" onclick="closeModal('template-modal')"></span>
     </div>
 
-    <div class="modal-form-container _user">
+    <div class="modal-form-container _template">
         <form id="edit_form" action="" method="">
             @csrf
 
@@ -23,7 +23,7 @@
                     </div>
 
                     <div>
-                        <button type="submit" class="cancel" onclick="closeModal('user-edit-modal')">
+                        <button type="submit" class="cancel" onclick="closeModal('template-modal')">
                             <i class="fa fa-times" aria-hidden="true"></i> 戻る
                         </button>
                     </div>
@@ -37,7 +37,7 @@
                     @endif
                 </div>
 
-                <div class="column right _user">
+                <div class="column right _template">
                     <input type="hidden" id="id" value="">
 
 
@@ -77,63 +77,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="modal-form-input-container">
-
-                        <div class="_half">
-                            <div><label for="salary">原価</label></div>
-                            @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                                <div>
-                                    <input type="number" id="salaryInput" name="salary" value="" required>
-                                </div>
-                            @else
-                                <div>
-                                    <input type="number" id="salaryInput" name="salary" value="" readonly>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="_half">
-                            <div><label>ポジション</label></div>
-                            <div class="custom-select">
-                                <select id="positionInput">
-                                    @foreach (config('constants.Position') as $position => $value)
-                                        <option value="{{ $value }}">{{ $position }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-form-input-container">
-                        <div class="_half">
-                            <div><label for="admission_day">入場日</label></div>
-                            @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                                <div>
-                                    <input type="date" id="admission_day" name="admission_day" value="">
-                                </div>
-                            @else
-                                <div>
-                                    <input type="date" id="admission_day" name="admission_day" value="" readonly>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="_half">
-                            <div><label for="resignation_year">退職日</label></div>
-                            @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                                <div>
-                                    <input type="date" id="resignation_yearInput" name="resignation_year" value="">
-                                </div>
-                            @else
-                                <div>
-                                    <input type="date" id="resignation_yearInput" name="resignation_year" value=""
-                                        readonly>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
@@ -145,27 +88,21 @@
 <script>
     function userEditModalHandler(userID) {
         event.preventDefault();
-        clearModalData('user-edit-modal');
-        showModal('user-edit-modal');
+        clearModalData('template-modal');
+        showModal('template-modal');
 
         getUserData(userID);
     }
 
     function getFormData() {
         return {
-            id: $('#id').val(),
-            name: $('#nameInput').val(),
-            email: $('#emailInput').val(),
-            password: $('#passwordInput').val(),
-            tel: $('#telInput').val(),
-            position: $('#positionInput').val(),
-            positionText: $("#positionInput").find(":selected").text(),
-            location: $('#locationInput').val(),
-            locationText: $("#locationInput").find(":selected").text(),
-            admission_day: $('#admission_day').val(),
-            unit_price: $('#salaryInput').val(),
-            user_authority: $('#authorityInput').val(),
-            _token: $('input[name=_token]').val()
+            // id: $('#id').val(),
+            // name: $('#nameInput').val(),
+            // email: $('#emailInput').val(),
+            // password: $('#passwordInput').val(),
+            // tel: $('#telInput').val(),
+            // location: $('#locationInput').val(),
+            // locationText: $("#locationInput").find(":selected").text(),
         };
     }
 
@@ -257,7 +194,7 @@
             success: function(response) {
                 if (response["resultStatus"]["isSuccess"]) {
                     updateUserTable(modalData);
-                    closeModal('user-edit-modal');
+                    closeModal('template-modal');
                 } else
                     handleAJAXResponse(response);
             },

@@ -36,14 +36,11 @@
                         <li> コード</li>
                         <li>会社名</li>
                         <li>責任者</li>
-                        @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
-                            <li>受注顧合計</li>
-                            <li>実績粗利</li>
-                        @endif
+                        <li>受注顧合計</li>
+                        <li>実績粗利</li>
 
-                        @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
-                            <li><span class="fa fa-filter fa-lg fa-color-midori">Filter</span></li>
-                        @endif
+                        <li><span class="fa fa-filter fa-lg fa-color-midori">Filter</span></li>
+
                     </ul>
                 </div>
             </div>
@@ -54,29 +51,41 @@
             <div class="client table-body">
 
                 @foreach ($list as $client)
-                    <div class="card" id="client-row-{{ $client->client_id }}">
-                        <div class=" card-header">
+                    <div class="card _client" id="client-row-{{ $client->client_id }}">
+                        <div class="card-header">
                             <div class="display list-unstyled">
                                 <li>{{ $client->client_id }}</li>
                                 <li>{{ $client->client_name }}</li>
                                 <li>
                                     <img src="img/pro_icon.png" class="smallpic">
-                                    {{-- <div class="user-name">{{ $client->user_id }}
-                                    </div> --}}
-                                    <div class="user-name">中村</div>
-                                </li>
-
-                                @if ($loggedInAuthority == config('constants.User_authority.システム管理者'))
-                                    <li>5000,0000 円</li>
-                                    <li>1200,0000 円</li>
-                                @endif
-
-                                <li>
-                                    <div class="edit">
-                                        <span style="font-size: 11px; margin:6px;width:auto"
-                                            class="fa fa-pencil"></span>編集
+                                    <div class="user-name">
+                                        {{ $client->user_id }}
                                     </div>
+                                    {{-- <div class="user-name">中村</div>
+                                    --}}
                                 </li>
+
+                                @if ($loggedInAuthority == config('constants.User_authority.システム管理者') || $loggedInUser->user_id == $client->user_id)
+                                    <li>{{ $client->total_sale }} 円</li>
+                                    <li>{{ $client->total_profit }} 円</li>
+
+                                    <li>
+                                        <div class="edit">
+                                            <span style="font-size: 11px; margin:6px;width:auto"
+                                                class="fa fa-pencil"></span>編集
+                                        </div>
+                                    </li>
+                                @else
+                                    <li class="transparent">円</li>
+                                    <li class="transparent">円</li>
+
+                                    <li>
+                                        <div class="edit transparent">
+                                            <span style="font-size: 11px; margin:6px;width:auto"
+                                                class="fa fa-pencil"></span>編集
+                                        </div>
+                                    </li>
+                                @endif
                             </div>
                         </div>
                     </div>

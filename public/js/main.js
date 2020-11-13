@@ -74,6 +74,7 @@ var isMouseOnSideBar = false;
 var isMenuUndergoingCloseOperation = false;
 
 function sidebar_expand(sidebar) {
+    isMouseOnSideBar = true;
     sidebar.style.transition = sidebarDuration + " " + sidebarOpenCurve;
     sidebar.style.width = sidebarOpenWidth;
 
@@ -84,9 +85,10 @@ function sidebar_expand(sidebar) {
     }
 
     setTimeout(function () {
-        for (var i = 0; i < 5; i++) {
-            text[i].style.display = "inline-block";
-        }
+        if (isMouseOnSideBar)
+            for (var i = 0; i < 5; i++) {
+                text[i].style.display = "inline-block";
+            }
     }, 150);
 
     shade.style.display = "block";
@@ -97,6 +99,7 @@ function sidebar_expand(sidebar) {
 
 function sidebar_contract(sidebar) {
 
+    isMouseOnSideBar = false;
     for (var i = 0; i < 5; i++) {
         text[i].style.display = "none";
     }
@@ -197,18 +200,32 @@ function hideCard(cardDom) {
 
 function showModal(id) {
     event.preventDefault();
+
+    $(".row.row-content").css("transition", "0.5s ease-in");
+    $(".row.row-content").css("transform", "translateY(30px)");
+    $(".row.row-content").css("opacity", "0");
+
     $("#" + id).css('display', "block");
     setTimeout(function () {
         $("#" + id).addClass("modal-show");
-    }, 0)
+    }, 500)
 }
 
 function closeModal(id) {
     event.preventDefault();
     $("#" + id).removeClass("modal-show");
+    $(".row.row-content").css("transition", "transform 0.5s cubic-bezier(0.7, .5, .5, 0.9), opacity 0.5s cubic-bezier(0.8, .1, .9, 1)");
     setTimeout(function () {
-        $("#" + id).css('display', "none");
-    }, 500)
+        $(".row.row-content").css("transform", "translateY(0px)");
+        $(".row.row-content").css("opacity", "1");
+
+        setTimeout(function () {
+            $("#" + id).css('display', "none");
+        }, 300)
+        // $(".row.row-content").css("transition", "unset");
+    }, 300)
+
+
 }
 
 function clearModalData(id) {
