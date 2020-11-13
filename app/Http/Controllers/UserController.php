@@ -18,8 +18,9 @@ class UserController extends Controller
 
         $user = new User();
         $list = $user->readUserList();
-        $viewParams["list"] = $list;
-        return view('user_list', ['users' => $list]);
+        $loggedUser = auth()->user();
+        // $viewParams["list"] = $list;
+        return view('user_list', ['users' => $list, 'loggedUser' => $loggedUser]);
     }
 
     public function getCreateView()
@@ -60,9 +61,10 @@ class UserController extends Controller
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
-    public function readUser($id)
+    public function readUser(Request $request)
     {
         $loggedUser = auth()->user();
+        $id = $request->userID;
 
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
 
@@ -84,6 +86,9 @@ class UserController extends Controller
 
     public function updateUser(Request $request)
     {
+
+        \Illuminate\Support\Facades\Log::debug($request);
+
         $id = $request->id;
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {

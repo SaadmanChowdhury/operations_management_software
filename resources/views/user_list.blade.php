@@ -54,11 +54,13 @@
                     --}}
                     
 
-                    <li> コード</li>
+                    <li>コード</li>
                     <li>氏名</li>
                     <li>所属</li>
                     <li>ポジション</li>
+                    @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
                     <li>経過月数</li>
+                    @endif
                     <li>単価(最新)</li>
 
                     <li><span class="fa fa-filter fa-lg fa-color-primary">Filter</span> </li>
@@ -159,24 +161,45 @@
 
 
                 {{-- ///====USER-TABLE DETAILS====/// --}}
-                <div class="card" id="user-row-{{ $user->user_id }}" onload="numberWithCommas({{ $user->unit_price }})">
+                <div class="card _user" id="user-row-{{ $user->user_id }}" onload="numberWithCommas({{ $user->unit_price }})">
                     <div class="card-header">
+
                         <a>
                             <div class="display list-unstyled">
+
                                 <li>{{ $user->user_id }}</li>
-                                <li><img src="img/{{ $pro_icon }}.png" class="smallpic">
+
+                                <li>
+                                    <img src="{{asset("img/".$pro_icon.".png")}}" class="smallpic">
                                     <div class="user-name">{{ $user->name }}</div>
                                 </li>
-                                <li>{{ $loc }}</li>
-                                <li><div class="pos pos-{{$position}}">{{ $position }}</div></li>
-                                <li>{{ $time_diff}}{{ $unit }}</li>
-                                <li class="salary">{{ $new_salary }}円</li>
+
+                                <li class="user-location">{{ $loc }}</li>
+
                                 <li>
-                                    <div class="edit">
-                                        <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
-                                    </div>
+                                    <div class="pos pos-{{$position}}">{{ $position }}</div>
                                 </li>
 
+                                <li>{{ $time_diff}}{{ $unit }}</li>
+
+                                @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
+                                    <li class="salary">{{ $new_salary }}円</li>
+                                @endif
+
+                                @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者') || $user->user_id == $loggedUser->user_id)
+                                    <li>
+                                        <div class="edit" onclick="userEditModalHandler({{ $user->user_id }})">
+                                            <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
+                                        </div>
+                                    </li>
+                                @else
+                                    <li>
+                                        <div class="edit transparent">
+                                            <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
+                                        </div>
+                                    </li>
+                                @endif
+                                
                             </div>
                         </a>
 
@@ -186,6 +209,8 @@
         </div>
     </div>
 </div>
+
+@include("user.edit")
 
 
 <script src="/js/user.js"></script>

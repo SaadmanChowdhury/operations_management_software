@@ -21,7 +21,7 @@
     </div> --}}
 
 
-    <div id="header_top" onmouseover="sidebar_expand(this)" onmouseout="sidebar_mouseOutHandler(this)">
+    <div id="header_top" onmouseenter="sidebar_expand(this)" onmouseleave="sidebar_contract(this)">
 
         <div class="container">
             <div class="p-r list-unstyled" id="nav">

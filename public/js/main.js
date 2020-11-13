@@ -59,81 +59,66 @@ function validateForm() {
 
 const mainContainerFlexFlag = false;
 
-var text = document.getElementsByClassName('hide');
+var text = $(".label-text.sidebar");
 var menu = document.getElementById('header_top');
 var shade = document.getElementById('background-shade');
 var content = document.getElementsByClassName('page-container');
+
+const sidebarCloseWidth = "60px";
+const sidebarOpenWidth = "250px";
+const sidebarDuration = "0.5s";
+const sidebarOpenCurve = "cubic-bezier(0,0.7,0.3,1.3)";
+const sidebarCloseCurve = "cubic-bezier(0,.7,.3,1)";
 
 var isMouseOnSideBar = false;
 var isMenuUndergoingCloseOperation = false;
 
 function sidebar_expand(sidebar) {
-    sidebar.style.transition = "0.3s ease-out";
-    sidebar.style.width = "250px";
+    isMouseOnSideBar = true;
+    sidebar.style.transition = sidebarDuration + " " + sidebarOpenCurve;
+    sidebar.style.width = sidebarOpenWidth;
 
     if (mainContainerFlexFlag) {
-        content[0].style.left = "250px";
+        content[0].style.left = sidebarOpenWidth;
         content[0].style.width = "calc(100% - 250px)";
-        content[0].style.transition = "0.3s ease-out";
+        content[0].style.transition = sidebarDuration + " " + sidebarOpenCurve;
     }
-    // menu.classList.add('fade-left');
 
     setTimeout(function () {
-        for (var i = 0; i < 5; i++) {
-            text[i].style.display = "inline-block";
-        }
-    }, 200);
+        if (isMouseOnSideBar)
+            for (var i = 0; i < 5; i++) {
+                text[i].style.display = "inline-block";
+            }
+    }, 150);
 
-    isMouseOnSideBar = true;
-
-
-    if (!isMenuUndergoingCloseOperation) {
-        shade.style.display = "block";
-        isMenuUndergoingCloseOperation = false;
-    }
-
+    shade.style.display = "block";
     setTimeout(function () {
         shade.style.opacity = 0.3;
     }, 0);
 }
 
-function sidebar_mouseOutHandler(sidebar) {
+function sidebar_contract(sidebar) {
+
     isMouseOnSideBar = false;
-
-    setTimeout(function () {
-        normalSideBar(sidebar)
-    }, 200);
-}
-
-function normalSideBar(sidebar) {
-
-    if (isMouseOnSideBar)
-        return;
-
     for (var i = 0; i < 5; i++) {
         text[i].style.display = "none";
     }
 
-    sidebar.style.width = "60px";
-    sidebar.style.transition = "0.3s cubic-bezier(.51,.84,.77,.99)";
-    menu.classList.remove('fade-left');
+    sidebar.style.width = sidebarCloseWidth;
+    sidebar.style.transition = sidebarDuration + " " + sidebarCloseCurve;
 
     if (mainContainerFlexFlag) {
-        content[0].style.left = "60px";
-        content[0].style.width = "calc(100% - 60px)";
+        content[0].style.left = sidebarCloseWidth;
+        content[0].style.width = "calc(100% - " + sidebarCloseWidth + ")";
     }
-
-    isMenuUndergoingCloseOperation = true;
 
     shade.style.opacity = 0;
     setTimeout(function () {
-        if (isMouseOnSideBar)
-            return;
-
         shade.style.display = "none";
-        isMenuUndergoingCloseOperation = false;
-    }, 410);
+    }, 310);
 }
+
+////========ROW THICKNESS ADJUSTMENTS==========////
 
 ROW_STATE = 0;
 
@@ -211,4 +196,38 @@ function hideCard(cardDom) {
             $(cardDom).hide();
         }, 300)
     }
+}
+
+function showModal(id) {
+    event.preventDefault();
+
+    $(".row.row-content").css("transition", "0.5s ease-in");
+    $(".row.row-content").css("transform", "translateY(30px)");
+    $(".row.row-content").css("opacity", "0");
+
+    $("#" + id).css('display', "block");
+    setTimeout(function () {
+        $("#" + id).addClass("modal-show");
+    }, 500)
+}
+
+function closeModal(id) {
+    event.preventDefault();
+    $("#" + id).removeClass("modal-show");
+    $(".row.row-content").css("transition", "transform 0.5s cubic-bezier(0.7, .5, .5, 0.9), opacity 0.5s cubic-bezier(0.8, .1, .9, 1)");
+    setTimeout(function () {
+        $(".row.row-content").css("transform", "translateY(0px)");
+        $(".row.row-content").css("opacity", "1");
+
+        setTimeout(function () {
+            $("#" + id).css('display', "none");
+        }, 300)
+        // $(".row.row-content").css("transition", "unset");
+    }, 300)
+
+
+}
+
+function clearModalData(id) {
+    $("#" + id).find("input").val("");
 }

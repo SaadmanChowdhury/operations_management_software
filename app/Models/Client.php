@@ -23,17 +23,21 @@ class Client extends Model
     public function readClientList()
     {
         //only admin can read client list
-        $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
-            $list = DB::table('clients')->select(
-                'client_id',
-                'client_name',
-                'user_id'
-            )
-                ->whereNull("deleted_at")
-                ->get()->toArray();
-            return $list;
+
+        $list = DB::table('clients')->select(
+            'client_id',
+            'client_name',
+            'user_id'
+        )
+            ->whereNull("deleted_at")
+            ->get()->toArray();
+
+        for ($i = 0; $i < count($list); $i++) {
+            $list[$i]->total_sale = $this->getTotalSale($list[$i]->client_id);
+            $list[$i]->total_profit = $this->getTotalProfit($list[$i]->client_id);
         }
+
+        return $list;
     }
 
     public function createClient($request)
@@ -62,6 +66,6 @@ class Client extends Model
         $totalSale = $this->getTotalSale($id);
         $totalProfit = $totalSale / 3;
 
-        return $totalProfit;
+        return (int)$totalProfit;
     }
 }

@@ -18,6 +18,7 @@ class ClientController extends Controller
         $client = new Client();
         $list = $client->readClientList();
         $viewParams["list"] = $list;
+        $viewParams["loggedInUser"] = auth()->user();
         $viewParams["loggedInAuthority"] = auth()->user()->user_authority;
         return view('client_list', $viewParams);
     }
