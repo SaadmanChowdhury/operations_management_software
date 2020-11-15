@@ -731,12 +731,12 @@ footer {
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 5px 0px;
     margin-top: 0.8rem;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.card:hover {
+/* .card:hover {
     background-color: #00000010
-}
+} */
 
 .card-header {
     font-size: 80%;
@@ -1192,7 +1192,7 @@ h1.form-ht {
 .card-body{
     width: 95%;
     position: relative;
-    padding: 1.25rem;
+    padding: 1.25rem 2rem;
     margin-right: 1.5rem;
     margin-left: 1.5rem;
 
@@ -1257,7 +1257,6 @@ h1.form-ht {
 
  }
  .table-right{
-    float: right;
     margin-right: 4%;
     width: auto;
     height: auto;
@@ -1271,8 +1270,10 @@ h1.form-ht {
   }
 
   .table-left table td{
-    
     width:4rem; 
+  }
+  .table-right table td:nth-child(1){
+    min-width:63px; 
   }
  th:first-of-type {
  border-top-left-radius: 5px;

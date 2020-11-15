@@ -188,7 +188,24 @@
                                         <td>5.00</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
+                                        
                                     </tr>
+                                    {{-- <tr>
+                                        <td><img src="img/pro_icon.png">Sofia</td>
+                                        <td>none</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                        <td>5.00</td>
+                                    </tr> --}}
                                 </table>
                             </div>
                             <div class="action">
@@ -270,7 +287,7 @@
                                         <th>202006</th>
                                     </tr>
                                     <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
+                                        <td><img src="img/pro_icon.png">ソフィア</td>
                                         <td>none</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
@@ -287,7 +304,7 @@
 
                                     </tr>
                                     <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
+                                        <td><img src="img/pro_icon.png">ソフィア</td>
                                         <td>none</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
