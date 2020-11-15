@@ -1133,6 +1133,9 @@ h1.form-ht {
     border-bottom: 3px solid #ff895d;
     color: white;
 }
+.mishti-orange{
+    background-color: #ff7744;
+}
 .fa-color-primary {
     color: #3AA0DE;
 }
@@ -1144,6 +1147,9 @@ h1.form-ht {
 
 
 /* ////====PROJECT-LIST====//// */
+.project{
+    font-size: 14px;
+}
 .project #table-nav .flex-col {
     
     padding: 0;
@@ -1158,13 +1164,25 @@ h1.form-ht {
 .project .display{
     justify-content: space-around;
 }
-.project .display li:nth-child(2) {
-    min-width: 7.5%;
+
+.project .display li{
+    min-width: 4%;
+}
+.project #table-nav .display li:nth-child(2) {
+    min-width: 15%;
     margin-left: 0;
 }
 
-#table-nav .display li:nth-child(2) {
-    min-width: 7.5%;
+.project .display li:nth-child(1) {
+    min-width: 8.5%;
+    margin-left: 0;
+}
+.project .display li:nth-child(2) {
+    min-width: 15%;
+    margin-left: 0;
+}
+.project .display li:nth-child(3) {
+    min-width: 8.5%;
     margin-left: 0;
 }
 .collapse{
@@ -1240,14 +1258,13 @@ h1.form-ht {
  }
  .table-right{
     float: right;
-    margin-right: 3%;
+    margin-right: 4%;
     width: auto;
     height: auto;
    
   }
   .table-left{
     position: relative;
-    float: left;
     margin-right: auto;
     margin-left: 0; 
     width: auto;
@@ -1272,7 +1289,7 @@ h1.form-ht {
  th{
    border-top-left-radius: 2px;
    border-top-right-radius: 2px;
-   background-color: #3AA0DE;
+   background-color: #557be6;
    color: white;
  }
  td, th {
@@ -1300,3 +1317,28 @@ h1.form-ht {
       margin: 0px 5px;
   
   }
+.item-red{
+    height: 10px;
+    padding: 0.3rem 1.5rem;
+    text-align: center;
+    line-height: 80%;
+    color: brown;
+    border: 1px solid brown;
+    border-radius: 10px;
+}
+
+.item-green{
+    height: 12px;
+    padding: 0.3rem 1rem;
+    text-align: center;
+    line-height: 100%;
+    background-color:#b5ebb5;
+    color: darkslategray;
+    border-radius: 10px;
+}
+
+/* //image */
+.project .smallpic{
+    height: 10%;
+    width: 20%;
+}

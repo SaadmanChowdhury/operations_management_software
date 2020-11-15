@@ -8,11 +8,11 @@ var h=50;
 function myFunction(view){
   if(view.matches)
   {
-    var pos=document.getElementsByClassName('table-right')[1].getBoundingClientRect();
+    var pos=document.getElementsByClassName('table-right')[0].getBoundingClientRect();
     plusbtn[1].style.marginTop=`${pos.bottom-pos.top+95}px`;
   }
   else{
-   var pos=document.getElementsByClassName('table-right')[1].getBoundingClientRect();
+   var pos=document.getElementsByClassName('table-right')[0].getBoundingClientRect();
     plusbtn[1].style.marginTop=`${pos.bottom-pos.top}px`;
   }
 }
