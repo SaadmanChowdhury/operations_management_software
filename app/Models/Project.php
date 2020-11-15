@@ -148,4 +148,12 @@ class Project extends Model
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
+
+    /**
+     * The users that belong to the project.
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'assign', 'project_id', 'user_id');
+    }
 }

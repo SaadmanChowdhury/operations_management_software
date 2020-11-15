@@ -172,4 +172,12 @@ class User extends Authenticatable
         //soft delete
         $user->delete();
     }
+
+    /**
+     * The projects that belong to the user.
+     */
+    public function projects()
+    {
+        return $this->belongsToMany('App\Models\Project', 'assign', 'user_id', 'project_id');
+    }
 }
