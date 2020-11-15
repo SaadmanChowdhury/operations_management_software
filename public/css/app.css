@@ -801,11 +801,13 @@ footer {
 }
 
 .card._user:hover {
-    background-color: #068bde15;
+    background-color: #28c12815;
+     /* #068bde15; */
 }
 
 .card._client:hover {
-    background-color: #28c12815;
+    background-color:#bedecf52;
+    /* #b7e1cd85; */
 }
 
 .card-header {
@@ -1258,6 +1260,12 @@ button.cancel:hover {
     color: white;
 }
 
+.mild-midori{
+    background-color: #b7e1cd;
+    border-bottom: 3px solid #89b889;
+    color:black;
+}
+
 .gray {
     background-color: lightgray;
     border-bottom: 3px solid gray;
@@ -1271,6 +1279,7 @@ button.cancel:hover {
 .fa-color-midori {
     color: #28c128;
 }
+
 
 .transparent {
     opacity: 0;
