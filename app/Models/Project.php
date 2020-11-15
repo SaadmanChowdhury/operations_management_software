@@ -156,4 +156,12 @@ class Project extends Model
     {
         return $this->belongsToMany('App\Models\User', 'assign', 'project_id', 'user_id');
     }
+
+    /**
+     * Get the client of the project.
+     */
+    public function client()
+    {
+        return $this->belongsTo('App\Models\Client', 'customer_id', 'customer_id');
+    }
 }

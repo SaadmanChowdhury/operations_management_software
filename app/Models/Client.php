@@ -14,14 +14,14 @@ class Client extends Model
 
     protected $fillable = [
         'customer_name',
-        'point_of_contact_person_id',
+        'user_id',
     ];
 
     public function createClient($request)
     {
         $validatedData = $request->validate([
             'customer_name' => 'required',
-            'point_of_contact_person_id' => 'required',
+            'user_id' => 'required',
         ]);
 
         //saving new record
@@ -44,5 +44,13 @@ class Client extends Model
         $totalProfit = $totalSale / 3;
 
         return $totalProfit;
+    }
+
+    /**
+     * Get all the projects for the client.
+     */
+    public function projects()
+    {
+        return $this->hasMany('App\Models\Project', 'customer_id', 'customer_id');
     }
 }
