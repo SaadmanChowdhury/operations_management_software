@@ -269,17 +269,22 @@
 
     function deleteUser() {
         event.preventDefault();
+        userId = $('#id').val();
 
         $.ajax({
             type: "post",
             url: "/API/deleteUser",
             data: {
-                id: $('#id').val(),
+                id: userId,
                 _token: $('input[name=_token]').val()
             },
             cache: false,
             success: function(response) {
-                handleAJAXResponse(response);
+                if (response["resultStatus"]["isSuccess"])
+                    $("#user-row-" + userId).remove();
+                else
+                    handleAJAXResponse(response);
+                closeModal('user-edit-modal');
             },
             error: function(err) {
                 handleAJAXError(err);

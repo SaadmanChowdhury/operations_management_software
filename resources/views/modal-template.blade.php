@@ -125,7 +125,7 @@
     function updateUserTable(updatedData) {
         console.log(updatedData);
 
-        console.log("UDPATE USER TABLE")
+        console.log("UDPATE TABLE AFTER MODAL UPDATE")
 
         let row = $("#user-row-" + updatedData.id);
 
@@ -206,17 +206,21 @@
 
     function deleteUser() {
         event.preventDefault();
+        userId = $('#id').val();
 
         $.ajax({
             type: "post",
             url: "/API/deleteUser",
             data: {
-                id: $('#id').val(),
+                id: userId,
                 _token: $('input[name=_token]').val()
             },
             cache: false,
             success: function(response) {
-                handleAJAXResponse(response);
+                if (response["resultStatus"]["isSuccess"])
+                    $("#user-row-" + userId).remove();
+                else
+                    handleAJAXResponse(response);
             },
             error: function(err) {
                 handleAJAXError(err);
