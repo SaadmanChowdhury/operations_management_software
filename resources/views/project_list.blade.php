@@ -109,18 +109,18 @@
                                     <tr>
                                         <th class="mishti-orange">Member</th>
                                         <th class="mishti-orange">Ab</th>
-                                        <th>202001</th>
-                                        <th>202002</th>
-                                        <th>202003</th>
-                                        <th>202004</th>
-                                        <th>202005</th>
-                                        <th>202006</th>
-                                        <th>202001</th>
-                                        <th>202002</th>
-                                        <th>202003</th>
-                                        <th>202004</th>
-                                        <th>202005</th>
-                                        <th>202006</th>
+                                        <th>2020/01</th>
+                                        <th>2020/02</th>
+                                        <th>2020/03</th>
+                                        <th>2020/04</th>
+                                        <th>2020/05</th>
+                                        <th>2020/06</th>
+                                        <th>2020/07</th>
+                                        <th>2020/08</th>
+                                        <th>2020/09</th>
+                                        <th>2020/10</th>
+                                        <th style="background-color:#ffbf0b;color:black">2020/11</th>
+                                        <th>2020/12</th>
                                     </tr>
                                     <tr>
                                         <td><img src="img/pro_icon.png">Sofia</td>
@@ -273,18 +273,18 @@
                                     <tr>
                                         <th class="mishti-orange">Member</th>
                                         <th class="mishti-orange">Ab</th>
-                                        <th>202001</th>
-                                        <th>202002</th>
-                                        <th>202003</th>
-                                        <th>202004</th>
-                                        <th>202005</th>
-                                        <th>202006</th>
-                                        <th>202001</th>
-                                        <th>202002</th>
-                                        <th>202003</th>
-                                        <th>202004</th>
-                                        <th>202005</th>
-                                        <th>202006</th>
+                                        <th>2020/01</th>
+                                        <th>2020/02</th>
+                                        <th>2020/03</th>
+                                        <th>2020/04</th>
+                                        <th>2020/05</th>
+                                        <th>2020/06</th>
+                                        <th>2020/07</th>
+                                        <th>2020/08</th>
+                                        <th>2020/09</th>
+                                        <th>2020/10</th>
+                                        <th style="background-color:#ffbf0b;color:black">2020/11</th>
+                                        <th>2020/12</th>
                                     </tr>
                                     <tr>
                                         <td><img src="img/pro_icon.png">ソフィア</td>
