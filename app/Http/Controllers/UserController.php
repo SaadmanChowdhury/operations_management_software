@@ -19,8 +19,9 @@ class UserController extends Controller
         $user = new User();
         $list = $user->readUserList();
         $loggedUser = auth()->user();
-        // $viewParams["list"] = $list;
-        return view('user_list', ['users' => $list, 'loggedUser' => $loggedUser]);
+        $initialPreference = $user->getUIPreference($loggedUser->user_id, "user_list_preference");
+
+        return view('user_list', ['users' => $list, 'loggedUser' => $loggedUser, 'initialPreference' => $initialPreference]);
     }
 
     public function getCreateView()
@@ -121,5 +122,18 @@ class UserController extends Controller
 
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
         }
+    }
+
+    public function updateUserUIPreference(Request $request)
+    {
+        $value = $request->value;
+        if ($value > 3 || $value < 0)
+            $value = 0;
+
+        $loggedUser = auth()->user();
+        $user = new User();
+        $user->updateUserUIPreference($loggedUser->user_id, $request->pageName, $value);
+
+        return JSONHandler::emptySuccessfulJSONPackage();
     }
 }

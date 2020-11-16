@@ -30,6 +30,8 @@
 </head>
 
 <body>
+
+    <input type="hidden" id="CSRF-TOKEN" value="{{ csrf_token() }}">
     {{--
 
     <body style="opacity: 0;" onload="showBody()"> --}}

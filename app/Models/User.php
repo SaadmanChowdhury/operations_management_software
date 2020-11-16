@@ -213,4 +213,14 @@ class User extends Authenticatable
         //soft delete
         $user->delete();
     }
+
+    public function getUIPreference($id, $column)
+    {
+        return User::where('user_id', $id)->first()->$column;
+    }
+
+    public function updateUserUIPreference($id, $column, $value)
+    {
+        User::where('user_id', $id)->update(array($column => $value));
+    }
 }

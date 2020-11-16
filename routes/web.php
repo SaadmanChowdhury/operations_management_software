@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\AssignController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -52,6 +53,7 @@ Route::post("/API/readUser",   [UserController::class, 'readUser']);
 Route::post("/API/updateUser", [UserController::class, 'updateUser']);
 Route::post("/API/deleteUser", [UserController::class, 'deleteUser']);
 
+Route::post("/API/updateUIPreference", [UserController::class, 'updateUserUIPreference']);
 
 // Route::post('user', [UserController::class, 'store'])->name('user.createUser');
 // Route::get('/readUser/{id}', [UserController::class, 'readUser']);
@@ -63,9 +65,7 @@ Route::post("/API/deleteUser", [UserController::class, 'deleteUser']);
 //----------------------------------------------------------------------------
 
 
-Route::get('/assign', function () {
-    return view('assign_summary');
-});
+Route::get('/assign', [AssignController::class, 'index']);
 
 
 //----------------------------------------------------------------------------
