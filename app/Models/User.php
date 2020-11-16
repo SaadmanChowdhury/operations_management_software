@@ -177,6 +177,7 @@ class User extends Authenticatable
             'commercial_distribute' => '',
             'tel' => 'required',
             'position' => 'required',
+            'location' => 'required',
             'admission_day' => 'required',
             'exit_day' => '',
             // 'unit_price' => 'required',
