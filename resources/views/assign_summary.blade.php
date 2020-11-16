@@ -4,6 +4,9 @@
 <div class="page-title">
     <span class="fa fa-home"></span>
     アサインサマリー
+
+    <input type="hidden" id="page-name" value="assign_summary">
+    <input type="hidden" id="initial-preference" value="{{ $initialPreference }}">
 </div>
 
 {{-- ///====REGISTER BUTTON====/// --}}

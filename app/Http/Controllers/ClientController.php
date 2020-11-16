@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +18,14 @@ class ClientController extends Controller
 
         $client = new Client();
         $list = $client->readClientList();
+
         $viewParams["list"] = $list;
         $viewParams["loggedInUser"] = auth()->user();
         $viewParams["loggedInAuthority"] = auth()->user()->user_authority;
+        $viewParams["initialPreference"] = (new User())->getUIPreference(auth()->user()->user_id, "client_list_preference");
+
+        \Illuminate\Support\Facades\Log::debug($viewParams["initialPreference"]);
+
         return view('client_list', $viewParams);
     }
 

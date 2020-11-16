@@ -31,6 +31,11 @@ class CreateUsersTable extends Migration
             $table->integer('user_authority');
             $table->date('resign_day')->nullable();
 
+            $table->integer('user_list_preference')->default(0);
+            $table->integer('client_list_preference')->default(0);
+            $table->integer('project_list_preference')->default(0);
+            $table->integer('assign_summary_preference')->default(0);
+
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();
             $table->unsignedInteger('deleted_id')->nullable();

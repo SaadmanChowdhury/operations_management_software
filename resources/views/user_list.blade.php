@@ -4,6 +4,9 @@
 <div class="page-title">
     <span class="fa fa-user"></span>
     ユーザー一覧
+
+    <input type="hidden" id="page-name" value="user_list">
+    <input type="hidden" id="initial-preference" value="{{$initialPreference}}">
 </div>
 
 

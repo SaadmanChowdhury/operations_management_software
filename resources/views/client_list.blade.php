@@ -4,6 +4,9 @@
 <div class="page-title">
     <span class="fa fa-users"></span>
     顧客一覧
+
+    <input type="hidden" id="page-name" value="client_list">
+    <input type="hidden" id="initial-preference" value="{{ $initialPreference }}">
 </div>
 
 {{-- ///====REGISTER BUTTON====/// --}}

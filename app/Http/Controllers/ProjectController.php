@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,9 @@ class ProjectController extends Controller
         $list = $project->readProjectList();
         return $list;
         $viewParams["list"] = $list;
-        return view('project_list', ['projects' => $list]);
+        $initialPreference = (new User())->getUIPreference(auth()->user()->user_id, "project_list_preference");
+
+        return view('project_list', ['projects' => $list, 'initialPreference' => $initialPreference]);
     }
 
     public function getCreateView()

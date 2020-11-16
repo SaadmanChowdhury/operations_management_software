@@ -122,17 +122,40 @@ function sidebar_contract(sidebar) {
 
 ROW_STATE = 0;
 
-function adjustRowHeight() {
+/** Load initial state */
+$(function () {
+    let preference = $("#initial-preference").val();
+    if (preference == 0)
+        return;
 
-    event.preventDefault();
+    ROW_STATE = preference - 1;
+    adjustRowHeight(true);
+})
+
+function adjustRowHeight(isPageLoad = false) {
+
+    if (isPageLoad) {
+        $(".card").addClass("no-animation");
+        $(".card-header").addClass("no-animation");
+        $(".smallpic").addClass("no-animation");
+        $(".pos").addClass("no-animation");
+        $(".edit").addClass("no-animation");
+    }
+    else
+        event.preventDefault();
 
     switch (ROW_STATE) {
         case 0:
             ROW_STATE++;
             $(".card").addClass("row-adjust-adjacent");
+            $(".card-header").removeClass("row-adjust-compressed");
+            $(".smallpic").removeClass("row-adjust-smaller-pic");
+            $(".pos").removeClass("row-adjust-tiny-pos");
+            $(".edit").removeClass("row-adjust-button-compressed")
             break;
         case 1:
             ROW_STATE++;
+            $(".card").addClass("row-adjust-adjacent");
             $(".card-header").addClass("row-adjust-compressed");
             $(".smallpic").addClass("row-adjust-smaller-pic");
             $(".pos").addClass("row-adjust-tiny-pos");
@@ -141,15 +164,52 @@ function adjustRowHeight() {
         case 2:
             ROW_STATE++;
             $(".card").removeClass("row-adjust-adjacent");
+            $(".card-header").addClass("row-adjust-compressed");
+            $(".smallpic").addClass("row-adjust-smaller-pic");
+            $(".pos").addClass("row-adjust-tiny-pos");
+            $(".edit").addClass("row-adjust-button-compressed")
             break;
         case 3:
             ROW_STATE = 0;
+            $(".card").removeClass("row-adjust-adjacent");
             $(".card-header").removeClass("row-adjust-compressed");
             $(".smallpic").removeClass("row-adjust-smaller-pic");
             $(".pos").removeClass("row-adjust-tiny-pos");
             $(".edit").removeClass("row-adjust-button-compressed")
             break;
     }
+
+    setTimeout(function () {
+        if (isPageLoad) {
+            $(".card").removeClass("no-animation");
+            $(".card-header").removeClass("no-animation");
+            $(".smallpic").removeClass("no-animation");
+            $(".pos").removeClass("no-animation");
+            $(".edit").removeClass("no-animation");
+        }
+        else
+            updateUserUIPreference($("#page-name").val() + "_preference", ROW_STATE);
+    });
+}
+
+function updateUserUIPreference(pageName, value) {
+
+    let package = {
+        pageName: pageName,
+        value: value,
+        _token: $('#CSRF-TOKEN').val(),
+    };
+
+    $.ajax({
+        type: "post",
+        url: "/API/updateUIPreference",
+        data: package,
+        cache: false,
+        success: function (response) {
+        },
+        error: function (err) {
+        }
+    });
 }
 
 function showCard(cardDom) {

@@ -1243,25 +1243,31 @@ button.cancel:hover {
     transition: 0.3s ease;
 }
 
+.no-animation {
+    transition: unset;
+}
+
 /* ////====COLORS====//// */
 
 .primary {
+    border-top: 3px solid #45b6fb;
     background-color: #3AA0DE;
     border-bottom: 3px solid #068bde;
-    border-top: 3px solid #45b6fb;
     color: white;
 }
 
 .midori {
+    border-top: 3px solid #33D70B;
     background-color: #28c128;
-    border-bottom: 3px solid #278627;
+    border-bottom: 3px solid #2e9c2e;
     color: white;
 }
 
 .gray {
-    background-color: lightgray;
+    border-top: 3px solid lightgray;
+    background-color: darkgray;
     border-bottom: 3px solid gray;
-    color: gray;
+    color: white;
 }
 
 .fa-color-primary {
