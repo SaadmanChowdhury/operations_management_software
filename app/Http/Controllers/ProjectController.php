@@ -15,13 +15,15 @@ class ProjectController extends Controller
             return redirect('/login');
         }
 
-        $project = new Project();
-        $list = $project->readProjectList();
-        return $list;
-        $viewParams["list"] = $list;
-        $initialPreference = (new User())->getUIPreference(auth()->user()->user_id, "project_list_preference");
+        // $project = new Project();
+        // $list = $project->readProjectList();
+        // return $list;
+        // $viewParams["list"] = $list;
+        // $initialPreference = (new User())->getUIPreference(auth()->user()->user_id, "project_list_preference");
 
-        return view('project_list', ['projects' => $list, 'initialPreference' => $initialPreference]);
+        // return view('project_list', ['projects' => $list, 'initialPreference' => $initialPreference]);
+
+        return view('project_list', ['initialPreference' => 0]);
     }
 
     public function getCreateView()
