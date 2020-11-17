@@ -399,6 +399,10 @@ footer {
 .fade-right {
     animation: disappear 0.5s;
 }
+.fade-in{
+    transition: all 0.2s;
+    animation: fadeIn 0.5s ease;
+}
 
 /* ////====LOGO_HOLDER====//// */
 
@@ -918,7 +922,7 @@ h1.form-ht {
     width: calc(100vw - 60px);
 }
 
-.button, button {
+.button {
     border: none;
     background-color: white;
     padding: 16px 32px;
@@ -1213,6 +1217,7 @@ h1.form-ht {
     height: 30px;
     width: 30px;
 }
+
 .danger{
     background-color: red;
     border: 1px solid red;
@@ -1231,13 +1236,25 @@ h1.form-ht {
   .add{
     position: relative;
     margin-right: 1%;
-    height: 50px;
   
   }
-  .add button{
+  .add .round-btn{
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+    left:30px
+}
+
+.action button{
     position: relative;
-   
-  }
+    text-decoration: none;
+    margin: 4px 4px;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-top: 20px;
+}
+
+
 #accordian .row {
 
     position: relative;
@@ -1257,17 +1274,26 @@ h1.form-ht {
    width: 100%;
 
  }
- .table-right{
+  .table-left{
+    position: absolute;
+    left: 0; 
+    width: auto;
+  }
+
+  .table-right{
+    position: relative;
+    left: 50px;
     margin-right: 4%;
     width: auto;
     height: auto;
    
   }
-  .table-left{
-    position: relative;
-    margin-right: auto;
-    margin-left: 0; 
-    width: auto;
+
+  .table-right th:nth-child(1){
+      background-color: #F88316;
+  }
+  .table-right th:nth-child(2){
+    background-color: #F88316;
   }
 
   .table-left table td{
@@ -1291,17 +1317,26 @@ h1.form-ht {
  th{
    border-top-left-radius: 2px;
    border-top-right-radius: 2px;
-   background-color: #557be6;
+   background-color: #4772FF;
    color: white;
  }
+ 
  td, th {
 
    border: 0.5px solid #dddddd;
    padding: .5rem; 
    vertical-align: top;
    width: 100%;
+   height: 1rem;
    text-align: center;
    overflow-wrap: break-word;
+ }
+
+ .table-right tr:nth-child(2) {
+    border-bottom: 1.7px solid gray;
+ }
+ .table-scroll{
+     overflow-x: scroll;
  }
 
  #table-nav th{
