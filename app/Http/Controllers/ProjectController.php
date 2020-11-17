@@ -29,8 +29,8 @@ class ProjectController extends Controller
             return redirect('/login');
         }
 
-        $managers = User::all();
-        $customers = Client::all();
+        $managers = User::select(['user_id', 'name'])->get();
+        $customers = Client::select(['customer_id', 'customer_name'])->get();
 
         return view('project.create', compact('managers', 'customers'));
     }
