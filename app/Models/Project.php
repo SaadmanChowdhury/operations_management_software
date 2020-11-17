@@ -15,7 +15,7 @@ class Project extends Model
 
     protected $fillable = [
         'project_name',
-        'customer_id',
+        'client_id',
         'manager_id',
         'order_month',
         'inspection_month',
@@ -31,7 +31,7 @@ class Project extends Model
         $project = Project::select([
             'project_id',
             'project_name',
-            'customer_id',
+            'client_id',
             'manager_id',
 
             'order_month',
@@ -52,7 +52,7 @@ class Project extends Model
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             $validatedData = $request->validate([
                 'project_name' => 'required',
-                'customer_id' => 'required',
+                'client_id' => 'required',
                 'manager_id' => 'required',
                 'order_month' => '',
                 'inspection_month' => '',
@@ -76,7 +76,7 @@ class Project extends Model
         $project = Project::select([
             'project_id',
             'project_name',
-            'customer_id',
+            'client_id',
             'manager_id',
 
             'order_month',
@@ -104,7 +104,7 @@ class Project extends Model
         //validation rules
         $rules = [
             'project_name' => 'required',
-            'customer_id' => 'required',
+            'client_id' => 'required',
             'manager_id' => 'required',
             'order_month' => '',
             'inspection_month' => '',
@@ -147,5 +147,21 @@ class Project extends Model
             return JSONHandler::emptySuccessfulJSONPackage();
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+    }
+
+    /**
+     * The users that belong to the project.
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'assign', 'project_id', 'user_id');
+    }
+
+    /**
+     * Get the client of the project.
+     */
+    public function client()
+    {
+        return $this->belongsTo('App\Models\Client', 'client_id', 'client_id');
     }
 }

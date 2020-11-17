@@ -124,7 +124,7 @@
                 $('#message').html(err.responseJSON.errors.email);
             }
             /*
-            if (err.responseJSON.errors.customer_name != null) {
+            if (err.responseJSON.errors.client_name != null) {
                 $('#message').html("エラー　： " + "顧客名が入力していないです。");
             }*/
         }

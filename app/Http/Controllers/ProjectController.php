@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Client;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,7 +33,10 @@ class ProjectController extends Controller
             return redirect('/login');
         }
 
-        return view('project.create');
+        $managers = User::select(['user_id', 'name'])->get();
+        $customers = Client::select(['client_id', 'client_name'])->get();
+
+        return view('project.create', compact('managers', 'customers'));
     }
 
     public function getEditView($id)

@@ -9,8 +9,8 @@
         <input type="text" name="project_name" value="{{ $project->project_name }}">
     </div>
     <div>
-        <label>customer_id:</label>
-        <input type="number" name="customer_id" value="{{ $project->customer_id }}">
+        <label>client_id:</label>
+        <input type="number" name="client_id" value="{{ $project->client_id }}">
     </div>
     <div>
         <label>manager_id:</label>

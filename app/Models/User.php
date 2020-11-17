@@ -215,6 +215,14 @@ class User extends Authenticatable
         $user->delete();
     }
 
+    /**
+     * The projects that belong to the user.
+     */
+    public function projects()
+    {
+        return $this->belongsToMany('App\Models\Project', 'assign', 'user_id', 'project_id');
+    }
+
     public function getUIPreference($id, $column)
     {
         return User::where('user_id', $id)->first()->$column;
