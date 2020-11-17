@@ -92,6 +92,12 @@
 
 
 <script>
+    function userRegisterModalHandler() {
+        event.preventDefault();
+
+        alert("Super cool animation revealing the user register modal");
+    }
+
     function getFormData() {
         return {
             name: $('#nameInput').val(),

@@ -36,6 +36,11 @@
             <a href="" onclick="adjustRowHeight()">
                 <li class="fa fa-list"> </li>
             </a>
+            @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
+                <a href="" onclick="userRegisterModalHandler()">
+                    <li> + 登録</li>
+                </a>
+            @endif
         </ul>
 
         <hr />
@@ -214,6 +219,7 @@
 </div>
 
 @include("user.edit")
+@include("user.create")
 
 
 <script src="/js/user.js"></script>
