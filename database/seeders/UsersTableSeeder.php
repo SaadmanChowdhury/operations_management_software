@@ -228,7 +228,7 @@ class UsersTableSeeder extends Seeder
                 'resign_day' => null,
             ],
             [
-                'name' => 'ウッシャブ',
+                'name' => 'ウッショブ',
                 'email' => 'utshab@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
