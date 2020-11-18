@@ -151,7 +151,7 @@
         getUserData(userID);
     }
 
-    function getFormData() {
+    function getEditFormData() {
         return {
             id: $('#id').val(),
             name: $('#user_edit_nameInput').val(),
@@ -247,7 +247,7 @@
     function updateUser() {
         event.preventDefault();
 
-        modalData = getFormData();
+        modalData = getEditFormData();
 
         $.ajax({
             type: "post",

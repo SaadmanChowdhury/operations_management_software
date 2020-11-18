@@ -118,7 +118,7 @@
         showModal('user-create-modal');
     }
 
-    function getFormData() {
+    function getRegFormData() {
         return {
             name: $('#user_create_nameInput').val(),
             email: $('#user_create_emailInput').val(),
@@ -156,30 +156,11 @@
         }
     }
 
-    // $(document).ready(function() {
-    //     $('#reg_form').submit(function(e) {
-    //         console.log(getFormData());
-    //         e.preventDefault();
-
-    //         $.ajax({
-    //             type: "post",
-    //             url: "/API/createUser",
-    //             data: getFormData(),
-    //             cache: false,
-    //             success: function(response) {
-    //                 handleAJAXResponse(response);
-    //             },
-    //             error: function(err) {
-    //                 handleAJAXError(err);
-    //             }
-    //         });
-    //     });
-    // });
 
     function createUser() {
         event.preventDefault();
 
-        modalData = getFormData();
+        modalData = getRegFormData();
 
         $.ajax({
             type: "post",
