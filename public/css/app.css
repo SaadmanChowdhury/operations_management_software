@@ -1279,9 +1279,8 @@ h1.form-ht {
    font-size: 65%;
    border-radius: 7px;
    margin-bottom: 0px;
-   
-
  }
+
   .table-left{
     position: absolute;
     left: 0; 
@@ -1347,11 +1346,13 @@ h1.form-ht {
    vertical-align: top;
    width: 100%;
    height: 1rem;
-   text-align: center;
+   line-height: 1rem;
    overflow-wrap: break-word;
  }
  td{
      height: 1.3rem;
+     line-height: 1.3rem;
+     justify-content: center;
  }
 
  .table-right tr:nth-child(2) {
