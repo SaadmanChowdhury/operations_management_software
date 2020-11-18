@@ -1293,6 +1293,7 @@ h1.form-ht {
     position: relative;
     left: 50px;
     margin-right: 4%;
+    margin-left: 2%;
     width: auto;
     height: auto;
    
@@ -1300,22 +1301,25 @@ h1.form-ht {
   .table-right .table-des{
     box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
   }
-  .table-right .table-scroll{
-    box-shadow: rgba(0, 0, 0, 0.25) 0 0 4px 1px;
+  .table-right .table-fix{
+    box-shadow: rgba(0, 0, 0, 0.25) 0 4px 2px -1px;
   }
 
-  .table-right th:nth-child(1){
+  .table-right .table-fix th:nth-child(1){
       background-color: #F88316;
   }
-  .table-right th:nth-child(2){
+  .table-right .table-fix th:nth-child(2){
     background-color: #F88316;
   }
 
   .table-left table td{
     width:4rem; 
   }
-  .table-right table td:nth-child(1){
-    min-width:63px; 
+  .table-right .table-fix td:nth-child(1){
+    min-width:80px; 
+  }
+  .table-right .table-fix td:nth-child(2){
+    min-width:50px; 
   }
  th:first-of-type {
  border-top-left-radius: 5px;
@@ -1346,11 +1350,14 @@ h1.form-ht {
    text-align: center;
    overflow-wrap: break-word;
  }
+ td{
+     height: 1.3rem;
+ }
 
  .table-right tr:nth-child(2) {
     border-bottom: 1.7px solid gray;
  }
- .table-scroll{
+ .table-fix{
      overflow-x: scroll;
      box-shadow: none;
  }

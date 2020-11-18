@@ -105,7 +105,7 @@
                             </div>
                             {{-- ///====PROJECT-INNER-RIGHT-TABLE====/// --}}
                             <div class="table-right row">
-                                <table class="table-scroll">
+                                <table class="table-fix">
                                     <tr>
                                         <th class="mishti-orange">Member</th>
                                         <th class="mishti-orange">Ab</th>
@@ -269,7 +269,7 @@
                             </div>
                             {{-- ///====PROJECT-INNER-RIGHT-TABLE====/// --}}
                             <div class="table-right row">
-                                <table class="table-scroll">
+                                <table class="table-fix">
                                     <tr>
                                         <th class="mishti-orange">Member</th>
                                         <th class="mishti-orange">Ab</th>
