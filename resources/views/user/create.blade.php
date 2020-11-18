@@ -1,5 +1,3 @@
-@include("header")
-
 <div class="modal-container" id="user-create-modal">
 
     <div class="modal-title primary">
@@ -7,7 +5,7 @@
         <span class="fa fa-chevron-up close" onclick="closeModal('user-create-modal')"></span>
     </div>
 
-    <div id="reg_modal" class="modal-form-container">
+    <div class="modal-form-container _user">
         <form id="reg_form" action="" method="">
             @csrf
 
@@ -19,70 +17,92 @@
                     </div>
 
                     <div>
-                        <button type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> 登録</button>
+                        <button type="submit" onclick="createUser()"><i class="fa fa-floppy-o" aria-hidden="true"></i> 登録</button>
                     </div>
 
                     <div>
-                        <button type="submit" class="cancel"><i class="fa fa-times" aria-hidden="true"
-                                onclick="closeModal('user-create-modal')"></i> 戻る</button>
+                        <button type="submit" class="cancel" onclick="closeModal('user-create-modal')"><i class="fa fa-times" 
+                            aria-hidden="true"></i> 戻る</button>
                     </div>
                 </div>
 
-                <div class="column right">
-                    <div><label for="name">名前</label></div>
-                    <div><input type="text" id="nameInput" name="name" required></div>
+                <div class="column right _user">
 
-
-                    <div><label for="email">メールアドレス</label></div>
-                    <div><input type="email" id="emailInput" name="email" required></div>
-
-
-                    <div><label for="password">パスワード</label></div>
-                    <div><input type="password" id="passwordInput" name="password" required></div>
-
-
-                    <div><label for="tel">電話番号</label></div>
-                    <div><input type="text" id="telInput" name="tel" required></div>
-
-
-                    <div><label>ポジション</label></div>
-                    <div class="custom-select">
-                        <select id="positionInput" required>
-                            @foreach (config('constants.Position') as $position => $value)
-                                <option>{{ $position }}</option>
-                            @endforeach
-                        </select>
+                    <div class="modal-form-input-container">
+                        <div class="_full">
+                            <div><label for="name">名前</label></div>
+                            <div><input type="text" id="user_create_nameInput" name="name" required></div>
+                        </div>
                     </div>
 
-
-                    <div><label>職場</label></div>
-                    <div class="custom-select">
-                        <select id="locationInput" required>
-                            @foreach (config('constants.Location') as $location => $value)
-                                <option>{{ $location }}</option>
-                            @endforeach
-                        </select>
+                    <div class="modal-form-input-container">
+                        <div class="_half">
+                            <div><label for="email">メールアドレス</label></div>
+                            <div><input type="email" id="user_create_emailInput" name="email" required></div>
+                        </div>
+                        <div class="_half">
+                            <div><label for="password">パスワード</label></div>
+                            <div><input type="password" id="user_create_passwordInput" name="password" required></div>
+                        </div>
                     </div>
 
+                    <div class="modal-form-input-container">
+                        <div class="_half">
+                            <div><label for="tel">電話番号</label></div>
+                            <div><input type="text" id="user_create_telInput" name="tel" required></div>
+                        </div>
 
-                    <div><label for="admission_day">入場日</label></div>
-                    <div><input type="date" id="admission_dayInput" name="admission_day" required></div>
-
-
-                    <div><label for="salary">原価</label></div>
-                    <div><input type="number" id="salaryInput" name="salary" required></div>
-
-
-                    <div><label>ユーザー権限</label></div>
-                    <div class="custom-select">
-                        <select id="authorityInput" required>
-                            @foreach (config('constants.User_authority') as $authority => $value)
-                                <option name="user_authority">{{ $authority }}</option>
-                            @endforeach
-                        </select>
+                        <div class="_half">
+                            <div><label>職場</label></div>
+                            <div class="custom-select">
+                                <select id="user_create_locationInput" required>
+                                    @foreach (config('constants.Location') as $location => $value)
+                                        <option>{{ $location }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="modal-form-input-container">
+                        <div class="_half">
+                            <div><label for="salary">原価</label></div>
+                            <div><input type="number" id="user_create_salaryInput" name="salary" required></div>
+                        </div>
+
+                        <div class="_half">
+                            <div><label>ポジション</label></div>
+                            <div class="custom-select">
+                                <select id="user_create_positionInput" required>
+                                    @foreach (config('constants.Position') as $position => $value)
+                                        <option>{{ $position }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-form-input-container">
+                        <div class="_half">
+                            <div><label for="admission_day">入場日</label></div>
+                            <div><input type="date" id="user_create_admission_dayInput" name="admission_day" required></div>
+                        </div>
+
+                        <div class="_half">
+                            <div><label>ユーザー権限</label></div>
+                            <div class="custom-select">
+                                <select id="user_create_authorityInput" required>
+                                    @foreach (config('constants.User_authority') as $authority => $value)
+                                        <option name="user_authority">{{ $authority }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>     
+
                 </div>
             </div>
+
 
             <div id="message"></div>
 
@@ -95,20 +115,20 @@
     function userRegisterModalHandler() {
         event.preventDefault();
 
-        alert("Super cool animation revealing the user register modal");
+        showModal('user-create-modal');
     }
 
     function getFormData() {
         return {
-            name: $('#nameInput').val(),
-            email: $('#emailInput').val(),
-            password: $('#passwordInput').val(),
-            tel: $('#telInput').val(),
-            position: $('#positionInput').val(),
-            location: $('#locationInput').val(),
-            admission_day: $('#admission_dayInput').val(),
-            unit_price: $('#salaryInput').val(),
-            user_authority: $('#authorityInput').val(),
+            name: $('#user_create_nameInput').val(),
+            email: $('#user_create_emailInput').val(),
+            password: $('#user_create_passwordInput').val(),
+            tel: $('#user_create_telInput').val(),
+            position: $('#user_create_positionInput').val(),
+            location: $('#user_create_locationInput').val(),
+            admission_day: $('#user_create_admission_dayInput').val(),
+            unit_price: $('#user_create_salaryInput').val(),
+            user_authority: $('#user_create_authorityInput').val(),
             _token: $('input[name=_token]').val()
         };
     }
@@ -136,26 +156,48 @@
         }
     }
 
-    $(document).ready(function() {
-        $('#reg_form').submit(function(e) {
-            console.log(getFormData());
-            e.preventDefault();
+    // $(document).ready(function() {
+    //     $('#reg_form').submit(function(e) {
+    //         console.log(getFormData());
+    //         e.preventDefault();
 
-            $.ajax({
-                type: "post",
-                url: "/API/createUser",
-                data: getFormData(),
-                cache: false,
-                success: function(response) {
+    //         $.ajax({
+    //             type: "post",
+    //             url: "/API/createUser",
+    //             data: getFormData(),
+    //             cache: false,
+    //             success: function(response) {
+    //                 handleAJAXResponse(response);
+    //             },
+    //             error: function(err) {
+    //                 handleAJAXError(err);
+    //             }
+    //         });
+    //     });
+    // });
+
+    function createUser() {
+        event.preventDefault();
+
+        modalData = getFormData();
+
+        $.ajax({
+            type: "post",
+            url: "/API/createUser",
+            data: modalData,
+            cache: false,
+            success: function(response) {
+                if (response["resultStatus"]["isSuccess"]) {
+                    updateUserTable(modalData);
+                    closeModal('user-create-modal');
+                } else
                     handleAJAXResponse(response);
-                },
-                error: function(err) {
-                    handleAJAXError(err);
-                }
-            });
+            },
+            error: function(err) {
+                handleAJAXError(err);
+            }
         });
-    });
+    }
 
 </script>
 
-@include("footer")

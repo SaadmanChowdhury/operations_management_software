@@ -44,32 +44,32 @@
                     <div class="modal-form-input-container">
                         <div class="_full">
                             <div><label for="name">名前</label></div>
-                            <div><input type="text" id="nameInput" name="name" value="" required></div>
+                            <div><input type="text" id="user_edit_nameInput" name="name" value="" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="email">メールアドレス</label></div>
-                            <div><input type="email" id="emailInput" name="email" value=""></div>
+                            <div><input type="email" id="user_edit_emailInput" name="email" value=""></div>
                         </div>
 
                         <div class="_half">
                             <div><label for="password">パスワード</label></div>
-                            <div><input type="password" id="passwordInput" name="password"></div>
+                            <div><input type="password" id="user_edit_passwordInput" name="password"></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="tel">電話番号</label></div>
-                            <div><input type="text" id="telInput" name="tel" value=""></div>
+                            <div><input type="text" id="user_edit_telInput" name="tel" value=""></div>
                         </div>
 
                         <div class="_half">
                             <div><label>職場</label></div>
                             <div class="custom-select">
-                                <select id="locationInput">
+                                <select id="user_edit_locationInput">
                                     @foreach (config('constants.Location') as $location => $value)
                                         <option value="{{ $value }}">{{ $location }}</option>
                                     @endforeach
@@ -84,11 +84,11 @@
                             <div><label for="salary">原価</label></div>
                             @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
                                 <div>
-                                    <input type="number" id="salaryInput" name="salary" value="" required>
+                                    <input type="number" id="user_edit_salaryInput" name="salary" value="" required>
                                 </div>
                             @else
                                 <div>
-                                    <input type="number" id="salaryInput" name="salary" value="" readonly>
+                                    <input type="number" id="user_edit_salaryInput" name="salary" value="" readonly>
                                 </div>
                             @endif
                         </div>
@@ -96,7 +96,7 @@
                         <div class="_half">
                             <div><label>ポジション</label></div>
                             <div class="custom-select">
-                                <select id="positionInput">
+                                <select id="user_edit_positionInput">
                                     @foreach (config('constants.Position') as $position => $value)
                                         <option value="{{ $value }}">{{ $position }}</option>
                                     @endforeach
@@ -110,11 +110,11 @@
                             <div><label for="admission_day">入場日</label></div>
                             @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
                                 <div>
-                                    <input type="date" id="admission_day" name="admission_day" value="">
+                                    <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
                                 </div>
                             @else
                                 <div>
-                                    <input type="date" id="admission_day" name="admission_day" value="" readonly>
+                                    <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="" readonly>
                                 </div>
                             @endif
                         </div>
@@ -123,11 +123,11 @@
                             <div><label for="resignation_year">退職日</label></div>
                             @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
                                 <div>
-                                    <input type="date" id="resignation_yearInput" name="resignation_year" value="">
+                                    <input type="date" id="user_edit_resignation_yearInput" name="resignation_year" value="">
                                 </div>
                             @else
                                 <div>
-                                    <input type="date" id="resignation_yearInput" name="resignation_year" value=""
+                                    <input type="date" id="user_edit_resignation_yearInput" name="resignation_year" value=""
                                         readonly>
                                 </div>
                             @endif
@@ -154,17 +154,17 @@
     function getFormData() {
         return {
             id: $('#id').val(),
-            name: $('#nameInput').val(),
-            email: $('#emailInput').val(),
-            password: $('#passwordInput').val(),
-            tel: $('#telInput').val(),
-            position: $('#positionInput').val(),
-            positionText: $("#positionInput").find(":selected").text(),
-            location: $('#locationInput').val(),
-            locationText: $("#locationInput").find(":selected").text(),
-            admission_day: $('#admission_day').val(),
-            unit_price: $('#salaryInput').val(),
-            user_authority: $('#authorityInput').val(),
+            name: $('#user_edit_nameInput').val(),
+            email: $('#user_edit_emailInput').val(),
+            password: $('#user_edit_passwordInput').val(),
+            tel: $('#user_edit_telInput').val(),
+            position: $('#user_edit_positionInput').val(),
+            positionText: $("#user_edit_positionInput").find(":selected").text(),
+            location: $('#user_edit_locationInput').val(),
+            locationText: $("#user_edit_locationInput").find(":selected").text(),
+            admission_day: $('#user_edit_admission_dayInput').val(),
+            unit_price: $('#user_edit_salaryInput').val(),
+            user_authority: $('#user_edit_authorityInput').val(),
             _token: $('input[name=_token]').val()
         };
     }
@@ -213,14 +213,14 @@
         }
 
         $("#id").val(data.user_id)
-        $("#nameInput").val(data.name)
-        $("#emailInput").val(data.email)
-        $("#telInput").val(data.tel)
-        $("#locationInput").val(data.location)
-        $("#positionInput").val(data.position)
-        $("#admission_day").val(data.admission_day)
-        $("#resignation_yearInput").val(data.resign_day)
-        $("#salaryInput").val(data.unit_price)
+        $("#user_edit_nameInput").val(data.name)
+        $("#user_edit_emailInput").val(data.email)
+        $("#user_edit_telInput").val(data.tel)
+        $("#user_edit_locationInput").val(data.location)
+        $("#user_edit_positionInput").val(data.position)
+        $("#user_edit_admission_dayInput").val(data.admission_day)
+        $("#user_edit_resignation_yearInput").val(data.resign_day)
+        $("#user_edit_salaryInput").val(data.unit_price)
     }
 
     function getUserData(userID) {
