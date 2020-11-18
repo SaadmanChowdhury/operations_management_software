@@ -1229,9 +1229,20 @@ h1.form-ht {
     border: 1px solid #6AF141;
     color: white;
 }
+.success:hover{
+    background-color: #6AF141;
+    border: 1px solid #6AF141;
+    color: white;
+}
+.danger:hover{
+    background-color: red;
+    border: 1px solid red;
+    color: white;
+}
 .action{
     position: relative;
     margin-top:-30px;
+    left: 30px;
   }
   .add{
     position: relative;
@@ -1256,8 +1267,6 @@ h1.form-ht {
 
 
 #accordian .row {
-
-    position: relative;
     display: inline-flex;
     flex-direction: row;
     box-sizing: border-box;
@@ -1269,15 +1278,15 @@ h1.form-ht {
    border-collapse: collapse;
    font-size: 65%;
    border-radius: 7px;
-   box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
    margin-bottom: 0px;
-   width: 100%;
+   
 
  }
   .table-left{
     position: absolute;
     left: 0; 
     width: auto;
+    box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
   }
 
   .table-right{
@@ -1287,6 +1296,12 @@ h1.form-ht {
     width: auto;
     height: auto;
    
+  }
+  .table-right .table-des{
+    box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
+  }
+  .table-right .table-scroll{
+    box-shadow: rgba(0, 0, 0, 0.25) 0 0 4px 1px;
   }
 
   .table-right th:nth-child(1){
@@ -1337,6 +1352,7 @@ h1.form-ht {
  }
  .table-scroll{
      overflow-x: scroll;
+     box-shadow: none;
  }
 
  #table-nav th{

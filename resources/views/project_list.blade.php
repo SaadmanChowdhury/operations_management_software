@@ -56,7 +56,7 @@
 
             <div id="accordian" class="project table-body">
 
-                <div class="card" id="project-row-1" onclick="display(1)">
+                <div class="card" id="project-row-" onclick="display(1)">
                     <div class="card-header" id="row1head">
                         <div class="display list-unstyled">
                             <li>実績管理システム</li>
@@ -104,11 +104,34 @@
                                 <button class="btn round-btn primary"><span class="fa fa-plus"></span></button>
                             </div>
                             {{-- ///====PROJECT-INNER-RIGHT-TABLE====/// --}}
-                            <div class="table-right">
-                                <table>
+                            <div class="table-right row">
+                                <table class="table-scroll">
                                     <tr>
-                                        <th>Member</th>
-                                        <th>Ab</th>
+                                        <th class="mishti-orange">Member</th>
+                                        <th class="mishti-orange">Ab</th>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td><img src="img/pro_icon.png">ソフィア</td>
+                                        <td>none</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="img/pro_icon.png">ソフィア</td>
+                                        <td>none</td>
+                                                                               
+                                    </tr>
+                                    <tr>
+                                        <td><img src="img/pro_icon.png">Sofia</td>
+                                        <td>none</td>
+                                                                                
+                                    </tr>
+                                    <tr>
+                                        <td><img src="img/pro_icon.png">Sofia</td>
+                                        <td>none</td>
+                                    </tr>
+                                </table>
+                                <table class="table-des">
+                                    <tr>
                                         <th>2020/01</th>
                                         <th>2020/02</th>
                                         <th>2020/03</th>
@@ -123,8 +146,6 @@
                                         <th>2020/12</th>
                                     </tr>
                                     <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
@@ -140,8 +161,6 @@
 
                                     </tr>
                                     <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
@@ -154,11 +173,9 @@
                                         <td>5.00</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
-                                        
+
                                     </tr>
                                     <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
@@ -171,11 +188,9 @@
                                         <td>5.00</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
-                                        
+
                                     </tr>
                                     <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
@@ -188,24 +203,9 @@
                                         <td>5.00</td>
                                         <td>5.00</td>
                                         <td>5.00</td>
-                                        
+
                                     </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                        <td>5.00</td>
-                                    </tr>
+
                                 </table>
                             </div>
                             <div class="action">
@@ -294,7 +294,7 @@
                                         <td>none</td>
                                     </tr>
                                 </table>
-                                <table>
+                                <table class="table-des">
                                     <tr>
                                         <th>2020/01</th>
                                         <th>2020/02</th>
