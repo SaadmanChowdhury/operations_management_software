@@ -6,6 +6,7 @@ use App\Http\Utilities\JSONHandler;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Project extends Model
 {
@@ -147,6 +148,78 @@ class Project extends Model
             return JSONHandler::emptySuccessfulJSONPackage();
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+    }
+
+
+    /**
+     * this will return the total execution value for a stuff of the project
+     */
+    public function getIndividualTotalExecution($project_id, $user_id)
+    {
+        $data = DB::table('assign')
+            ->where('assign.project_id', $project_id)
+            ->where('assign.user_id', $user_id)
+            ->whereNull("deleted_at")
+            ->sum('assign.execution');
+        return $data;
+    }
+
+    /**
+     * get total man-month of a project
+     */
+    public function getTotalManMonth($project_id)
+    {
+        $data = DB::table('assign')
+            ->where('assign.project_id', $project_id)
+            ->whereNull("deleted_at")
+            ->sum('assign.execution');
+        return $data;
+    }
+
+    public function getAssignUsersId($project_id)
+    {
+        $data = DB::table('assign')
+            ->select('user_id')
+            ->where('project_id', $project_id)
+            ->groupBy('user_id')
+            ->get();
+        return $data;
+    }
+
+    public function getUserUnitPrice($user_id)
+    {
+        $user = User::select('unit_price')->where('user_id', $user_id)->first();
+        return $user->unit_price;
+    }
+
+    public function getProjectCost($project_id)
+    {
+        $assignedUsersId = $this->getAssignUsersId($project_id);
+        $totalCost = 0;
+        foreach ($assignedUsersId as $user) {
+            $user_id = $user->user_id;
+            $individualExecution = $this->getIndividualTotalExecution($project_id, $user_id);
+            $unit_price = $this->getUserUnitPrice($user_id);
+            $totalCost += $individualExecution * $unit_price;
+        }
+
+        return $totalCost;
+    }
+
+    public function getProjectBudget($project_id)
+    {
+        $project = Project::select('sales_total')->where('project_id', $project_id)->first();
+        return $project->sales_total;
+    }
+
+    public function getProjectProfit($project_id)
+    {
+        $projectBudget = $this->getProjectBudget($project_id);
+        $projectCost = $this->getProjectCost($project_id);
+
+        $projectProfit = intval($projectBudget) - intval($projectCost);
+
+        return $projectProfit;
     }
 
     /**
