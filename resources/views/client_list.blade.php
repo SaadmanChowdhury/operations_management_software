@@ -33,7 +33,7 @@
             <hr />
 
             {{-- ///====CLIENT-TABLE HEADER====/// --}}
-            <div id="table-nav" class="midori">
+            <div id="table-nav" class="mild-midori">
                 <div class="flex-col">
                     <ul class="display list-unstyled">
                         <li> コード</li>
