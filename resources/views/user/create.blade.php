@@ -1,6 +1,6 @@
 <div class="modal-container" id="user-create-modal">
 
-    <div class="modal-title primary">
+    <div class="modal-title mild-midori">
         <span class="form-ht">ユーザー登録</span>
         <span class="fa fa-chevron-up close" onclick="closeModal('user-create-modal')"></span>
     </div>
@@ -13,16 +13,17 @@
 
                 <div class="column left">
                     <div>
-                        <img src="{{ asset('img/dp.png') }}" class="dp" alt="display photo">
+                        <img src="{{ asset('img/user_dp.png') }}" class="dp _user" alt="display photo">
                     </div>
 
                     <div>
-                        <button type="submit" onclick="createUser()"><i class="fa fa-floppy-o" aria-hidden="true"></i> 登録</button>
+                        <button type="submit" onclick="createUser()"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            登録</button>
                     </div>
 
                     <div>
-                        <button type="submit" class="cancel" onclick="closeModal('user-create-modal')"><i class="fa fa-times" 
-                            aria-hidden="true"></i> 戻る</button>
+                        <button type="submit" class="cancel" onclick="closeModal('user-create-modal')"><i
+                                class="fa fa-times" aria-hidden="true"></i> 戻る</button>
                     </div>
                 </div>
 
@@ -85,7 +86,8 @@
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="admission_day">入場日</label></div>
-                            <div><input type="date" id="user_create_admission_dayInput" name="admission_day" required></div>
+                            <div><input type="date" id="user_create_admission_dayInput" name="admission_day" required>
+                            </div>
                         </div>
 
                         <div class="_half">
@@ -98,7 +100,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div>     
+                    </div>
 
                 </div>
             </div>
@@ -181,4 +183,3 @@
     }
 
 </script>
-

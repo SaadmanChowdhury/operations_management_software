@@ -48,7 +48,7 @@
         
 
         {{-- ///====USER-TABLE HEADER====/// --}}
-        <div id="table-nav" class="midori">
+        <div id="table-nav" class="mild-midori">
             <div class="flex-col">
                 <ul class="display list-unstyled">
                     {{-- 
@@ -71,7 +71,7 @@
                     @endif
                     <li>単価(最新)</li>
 
-                    <li><span class="fa fa-filter fa-lg fa-color-midori">Filter</span> </li>
+                    <li><span class="fa fa-filter fa-lg fa-color-mild-midori">Filter</span> </li>
                 </ul>
             </div>
 

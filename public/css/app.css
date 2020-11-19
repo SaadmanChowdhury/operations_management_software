@@ -348,16 +348,31 @@ footer {
 #nav li {
     display: inline-flex;
     width: 100%;
-    padding: 12px;
     margin-top: 1rem;
+    transition: 0.2s ease-out;
+}
+
+#nav #sidebar-logout-link-li {
+    margin-top: calc(100vh - 500px);
 }
 
 #nav li a {
     width: 100%;
+    padding: 12px;
 }
 
-#nav li a:hover {
-    color: #587bd3eb;
+#nav li:hover {
+    background-color: #587bd3;
+    transform: translateX(15px);
+    /* background-color: blue; */
+}
+
+#nav #sidebar-logout-link-li:hover {
+    background-color: #db7474;
+}
+
+.sidebar.label-text {
+    vertical-align: super;
 }
 
 .label-text {
@@ -382,9 +397,9 @@ footer {
     margin-left: 15px;
 }
 
-/* .fa {
+.fa {
     width: 25%;
-} */
+}
 
 .hide {
     display: none;
@@ -394,7 +409,7 @@ footer {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 0px 1px;
 }
 
-.fade-left {
+/* .fade-left {
     animation: appear 0.5s;
 }
 
@@ -405,7 +420,7 @@ footer {
 .fade-in {
     transition: all 0.2s;
     animation: fadeIn 0.5s ease;
-}
+} */
 
 /* ////====LOGO_HOLDER====//// */
 
@@ -819,13 +834,18 @@ footer {
 }
 
 .card._user:hover {
-    background-color: #28c12815;
-     /* #068bde15; */
+    background-color: #84f7bf25;
+    /* #068bde15; */
 }
 
 .card._client:hover {
-    background-color:#bedecf52;
+    background-color: #28c12815;
     /* #b7e1cd85; */
+}
+
+.card._project:hover {
+    background-color: #068bde15;
+    /* #068bde15; */
 }
 
 .card-header {
@@ -1004,6 +1024,18 @@ img.dp {
     border: 2px solid #3AA0DE;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     box-sizing: border-box;
+}
+
+img.dp._user {
+    border: 2px solid #61ce99;
+}
+
+img.dp._client {
+    border: 2px solid #28c128;
+}
+
+img.dp._project {
+    border: 2px solid #3AA0DE;
 }
 
 .close {
@@ -1284,10 +1316,11 @@ button.cancel:hover {
     color: white;
 }
 
-.mild-midori{
-    background-color: #b7e1cd;
-    border-bottom: 3px solid #89b889;
-    color:black;
+.mild-midori {
+    border-top: 3px solid #6df7b5;
+    background-color: #6ae2a8;
+    border-bottom: 3px solid #4ab984;
+    color: #064828;
 }
 
 .gray {
@@ -1315,6 +1348,9 @@ button.cancel:hover {
     color: #28c128;
 }
 
+.fa-color-mild-midori {
+    color: #4ab984;
+}
 
 .transparent {
     opacity: 0;

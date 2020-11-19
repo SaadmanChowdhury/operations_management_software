@@ -1,6 +1,6 @@
 <div class="modal-container" id="user-edit-modal">
 
-    <div class="modal-title primary">
+    <div class="modal-title mild-midori">
         <span class="form-ht">ユーザー編集</span>
         <span class="fa fa-chevron-up close" onclick="closeModal('user-edit-modal')"></span>
     </div>
@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="column left">
                     <div>
-                        <img src="{{ asset('img/dp.png') }}" class="dp" alt="display photo">
+                        <img src="{{ asset('img/user_dp.png') }}" class="dp _user" alt="display photo">
                     </div>
 
                     <div>
@@ -114,7 +114,8 @@
                                 </div>
                             @else
                                 <div>
-                                    <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="" readonly>
+                                    <input type="date" id="user_edit_admission_dayInput" name="admission_day" value=""
+                                        readonly>
                                 </div>
                             @endif
                         </div>
@@ -123,12 +124,13 @@
                             <div><label for="resignation_year">退職日</label></div>
                             @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
                                 <div>
-                                    <input type="date" id="user_edit_resignation_yearInput" name="resignation_year" value="">
+                                    <input type="date" id="user_edit_resignation_yearInput" name="resignation_year"
+                                        value="">
                                 </div>
                             @else
                                 <div>
-                                    <input type="date" id="user_edit_resignation_yearInput" name="resignation_year" value=""
-                                        readonly>
+                                    <input type="date" id="user_edit_resignation_yearInput" name="resignation_year"
+                                        value="" readonly>
                                 </div>
                             @endif
                         </div>

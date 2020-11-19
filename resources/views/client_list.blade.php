@@ -33,7 +33,7 @@
             <hr />
 
             {{-- ///====CLIENT-TABLE HEADER====/// --}}
-            <div id="table-nav" class="mild-midori">
+            <div id="table-nav" class="midori">
                 <div class="flex-col">
                     <ul class="display list-unstyled">
                         <li> コード</li>
@@ -42,7 +42,7 @@
                         <li>受注顧合計</li>
                         <li>実績粗利</li>
 
-                        <li><span class="fa fa-filter fa-lg fa-color-midori">Filter</span></li>
+                        <li><span class="fa fa-filter fa-lg fa-color-mild-midori">Filter</span></li>
 
                     </ul>
                 </div>
