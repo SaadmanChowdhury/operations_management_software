@@ -59,8 +59,8 @@
 
             <div id="accordian" class="project table-body">
 
-                <div class="card" id="project-row-" onclick="display(1)">
-                    <div class="card-header" id="row1head">
+                <div class="card _project" id="project-row-">
+                    <div class="card-header" id="row1head" onclick="display(1)">
                         <div class="display list-unstyled">
                             <li>実績管理システム</li>
                             <li>トゥエンティフォーセブン</li>
@@ -146,6 +146,7 @@
                                         <td>none</td>
                                     </tr>
                                 </table>
+                                <div class="table-des-container">
                                     <table class="table-des">
                                         <tr>
                                             <th>2020/01</th>
@@ -223,6 +224,7 @@
                                         </tr>
 
                                     </table>
+                                </div>
                             </div>
                             <div class="action">
                                 <ul class="list-unstyled">
@@ -240,8 +242,8 @@
                 --}}
 
                 {{-- ///====PROJECT-2nd ROW STARTS====/// --}}
-                <div class="card" id="project-row-" onclick="display(2)">
-                    <div class="card-header" id="row2head">
+                <div class="card _project" id="project-row-">
+                    <div class="card-header" id="row2head" onclick="display(2)">
                         <div class="display list-unstyled">
                             <li>実績管理システム</li>
                             <li>トゥエンティフォーセブン</li>
@@ -327,6 +329,7 @@
                                         <td>none</td>
                                     </tr>
                                 </table>
+                                <div class="table-des-container">
                                     <table class="table-des">
                                         <tr>
                                             <th>2020/01</th>
@@ -404,6 +407,7 @@
                                         </tr>
 
                                     </table>
+                                </div>
                             </div>
                             <div class="action">
                                 <ul class="list-unstyled">

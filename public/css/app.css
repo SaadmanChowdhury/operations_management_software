@@ -1021,7 +1021,6 @@ img.dp {
     margin: 25px auto 50px;
     border-radius: 10px;
     display: block;
-    border: 2px solid #3AA0DE;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     box-sizing: border-box;
 }
@@ -1360,7 +1359,7 @@ button.cancel:hover {
 
 /* ////====PROJECT-LIST====//// */
 
-.project {
+.project.table-body {
     font-size: 14px;
 }
 
@@ -1371,8 +1370,12 @@ button.cancel:hover {
 }
 
 .project .card-header {
-    padding: 1.1rem 0;
+    padding: 1.2rem 0 1.1rem;
     border-bottom: 0.5px solid #00000010;
+}
+
+.project .card-header:hover {
+    cursor: pointer;
 }
 
 .project .display {
@@ -1413,6 +1416,11 @@ button.cancel:hover {
     padding: 1.25rem 2rem;
     margin-right: 1.5rem;
     margin-left: 1.5rem;
+}
+
+.project .collapse {
+    background-color: white;
+    margin: 0;
 }
 
 .project .btn {
@@ -1494,7 +1502,6 @@ button.cancel:hover {
     position: relative;
     border-collapse: collapse;
     font-size: 65%;
-    border-radius: 7px;
     margin-bottom: 0px;
 }
 
@@ -1511,15 +1518,23 @@ button.cancel:hover {
     margin-right: 4%;
     margin-left: 2%;
     width: auto;
-    height: auto;
+    height: fit-content;
 }
 
-.table-right .table-des {
-    box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
+.table-right.row {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 5px 2px;
 }
 
-.table-right .table-fix {
-    box-shadow: rgba(0, 0, 0, 0.25) 0 4px 2px -1px;
+.table-des-container {
+    overflow: scroll;
+    height: fit-content;
+    width: 600px;
+}
+
+.table-des {
+    width: fit-content;
 }
 
 .table-right .table-fix th:nth-child(1) {
@@ -1542,7 +1557,7 @@ button.cancel:hover {
     min-width: 50px;
 }
 
-th:first-of-type {
+/* th:first-of-type {
     border-top-left-radius: 5px;
 }
 
@@ -1556,18 +1571,19 @@ tr:last-of-type td:first-of-type {
 
 tr:last-of-type td:last-of-type {
     border-bottom-right-radius: 5px;
-}
+} */
 
 th {
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
+    /* border-top-left-radius: 2px;
+    border-top-right-radius: 2px; */
     background-color: #4772FF;
     color: white;
 }
 
 td, th {
     border: 0.5px solid #dddddd;
-    padding: .5rem;
+    padding: 4px 10px;
+    text-align: center;
     vertical-align: top;
     width: 100%;
     height: 1rem;
@@ -1582,7 +1598,7 @@ td {
 }
 
 .table-right tr:nth-child(2) {
-    border-bottom: 1.7px solid gray;
+    /* border-bottom: 1.7px solid gray; */
 }
 
 .table-fix {
@@ -1611,6 +1627,7 @@ td img {
     text-align: center;
     line-height: 80%;
     color: brown;
+    background-color: white;
     border: 1px solid brown;
     border-radius: 10px;
 }
