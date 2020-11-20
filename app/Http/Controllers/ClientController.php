@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Client;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Utilities\JSONHandler;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {

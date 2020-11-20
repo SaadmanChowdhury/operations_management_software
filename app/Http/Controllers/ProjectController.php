@@ -74,4 +74,10 @@ class ProjectController extends Controller
         $project = new Project();
         $project->deleteProject($id);
     }
+
+    public function getProjectProfit($project_id)
+    {
+        $project = new Project();
+        return $project->getProjectProfit($project_id);
+    }
 }
