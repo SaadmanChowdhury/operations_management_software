@@ -28,6 +28,12 @@
                 <a href="" onclick="adjustRowHeight()">
                     <li class="fa fa-list"> </li>
                 </a>
+
+                @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
+                <a href="" onclick="clientRegisterModalHandler()">
+                    <li> + 登録</li>
+                </a>
+                @endif
             </ul>
 
             <hr />
