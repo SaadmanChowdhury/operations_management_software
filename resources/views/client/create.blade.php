@@ -38,7 +38,7 @@
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="user_id">連絡先人の　アイヂ</label></div>
-                            <div><input type="number" id="client_create_userId_Input" name="user_id" required></div>
+                            <div><input type="number" id="client_create_userID_Input" name="user_id" required></div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
     function getClientRegFormData() {
         return {
             client_name: $('#client_create_name_Input').val(),
-            user_id: $('#client_create_userId_Input').val(),
+            user_id: $('#client_create_userID_Input').val(),
             _token: $('input[name=_token]').val()
         };
     }
