@@ -71,12 +71,12 @@ class ClientController extends Controller
         return $client->getTotalProfit($id);
     }
 
-    public function readClient($id)
+    public function readClient( Request $request)
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             $client = new Client();
-            $info = $client->readClient($id);
+            $info = $client->readClient($request->clientID);
             return JSONHandler::packagedJSONData($info);
         } else {
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
@@ -113,12 +113,12 @@ class ClientController extends Controller
     }
 
 
-    public function deleteClient($id)
+    public function deleteClient(Request $request)
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             $client = new Client();
-            $client->deleteClient($id);
+            $client->deleteClient($request->clientID);
             return JSONHandler::emptySuccessfulJSONPackage();
         } else {
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");

@@ -85,7 +85,7 @@ class Client extends Model
                 'client_name',
                 'user_id'
             ])
-                ->where('customer_id', $id)
+                ->where('client_id', $id)
                 ->whereNull("deleted_at")
                 ->first();
             return $client;

@@ -63,62 +63,8 @@
 
 
 <script>
-    function getFormData() {
-        return {
-            id: $('#id').val(),
-            customer_name: $('#name').val(),
-            point_of_contact_person_id: $('#point_of_contact_person_id').val(),
-            _token: $('input[name=_token]').val()
-        };
-    }
-
-    function handleAJAXResponse(response) {
-
-        if (response["resultStatus"]["isSuccess"])
-            $('#message').html("Operation Succesful");
-
-        else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
-            $('#message').html("You are not authorized to make this change");
-
-        else
-            $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
-    }
-
-    function handleAJAXError(err) {
-        console.log(err);
-        if (err.status == "422") {
-            if (err.responseJSON.errors.point_of_contact_person_id != null) {
-                $('#message').html("エラー　： " + "担当者が入力していないです。");
-            }
-            if (err.responseJSON.errors.customer_name != null) {
-                $('#message').html("エラー　： " + "顧客名が入力していないです。");
-            }
-        }
-    }
-
-    $(document).ready(function() {
-        $('#edit_form').submit(function(e) {
-            console.log(getFormData());
-            e.preventDefault();
-
-            $.ajax({
-                type: "post",
-                url: "/API/updateClient",
-                data: getFormData(),
-                cache: false,
-                success: function(response) {
-                    handleAJAXResponse(response);
-                },
-                error: function(err) {
-                    handleAJAXError(err);
-                }
-            });
-        });
-    });
-
-// ---------------------------------------------
-
-function clientEditModalHandler(clientID) {
+    
+    function clientEditModalHandler(clientID) {
         event.preventDefault();
         clearModalData('client-edit-modal');
         showModal('client-edit-modal');
@@ -171,15 +117,15 @@ function clientEditModalHandler(clientID) {
     }
 
     function updateClientEditModalData(data) {
-
+        console.log(data);
         for (let i = 0; i < data.length; i++) {
             if (data[i] == null)
                 data[i] = "";
         }
 
         $("#id").val(data.client_id)
-        $("#client_edit_nameInput").val(data.name)
-        $("#client_edit_user_id").val(data.user_ID)
+        $("#client_edit_nameInput").val(data.client_name)
+        $("#client_edit_user_id").val(data.user_id)
     }
 
     function getClientData(clientID) {
@@ -234,7 +180,7 @@ function clientEditModalHandler(clientID) {
             type: "post",
             url: "/API/deleteClient",
             data: {
-                id: clientId,
+                clientID: clientId,
                 _token: $('input[name=_token]').val()
             },
             cache: false,

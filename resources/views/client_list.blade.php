@@ -79,7 +79,7 @@
                                     <li>{{ $client->total_profit }} 円</li>
 
                                     <li>
-                                        <div class="edit">
+                                        <div class="edit" onclick="clientEditModalHandler({{ $client->client_id }})">
                                             <span style="font-size: 11px; margin:6px;width:auto"
                                                 class="fa fa-pencil"></span>編集
                                         </div>
@@ -95,6 +95,7 @@
                                         </div>
                                     </li>
                                 @endif
+                                
                             </div>
                         </div>
                     </div>
