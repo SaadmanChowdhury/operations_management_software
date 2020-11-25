@@ -17,14 +17,16 @@ class ProjectController extends Controller
         }
         // return view('project_list', ['initialPreference' => 0]);
 
+        $user = new User();
         $project = new Project();
         $list = $project->readProjectList();
 
         $viewParams["list"] = $list;
         $viewParams["loggedInUser"] = auth()->user();
         $viewParams["loggedInAuthority"] = auth()->user()->user_authority;
+        $viewParams["initialPreference"] = $user->getUIPreference($viewParams["loggedInUser"]->user_id, "project_list_preference");
 
-        return view('project.project_list', $viewParams);
+        return view('project_list', $viewParams);
     }
 
     public function getCreateView()
