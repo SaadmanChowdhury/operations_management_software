@@ -94,22 +94,29 @@
                             --}}
                             <div class="table-left">
                                 <table>
-
                                     <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
+                                        <td>予算</td>
+                                        <td>71,4000　円</td>
                                     </tr>
                                     <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
+                                        <td>原価</td>
+                                        <td>10,0000　円</td>
                                     </tr>
                                     <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
+                                        <td>工数</td>
+                                        <td>10,0000　円</td>
                                     </tr>
                                     <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
+                                        <td>粗利</td>
+                                        <td>1000　円</td>
+                                    </tr>
+                                    <tr>
+                                        <td>率</td>
+                                        <td>75.4%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>期間</td>
+                                        <td>2001-2004</td>
                                     </tr>
                                 </table>
                             </div>
@@ -277,8 +284,30 @@
                             --}}
                             <div class="table-left">
                                 <table>
-
-                                    
+                                    <tr>
+                                        <td>予算</td>
+                                        <td>Y100000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>原価</td>
+                                        <td>Y100000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>工数</td>
+                                        <td>Y100000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>粗利</td>
+                                        <td>Y1000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>率</td>
+                                        <td>Y1000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>期間</td>
+                                        <td>Y1000</td>
+                                    </tr>
                                 </table>
                             </div>
                             {{-- ///====PROJECT-ADD_BTN====///

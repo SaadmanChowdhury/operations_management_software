@@ -1569,7 +1569,7 @@ body ::-webkit-scrollbar {
     text-align: center;
 }
 .table-left table td:last-of-type {
-    width: 4rem;
+    width: 6rem;
     text-align: right;
 }
 
