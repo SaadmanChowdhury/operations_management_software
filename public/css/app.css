@@ -36,6 +36,8 @@ body {
     color: white;
     font-family: "Inter", sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     color: white;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .row {
@@ -1495,7 +1497,6 @@ button.cancel:hover {
     display: inline-flex;
     flex-direction: row;
     box-sizing: border-box;
-    justify-content: center;
 }
 
 #accordian table {
@@ -1506,9 +1507,10 @@ button.cancel:hover {
 }
 
 .table-left {
-    position: absolute;
+    position: relative;
     left: 0;
     width: auto;
+    height: fit-content;
     box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
 }
 .table-left table{
