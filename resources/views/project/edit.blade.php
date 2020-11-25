@@ -1,29 +1,33 @@
-@include("header")
+<div class="modal-container" id="project-edit-modal">
 
-<h3>Create Project</h3>
-<form action="/API/updateProject" method="POST">
-    @csrf
-    <div>
-        <label>project_name:</label>
-        <input type="hidden" name="project_id" value="{{ $project->project_id }}">
-        <input type="text" name="project_name" value="{{ $project->project_name }}">
-    </div>
-    <div>
-        <label>client_id:</label>
-        <input type="number" name="client_id" value="{{ $project->client_id }}">
-    </div>
-    <div>
-        <label>manager_id:</label>
-        <input type="number" name="manager_id" value="{{ $project->manager_id }}">
-    </div>
-    <div>
-        <label>sales_total:</label>
-        <input type="number" name="sales_total" value="{{ $project->sales_total }}">
+    <div class="modal-title primary">
+        <span class="form-ht">案件編集</span>
+        <span class="fa fa-chevron-up close" onclick="closeModal('project-edit-modal')"></span>
     </div>
 
-    <div>
-        <button type="submit">Update Project</button>
-    </div>
-</form>
+    <div class="modal-form-container _project">
+        <form id="edit_form" action="" method="">
+            @csrf
 
-@include("footer")
+
+
+
+
+        </form>
+    </div>
+
+</div>
+
+
+
+<script>
+    function projectEditModalHandler(projectID) {
+        event.preventDefault();
+        event.stopPropagation();
+        // clearModalData('project-edit-modal');
+        showModal('project-edit-modal');
+
+        // getProjectData(projectID);
+    }
+
+</script>

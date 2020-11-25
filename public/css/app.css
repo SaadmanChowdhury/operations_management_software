@@ -618,6 +618,11 @@ footer {
     top: 50vh;
 }
 
+.modal-form-container._project {
+    max-height: 1200px;
+    top: 50vh;
+}
+
 .modal-show .modal-form-container {
     transform: translateY(calc(-50% - 85px));
     transition: transform 0.3s 0.2s cubic-bezier(0.5, .5, .5, 1), opacity 0.5s ease-in;

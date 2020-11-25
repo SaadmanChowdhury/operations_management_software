@@ -15,7 +15,6 @@ class ProjectController extends Controller
         if (!Auth::check()) {
             return redirect('/login');
         }
-        // return view('project_list', ['initialPreference' => 0]);
 
         $user = new User();
         $project = new Project();
