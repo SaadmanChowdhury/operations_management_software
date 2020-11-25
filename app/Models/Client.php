@@ -61,12 +61,27 @@ class Client extends Model
         return $totalSale;
     }
 
+    public function getTotalCost($id)
+    {
+        $projectObj = new Project();
+        //getting all the projects id of a client
+        $projects_id = DB::table('projects')->select('project_id')->where('client_id', $id)->get();
+
+        $totalCost = 0;
+        foreach ($projects_id as $project) {
+            $project_id = $project->project_id;
+            $totalCost += $projectObj->getProjectCost($project_id);
+        }
+        return $totalCost;
+    }
+
     public function getTotalProfit($id)
     {
         $totalSale = $this->getTotalSale($id);
-        $totalProfit = $totalSale / 3;
+        $totalCost = $this->getTotalCost($id);
+        $totalProfit = intval($totalSale) - intval($totalCost);
 
-        return (int)$totalProfit;
+        return $totalProfit;
     }
 
     /**

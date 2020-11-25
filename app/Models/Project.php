@@ -29,7 +29,7 @@ class Project extends Model
 
     public function readProjectList()
     {
-        $project = Project::select([
+        $project = DB::table('projects')->select([
             'project_id',
             'project_name',
             'client_id',

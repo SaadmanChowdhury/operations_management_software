@@ -108,4 +108,4 @@ Route::post("/API/readProject",   [ProjectController::class, 'readProject']);
 Route::post("/API/updateProject", [ProjectController::class, 'updateProject']);
 Route::post("/API/deleteProject", [ProjectController::class, 'deleteProject']);
 
-Route::get("test", [ProjectController::class, 'getProjectProfit']);
+Route::get("test", [ClientController::class, 'getTotalProfit']);

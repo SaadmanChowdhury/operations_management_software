@@ -15,16 +15,16 @@ class ProjectController extends Controller
         if (!Auth::check()) {
             return redirect('/login');
         }
+        // return view('project_list', ['initialPreference' => 0]);
 
-        // $project = new Project();
-        // $list = $project->readProjectList();
-        // return $list;
-        // $viewParams["list"] = $list;
-        // $initialPreference = (new User())->getUIPreference(auth()->user()->user_id, "project_list_preference");
+        $project = new Project();
+        $list = $project->readProjectList();
 
-        // return view('project_list', ['projects' => $list, 'initialPreference' => $initialPreference]);
+        $viewParams["list"] = $list;
+        $viewParams["loggedInUser"] = auth()->user();
+        $viewParams["loggedInAuthority"] = auth()->user()->user_authority;
 
-        return view('project_list', ['initialPreference' => 0]);
+        return view('project.project_list', $viewParams);
     }
 
     public function getCreateView()
