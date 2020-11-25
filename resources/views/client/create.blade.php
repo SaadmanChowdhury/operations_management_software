@@ -35,11 +35,9 @@
                         </div>
                     </div>
 
-                    <div class="modal-form-input-container">
-                        <div class="_half">
-                            <div><label for="user_id">連絡先人の　アイヂ</label></div>
-                            <div><input type="number" id="client_create_userID_Input" name="user_id" required></div>
-                        </div>
+                    <div class="_half">
+                        <div><label for="user_id">連絡先人の　アイヂ</label></div>
+                        <div><input type="number" id="client_create_userID_Input" name="user_id" required></div>
                     </div>
                 </div>
   

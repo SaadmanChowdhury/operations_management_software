@@ -104,4 +104,9 @@
     </div>
 </div>
 
+
+@include("client.edit")
+@include("client.create")
+
+<script src="/js/client.js"></script>
 @include("footer")

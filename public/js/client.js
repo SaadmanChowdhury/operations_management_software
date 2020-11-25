@@ -9,8 +9,8 @@ const order=document.querySelector('.client-order') // client code
 const profit=document.querySelector('.client-profit') // client code
 
 ///====EVENT LISTENER====////
-edit_btn.addEventListener("click", client_modal_open);
-cross.addEventListener("click", client_modal_close);
+// edit_btn.addEventListener("click", client_modal_open);
+// cross.addEventListener("click", client_modal_close);
 
 
 ///====MODAL OPEN ACTION====////
