@@ -1467,9 +1467,13 @@ button.cancel:hover {
 }
 
 .action {
-    position: absolute;
+    position: relative;
     margin-top: -30px;
-    right: 0px;
+    width: 20%;
+}
+.action ul{
+    position: absolute;
+    right: 0;
 }
 
 .add {
