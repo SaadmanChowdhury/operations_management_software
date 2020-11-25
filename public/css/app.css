@@ -1563,8 +1563,14 @@ body ::-webkit-scrollbar {
     background-color: #F88316;
 }
 
-.table-left table td {
+.table-left table td:first-of-type {
+    width: 2rem;
+    font-weight: 500;
+    text-align: center;
+}
+.table-left table td:last-of-type {
     width: 4rem;
+    text-align: right;
 }
 
 .table-right .table-fix td:nth-child(1) {

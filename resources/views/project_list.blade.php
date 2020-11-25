@@ -278,22 +278,7 @@
                             <div class="table-left">
                                 <table>
 
-                                    <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
-                                    </tr>
+                                    
                                 </table>
                             </div>
                             {{-- ///====PROJECT-ADD_BTN====///
