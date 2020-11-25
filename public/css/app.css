@@ -1547,7 +1547,10 @@ button.cancel:hover {
     height: fit-content;
     width: 600px;
 }
-
+/* ///===HIDING SCROLLBAR IN CHROME===/// */
+body ::-webkit-scrollbar {
+    display: none;
+}
 .table-des {
     width: fit-content;
 }
