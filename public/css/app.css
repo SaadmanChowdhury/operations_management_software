@@ -1548,7 +1548,7 @@ button.cancel:hover {
 .table-des-container {
     overflow: scroll;
     height: fit-content;
-    width: 600px;
+    max-width: 600px;
 }
 /* ///===HIDING SCROLLBAR IN CHROME===/// */
 body ::-webkit-scrollbar {
