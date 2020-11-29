@@ -50,26 +50,26 @@
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="order_month">受注月</label></div>
-                            <div class="custom-select">
+                            {{-- <div class="custom-select">
                                 <select id="project_create_order_month_Input" required>
                                     @for ($month = 1; $month <= 12; $month++)
                                         <option>{{  $month }}</option>
                                     @endfor
                                 </select>
-                            </div>
+                            </div> --}}
+                            <div><input type="date" id="project_create_order_month_Input" name="inspection_month" required></div>
                         </div>
-
+                        
                         <div class="_half">
-                            <div class="_half">
-                                <div><label for="inspection_month">検収月</label></div>
-                                <div class="custom-select">
-                                    <select id="project_create_inspection_month_Input" required>
-                                        @for ($month = 1; $month <= 12; $month++)
-                                            <option>{{  $month }}</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                            </div>
+                            <div><label for="inspection_month">検収月</label></div>
+                            {{-- <div class="custom-select">
+                                <select id="project_create_inspection_month_Input" required>
+                                    @for ($month = 1; $month <= 12; $month++)
+                                        <option>{{  $month }}</option>
+                                    @endfor
+                                </select>
+                            </div> --}}
+                            <div><input type="date" id="project_create_inspection_month_Input" name="inspection_month" required></div>
                         </div>
                     </div>
 
