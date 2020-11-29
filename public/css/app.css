@@ -1549,6 +1549,10 @@ button.cancel:hover {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 5px 2px;
 }
 
+.table-right .row-total{
+    border-bottom: 2px solid grey;
+}
+
 .table-des-container {
     overflow: scroll;
     height: fit-content;

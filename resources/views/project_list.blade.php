@@ -134,8 +134,8 @@
                                         <th class="mishti-orange">Ab</th>
 
                                     </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">ソフィア</td>
+                                    <tr class="row-total">
+                                        <td>5</td>
                                         <td>none</td>
                                     </tr>
                                     <tr>
@@ -169,7 +169,7 @@
                                             <th style="background-color:#ffbf0b;color:black">2020/11</th>
                                             <th>2020/12</th>
                                         </tr>
-                                        <tr>
+                                        <tr class="row-total">
                                             <td>5.00</td>
                                             <td>5.00</td>
                                             <td>5.00</td>
@@ -324,8 +324,8 @@
                                         <th class="mishti-orange">Ab</th>
 
                                     </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">ソフィア</td>
+                                    <tr class="row-total">
+                                        <td>5</td>
                                         <td>none</td>
                                     </tr>
                                     <tr>
@@ -334,12 +334,11 @@
 
                                     </tr>
                                     <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
+                                        <td><img src="img/pro_icon.png">ソフィア</td>
                                         <td>none</td>
-
                                     </tr>
                                     <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
+                                        <td><img src="img/pro_icon.png">ソフィア</td>
                                         <td>none</td>
                                     </tr>
                                 </table>
@@ -359,7 +358,7 @@
                                             <th style="background-color:#ffbf0b;color:black">2020/11</th>
                                             <th>2020/12</th>
                                         </tr>
-                                        <tr>
+                                        <tr class="row-total">
                                             <td>5.00</td>
                                             <td>5.00</td>
                                             <td>5.00</td>
