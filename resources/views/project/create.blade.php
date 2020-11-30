@@ -193,7 +193,7 @@
             cache: false,
             success: function(response) {
                 if (response["resultStatus"]["isSuccess"]) {
-                    updateProjectTable(modalData);
+                    // updateProjectTable(modalData);
                     closeModal('project-create-modal');
                 } else
                     handleAJAXResponse(response);
