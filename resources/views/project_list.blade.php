@@ -120,117 +120,117 @@
                                     </tr>
                                 </table>
                             </div>
-                            {{-- ///====PROJECT-ADD_BTN====///
-                            --}}
-                            <div class="add">
-                                <button class="btn round-btn primary"><span class="fa fa-plus"></span></button>
-                            </div>
-                            {{-- ///====PROJECT-INNER-RIGHT-TABLE====///
-                            --}}
-                            <div class="table-right row">
-                                <table class="table-fix">
-                                    <tr>
-                                        <th class="mishti-orange">Member</th>
-                                        <th class="mishti-orange">Ab</th>
-
-                                    </tr>
-                                    <tr class="row-total">
-                                        <td>5</td>
-                                        <td>none</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">ソフィア</td>
-                                        <td>none</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
-                                    </tr>
-                                </table>
-                                <div class="table-des-container">
-                                    <table class="table-des">
+                            <div class="project-rhs">
+                                {{-- ///====PROJECT-ADD_BTN====///--}}
+                                <div class="add">
+                                    <button class="btn round-btn primary"><span class="fa fa-plus"></span></button>
+                                </div>
+                                {{-- ///====PROJECT-INNER-RIGHT-TABLE====///
+                                --}}
+                                <div class="table-right row">
+                                    <table class="table-fix">
                                         <tr>
-                                            <th>2020/01</th>
-                                            <th>2020/02</th>
-                                            <th>2020/03</th>
-                                            <th>2020/04</th>
-                                            <th>2020/05</th>
-                                            <th>2020/06</th>
-                                            <th>2020/07</th>
-                                            <th>2020/08</th>
-                                            <th>2020/09</th>
-                                            <th>2020/10</th>
-                                            <th style="background-color:#ffbf0b;color:black">2020/11</th>
-                                            <th>2020/12</th>
+                                            <th class="mishti-orange">Member</th>
+                                            <th class="mishti-orange">Ab</th>
+
                                         </tr>
                                         <tr class="row-total">
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
+                                            <td>5</td>
+                                            <td>none</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
 
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
                                         </tr>
-                                        <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
-                                        </tr>
-
                                     </table>
+                                    <div class="table-des-container">
+                                        <table class="table-des">
+                                            <tr>
+                                                <th>2020/01</th>
+                                                <th>2020/02</th>
+                                                <th>2020/03</th>
+                                                <th>2020/04</th>
+                                                <th>2020/05</th>
+                                                <th>2020/06</th>
+                                                <th>2020/07</th>
+                                                <th>2020/08</th>
+                                                <th>2020/09</th>
+                                                <th>2020/10</th>
+                                                <th style="background-color:#ffbf0b;color:black">2020/11</th>
+                                                <th>2020/12</th>
+                                            </tr>
+                                            <tr class="row-total">
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="action">
@@ -310,116 +310,117 @@
                                     </tr>
                                 </table>
                             </div>
-                            {{-- ///====PROJECT-ADD_BTN====///
-                            --}}
-                            <div class="add">
-                                <button class="btn round-btn primary"><span class="fa fa-plus"></span></button>
-                            </div>
-                            {{-- ///====PROJECT-INNER-RIGHT-TABLE====///
-                            --}}
-                            <div class="table-right row">
-                                <table class="table-fix">
-                                    <tr>
-                                        <th class="mishti-orange">Member</th>
-                                        <th class="mishti-orange">Ab</th>
-
-                                    </tr>
-                                    <tr class="row-total">
-                                        <td>5</td>
-                                        <td>none</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">ソフィア</td>
-                                        <td>none</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">ソフィア</td>
-                                        <td>none</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">ソフィア</td>
-                                        <td>none</td>
-                                    </tr>
-                                </table>
-                                <div class="table-des-container">
-                                    <table class="table-des">
+                            <div class="project-rhs">
+                                {{-- ///====PROJECT-ADD_BTN====///--}}
+                                <div class="add">
+                                    <button class="btn round-btn primary"><span class="fa fa-plus"></span></button>
+                                </div>
+                                {{-- ///====PROJECT-INNER-RIGHT-TABLE====///
+                                --}}
+                                <div class="table-right row">
+                                    <table class="table-fix">
                                         <tr>
-                                            <th>2020/01</th>
-                                            <th>2020/02</th>
-                                            <th>2020/03</th>
-                                            <th>2020/04</th>
-                                            <th>2020/05</th>
-                                            <th>2020/06</th>
-                                            <th>2020/07</th>
-                                            <th>2020/08</th>
-                                            <th>2020/09</th>
-                                            <th>2020/10</th>
-                                            <th style="background-color:#ffbf0b;color:black">2020/11</th>
-                                            <th>2020/12</th>
+                                            <th class="mishti-orange">Member</th>
+                                            <th class="mishti-orange">Ab</th>
+
                                         </tr>
                                         <tr class="row-total">
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
+                                            <td>5</td>
+                                            <td>none</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
 
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
                                         </tr>
-                                        <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
-                                        </tr>
-
                                     </table>
+                                    <div class="table-des-container">
+                                        <table class="table-des">
+                                            <tr>
+                                                <th>2020/01</th>
+                                                <th>2020/02</th>
+                                                <th>2020/03</th>
+                                                <th>2020/04</th>
+                                                <th>2020/05</th>
+                                                <th>2020/06</th>
+                                                <th>2020/07</th>
+                                                <th>2020/08</th>
+                                                <th>2020/09</th>
+                                                <th>2020/10</th>
+                                                <th style="background-color:#ffbf0b;color:black">2020/11</th>
+                                                <th>2020/12</th>
+                                            </tr>
+                                            <tr class="row-total">
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="action">
