@@ -61,12 +61,12 @@ class Client extends Model
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             $validatedData = $request->validate([
-                'customer_name' => 'required',
-                'point_of_contact_person_id' => 'required',
+                'client_name' => 'required',
+                'user_id' => 'required',
             ]);
 
             //Creating record-- a client record can be created if any user exists as a point_of_contact_person
-            if (User::where('user_id', '=', $request->input('point_of_contact_person_id'))->first() != null) {
+            if (User::where('user_id', '=', $request->input('user_id'))->first() != null) {
                 Client::create($validatedData);
             }
         }

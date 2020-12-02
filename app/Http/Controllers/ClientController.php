@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClientRequest;
 use App\Models\User;
 use App\Models\Client;
 use App\Models\Project;
@@ -45,7 +46,7 @@ class ClientController extends Controller
     }
 
 
-    public function createClient(Request $request)
+    public function createClient(ClientRequest $request)
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {

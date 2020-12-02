@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 
 class UserRequest extends FormRequest
 {
@@ -61,4 +64,15 @@ class UserRequest extends FormRequest
             'user_authority.required' => 'User authority is required',
         ];
     }
+
+        public function failedValidation(Validator $validator)
+        {
+            $errors = (new ValidationException($validator))->errors();
+    ​
+            throw new HttpResponseException(response()->json([
+                'success' => false,
+                'errors' => $errors,
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
+        }
+
 }
