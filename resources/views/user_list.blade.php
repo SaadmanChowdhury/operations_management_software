@@ -1,5 +1,6 @@
 @include("header")
 
+
 {{-- ///====PAGE TITLE --}}
 <div class="page-title">
     <span class="fa fa-user"></span>
@@ -165,54 +166,17 @@
                             $position='SE';
                             break;
                     }
+                    
                 @endphp
 
-
+                
                 {{-- ///====USER-TABLE DETAILS====/// --}}
-                <div class="card _user" id="user-row-{{ $user->user_id }}" onload="numberWithCommas({{ $user->unit_price }})">
-                    <div class="card-header">
-
-                        <a>
-                            <div class="display list-unstyled">
-
-                                <li>{{ $user->user_id }}</li>
-
-                                <li>
-                                    <img src="{{asset("img/".$pro_icon.".png")}}" class="smallpic">
-                                    <div class="user-name">{{ $user->name }}</div>
-                                </li>
-
-                                <li class="user-location">{{ $loc }}</li>
-
-                                <li>
-                                    <div class="pos pos-{{$position}}">{{ $position }}</div>
-                                </li>
-
-                                <li>{{ $time_diff}}{{ $unit }}</li>
-
-                                @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                                    <li class="salary">{{ $new_salary }}円</li>
-                                @endif
-
-                                @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者') || $user->user_id == $loggedUser->user_id)
-                                    <li>
-                                        <div class="edit" onclick="userEditModalHandler({{ $user->user_id }})">
-                                            <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
-                                        </div>
-                                    </li>
-                                @else
-                                    <li>
-                                        <div class="edit transparent">
-                                            <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
-                                        </div>
-                                    </li>
-                                @endif
-                                
-                            </div>
-                        </a>
-
-                    </div>
-                </div>
+                {{-- @php echo "<script>
+                    var passedArray = <?php echo json_encode($user); ?>;
+                    getRow(passedArray);
+                    </script>"
+                @endphp --}}
+                
             @endforeach
         </div>
     </div>
@@ -221,6 +185,7 @@
 @include("user.edit")
 @include("user.create")
 
-
+<script src="/js/dynamic-ui.js"></script>
 <script src="/js/user.js"></script>
+
 @include("footer")

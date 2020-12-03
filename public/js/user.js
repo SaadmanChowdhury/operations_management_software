@@ -73,3 +73,4 @@ function numberWithCommas(x) {
     console.log("hey");
     document.getElementsByClassName('salary').innerText=z;
 }
+
