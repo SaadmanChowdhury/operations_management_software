@@ -17,7 +17,7 @@
 
                     <div>
                         <button type="submit" onclick="updateUser()">
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
                             更新
                         </button>
                     </div>

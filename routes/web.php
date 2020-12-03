@@ -87,6 +87,11 @@ Route::get('/client-list', function () {
     return redirect('client');
 });
 
+Route::post("/API/createClient", [ClientController::class, 'createClient']);
+Route::post("/API/readClient",   [ClientController::class, 'readClient']);
+Route::post("/API/updateClient", [ClientController::class, 'updateClient']);
+Route::post("/API/deleteClient", [ClientController::class, 'deleteClient']);
+
 //for testing the method
 Route::get('/client/total-sale/{id}', [ClientController::class, 'getTotalSale']);
 Route::get('/client/total-profit/{id}', [ClientController::class, 'getTotalProfit']);

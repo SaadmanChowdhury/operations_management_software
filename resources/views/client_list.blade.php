@@ -28,6 +28,12 @@
                 <a href="" onclick="adjustRowHeight()">
                     <li class="fa fa-list"> </li>
                 </a>
+
+                @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
+                <a href="" onclick="clientRegisterModalHandler()">
+                    <li> + 登録</li>
+                </a>
+                @endif
             </ul>
 
             <hr />
@@ -73,7 +79,7 @@
                                     <li>{{ $client->total_profit }} 円</li>
 
                                     <li>
-                                        <div class="edit">
+                                        <div class="edit" onclick="clientEditModalHandler({{ $client->client_id }})">
                                             <span style="font-size: 11px; margin:6px;width:auto"
                                                 class="fa fa-pencil"></span>編集
                                         </div>
@@ -89,6 +95,7 @@
                                         </div>
                                     </li>
                                 @endif
+                                
                             </div>
                         </div>
                     </div>
@@ -98,4 +105,9 @@
     </div>
 </div>
 
+
+@include("client.edit")
+@include("client.create")
+
+<script src="/js/client.js"></script>
 @include("footer")
