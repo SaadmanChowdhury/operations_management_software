@@ -1644,6 +1644,38 @@ button.cancel:hover {
     /* border-right: 0.5px solid white; */
 }
 
+td, th {
+    border: 0.5px solid #dddddd;
+    padding: 4px 10px;
+    text-align: center;
+    vertical-align: top;
+    /* width: 100%; */
+    height: 1rem;
+    line-height: 1rem;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+    width: 80px;
+    padding: 8px 5px;
+}
+
+th {
+    /* border-top-left-radius: 2px;
+    border-top-right-radius: 2px; */
+    background-color: #4772FF;
+    border-top: unset;
+    color: white;
+    font-weight: unset;
+    /* padding: 7px 9px 7px; */
+    font-size: 10px;
+}
+
+td {
+    height: 1.3rem;
+    line-height: 1.3rem;
+    justify-content: center;
+    font-size: 10px;
+}
+
 .table-left table td {
     padding-top: 6px;
     padding-bottom: 6px;
@@ -1674,58 +1706,12 @@ button.cancel:hover {
 
 .table-right .table-fix .row-total td:nth-child(1) {
     text-align: center;
+    font-size: 12px;
 }
 
 .table-right .table-fix td:nth-child(2) {
     width: 80px;
-}
-
-/* th:first-of-type {
-    border-top-left-radius: 5px;
-}
-
-th:last-of-type {
-    border-top-right-radius: 5px;
-}
-
-tr:last-of-type td:first-of-type {
-    border-bottom-left-radius: 5px;
-}
-
-tr:last-of-type td:last-of-type {
-    border-bottom-right-radius: 5px;
-} */
-
-td, th {
-    border: 0.5px solid #dddddd;
-    padding: 4px 10px;
-    text-align: center;
-    vertical-align: top;
-    /* width: 100%; */
-    height: 1rem;
-    line-height: 1rem;
-    overflow-wrap: break-word;
-    box-sizing: border-box;
-    width: 80px;
-    padding: 8px 5px;
-}
-
-th {
-    /* border-top-left-radius: 2px;
-    border-top-right-radius: 2px; */
-    background-color: #4772FF;
-    border-top: unset;
-    color: white;
-    font-weight: unset;
-    /* padding: 7px 9px 7px; */
     font-size: 12px;
-}
-
-td {
-    height: 1.3rem;
-    line-height: 1.3rem;
-    justify-content: center;
-    font-size: 10px;
 }
 
 .table-right tr:nth-child(2) {
