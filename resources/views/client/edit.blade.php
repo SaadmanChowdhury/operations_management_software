@@ -1,23 +1,23 @@
 <div class="modal-container" id="client-edit-modal">
 
-    <div class="modal-title primary">
+    <div class="modal-title midori">
         <span class="form-ht">クライアント編集</span>
         <span class="fa fa-chevron-up close" onclick="closeModal('client-edit-modal')"></span>
     </div>
 
-    <div class="modal-form-container _user">
+    <div class="modal-form-container _client">
         <form id="edit_form" action="" method="">
             @csrf
 
             <div class="row">
                 <div class="column left">
                     <div>
-                        <img src="{{ asset('img/dp.png') }}" class="dp" alt="display photo">
+                        <img src="{{ asset('img/client_dp.png') }}" class="dp _client" alt="display photo">
                     </div>
 
                     <div>
                         <button type="submit" onclick="updateClient()">
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
                             更新
                         </button>
                     </div>
@@ -37,21 +37,23 @@
                     @endif
                 </div>
 
-                <div class="column right _user">
+                <div class="column right _client">
                     <input type="hidden" id="id" value="{{ $client->client_id }}">
 
                     <div class="modal-form-input-container">
                         <div class="_full">
-                            <div><label for="name">名前</label></div>
-                            <div><input type="text" id="client_edit_nameInput" name="name" value="{{ $client->client_name }}" required></div>
+                            <div><label for="name">顧客名</label></div>
+                            <div><input type="text" id="client_edit_nameInput" name="name"
+                                    value="{{ $client->client_name }}" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
-                        <div>
-                            <div><label>Point of Contact Person ID</label></div>
-                            <div><input type="number" id="client_edit_user_id" name="user_id" value="{{ $client->user_id }}"></div> 
-                        </div>  
+                        <div class="_full">
+                            <div><label>顧客に責任者</label></div>
+                            <div><input type="number" id="client_edit_user_id" name="user_id"
+                                    value="{{ $client->user_id }}"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -63,7 +65,6 @@
 
 
 <script>
-    
     function clientEditModalHandler(clientID) {
         event.preventDefault();
         clearModalData('client-edit-modal');
@@ -198,4 +199,3 @@
     }
 
 </script>
-

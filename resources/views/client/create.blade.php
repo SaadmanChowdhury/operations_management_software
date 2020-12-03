@@ -1,11 +1,11 @@
 <div class="modal-container" id="client-create-modal">
 
-    <div class="modal-title mild-midori">
+    <div class="modal-title midori">
         <span class="form-ht">クライアント登録</span>
         <span class="fa fa-chevron-up close" onclick="closeModal('client-create-modal')"></span>
     </div>
 
-    <div class="modal-form-container _user">
+    <div class="modal-form-container _client">
         <form id="reg_form" action="" method="">
             @csrf
 
@@ -13,7 +13,7 @@
 
                 <div class="column left">
                     <div>
-                        <img src="{{ asset('img/user_dp.png') }}" class="dp _user" alt="display photo">
+                        <img src="{{ asset('img/client_dp.png') }}" class="dp _client" alt="display photo">
                     </div>
 
                     <div>
@@ -27,20 +27,20 @@
                     </div>
                 </div>
 
-                <div class="column right _user">
+                <div class="column right _client">
                     <div class="modal-form-input-container">
                         <div class="_full">
-                            <div><label for="name">名前</label></div>
+                            <div><label for="name">顧客名</label></div>
                             <div><input type="text" id="client_create_name_Input" name="name" required></div>
                         </div>
                     </div>
 
-                    <div class="_half">
-                        <div><label for="user_id">連絡先人の　アイヂ</label></div>
+                    <div class="_full">
+                        <div><label for="user_id">顧客に責任者</label></div>
                         <div><input type="number" id="client_create_userID_Input" name="user_id" required></div>
                     </div>
                 </div>
-  
+
             </div>
             <div id="message"></div>
 
@@ -51,7 +51,6 @@
 
 
 <script>
-
     function clientRegisterModalHandler() {
         event.preventDefault();
         showModal('client-create-modal');
@@ -112,5 +111,5 @@
             }
         });
     }
-</script>
 
+</script>
