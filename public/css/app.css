@@ -1099,7 +1099,7 @@ input:read-only {
     z-index: 1009;
 }
 
-.button, button {
+.button{
     border: none;
     background-color: white;
     padding: 16px 0px;
@@ -1313,6 +1313,8 @@ button.cancel:hover {
     border-top: 3px solid #45b6fb;
     background-color: #3AA0DE;
     border-bottom: 3px solid #068bde;
+    border-left: 1px solid  #3AA0DE ;
+    border-right: 1px solid  #3AA0DE;
     color: white;
 }
 
@@ -1454,14 +1456,22 @@ button.cancel:hover {
 }
 
 .danger {
+    border-top: 3px solid #ff3e3e;
     background-color: red;
-    border: 1px solid red;
-    color: white;
+    border-right: 1px solid #cc0909;
+    border-left:3px solid #fa1b1b;
+    border-bottom: 3px solid #cc0909;
+    color: white;  
 }
 
+
 .success {
+    
+    border-top: 3px solid #36fa05;
     background-color: #6AF141;
-    border: 1px solid #6AF141;
+    border-left:3px solid #36fa05 ;
+    border-right:3px solid #28c128 ;
+    border-bottom: 3px solid #28c128;
     color: white;
 }
 
