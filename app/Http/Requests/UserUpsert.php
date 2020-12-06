@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-class UserRequest extends FormRequest
+class UserUpsert extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -43,7 +43,6 @@ class UserRequest extends FormRequest
         ];
     }
 
-
     /**
      * Get the error messages for the defined validation rules.
      *
@@ -64,15 +63,4 @@ class UserRequest extends FormRequest
             'user_authority.required' => 'User authority is required',
         ];
     }
-
-        public function failedValidation(Validator $validator)
-        {
-            $errors = (new ValidationException($validator))->errors();
-    ​
-            throw new HttpResponseException(response()->json([
-                'success' => false,
-                'errors' => $errors,
-            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
-        }
-
 }

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ClientRequest;
+use App\Http\Requests\ClientUpsert;
 use App\Models\User;
 use App\Models\Client;
-use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Utilities\JSONHandler;
@@ -46,7 +45,7 @@ class ClientController extends Controller
     }
 
 
-    public function createClient(ClientRequest $request)
+    public function createClient(ClientUpsert $request)
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
@@ -100,7 +99,7 @@ class ClientController extends Controller
     }
 
 
-    public function updateClient(Request $request)
+    public function updateClient(ClientUpsert $request)
     {
         $id = $request->id;
         $loggedUser = auth()->user();

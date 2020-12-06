@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectUpsert;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\User;
@@ -51,7 +52,7 @@ class ProjectController extends Controller
         return view('project.edit', compact('project'));
     }
 
-    public function createProject(Request $request)
+    public function createProject(ProjectUpsert $request)
     {
         $project = new Project();
         $project->createProject($request);
@@ -63,7 +64,7 @@ class ProjectController extends Controller
         $project->readProject($id);
     }
 
-    public function updateProject(Request $request)
+    public function updateProject(ProjectUpsert $request)
     {
 
         $project_id = $request->project_id;

@@ -51,18 +51,7 @@ class Project extends Model
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
-            $validatedData = $request->validate([
-                'project_name' => 'required',
-                'client_id' => 'required',
-                'manager_id' => 'required',
-                'order_month' => '',
-                'inspection_month' => '',
-                'order_status' => '',
-                'business_situation' => '',
-                'development_stage' => '',
-                'sales_total' => 'required',
-                'transferred_amount' => '',
-            ]);
+            $validatedData = $request->validated();
 
             //saving new record
             Project::create($validatedData);
@@ -125,7 +114,8 @@ class Project extends Model
             $loggedUser->user_id == $project->manager_id
         ) {
             //validating data
-            $validatedData = $request->validate($rules);
+            // $validatedData = $request->validate($rules);
+            $validatedData = $request->validated();
             //updating record
             Project::where('project_id', $project_id)->update($validatedData);
             return JSONHandler::emptySuccessfulJSONPackage();
