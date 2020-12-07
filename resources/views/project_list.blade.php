@@ -242,7 +242,7 @@
                                     <li class="list"><button class="btn round-btn danger"><span
                                                 class="fa fa-trash"></span></button></li>
                                     <li class="list"><button class="btn round-btn success midori"><span
-                                                class="fa fa-clone"></span></button></li>
+                                                class="fa fa-undo"></span></button></li>
                                     <li class="list"><button class="btn round-btn primary"><span
                                                 class="fa fa-save"></span></button></li>
                                 </ul>
@@ -472,7 +472,7 @@
                                     <li class="list"><button class="btn round-btn danger"><span
                                                 class="fa fa-trash"></span></button></li>
                                     <li class="list"><button class="btn round-btn success midori"><span
-                                                class="fa fa-clone"></span></button></li>
+                                                class="fa fa-undo"></span></button></li>
                                     <li class="list"><button class="btn round-btn primary"><span
                                                 class="fa fa-save"></span></button></li>
                                 </ul>

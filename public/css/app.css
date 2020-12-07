@@ -1099,7 +1099,7 @@ input:read-only {
     z-index: 1009;
 }
 
-.button{
+.button {
     border: none;
     background-color: white;
     padding: 16px 0px;
@@ -1313,8 +1313,8 @@ button.cancel:hover {
     border-top: 3px solid #45b6fb;
     background-color: #3AA0DE;
     border-bottom: 3px solid #068bde;
-    border-left: 1px solid  #3AA0DE ;
-    border-right: 1px solid  #3AA0DE;
+    border-left: 1px solid #3AA0DE;
+    border-right: 1px solid #3AA0DE;
     color: white;
 }
 
@@ -1442,7 +1442,8 @@ button.cancel:hover {
     display: inline-block;
     font-size: 1rem;
     line-height: 1.5;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; */
+    transition: 0.1s ease-out;
 }
 
 .project .fa {
@@ -1453,38 +1454,50 @@ button.cancel:hover {
     border-radius: 8px;
     height: 30px;
     width: 30px;
+    transition: 0.3s ease-out;
+}
+
+.round-btn {
+    cursor: pointer;
 }
 
 .danger {
-    border-top: 3px solid #ff3e3e;
-    background-color: red;
-    border-right: 1px solid #cc0909;
-    border-left:3px solid #fa1b1b;
+    border-top: 3px solid #ff6b6b;
+    background-color: #ff1010;
+    border-right: unset;
+    border-left: unset;
     border-bottom: 3px solid #cc0909;
-    color: white;  
+    color: white;
 }
 
-
 .success {
-    
-    border-top: 3px solid #36fa05;
-    background-color: #6AF141;
-    border-left:3px solid #36fa05 ;
-    border-right:3px solid #28c128 ;
-    border-bottom: 3px solid #28c128;
+    /* background-color: #6AF141; */
+    border-top: 3px solid #33D70B;
+    background-color: #28c128;
+    border-bottom: 3px solid #2e9c2e;
+    border-left: unset;
+    border-right: unset;
     color: white;
 }
 
 .success:hover {
-    background-color: #6AF141;
-    border: 1px solid #6AF141;
-    color: white;
+    border-top: 0px solid #33D70B;
+    background-color: #28c128;
+    border-bottom: 0px solid #2e9c2e;
+    /* box-shadow: 0 0 5px #28c128; */
 }
 
 .danger:hover {
-    background-color: red;
-    border: 1px solid red;
-    color: white;
+    background-color: #ff1010;
+    border-top: 0px solid #ff6b6b;
+    border-bottom: 0px solid #cc0909;
+    /* box-shadow: 0 0 5px #ff1010; */
+}
+
+.btn.primary:hover {
+    border-top: 0px;
+    border-bottom: 0px;
+    /* box-shadow: 0 0 5px #3AA0DE; */
 }
 
 .action {
