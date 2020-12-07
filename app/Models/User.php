@@ -109,21 +109,7 @@ class User extends Authenticatable
 
     public function createUser($request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'company' => '',
-            'commercial_distribute' => '',
-            'tel' => 'required',
-            'position' => 'required',
-            'location' => 'required',
-            'admission_day' => 'required',
-            'exit_day' => '',
-            'unit_price' => 'required',
-            'user_authority' => 'required',
-            'resign_day' => '',
-        ]);
+        $validatedData = $request->validated();
 
         $validatedData['password'] = bcrypt($request->password);
         $validatedData['position'] = $this->convertPositionToInt($request->position);
