@@ -1128,7 +1128,7 @@ input:read-only {
     z-index: 1009;
 }
 
-.button {
+.button, button {
     border: none;
     background-color: white;
     padding: 16px 0px;
