@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Utilities\JSONHandler;
 
 class ProjectController extends Controller
 {
@@ -15,7 +16,6 @@ class ProjectController extends Controller
         if (!Auth::check()) {
             return redirect('/login');
         }
-        // return view('project_list', ['initialPreference' => 0]);
 
         $user = new User();
         $project = new Project();
@@ -53,8 +53,16 @@ class ProjectController extends Controller
 
     public function createProject(Request $request)
     {
-        $project = new Project();
-        $project->createProject($request);
+        // $project = new Project();
+        // $project->createProject($request);
+        $loggedUser = auth()->user();
+
+        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+            $project = new Project();
+            $project->createProject($request);
+            return JSONHandler::emptySuccessfulJSONPackage();
+        }
+        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
     public function readProject($id)

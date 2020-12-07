@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Project extends Model
 {
@@ -49,6 +50,7 @@ class Project extends Model
 
     public function createProject($request)
     {
+        Log::debug($request);
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             $validatedData = $request->validate([
@@ -64,11 +66,44 @@ class Project extends Model
                 'transferred_amount' => '',
             ]);
 
+            $validatedData['order_status'] = $this->convertOrderStatusToInt($request->order_status);
+            $validatedData['business_situation'] = $this->convertBusinessSituationToInt($request->business_situation);
+            $validatedData['development_stage'] = $this->convertDevelopmentStageToInt($request->development_stage);
             //saving new record
             Project::create($validatedData);
             return JSONHandler::emptySuccessfulJSONPackage();
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+    }
+
+    public function convertOrderStatusToInt($sentStatus)
+    {
+        $allStatus = config('constants.Order_Status');
+        foreach ($allStatus as $status => $intStatus) {
+            if ($status == $sentStatus) {
+                return $intStatus;
+            }
+        }
+    }
+
+    public function convertBusinessSituationToInt($sentSituation)
+    {
+        $allSituation = config('constants.Business_situation');
+        foreach ($allSituation as $situation => $intSituation) {
+            if ($situation == $sentSituation) {
+                return $intSituation;
+            }
+        }
+    }
+
+    public function convertDevelopmentStageToInt($sentStage)
+    {
+        $allStage = config('constants.Development_stage');
+        foreach ($allStage as $stage => $intStage) {
+            if ($stage == $sentStage) {
+                return $intStage;
+            }
+        }
     }
 
     public function readProject($id)

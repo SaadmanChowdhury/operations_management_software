@@ -623,6 +623,11 @@ footer {
     top: 50vh;
 }
 
+.modal-form-container._project {
+    max-height: 1200px;
+    top: 50vh;
+}
+
 .modal-show .modal-form-container {
     transform: translateY(calc(-50% - 85px));
     transition: transform 0.3s 0.2s cubic-bezier(0.5, .5, .5, 1), opacity 0.5s ease-in;
@@ -633,6 +638,11 @@ footer {
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
+}
+
+.modal-form-input-container._dark {
+    background-color: #00000005;
+    border-radius: 8px;
 }
 
 .modal-form-input-container:nth-child(even) {
@@ -995,6 +1005,11 @@ footer {
     width: 49%;
 }
 
+.column.right ._third {
+    display: inline-block;
+    width: 32%;
+}
+
 .column.right ._full {
     width: 100%;
     display: flex;
@@ -1008,6 +1023,10 @@ footer {
 
 .right._client {
     justify-content: unset;
+}
+
+.right._project {
+    margin-top: -25px;
 }
 
 /* Clear floats after the columns */

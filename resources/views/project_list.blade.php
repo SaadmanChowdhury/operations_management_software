@@ -28,6 +28,12 @@
                 <a href="" onclick="adjustRowHeight()">
                     <li class="fa fa-list"> </li>
                 </a>
+
+                @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
+                <a href="" onclick="ProjectRegisterModalHandler()">
+                    <li> + 登録</li>
+                </a>
+                @endif
             </ul>
 
             <hr />
@@ -80,7 +86,7 @@
                             <li>40,0000円</li>
                             <li>40%</li>
                             <li>
-                                <div class="edit" onclick="event.stopPropagation(); alert('Open Project Edit Modal');">
+                                <div class="edit" onclick="projectEditModalHandler(1)">
                                     <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
                                 </div>
                             </li>
@@ -263,7 +269,7 @@
                             <li>40,0000円</li>
                             <li>40%</li>
                             <li>
-                                <div class="edit" onclick="event.stopPropagation(); alert('Open Project Edit Modal');">
+                                <div class="edit" onclick="projectEditModalHandler(1)">
                                     <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
                                 </div>
                             </li>
@@ -426,5 +432,8 @@
         </div>
     </div>
 </div>
+
+@include("project.edit")
+@include("project.create")
 
 @include("footer")
