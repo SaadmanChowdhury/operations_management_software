@@ -36,6 +36,10 @@ body {
     color: white;
     font-family: "Inter", sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     color: white;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .row {
@@ -860,6 +864,10 @@ footer {
 }
 
 .card._project:hover {
+    background-color: unset;
+}
+
+.card._project:hover .card-header {
     background-color: #068bde15;
     /* #068bde15; */
 }
@@ -1120,7 +1128,7 @@ input:read-only {
     z-index: 1009;
 }
 
-.button, button {
+.button {
     border: none;
     background-color: white;
     padding: 16px 0px;
@@ -1334,6 +1342,8 @@ button.cancel:hover {
     border-top: 3px solid #45b6fb;
     background-color: #3AA0DE;
     border-bottom: 3px solid #068bde;
+    border-left: 1px solid #3AA0DE;
+    border-right: 1px solid #3AA0DE;
     color: white;
 }
 
@@ -1440,23 +1450,29 @@ button.cancel:hover {
 }
 
 .card-body {
-    width: 95%;
+    width: 98%;
     position: relative;
     padding: 1.25rem 2rem;
-    margin-right: 1.5rem;
     margin-left: 1.5rem;
+}
+
+.card-body._accordion {
+    margin: unset;
+    width: 100%;
 }
 
 .project .collapse {
     background-color: white;
     margin: 0;
+    border-radius: 0 0 10px 10px;
 }
 
 .project .btn {
     display: inline-block;
     font-size: 1rem;
     line-height: 1.5;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; */
+    transition: 0.1s ease-out;
 }
 
 .project .fa {
@@ -1464,51 +1480,84 @@ button.cancel:hover {
 }
 
 .round-btn {
-    border-radius: 50%;
+    border-radius: 8px;
     height: 30px;
     width: 30px;
+    transition: 0.3s ease-out;
+}
+
+.round-btn {
+    cursor: pointer;
 }
 
 .danger {
-    background-color: red;
-    border: 1px solid red;
+    border-top: 3px solid #ff6b6b;
+    background-color: #ff1010;
+    border-right: unset;
+    border-left: unset;
+    border-bottom: 3px solid #cc0909;
     color: white;
 }
 
 .success {
-    background-color: #6AF141;
-    border: 1px solid #6AF141;
+    /* background-color: #6AF141; */
+    border-top: 3px solid #33D70B;
+    background-color: #28c128;
+    border-bottom: 3px solid #2e9c2e;
+    border-left: unset;
+    border-right: unset;
     color: white;
 }
 
 .success:hover {
-    background-color: #6AF141;
-    border: 1px solid #6AF141;
-    color: white;
+    border-top: 0px solid #33D70B;
+    background-color: #28c128;
+    border-bottom: 0px solid #2e9c2e;
+    /* box-shadow: 0 0 5px #28c128; */
 }
 
 .danger:hover {
-    background-color: red;
-    border: 1px solid red;
-    color: white;
+    background-color: #ff1010;
+    border-top: 0px solid #ff6b6b;
+    border-bottom: 0px solid #cc0909;
+    /* box-shadow: 0 0 5px #ff1010; */
+}
+
+.btn.primary:hover {
+    border-top: 0px;
+    border-bottom: 0px;
+    /* box-shadow: 0 0 5px #3AA0DE; */
 }
 
 .action {
     position: relative;
     margin-top: -30px;
+    margin-left: auto;
+    width: 40px;
     left: 30px;
 }
 
-.add {
-    position: relative;
-    margin-right: 1%;
+.action ul {
+    position: absolute;
+    right: 15px;
 }
 
-.add .round-btn {
-    position: absolute;
-    bottom: 5px;
-    right: 0;
+.add-minus-holder {
+    position: relative;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
     left: 30px
+}
+
+.add-minus-holder ._minus {
+    margin-bottom: 50px;
+}
+
+.add-minus-holder .round-btn {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
 }
 
 .action button {
@@ -1518,36 +1567,66 @@ button.cancel:hover {
     cursor: pointer;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     margin-top: 20px;
+    padding: 0;
 }
 
 #accordian .row {
-    display: inline-flex;
+    display: flex;
+    justify-content: start;
     flex-direction: row;
     box-sizing: border-box;
-    justify-content: center;
 }
 
 #accordian table {
     position: relative;
     border-collapse: collapse;
-    font-size: 65%;
+    font-size: 12px;
     margin-bottom: 0px;
 }
 
 .table-left {
-    position: absolute;
+    position: relative;
     left: 0;
-    width: auto;
-    box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 4px 1px;
+    width: 180px;
+    height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.25) 3px 3px 7px 0px;
+    border-radius: 6px;
+}
+
+.table-left table {
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    overflow: hidden;
+    /* border-radius: 8px; */
+}
+
+.table-left td {
+    border: none;
+}
+
+.table-left tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
+
+.table-left tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.project-rhs {
+    position: relative;
+    display: flex;
+    height: fit-content;
+    left: 40px;
 }
 
 .table-right {
     position: relative;
-    left: 50px;
-    margin-right: 4%;
-    margin-left: 2%;
+    left: 20px;
+    /* margin-right: 4%; */
+    margin-left: 10px;
     width: auto;
     height: fit-content;
+    background-color: #F88316;
 }
 
 .table-right.row {
@@ -1556,57 +1635,65 @@ button.cancel:hover {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 5px 2px;
 }
 
+.table-right .row-total {
+    border-bottom: 2px solid grey;
+}
+
 .table-des-container {
     overflow: scroll;
     height: fit-content;
-    width: 600px;
+    max-width: 600px;
+    background-color: #4772FF;
+}
+
+/* ///===HIDING SCROLLBAR IN CHROME===/// */
+
+/* body ::-webkit-scrollbar {
+    display: none;
+} */
+
+::-webkit-scrollbar {
+    height: 5px;
+    width: 0;
+    margin-top: -10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    height: 0;
+    width: 10%;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #0026a3;
+    border-radius: 10px;
+    height: 3px;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #011b72;
 }
 
 .table-des {
     width: fit-content;
+    background-color: white;
 }
 
 .table-right .table-fix th:nth-child(1) {
+    border-top: unset;
+    border-right: 0.5px solid white;
     background-color: #F88316;
 }
 
 .table-right .table-fix th:nth-child(2) {
     background-color: #F88316;
-}
-
-.table-left table td {
-    width: 4rem;
-}
-
-.table-right .table-fix td:nth-child(1) {
-    min-width: 80px;
-}
-
-.table-right .table-fix td:nth-child(2) {
-    min-width: 50px;
-}
-
-/* th:first-of-type {
-    border-top-left-radius: 5px;
-}
-
-th:last-of-type {
-    border-top-right-radius: 5px;
-}
-
-tr:last-of-type td:first-of-type {
-    border-bottom-left-radius: 5px;
-}
-
-tr:last-of-type td:last-of-type {
-    border-bottom-right-radius: 5px;
-} */
-
-th {
-    /* border-top-left-radius: 2px;
-    border-top-right-radius: 2px; */
-    background-color: #4772FF;
-    color: white;
+    border-top: unset;
+    /* border-right: 0.5px solid white; */
 }
 
 td, th {
@@ -1614,16 +1701,69 @@ td, th {
     padding: 4px 10px;
     text-align: center;
     vertical-align: top;
-    width: 100%;
+    /* width: 100%; */
     height: 1rem;
     line-height: 1rem;
     overflow-wrap: break-word;
+    box-sizing: border-box;
+    width: 80px;
+    padding: 8px 5px;
+}
+
+th {
+    /* border-top-left-radius: 2px;
+    border-top-right-radius: 2px; */
+    background-color: #4772FF;
+    border-top: unset;
+    color: white;
+    font-weight: unset;
+    /* padding: 7px 9px 7px; */
+    font-size: 10px;
 }
 
 td {
     height: 1.3rem;
     line-height: 1.3rem;
     justify-content: center;
+    font-size: 10px;
+}
+
+.table-left table td {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.table-left table td:first-of-type {
+    width: 80px;
+    font-size: 11px;
+    padding-left: 20px;
+    /* font-weight: 550; */
+    text-align: center;
+    color: #2A2A2A;
+}
+
+.table-left table td:last-of-type {
+    width: 220px;
+    font-size: 10px;
+    padding-right: 30px;
+    text-align: right;
+    color: #5A5A5A;
+}
+
+.table-right .table-fix td:nth-child(1) {
+    width: 120px;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.table-right .table-fix .row-total td:nth-child(1) {
+    text-align: center;
+    font-size: 12px;
+}
+
+.table-right .table-fix td:nth-child(2) {
+    width: 80px;
+    font-size: 12px;
 }
 
 .table-right tr:nth-child(2) {
@@ -1633,6 +1773,7 @@ td {
 .table-fix {
     overflow-x: scroll;
     box-shadow: none;
+    background-color: white;
 }
 
 #table-nav th {
