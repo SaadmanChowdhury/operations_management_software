@@ -1,11 +1,11 @@
 <div class="modal-container" id="project-create-modal">
 
-    <div class="modal-title mild-midori">
+    <div class="modal-title primary">
         <span class="form-ht">クライアント登録</span>
         <span class="fa fa-chevron-up close" onclick="closeModal('project-create-modal')"></span>
     </div>
 
-    <div class="modal-form-container _user">
+    <div class="modal-form-container _project">
         <form id="reg_form" action="" method="">
             @csrf
 
@@ -13,11 +13,12 @@
 
                 <div class="column left">
                     <div>
-                        <img src="{{ asset('img/user_dp.png') }}" class="dp _user" alt="display photo">
+                        <img src="{{ asset('img/project_dp.png') }}" class="dp _project" alt="display photo">
                     </div>
 
                     <div>
-                        <button type="submit" onclick="createProject()"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        <button type="submit" onclick="createProject()"><i class="fa fa-floppy-o"
+                                aria-hidden="true"></i>
                             登録</button>
                     </div>
 
@@ -27,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="column right _user">
+                <div class="column right _project">
 
                     <div class="modal-form-input-container">
                         <div class="_full">
@@ -36,45 +37,8 @@
                         </div>
                     </div>
 
-                    <div class="modal-form-input-container">
-                        <div class="_half">
-                            <div><label for="client_id">顧客</label></div>
-                            <div><input type="number" id="project_create_clientID_Input" name="client_id" required></div>
-                        </div>
-                        <div class="_half">
-                            <div><label for="manager_id">担当</label></div>
-                            <div><input type="number" id="project_create_managerID_Input" name="manager_id" required></div>
-                        </div>
-                    </div>
-
-                    <div class="modal-form-input-container">
-                        <div class="_half">
-                            <div><label for="order_month">受注月</label></div>
-                            {{-- <div class="custom-select">
-                                <select id="project_create_order_month_Input" required>
-                                    @for ($month = 1; $month <= 12; $month++)
-                                        <option>{{  $month }}</option>
-                                    @endfor
-                                </select>
-                            </div> --}}
-                            <div><input type="date" id="project_create_order_month_Input" name="inspection_month" required></div>
-                        </div>
-                        
-                        <div class="_half">
-                            <div><label for="inspection_month">検収月</label></div>
-                            {{-- <div class="custom-select">
-                                <select id="project_create_inspection_month_Input" required>
-                                    @for ($month = 1; $month <= 12; $month++)
-                                        <option>{{  $month }}</option>
-                                    @endfor
-                                </select>
-                            </div> --}}
-                            <div><input type="date" id="project_create_inspection_month_Input" name="inspection_month" required></div>
-                        </div>
-                    </div>
-
-                    <div class="modal-form-input-container">
-                        <div class="_half">
+                    <div class="modal-form-input-container _dark">
+                        <div class="_third">
                             <div><label>見込</label></div>
                             <div class="custom-select">
                                 <select id="project_create_order_status_Input" required>
@@ -85,7 +49,7 @@
                             </div>
                         </div>
 
-                        <div class="_half">
+                        <div class="_third">
                             <div><label>営業状況</label></div>
                             <div class="custom-select">
                                 <select id="project_create_business_situation_Input" required>
@@ -95,10 +59,8 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="modal-form-input-container">
-                        <div class="_half">
+                        <div class="_third">
                             <div><label for="development_stage">作業工程</label></div>
                             <div class="custom-select">
                                 <select id="project_create_development_stage_Input" required>
@@ -108,22 +70,52 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="sales_total">売上高</label></div>
-                            <div><input type="number" id="project_create_sales_total_Input" name="sales_total" required></div>
+                            <div><label for="client_id">顧客</label></div>
+                            <div><input type="number" id="project_create_clientID_Input" name="client_id" required>
+                            </div>
+                        </div>
+                        <div class="_half">
+                            <div><label for="manager_id">担当</label></div>
+                            <div><input type="number" id="project_create_managerID_Input" name="manager_id" required>
+                            </div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
+                            <div><label for="order_month">受注月</label></div>
+                            <div><input type="date" id="project_create_order_month_Input" name="inspection_month"
+                                    required></div>
+                        </div>
+
+                        <div class="_half">
+                            <div><label for="inspection_month">検収月</label></div>
+                            <div><input type="date" id="project_create_inspection_month_Input" name="inspection_month"
+                                    required></div>
+                        </div>
+                    </div>
+
+                    <div class="modal-form-input-container">
+
+                        <div class="_half">
+                            <div><label for="sales_total">売上高</label></div>
+                            <div><input type="number" id="project_create_sales_total_Input" name="sales_total" required>
+                            </div>
+                        </div>
+
+                        <div class="_half">
                             <div><label for="transferred_amount">振込金額</label></div>
-                            <div><input type="number" id="project_create_transferred_amount_Input" name="transferred_amount" required></div>
+                            <div><input type="number" id="project_create_transferred_amount_Input"
+                                    name="transferred_amount" required></div>
                         </div>
                     </div>
 
                 </div>
-  
+
             </div>
             <div id="message"></div>
 
@@ -134,7 +126,6 @@
 
 
 <script>
-
     function ProjectRegisterModalHandler() {
         event.preventDefault();
         showModal('project-create-modal');
@@ -203,5 +194,5 @@
             }
         });
     }
-</script>
 
+</script>

@@ -635,6 +635,11 @@ footer {
     padding: 20px 0;
 }
 
+.modal-form-input-container._dark {
+    background-color: #00000005;
+    border-radius: 8px;
+}
+
 .modal-form-input-container:nth-child(even) {
     /* background-color: #00000005 */
 }
@@ -995,6 +1000,11 @@ footer {
     width: 49%;
 }
 
+.column.right ._third {
+    display: inline-block;
+    width: 32%;
+}
+
 .column.right ._full {
     width: 100%;
     display: flex;
@@ -1004,6 +1014,10 @@ footer {
 
 .right._user {
     min-height: 580px;
+}
+
+.right._project {
+    margin-top: -25px;
 }
 
 /* Clear floats after the columns */
