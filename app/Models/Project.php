@@ -30,20 +30,23 @@ class Project extends Model
 
     public function readProjectList()
     {
-        $project = DB::table('projects')->select([
-            'project_id',
-            'project_name',
-            'client_id',
-            'manager_id',
-
-            'order_month',
-            'inspection_month',
-            'order_status',
-            'business_situation',
-            'development_stage',
-            'sales_total',
-            'transferred_amount',
-        ])->whereNull("deleted_at")->get()->toArray();
+        $project = DB::table('projects')
+            ->select([
+                DB::raw('project_id AS projectID'),
+                DB::raw('project_name AS projectName'),
+                DB::raw('client_id AS clientID'),
+                DB::raw('manager_id AS projectLeaderID'),
+                DB::raw('order_month AS orderMonth'),
+                DB::raw('inspection_month AS inspectionMonth'),
+                DB::raw('order_status AS orderStatus'),
+                DB::raw('business_situation AS businessSituation'),
+                DB::raw('development_stage AS developmentStage'),
+                DB::raw('sales_total AS salesTotal'),
+                DB::raw('transferred_amount AS transferredAmount'),
+                DB::raw('budget AS budget'),
+            ])
+            ->whereNull("deleted_at")
+            ->get()->toArray();
 
         return $project;
     }
