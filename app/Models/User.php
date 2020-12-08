@@ -185,7 +185,9 @@ class User extends Authenticatable
         //validating data
         $validatedData['position'] = $this->convertPositionToInt($request->position);
         // $validatedData['location'] = $this->convertLocationToInt($request->location);
-        $validatedData = $request->validate($rules);
+        // $validatedData = $request->validate($rules);
+
+        $validatedData = $request->validated();
 
         //hashing password
         $validatedData['password'] = bcrypt($request->password);

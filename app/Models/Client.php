@@ -60,10 +60,7 @@ class Client extends Model
         //only admin can create new client
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
-            $validatedData = $request->validate([
-                'client_name' => 'required',
-                'user_id' => 'required',
-            ]);
+            $validatedData = $request->validated();
 
             //Creating record-- a client record can be created if any user exists as a point_of_contact_person
             if (User::where('user_id', '=', $request->input('user_id'))->first() != null) {
@@ -114,7 +111,8 @@ class Client extends Model
         }
 
         //validating data
-        $validatedData = $request->validate($rules);
+        // $validatedData = $request->validate($rules);
+        $validatedData = $request->validated();
 
         //updating record-- a client record can be updated if any user exists as a point_of_contact_person
         if (User::where('user_id', '=', $request->input('user_id'))->first() != null) {

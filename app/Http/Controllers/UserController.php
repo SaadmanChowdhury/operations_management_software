@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpsert;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +50,7 @@ class UserController extends Controller
         return view('user.edit', compact('user', 'loggedUser'));
     }
 
-    public function createUser(UserRequest $request)
+    public function createUser(UserUpsert $request)
     {
         $loggedUser = auth()->user();
 
@@ -86,7 +86,7 @@ class UserController extends Controller
         }
     }
 
-    public function updateUser(Request $request)
+    public function updateUser(UserUpsert $request)
     {
 
         \Illuminate\Support\Facades\Log::debug($request);
