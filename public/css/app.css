@@ -1827,7 +1827,7 @@ td img {
     transform: translateX(-50%);
     left: 50%;
     height: 80px;
-    border: 1px solid black;
+    
 }
 
 .assign-header-sub-row {
@@ -1835,6 +1835,9 @@ td img {
     box-sizing: border-box;
     height: 40px;
     border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .table-header._assign {
@@ -1879,3 +1882,46 @@ td img {
 .assign-user-sub-row._header {
     background-color: lightgray;
 }
+
+/* ///====ASSIGN SUMMARY===/// */
+
+.d-flex{
+    display: flex;
+}
+.flex-1{
+    flex:1;
+}
+.flex-2{
+    flex:2;
+}
+.flex-3{
+    flex:3;
+}
+.mild-yellow{
+    background-color:#FFD965;
+}
+.grey{
+    background-color:#757171 ;
+}
+.blue{
+    background-color: #93A9D7;
+}
+.green{
+    background-color: #B1CE95;
+}
+.face-color{
+    background-color: #EBB28B;
+
+}
+
+.align-items-center{
+    align-items: center;
+}
+
+.justify-content-center{
+    justify-content: center;
+}
+	
+	
+	
+	

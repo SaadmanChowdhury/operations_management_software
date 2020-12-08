@@ -66,27 +66,66 @@
                     <ul class="display list-unstyled">
                     </ul>
                 </div> --}}
-                <div class="assign-header-sub-row">
-                    Static year row
+                <div class="assign-header-sub-row mild-yellow text-center">
+                     2020
                 </div>
-                <div class="assign-header-sub-row">
-                    Static month row
+                <div class="d-flex assign-header-sub-row mild-yellow text-center">
+                    <div class="flex-1">name</div>
+                    <div class="flex-3">project name</div>
+                    <div class="flex-1">1</div>
+                    <div class="flex-1">2</div>
+                    <div class="flex-1">3</div>
+                    <div class="flex-1">4</div>
+                    <div class="flex-1">5</div>
+                    <div class="flex-1">6</div>
+                    <div class="flex-1">1</div>
+                    <div class="flex-1">2</div>
+                    <div class="flex-1">3</div>
+                    <div class="flex-1">4</div>
+                    <div class="flex-1">5</div>
+                    <div class="flex-1">6</div>
                 </div>
             </div>
 
 
             {{-- ///====ASSIGN-SUMMARY-TABLE DETAILS====///
             --}}
-            <div class="assign-summary table-header _assign">
+            <div class="d-flex assign-summary table-header _assign justify-content-center align-items-center">
 
-                Sub total row
+                <div class="flex-1">name</div>
+                <div class="flex-3">project name</div>
+                <div class="flex-1">1</div>
+                <div class="flex-1">2</div>
+                <div class="flex-1">3</div>
+                <div class="flex-1">4</div>
+                <div class="flex-1">5</div>
+                <div class="flex-1">6</div>
+                <div class="flex-1">1</div>
+                <div class="flex-1">2</div>
+                <div class="flex-1">3</div>
+                <div class="flex-1">4</div>
+                <div class="flex-1">5</div>
+                <div class="flex-1">6</div>
             </div>
 
             <div class="assign-summary table-body _assign">
 
                 <div class="assign-user-tab">
-                    <div class="assign-user-sub-row _header">
-                        User 1 summary row
+                    <div class="d-flex assign-user-sub-row _header">
+                        <div class="flex-1 yellow d-flex justify-content-center align-items-center">name</div>
+                        <div class="flex-3 yellow justify-content-center align-items-center">project name</div>
+                        <div class="flex-1 green">1</div>
+                        <div class="flex-1 green">2</div>
+                        <div class="flex-1 green">3</div>
+                        <div class="flex-1 face-color">4</div>
+                        <div class="flex-1 green">5</div>
+                        <div class="flex-1 green">6</div>
+                        <div class="flex-1 blue">1</div>
+                        <div class="flex-1 blue">2</div>
+                        <div class="flex-1 blue">3</div>
+                        <div class="flex-1 blue">4</div>
+                        <div class="flex-1 grey">5</div>
+                        <div class="flex-1 grey">6</div>
                     </div>
                     <div class="assign-user-sub-row">
                         User 1 - project 1
