@@ -38,6 +38,19 @@
                     </div>
 
                     <div class="modal-form-input-container _dark">
+                        <div class="_half">
+                            <div><label for="client_id">顧客</label></div>
+                            <div><input type="number" id="project_create_clientID_Input" name="client_id" required>
+                            </div>
+                        </div>
+                        <div class="_half">
+                            <div><label for="manager_id">担当</label></div>
+                            <div><input type="number" id="project_create_managerID_Input" name="manager_id" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-form-input-container">
                         <div class="_third">
                             <div><label>見込</label></div>
                             <div class="custom-select">
@@ -72,16 +85,23 @@
                         </div>
                     </div>
 
-                    <div class="modal-form-input-container">
-                        <div class="_half">
-                            <div><label for="client_id">顧客</label></div>
-                            <div><input type="number" id="project_create_clientID_Input" name="client_id" required>
+                    <div class="modal-form-input-container _dark">
+
+                        <div class="_third">
+                            <div><label for="sales_total">売上高</label></div>
+                            <div><input type="number" id="project_create_sales_total_Input" name="sales_total" required>
                             </div>
                         </div>
-                        <div class="_half">
-                            <div><label for="manager_id">担当</label></div>
-                            <div><input type="number" id="project_create_managerID_Input" name="manager_id" required>
-                            </div>
+
+                        <div class="_third">
+                            <div><label for="transferred_amount">振込金額</label></div>
+                            <div><input type="number" id="project_create_transferred_amount_Input"
+                                    name="transferred_amount" required></div>
+                        </div>
+
+                        <div class="_third">
+                            <div><label for="budget">予算</label></div>
+                            <div><input type="number" id="project_create_budget_Input" name="budget" required></div>
                         </div>
                     </div>
 
@@ -96,21 +116,6 @@
                             <div><label for="inspection_month">検収月</label></div>
                             <div><input type="date" id="project_create_inspection_month_Input" name="inspection_month"
                                     required></div>
-                        </div>
-                    </div>
-
-                    <div class="modal-form-input-container">
-
-                        <div class="_half">
-                            <div><label for="sales_total">売上高</label></div>
-                            <div><input type="number" id="project_create_sales_total_Input" name="sales_total" required>
-                            </div>
-                        </div>
-
-                        <div class="_half">
-                            <div><label for="transferred_amount">振込金額</label></div>
-                            <div><input type="number" id="project_create_transferred_amount_Input"
-                                    name="transferred_amount" required></div>
                         </div>
                     </div>
 
@@ -143,6 +148,7 @@
             development_stage: $('#project_create_development_stage_Input').val(),
             sales_total: $('#project_create_sales_total_Input').val(),
             transferred_amount: $('#project_create_transferred_amount_Input').val(),
+            budget: $('#project_create_budget_Input').val(),
             _token: $('input[name=_token]').val()
         };
     }

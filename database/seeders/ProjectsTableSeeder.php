@@ -21,25 +21,29 @@ class ProjectsTableSeeder extends Seeder
                 'project_name' => 'Kintai',
                 'client_id' => 1, //client
                 'manager_id' => 3,
-                'sales_total' => 7140000,
+                'sales_total' => 12000000,
+                'budget' => 7140000,
             ],
             [
                 'project_name' => 'Operation Management System',
                 'client_id' => 1, //client
                 'manager_id' => 7,
-                'sales_total' => 4462500,
+                'sales_total' => 7500000,
+                'budget' => 4462500,
             ],
             [
                 'project_name' => 'ASE Homepage',
                 'client_id' => 2, //client
                 'manager_id' => 6,
-                'sales_total' => 5206250,
+                'sales_total' => 8750000,
+                'budget' => 5206250,
             ],
             [
                 'project_name' => 'Pivot Android App',
                 'client_id' => 3, //client
                 'manager_id' => 4,
-                'sales_total' => 4373250,
+                'sales_total' => 7350000,
+                'budget' => 4373250,
             ],
         ];
 
