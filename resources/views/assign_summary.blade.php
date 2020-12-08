@@ -23,42 +23,64 @@
                 <a href="">
                     <li> 全て</li>
                 </a>
-            </ul>
-            <ul class="userlist-nav center list-unstyled" style="float: right;">
-                <a href="" onclick="adjustRowHeight()">
-                    <li class="fa fa-list"> </li>
+                <a href="">
+                    <li> PM</li>
+                </a>
+                <a href="">
+                    <li> PL</li>
+                </a>
+                <a href="">
+                    <li> SE</li>
+                </a>
+                <a href="">
+                    <li> PG</li>
                 </a>
             </ul>
+            <ul class="userlist-nav center list-unstyled" style="margin-left: 30px;">
+                <a href="">
+                    <li> 無し
+                    </li>
+                </a>
+                <a href="">
+                    <li> 限界</li>
+                </a>
+                <a href="">
+                    <li> 未だ</li>
+                </a>
+            </ul>
+
+            <ul class="userlist-nav center list-unstyled" style="float: right; ">
+                <a href="" onclick="alert('Adjust font size');">
+                    <li class="fa fa-arrows-alt"> </li>
+                </a>
+            </ul>
+
+
 
             <hr />
 
             {{-- ///====ASSIGN-SUMMARY-TABLE HEADER====///
             --}}
-            <div id="table-nav" class="gray">
-                <div class="flex-col">
+            <div id="table-nav" class="gray _assign">
+                {{-- <div class="flex-col">
                     <ul class="display list-unstyled">
-                        <li> コード</li>
-                        <li> コード</li>
-                        <li> コード</li>
-                        <li> コード</li>
-                        <li> コード</li>
                     </ul>
-                </div>
+                </div> --}}
+                <div class="assign-header-sub-row"></div>
+                <div class="assign-header-sub-row"></div>
             </div>
 
 
             {{-- ///====ASSIGN-SUMMARY-TABLE DETAILS====///
             --}}
+            <div class="assign-summary table-header _assign">
 
-            <div class="assign-summary table-body">
 
-                <div class="card" id="assign-summary-row-">
-                    <div class=" card-header">
-                        <div class="display list-unstyled">
-                            <li>準備中</li>
-                        </div>
-                    </div>
-                </div>
+            </div>
+
+            <div class="assign-summary table-body _assign">
+
+
             </div>
         </div>
     </div>
