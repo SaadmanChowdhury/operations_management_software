@@ -16,14 +16,14 @@ class ProjectService
     }
 
     /** For our implementation of the Project List, different types of users will receive different data */
-    /** i.e. 
-     *      1. Admin will receive all data, 
+    /** i.e.
+     *      1. Admin will receive all data,
      *      2. General Users will receive all data EXCEPT for monetary information
      *      3. General Users who are assigned as project leader in projects, will receive monetary information for those specific projects
      */
-    /** 
-     * I know of two approaches to implementing these scenarios. 
-     * 
+    /**
+     * I know of two approaches to implementing these scenarios.
+     *
      * ------------------
      * DEDUCTIVE APPROACH
      * ------------------
@@ -34,29 +34,29 @@ class ProjectService
      *      2.2. Else, go over each project and deduct monetary information if the user is not the assigned leader
      * 5. Rearrange data to satisfy API format
      * 6. Return array to Controller
-     * 
-     * 
+     *
+     *
      * -------------------
      * INCLUSIVE APPROACH
      * -------------------
-     * 1. In the Model layer, write two queries: 
+     * 1. In the Model layer, write two queries:
      *      Query A : returns ALL NON-monetary data about ALL projects
      *      Query B : returns only monetary data about a 1 specific project
-     * 
+     *
      * 2. Call query A
      * 3. Check user's authority, and iterate for each project
      *      3.1. If user is admin or assigned leader, call query B on that project
      *      3.2. Else, check next project
      * 4. Rearrange data to satisfy API format
      * 5. Return array to Controller
-     * 
+     *
      */
 
     /**
      * Things to note:
-     * The deductive approach is easier to implement, 
+     * The deductive approach is easier to implement,
      * But the inclusive approach is faster when implemented with row based RDMS like MySQL or SQLite.
-     * This is not Google or anything, so feel free to go for the Deductive Approach, 
+     * This is not Google or anything, so feel free to go for the Deductive Approach,
      * we can always update the query to be inclusive when there are over a million projects lol.
      */
     public function fetchProjectList()
@@ -64,7 +64,7 @@ class ProjectService
 
         $projectModel  = new Project;
         // Step 2
-        $array = $projectModel->superCoolFunctionThatGivesYouProjectsData();
+        $array = $projectModel->readProjectList();
 
         // Step 3
         $array = $this->helper_fetchProjectList($array);
@@ -78,10 +78,16 @@ class ProjectService
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             // take your decision
+            return $array;
         }
 
         for ($i = 0; $i < count($array); $i++) {
-            // Do your thing
+            // If user is not project leader [General user]
+            if ($array[$i]->projectLeaderID != $loggedUser->user_id) {
+                unset($array[$i]->salesTotal);
+                unset($array[$i]->transferredAmount);
+                unset($array[$i]->budget);
+            }
         }
 
         return $array;
@@ -94,6 +100,6 @@ class ProjectService
         /** perform array formatting to match the array according to API format */
         /** GOOD LUCK */
 
-        return $formattedArray;
+        return $array;
     }
 }

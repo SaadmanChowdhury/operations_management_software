@@ -107,7 +107,7 @@ Route::get('/client-modal', function () {
 Route::get('project/create', [ProjectController::class, 'getCreateView']);
 Route::get('project/edit/{id}', [ProjectController::class, 'getEditView']);
 
-Route::get('/project', [ProjectController::class, 'index']);
+Route::get('/project', [ProjectController::class, 'fetchProjectList']);
 Route::post("/API/createProject", [ProjectController::class, 'createProject']);
 Route::post("/API/readProject",   [ProjectController::class, 'readProject']);
 Route::post("/API/updateProject", [ProjectController::class, 'updateProject']);
