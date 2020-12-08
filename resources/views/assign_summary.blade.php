@@ -66,8 +66,12 @@
                     <ul class="display list-unstyled">
                     </ul>
                 </div> --}}
-                <div class="assign-header-sub-row"></div>
-                <div class="assign-header-sub-row"></div>
+                <div class="assign-header-sub-row">
+                    Static year row
+                </div>
+                <div class="assign-header-sub-row">
+                    Static month row
+                </div>
             </div>
 
 
@@ -75,12 +79,73 @@
             --}}
             <div class="assign-summary table-header _assign">
 
-
+                Sub total row
             </div>
 
             <div class="assign-summary table-body _assign">
 
+                <div class="assign-user-tab">
+                    <div class="assign-user-sub-row _header">
+                        User 1 summary row
+                    </div>
+                    <div class="assign-user-sub-row">
+                        User 1 - project 1
+                    </div>
+                    <div class="assign-user-sub-row">
+                        User 1 - project 2
+                    </div>
+                </div>
 
+                <div class="assign-user-tab">
+                    <div class="assign-user-sub-row _header">
+
+                    </div>
+                    <div class="assign-user-sub-row">
+
+                    </div>
+                </div>
+
+
+                <div class="assign-user-tab">
+                    <div class="assign-user-sub-row _header">
+
+                    </div>
+                    <div class="assign-user-sub-row">
+
+                    </div>
+                    <div class="assign-user-sub-row">
+
+                    </div>
+                    <div class="assign-user-sub-row">
+
+                    </div>
+                    <div class="assign-user-sub-row">
+
+                    </div>
+                </div>
+
+                <div class="assign-user-tab">
+                    <div class="assign-user-sub-row _header">
+
+                    </div>
+                    <div class="assign-user-sub-row">
+
+                    </div>
+                    <div class="assign-user-sub-row">
+
+                    </div>
+                </div>
+                <div class="assign-user-tab">
+                    <div class="assign-user-sub-row _header">
+
+                    </div>
+                    <div class="assign-user-sub-row">
+
+                    </div>
+                    <div class="assign-user-sub-row">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

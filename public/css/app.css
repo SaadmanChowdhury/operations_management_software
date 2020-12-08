@@ -816,47 +816,10 @@ footer {
     padding: 2px;
 }
 
-#table-nav._assign {
-    position: relative;
-    width: 1200px;
-    transform: translateX(-50%);
-    left: 50%;
-    height: 80px;
-    border: 1px solid black;
-}
-
-.assign-header-sub-row {
-    position: relative;
-    box-sizing: border-box;
-    height: 40px;
-    border: 1px solid black;
-}
-
-.table-header._assign {
-    position: relative;
-    box-sizing: border-box;
-    width: 1200px;
-    transform: translateX(-50%);
-    left: 50%;
-    height: 50px;
-    border: 1px solid black;
-    border-bottom: 1px solid black;
-}
-
 .table-body {
     overflow: scroll;
     height: calc(100vh - 230px);
     padding-bottom: 10px;
-}
-
-.table-body._assign {
-    position: relative;
-    width: 1200px;
-    height: calc(100vh - 300px);
-    transform: translateX(-50%);
-    left: 50%;
-    border: 1px solid black;
-    box-sizing: border-box;
 }
 
 #table-nav .fa {
@@ -1854,4 +1817,65 @@ td img {
 .project .smallpic {
     height: 10%;
     width: 20%;
+}
+
+/* ////====ASSIGN STYLING====//// */
+
+#table-nav._assign {
+    position: relative;
+    width: 1200px;
+    transform: translateX(-50%);
+    left: 50%;
+    height: 80px;
+    border: 1px solid black;
+}
+
+.assign-header-sub-row {
+    position: relative;
+    box-sizing: border-box;
+    height: 40px;
+    border: 1px solid black;
+}
+
+.table-header._assign {
+    position: relative;
+    box-sizing: border-box;
+    width: 1200px;
+    transform: translateX(-50%);
+    left: 50%;
+    height: 50px;
+    border: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color: darkgray;
+    margin-bottom: 5px;
+    box-shadow: 0 3px 2px #00000025;
+}
+
+.table-body._assign {
+    position: relative;
+    width: 1200px;
+    height: calc(100vh - 300px);
+    transform: translateX(-50%);
+    left: 50%;
+    /* border: 1px solid black; */
+    box-sizing: border-box;
+}
+
+.assign-user-tab {
+    border: 1px solid green;
+    height: fit-content;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 2px;
+}
+
+.assign-user-sub-row {
+    height: 50px;
+    width: 100%;
+    border: 1px solid blue;
+    box-sizing: border-box;
+}
+
+.assign-user-sub-row._header {
+    background-color: lightgray;
 }
