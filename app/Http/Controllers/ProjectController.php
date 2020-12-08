@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectUpsert;
+use App\Services\ProjectService;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\User;
@@ -12,6 +13,14 @@ use App\Http\Utilities\JSONHandler;
 
 class ProjectController extends Controller
 {
+
+    protected $projectService;
+
+    public function __construct(ProjectService $projectService)
+    {
+        $this->projectService = $projectService;
+    }
+
     public function index()
     {
         if (!Auth::check()) {
@@ -28,6 +37,26 @@ class ProjectController extends Controller
         $viewParams["initialPreference"] = $user->getUIPreference($viewParams["loggedInUser"]->user_id, "project_list_preference");
 
         return view('project_list', $viewParams);
+    }
+
+    public function fetchProjectList()
+    {
+        /** CHECK IF USER IS LOGGED IN */
+        /** If not logged in return not authorized JSON alert */
+        if (!Auth::check())
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
+        /** else, forward to Service */
+        $data = $this->projectService->fetchProjectList();
+
+        /** if the returned data is a string, then probably an error happened in the Service or Modal layer */
+        /** in that case package the error into JSON-error and return */
+        if (gettype($data) == "string") {
+            return JSONHandler::errorJSONPackage($data);
+        }
+
+        /** Otherwise package the data into JSON-data and return */
+        return JSONHandler::packagedJSONData($data);
     }
 
     public function getCreateView()
