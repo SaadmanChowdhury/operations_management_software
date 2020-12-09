@@ -61,77 +61,110 @@
 
             {{-- ///====ASSIGN-SUMMARY-TABLE HEADER====///
             --}}
-            <div id="table-nav" class="gray _assign">
-                {{-- <div class="flex-col">
-                    <ul class="display list-unstyled">
-                    </ul>
-                </div> --}}
+            <div id="table-nav" class=" _assign">
+                
                 <div class="assign-header-sub-row mild-yellow text-center">
                      2020
                 </div>
-                <div class="d-flex assign-header-sub-row mild-yellow text-center">
-                    <div class="flex-1">name</div>
-                    <div class="flex-3">project name</div>
-                    <div class="flex-1">1</div>
-                    <div class="flex-1">2</div>
-                    <div class="flex-1">3</div>
-                    <div class="flex-1">4</div>
-                    <div class="flex-1">5</div>
-                    <div class="flex-1">6</div>
-                    <div class="flex-1">1</div>
-                    <div class="flex-1">2</div>
-                    <div class="flex-1">3</div>
-                    <div class="flex-1">4</div>
-                    <div class="flex-1">5</div>
-                    <div class="flex-1">6</div>
+                <div class="d-flex assign-header-sub-row mild-yellow text-center list-unstyled">
+                    <div class="wrapper d-flex" >
+                        <li class="yellow">名前</li>
+                        <li class="yellow">プロジェクト</li>
+                        <li >1</li>
+                        <li >2</li>
+                        <li >3</li>
+                        <li >4</li>
+                        <li >5</li>
+                        <li >6</li>
+                        <li >7</li>
+                        <li >8</li>
+                        <li >9</li>
+                        <li >10</li>
+                        <li >11</li>
+                        <li >12</li>
+                    </div>
                 </div>
             </div>
 
 
             {{-- ///====ASSIGN-SUMMARY-TABLE DETAILS====///
             --}}
-            <div class="d-flex assign-summary table-header _assign justify-content-center align-items-center">
-
-                <div class="flex-1">name</div>
-                <div class="flex-3">project name</div>
-                <div class="flex-1">1</div>
-                <div class="flex-1">2</div>
-                <div class="flex-1">3</div>
-                <div class="flex-1">4</div>
-                <div class="flex-1">5</div>
-                <div class="flex-1">6</div>
-                <div class="flex-1">1</div>
-                <div class="flex-1">2</div>
-                <div class="flex-1">3</div>
-                <div class="flex-1">4</div>
-                <div class="flex-1">5</div>
-                <div class="flex-1">6</div>
+            <div class="d-flex assign-summary table-header _assign list-unstyled">
+                <div class="wrapper d-flex text-center" >
+                    <li class="d-flex align-items-center" >2.0</li>
+                    <li class="flex-3"> </li>
+                    <li class="green" >2.0</li>
+                    <li class="green" >2.0</li>
+                    <li class="green" >2.0</li>
+                    <li class="face-color" >2.5</li>
+                    <li class="green" >2.0</li>
+                    <li class="green" >2.0</li>
+                    <li class="blue" >1.5</li>
+                    <li class="blue" >1.5</li>
+                    <li class="blue" >1.0</li>
+                    <li class="blue" >1.0</li>
+                    <li class="grey" >0</li>
+                    <li class="grey" >0</li>
+                </div>
             </div>
 
             <div class="assign-summary table-body _assign">
 
                 <div class="assign-user-tab">
-                    <div class="d-flex assign-user-sub-row _header">
-                        <div class="flex-1 yellow d-flex justify-content-center align-items-center">name</div>
-                        <div class="flex-3 yellow justify-content-center align-items-center">project name</div>
-                        <div class="flex-1 green">1</div>
-                        <div class="flex-1 green">2</div>
-                        <div class="flex-1 green">3</div>
-                        <div class="flex-1 face-color">4</div>
-                        <div class="flex-1 green">5</div>
-                        <div class="flex-1 green">6</div>
-                        <div class="flex-1 blue">1</div>
-                        <div class="flex-1 blue">2</div>
-                        <div class="flex-1 blue">3</div>
-                        <div class="flex-1 blue">4</div>
-                        <div class="flex-1 grey">5</div>
-                        <div class="flex-1 grey">6</div>
+                    <div class="d-flex assign-user-sub-row _header list-unstyled text-center">
+                        <div class="wrapper d-flex text-center" >
+                            <li class="d-flex align-items-center" >丸田</li>
+                            <li class="flex-3">合計 </li>
+                            <li class="faded-green" >1.0</li>
+                            <li class="faded-green" >1.0</li>
+                            <li class="faded-green" >1.0</li>
+                            <li class="faded-green" >1.0</li>
+                            <li class="faded-green" >1.0</li>
+                            <li class="faded-green" >1.0</li>
+                            <li class="faded-green" >1.0</li>
+                            <li class="faded-green" >1.0</li>
+                            <li class="faded-green" >1.0</li>
+                            <li class="faded-green" >1.0</li>
+                            <li class="faded-grey" >0</li>
+                            <li class="faded-grey" >0</li>
+                        </div>
+                        
                     </div>
                     <div class="assign-user-sub-row">
-                        User 1 - project 1
+                        <div class="wrapper d-flex text-center" >
+                            <li class="d-flex align-items-center" ></li>
+                            <li class="flex-3">東電プロジェクト </li>
+                            <li class="faded-yellow" >1.0</li>
+                            <li class="faded-yellow" >1.0</li>
+                            <li class="faded-yellow" >1.0</li>
+                            <li class="faded-yellow" >1.0</li>
+                            <li class="faded-yellow" >1.0</li>
+                            <li class="faded-yellow" >1.0</li>
+                            <li ></li>
+                            <li ></li>
+                            <li ></li>
+                            <li ></li>
+                            <li ></li>
+                            <li ></li>
+                        </div>
                     </div>
                     <div class="assign-user-sub-row">
-                        User 1 - project 2
+                        <div class="wrapper d-flex text-center" >
+                            <li class="d-flex align-items-center" ></li>
+                            <li class="flex-3"> パナソニック改修対応</li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li class="faded-yellow" >1.0</li>
+                            <li class="faded-yellow"  >1.0</li>
+                            <li class="faded-yellow"  >1.0</li>
+                            <li class="faded-yellow"  >1.0</li>
+                            <li class="faded-yellow"  >1.0</li>
+                            <li></li>
+                            <li></li>
+                        </div>
                     </div>
                 </div>
 

@@ -1839,6 +1839,22 @@ td img {
     align-items: center;
     justify-content: center;
 }
+.assign-header-sub-row li{
+    
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width: 50px;
+    border-left: 1px solid black;
+}
+.assign-header-sub-row li:nth-child(2){
+    width: 150px;
+}
+
+.assign-header-sub-row li:last-of-type{
+    border-right: 1px solid black;
+}
+
 
 .table-header._assign {
     position: relative;
@@ -1849,11 +1865,25 @@ td img {
     height: 50px;
     border: 1px solid black;
     border-bottom: 1px solid black;
-    background-color: darkgray;
+    
     margin-bottom: 5px;
     box-shadow: 0 3px 2px #00000025;
 }
+.table-header._assign li{
+    
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width: 50px;
+    border-left: 1px solid black;
+}
 
+.table-header._assign li:nth-child(2){
+    width: 150px;
+}
+.table-header._assign li:last-of-type{
+    border-right: 1px solid black;
+}
 .table-body._assign {
     position: relative;
     width: 1200px;
@@ -1865,7 +1895,7 @@ td img {
 }
 
 .assign-user-tab {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     height: fit-content;
     width: 100%;
     box-sizing: border-box;
@@ -1875,28 +1905,43 @@ td img {
 .assign-user-sub-row {
     height: 50px;
     width: 100%;
-    border: 1px solid blue;
+    border: 1px solid black;
     box-sizing: border-box;
 }
-
-.assign-user-sub-row._header {
-    background-color: lightgray;
+.assign-user-sub-row li{
+    
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width: 50px;
+    border-left: 1px solid black;
 }
 
-/* ///====ASSIGN SUMMARY===/// */
+.assign-user-sub-row li:nth-child(2){
+    width: 150px;
+    
+}
+.assign-user-sub-row li:last-of-type{
+    border-right: 1px solid black;
+}
+
+
+.assign-user-sub-row._header {
+   
+}
+
+.wrapper{
+    font-size: 13px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    height:100%;
+}
 
 .d-flex{
     display: flex;
 }
-.flex-1{
-    flex:1;
-}
-.flex-2{
-    flex:2;
-}
-.flex-3{
-    flex:3;
-}
+
 .mild-yellow{
     background-color:#FFD965;
 }
@@ -1913,7 +1958,24 @@ td img {
     background-color: #EBB28B;
 
 }
-
+.faded-green{
+    background-color: #E4EEDC;
+}
+.faded-blue{
+    background-color: #DBE1F1;
+}
+.faded-face-color{
+    background-color: #F9E4D8;
+}
+.faded-grey{
+    background-color: #CFCDCD;
+}
+.faded-yellow{
+    background-color: #FEF2D0;
+}
+.yellow{
+    background-color: yellow;
+}
 .align-items-center{
     align-items: center;
 }
