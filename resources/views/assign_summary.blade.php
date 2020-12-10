@@ -111,7 +111,7 @@
             <div class="assign-summary table-body _assign">
 
                 <div class="assign-user-tab">
-                    <div class="d-flex assign-user-sub-row _header list-unstyled text-center">
+                    <div class="d-flex assign-user-sub-row _header list-unstyled text-center" onclick="assignDisplay(1)">
                         <div class="wrapper d-flex text-center" >
                             <li class="d-flex text-medium align-items-center" >丸田</li>
                             <li class=" text-medium">合計 </li>
@@ -130,46 +130,48 @@
                         </div>
                         
                     </div>
-                    <div class="assign-user-sub-row">
-                        <div class="wrapper d-flex text-center" >
-                            <li class="d-flex align-items-center" ></li>
-                            <li class="flex-3">東電プロジェクト </li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
+                    <div class="assign-user-row" id="user-row-1" >
+                        <div class="assign-user-sub-row">
+                            <div class="wrapper d-flex text-center" >
+                                <li class="d-flex align-items-center" ></li>
+                                <li class="flex-3">東電プロジェクト </li>
+                                <li class="faded-yellow" >1.0</li>
+                                <li class="faded-yellow" >1.0</li>
+                                <li class="faded-yellow" >1.0</li>
+                                <li class="faded-yellow" >1.0</li>
+                                <li class="faded-yellow" >1.0</li>
+                                <li></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                            </div>
                         </div>
-                    </div>
-                    <div class="assign-user-sub-row">
-                        <div class="wrapper d-flex text-center" >
-                            <li class="d-flex align-items-center" ></li>
-                            <li class="flex-3"> パナソニック改修対応</li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li></li>
-                            <li></li>
+                        <div class="assign-user-sub-row">
+                            <div class="wrapper d-flex text-center" >
+                                <li class="d-flex align-items-center" ></li>
+                                <li class="flex-3"> パナソニック改修対応</li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li class="faded-yellow" >1.0</li>
+                                <li class="faded-yellow"  >1.0</li>
+                                <li class="faded-yellow"  >1.0</li>
+                                <li class="faded-yellow"  >1.0</li>
+                                <li class="faded-yellow"  >1.0</li>
+                                <li></li>
+                                <li></li>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="assign-user-tab">
-                    <div class="d-flex assign-user-sub-row _header list-unstyled text-center">
+                    <div class="d-flex assign-user-sub-row _header list-unstyled text-center" onclick="assignDisplay(2)">
                         <div class="wrapper d-flex text-center" >
                             <li class="d-flex text-medium align-items-center" >富永</li>
                             <li class=" text-medium">合計 </li>
@@ -181,108 +183,119 @@
                             <li class="faded-green" >1.0</li>
                             <li class="faded-blue" >0.5</li>
                             <li class="faded-blue" >0.5</li>
-                            <li class="faded-grey" >1.0</li>
-                            <li class="faded-grey" >1.0</li>
+                            <li class="faded-grey" >0</li>
+                            <li class="faded-grey" >0</li>
                             <li class="faded-grey" >0</li>
                             <li class="faded-grey" >0</li>
                         </div>
                         
                     </div>
-                    <div class="assign-user-sub-row">
-                        <div class="wrapper d-flex text-center" >
-                            <li class="d-flex align-items-center" ></li>
-                            <li class="flex-3">東電プロジェクト </li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
+                    <div class="assign-user-row" id="user-row-2">
+                        <div class="assign-user-sub-row">
+                            <div class="wrapper d-flex text-center" >
+                                <li class="d-flex align-items-center" ></li>
+                                <li >ぴあアプリ対応 </li>
+                                <li class="faded-yellow" >1.0</li>
+                                <li class="faded-yellow" >1.0</li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                            </div>
                         </div>
-                    </div>
-                    <div class="assign-user-sub-row">
-                        <div class="wrapper d-flex text-center" >
-                            <li class="d-flex align-items-center" ></li>
-                            <li class="flex-3"> パナソニック改修対応</li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li></li>
-                            <li></li>
+                        <div class="assign-user-sub-row">
+                            <div class="wrapper d-flex text-center" >
+                                <li class="d-flex align-items-center" ></li>
+                                <li > ぴあアプリ対応</li>
+                                <li></li>
+                                <li></li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </div>
+                        </div>
+                        <div class="assign-user-sub-row">
+                            <div class="wrapper d-flex text-center" >
+                                <li class="d-flex align-items-center" ></li>
+                                <li > iPhoneアプリ対応</li>
+                                <li></li>
+                                <li></li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li></li>
+                                <li></li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </div>
+                        </div>
+                        <div class="assign-user-sub-row">
+                            <div class="wrapper d-flex text-center" >
+                                <li class="d-flex align-items-center" ></li>
+                                <li > ぴあアプリ対応</li>
+                                <li></li>
+                                <li></li>
+                                <li ></li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li ></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </div>
+                        </div>
+                        <div class="assign-user-sub-row">
+                            <div class="wrapper d-flex text-center" >
+                                <li class="d-flex align-items-center" ></li>
+                                <li > iPhoneアプリ対応</li>
+                                <li></li>
+                                <li></li>
+                                <li ></li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li class="faded-yellow" >0.5</li>
+                                <li ></li>
+                                <li ></li>
+                                <li ></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </div>
                         </div>
                     </div>
                 </div>
 
 
-                <div class="assign-user-tab">
-                    <div class="d-flex assign-user-sub-row _header list-unstyled text-center">
-                        <div class="wrapper d-flex text-center" >
-                            <li class="d-flex text-medium align-items-center" >富永</li>
-                            <li class=" text-medium">合計 </li>
-                            <li class="faded-green" >1.0</li>
-                            <li class="faded-green" >1.0</li>
-                            <li class="faded-green" >1.0</li>
-                            <li class="faded-green" >1.0</li>
-                            <li class="faded-green" >1.0</li>
-                            <li class="faded-green" >1.0</li>
-                            <li class="faded-green" >1.0</li>
-                            <li class="faded-green" >1.0</li>
-                            <li class="faded-green" >1.0</li>
-                            <li class="faded-green" >1.0</li>
-                            <li class="faded-grey" >0</li>
-                            <li class="faded-grey" >0</li>
-                        </div>
-                        
+                {{-- <div class="assign-user-tab">
+                    <div class="assign-user-sub-row _header">
+
                     </div>
                     <div class="assign-user-sub-row">
-                        <div class="wrapper d-flex text-center" >
-                            <li class="d-flex align-items-center" ></li>
-                            <li class="flex-3">東電プロジェクト </li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                            <li ></li>
-                        </div>
+
                     </div>
                     <div class="assign-user-sub-row">
-                        <div class="wrapper d-flex text-center" >
-                            <li class="d-flex align-items-center" ></li>
-                            <li class="flex-3"> パナソニック改修対応</li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li class="faded-yellow" >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li class="faded-yellow"  >1.0</li>
-                            <li></li>
-                            <li></li>
-                        </div>
+
                     </div>
+                    
                 </div>
 
                 <div class="assign-user-tab">
@@ -306,7 +319,7 @@
                     <div class="assign-user-sub-row">
 
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

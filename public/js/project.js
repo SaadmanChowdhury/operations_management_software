@@ -8,7 +8,7 @@ function display(x)
   
   var row=document.getElementById('row'+x);
   console.log(row.style.display);
-  // row.style.display="block";
+  
   if (row.style.display === "block") {
     row.style.display = "none";
   } else {
@@ -17,32 +17,3 @@ function display(x)
     
   }
 }
-// coll1.addEventListener("click", function() {
-
-
-//     if (content1.style.display === "block") {
-//       content1.style.display = "none";
-//     } else {
-//       content2.style.display = "none";
-//       content1.style.display = "block";
-      
-//     }
-    
-    
-// });
-
-
-// var coll2 = document.getElementById("row2head");				
-// coll2.addEventListener("click", function() {
-
-
-
-//     if (content2.style.display === "block") {
-//       content2.style.display = "none";
-//     } else {
-//       content2.style.display = "block";
-//       content1.style.display = "none";
-//     }
-    
-// });
-
