@@ -1827,6 +1827,7 @@ td img {
     transform: translateX(-50%);
     left: 50%;
     height: 80px;
+    padding: 0;
     
 }
 
