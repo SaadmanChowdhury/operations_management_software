@@ -73,6 +73,14 @@ class ProjectService
         return $this->arrayFormatting_fetchProjectList($array);
     }
 
+    public function readProjectDetails($projectID)
+    {
+        $projectModel  = new Project;
+        $array = $projectModel->readProject($projectID);
+
+        return $array;
+    }
+
     private function helper_fetchProjectList($array)
     {
         $loggedUser = auth()->user();
@@ -95,11 +103,8 @@ class ProjectService
 
     private function arrayFormatting_fetchProjectList($array)
     {
-        $formattedArray = array();
+        $formattedArray['project'] = $array;
 
-        /** perform array formatting to match the array according to API format */
-        /** GOOD LUCK */
-
-        return $array;
+        return $formattedArray;
     }
 }
