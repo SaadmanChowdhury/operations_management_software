@@ -63,13 +63,17 @@
             --}}
             <div id="table-nav" class=" _assign mild-yellow text-medium">
                 
-                <div class="assign-header-sub-row mild-yellow text-center text-lg">
-                     2020
+                <div class="assign-header-sub-row mild-yellow ">
+                    <div class="wrapper text-center text-lg d-flex text-medium" >
+                        <span class="fa fa-caret-left"></span>
+                            2020
+                        <span class="fa fa-caret-right"></span>
+                    </div>
                 </div>
                 <div class="d-flex assign-header-sub-row mild-yellow text-center list-unstyled">
                     <div class="wrapper d-flex text-medium" >
-                        <li class="faded-face-color">名前</li>
-                        <li class="faded-face-color">プロジェクト</li>
+                        <li >名前</li>
+                        <li >プロジェクト</li>
                         <li >1</li>
                         <li >2</li>
                         <li >3</li>

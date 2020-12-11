@@ -1900,6 +1900,7 @@ td img {
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 2px;
+    border-bottom: 3px solid #bcb8b84d;
     box-shadow: 0 3px 2px #00000025;
 }
 
@@ -1933,6 +1934,16 @@ td img {
 }
 .assign-user-row{
     display: none;
+}
+
+.assign-header-sub-row .fa{
+    margin-left: 10px;
+    background-color: transparent!important;
+    width: 50px;
+    padding: 7px 7px;
+    border-radius: 5px;
+    font-size: 13px;
+    text-align: center;
 }
 .wrapper{
     font-size: 13px;
@@ -1995,7 +2006,7 @@ td img {
     background-color: #FEF2D0;
 }
 .yellow{
-    background-color: #fcff00;
+    background-color: #fcff006b;
     border-bottom: 3px solid #efef04;
     border-left: 3px solid #efef04;
 }
