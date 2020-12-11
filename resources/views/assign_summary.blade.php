@@ -64,7 +64,7 @@
             <div id="table-nav" class=" _assign mild-yellow text-medium">
                 
                 <div class="assign-header-sub-row mild-yellow ">
-                    <div class="wrapper text-center text-lg d-flex text-medium" >
+                    <div class="wrapper text-center text-lg d-flex text-medium" style="align-items: center" >
                         <span class="fa fa-caret-left"></span>
                             2020
                         <span class="fa fa-caret-right"></span>
