@@ -81,6 +81,12 @@ class ProjectService
         return $array;
     }
 
+    public function upsertProjectDetails($request, $projectID)
+    {
+        $projectModel  = new Project;
+        return $projectModel->upsertProjectDetails($request, $projectID);
+    }
+
     private function helper_fetchProjectList($array)
     {
         $loggedUser = auth()->user();

@@ -113,12 +113,14 @@ class ProjectController extends Controller
         return JSONHandler::packagedJSONData($data);
     }
 
-    public function updateProject(ProjectUpsert $request)
+    public function upsertProjectDetails(ProjectUpsert $request)
     {
+        if (!Auth::check())
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
 
-        $project_id = $request->project_id;
-        $project = new Project();
-        $project->updateProject($request, $project_id);
+        $projectID = $request->projectID;
+
+        return $this->projectService->upsertProjectDetails($request, $projectID);
     }
 
     public function deleteProject($id)
