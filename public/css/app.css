@@ -1962,7 +1962,9 @@ td img {
 .d-flex{
     display: flex;
 }
-
+.fa-caret-right,.fa-caret-left{
+    cursor: pointer;
+}
 .mild-yellow{
     background-color:#FFD965;
     border-top: 3px solid #fcdf88;

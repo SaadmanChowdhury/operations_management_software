@@ -65,9 +65,12 @@
                 
                 <div class="assign-header-sub-row mild-yellow ">
                     <div class="wrapper text-center text-lg d-flex text-medium" style="align-items: center" >
-                        <span class="fa fa-caret-left"></span>
-                            2020
-                        <span class="fa fa-caret-right"></span>
+                        <script>
+                            $assign_year=2020;
+                        </script>
+                        <span class="fa fa-caret-left" onclick="year_dec($assign_year)"></span>
+                            <p id="assign_year">2020</p>
+                        <span class="fa fa-caret-right" onclick="year_inc($assign_year)"></span>
                     </div>
                 </div>
                 <div class="d-flex assign-header-sub-row mild-yellow text-center list-unstyled">
@@ -287,6 +290,7 @@
                         </div>
                     </div>
                 </div>
+                
 
 
                 {{-- <div class="assign-user-tab">

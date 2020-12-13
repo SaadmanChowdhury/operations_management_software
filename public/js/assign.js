@@ -1,3 +1,5 @@
+const { assign } = require("lodash");
+
 function assignDisplay(x)
 {
   
@@ -11,4 +13,19 @@ function assignDisplay(x)
     row.style.display = "block";
     
   }
+}
+
+function year_inc(x){
+  var year= document.getElementById('assign_year');  
+  x=x+1;
+  $assign_year=x;
+  year.innerText=x;
+    
+}
+
+function year_dec(x){
+  var year= document.getElementById('assign_year');  
+  x=x-1;
+  $assign_year=x;
+  year.innerText=x;
 }
