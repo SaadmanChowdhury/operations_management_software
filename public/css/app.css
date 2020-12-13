@@ -1936,15 +1936,7 @@ td img {
     display: none;
 }
 
-.assign-header-sub-row .fa{
-    margin-left: 10px;
-    background-color: transparent!important;
-    width: 50px;
-    padding: 7px 7px;
-    border-radius: 5px;
-    font-size: 13px;
-    text-align: center;
-}
+
 .wrapper{
     font-size: 13px;
     max-width: 960px;
@@ -1964,6 +1956,13 @@ td img {
 }
 .fa-caret-right,.fa-caret-left{
     cursor: pointer;
+    margin-left: 0!important;
+    background-color: transparent!important;
+    width: 50px;
+    padding: 7px 7px;
+    border-radius: 5px;
+    font-size: 13px;
+    text-align: center;
 }
 .mild-yellow{
     background-color:#FFD965;
