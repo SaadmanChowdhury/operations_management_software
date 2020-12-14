@@ -24,16 +24,17 @@ class ProjectUpsert extends FormRequest
     public function rules()
     {
         return [
-            'project_name' => 'required',
-            'client_id' => 'required',
-            'manager_id' => 'required',
-            'order_month' => '',
-            'inspection_month' => '',
-            'order_status' => '',
-            'business_situation' => '',
-            'development_stage' => '',
-            'sales_total' => 'required',
-            'transferred_amount' => '',
+            'projectName' => 'required',
+            'clientID' => 'required',
+            'managerID' => 'required',
+            'orderMonth' => '',
+            'inspectionMonth' => '',
+            'orderStatus' => '',
+            'businessSituation' => '',
+            'developmentStage' => '',
+            'salesTotal' => 'required',
+            'transferredAmount' => '',
+            'budget' => '',
         ];
     }
 
@@ -45,10 +46,10 @@ class ProjectUpsert extends FormRequest
     public function messages()
     {
         return [
-            'project_name.required' => 'Project name required',
-            'client_id.required' => 'Client is required',
-            'manager_id.required' => 'Manager is required',
-            'sales_total.required' => 'Sales total is required',
+            'projectName.required' => 'Project name required',
+            'clientID.required' => 'Client is required',
+            'managerID.required' => 'Manager is required',
+            'salesTotal.required' => 'Sales total is required',
         ];
     }
 }

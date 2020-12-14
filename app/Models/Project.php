@@ -102,18 +102,19 @@ class Project extends Model
     {
         $loggedUser = auth()->user();
         $project = Project::select([
-            'project_id',
-            'project_name',
-            'client_id',
-            'manager_id',
+            'project_id as projectID',
+            'project_name as projectName',
+            'client_id as clientID',
+            'manager_id as projectLeaderID',
 
-            'order_month',
-            'inspection_month',
-            'order_status',
-            'business_situation',
-            'development_stage',
-            'sales_total',
-            'transferred_amount',
+            'order_month as orderMonth',
+            'inspection_month as inspectionMonth',
+            'order_status as orderStatus',
+            'business_situation as businessSituation',
+            'development_stage as developmentStage',
+            'sales_total as salesTotal',
+            'transferred_amount as transferredAmount',
+            'budget as budget',
         ])->where('project_id', $id)
             ->whereNull("deleted_at")
             ->first();
@@ -127,38 +128,40 @@ class Project extends Model
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
-    public function updateProject($request, $project_id)
+    public function upsertProjectDetails($request, $projectID)
     {
-        //validation rules
-        $rules = [
-            'project_name' => 'required',
-            'client_id' => 'required',
-            'manager_id' => 'required',
-            'order_month' => '',
-            'inspection_month' => '',
-            'order_status' => '',
-            'business_situation' => '',
-            'development_stage' => '',
-            'sales_total' => 'required',
-            'transferred_amount' => '',
-        ];
-
+        $validatedData = $request->validated();
         $loggedUser = auth()->user();
-        $project = Project::find($project_id);
+        $project = $manager_id = null;
 
+        if ($projectID != null) {
+            $project = Project::find($projectID);
+            $manager_id = $project->manager_id;
+        }
         //only admin and manager can update the project
         if (
             $loggedUser->user_authority == config('User_authority.システム管理者') ||
-            $loggedUser->user_id == $project->manager_id
+            $loggedUser->user_id == $manager_id
         ) {
-            //validating data
-            // $validatedData = $request->validate($rules);
-            $validatedData = $request->validated();
+            $validatedData = $this->formatDataToCreateOrUpdate($validatedData);
+
             //updating record
-            Project::where('project_id', $project_id)->update($validatedData);
+            Project::updateOrCreate(['project_id' => $projectID], $validatedData);
+
             return JSONHandler::emptySuccessfulJSONPackage();
         }
+
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+    }
+
+    public function formatDataToCreateOrUpdate($data)
+    {
+        $formattedData = [];
+        $formattedData['project_name'] = $data['projectName'];
+        $formattedData['client_id'] = $data['clientID'];
+        $formattedData['manager_id'] = $data['managerID'];
+        $formattedData['sales_total'] = $data['salesTotal'];
+        return $formattedData;
     }
 
     public function deleteProject($id)

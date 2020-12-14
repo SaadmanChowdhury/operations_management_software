@@ -107,10 +107,19 @@ Route::get('/client-modal', function () {
 Route::get('project/create', [ProjectController::class, 'getCreateView']);
 Route::get('project/edit/{id}', [ProjectController::class, 'getEditView']);
 
-Route::get('/project', [ProjectController::class, 'index']);
+Route::get('/project', [ProjectController::class, 'fetchProjectList']);
 Route::post("/API/createProject", [ProjectController::class, 'createProject']);
 Route::post("/API/readProject",   [ProjectController::class, 'readProject']);
 Route::post("/API/updateProject", [ProjectController::class, 'updateProject']);
 Route::post("/API/deleteProject", [ProjectController::class, 'deleteProject']);
 
 Route::get("test", [ClientController::class, 'getTotalProfit']);
+
+Route::get('/API/fetchProjectList', [ProjectController::class, 'fetchProjectList']);
+Route::get('/API/readProjectDetails', [ProjectController::class, 'readProjectDetails']);
+Route::post('/API/upsertProjectDetails', [ProjectController::class, 'upsertProjectDetails']);
+
+//for testing the update function
+Route::get('/test-view', function () {
+    return view('project.test');
+});
