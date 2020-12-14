@@ -50,6 +50,7 @@ Route::get('user/edit/{id}', [UserController::class, 'getEditView']);
 
 Route::post("/API/createUser", [UserController::class, 'createUser']);
 Route::post("/API/readUser",   [UserController::class, 'readUser']);
+Route::post("/API/fetchUserList", [UserController::class, 'fetchUserList']);
 Route::post("/API/updateUser", [UserController::class, 'updateUser']);
 Route::post("/API/deleteUser", [UserController::class, 'deleteUser']);
 

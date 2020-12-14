@@ -64,6 +64,30 @@ class User extends Authenticatable
     public function readUserList()
     {
         $list = DB::table('users')->select(
+            'user_id as userID',
+            'name as username',
+            'email as email',
+            'gender as gender',
+            'location as location',
+            'tel as tel',
+            'position as position',
+            'admission_day as admissionDay',
+            'exit_day as exitDay',
+            'unit_price as unitPrice',
+            'user_authority as authority',
+            'resign_day as resignationDay'
+        )
+            ->whereNull("deleted_at")
+            ->get()->toArray();
+        return $list;
+    }
+
+    /**
+     * retrieving all users information
+     */
+    public function static_readUserList()
+    {
+        $list = DB::table('users')->select(
             'user_id',
             'name',
             'email',

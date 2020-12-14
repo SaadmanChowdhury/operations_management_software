@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserUpsert;
+use App\Services\UserService;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,12 @@ use App\Http\Utilities\JSONHandler;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
 
     public function index()
     {
@@ -18,7 +25,7 @@ class UserController extends Controller
         }
 
         $user = new User();
-        $list = $user->readUserList();
+        $list = $user->static_readUserList();
         $loggedUser = auth()->user();
         $initialPreference = $user->getUIPreference($loggedUser->user_id, "user_list_preference");
 
@@ -63,6 +70,20 @@ class UserController extends Controller
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
+    public function fetchUserList()
+    {
+        if (!Auth::check())
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
+        $data = $this->userService->fetchUserList();
+
+        if (gettype($data) == "string") {
+            return JSONHandler::errorJSONPackage($data);
+        }
+
+        return JSONHandler::packagedJSONData($data);
+    }
+
     public function readUser(Request $request)
     {
         $loggedUser = auth()->user();
@@ -88,8 +109,6 @@ class UserController extends Controller
 
     public function updateUser(UserUpsert $request)
     {
-
-        \Illuminate\Support\Facades\Log::debug($request);
 
         $id = $request->id;
         $loggedUser = auth()->user();

@@ -2,6 +2,7 @@
 
 {{-- ///====PAGE TITLE --}}
 <div class="page-title">
+    @csrf
     <span class="fa fa-user"></span>
     ユーザー一覧
 

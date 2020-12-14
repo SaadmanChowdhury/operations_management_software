@@ -69,7 +69,31 @@ function filterPos(e) {
     }
 }
 function numberWithCommas(x) {
-    var z= x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); 
+    var z = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     console.log("hey");
-    document.getElementsByClassName('salary').innerText=z;
+    document.getElementsByClassName('salary').innerText = z;
+}
+
+function fetchUserList_AJAX() {
+    $.ajax({
+        type: "post",
+        url: "/API/fetchUserList",
+        data: {
+            _token: $('#csrf-token')[0].content,
+        },
+        cache: false,
+        success: function (response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                SofiaSanPleaseDoSomethingWithThis(response);
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function (err) {
+            handleAJAXError(err);
+        }
+    });
+}
+
+function SofiaSanPleaseDoSomethingWithThis(response) {
+    console.log(response);
 }
