@@ -120,7 +120,9 @@ class ProjectController extends Controller
 
         $projectID = $request->projectID;
 
-        return $this->projectService->upsertProjectDetails($request, $projectID);
+        $this->projectService->upsertProjectDetails($request, $projectID);
+
+        return JSONHandler::emptySuccessfulJSONPackage();
     }
 
     public function deleteProject($id)
