@@ -367,7 +367,7 @@ footer {
 
 #nav li:hover {
     background-color: #587bd3;
-    transform: translateX(15px);
+    /* transform: translateX(15px); */
     transition: 0.1s ease-out;
     /* background-color: blue; */
 }
@@ -1828,34 +1828,32 @@ td img {
     left: 50%;
     height: 80px;
     padding: 0;
-    
 }
 
 .assign-header-sub-row {
     position: relative;
     box-sizing: border-box;
     height: 40px;
-    
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.assign-header-sub-row li{
-    
+
+.assign-header-sub-row li {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     width: 60px;
     border-left: 1px solid #d0b150;
 }
-.assign-header-sub-row li:nth-child(2){
+
+.assign-header-sub-row li:nth-child(2) {
     width: 180px;
 }
 
-.assign-header-sub-row li:last-of-type{
+.assign-header-sub-row li:last-of-type {
     border-right: 1px solid #d0b150;
 }
-
 
 .table-header._assign {
     position: relative;
@@ -1869,21 +1867,22 @@ td img {
     margin-bottom: 5px;
     box-shadow: 0 3px 2px #00000025;
 }
-.table-header._assign li{
-    
+
+.table-header._assign li {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     width: 60px;
-   
 }
 
-.table-header._assign li:nth-child(2){
+.table-header._assign li:nth-child(2) {
     width: 180px;
 }
-.table-header._assign li:last-of-type{
+
+.table-header._assign li:last-of-type {
     border-right: 1px solid #bcb8b84d;
 }
+
 .table-body._assign {
     position: relative;
     width: 1200px;
@@ -1911,50 +1910,53 @@ td img {
     border-bottom: 0.5px solid #00000010;
     box-sizing: border-box;
 }
-.assign-user-sub-row li{
-    
+
+.assign-user-sub-row li {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     width: 60px;
     border-left: 1px solid #bcb8b84d;
 }
 
-.assign-user-sub-row li:nth-child(2){
+.assign-user-sub-row li:nth-child(2) {
     width: 180px;
-    
-}
-.assign-user-sub-row li:last-of-type{
-    border-right: 1px solid #bcb8b84d;
 }
 
+.assign-user-sub-row li:last-of-type {
+    border-right: 1px solid #bcb8b84d;
+}
 
 .assign-user-sub-row._header {
     border-bottom: 2px solid #bcb8b8;
 }
-.assign-user-row{
+
+.assign-user-row {
     display: none;
 }
 
-
-.wrapper{
+.wrapper {
     font-size: 13px;
     max-width: 960px;
     margin-left: auto;
     margin-right: auto;
-    height:100%;
+    height: 100%;
 }
-.text-medium{
+
+.text-medium {
     font-weight: 600;
 }
-.text-lg{
+
+.text-lg {
     font-size: 16px;
     letter-spacing: 0;
 }
-.d-flex{
+
+.d-flex {
     display: flex;
 }
-.fa-caret-right,.fa-caret-left{
+
+.fa-caret-right, .fa-caret-left {
     cursor: pointer;
     margin-left: 0!important;
     background-color: transparent!important;
@@ -1964,61 +1966,68 @@ td img {
     font-size: 13px;
     text-align: center;
 }
-.mild-yellow{
-    background-color:#FFD965;
+
+.mild-yellow {
+    background-color: #FFD965;
     border-top: 3px solid #fcdf88;
     border-bottom: 3px solid #d0b150;
     color: black;
 }
-.grey{
-    background-color:#757171 ;
+
+.grey {
+    background-color: #757171;
     border-bottom: 3px solid #686464;
     border-left: 3px solid #686464;
 }
-.blue{
+
+.blue {
     background-color: #93A9D7;
     border-bottom: 3px solid #7e91b9;
     border-left: 3px solid #7e91b9;
 }
-.green{
+
+.green {
     background-color: #B1CE95;
     border-bottom: 3px solid #9cb782;
     border-left: 3px solid #9cb782;
 }
-.face-color{
+
+.face-color {
     background-color: #EBB28B;
     border-bottom: 3px solid #daa481;
     border-left: 3px solid #daa481;
-
 }
-.faded-green{
+
+.faded-green {
     background-color: #E4EEDC;
 }
-.faded-blue{
+
+.faded-blue {
     background-color: #DBE1F1;
 }
-.faded-face-color{
+
+.faded-face-color {
     background-color: #F9E4D8;
 }
-.faded-grey{
+
+.faded-grey {
     background-color: #CFCDCD;
 }
-.faded-yellow{
+
+.faded-yellow {
     background-color: #FEF2D0;
 }
-.yellow{
+
+.yellow {
     background-color: #fcff006b;
     border-bottom: 3px solid #efef04;
     border-left: 3px solid #efef04;
 }
-.align-items-center{
+
+.align-items-center {
     align-items: center;
 }
 
-.justify-content-center{
+.justify-content-center {
     justify-content: center;
 }
-	
-	
-	
-	
