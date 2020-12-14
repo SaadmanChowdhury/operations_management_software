@@ -37,7 +37,7 @@
                     @endif
                 </div>
 
-                
+
                 <div class="column right _user">
                     <input type="hidden" id="id" value="">
 
@@ -51,23 +51,27 @@
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="client_id">顧客</label></div>
-                            <div><input type="number" id="project_edit_clientID_Input" name="client_id" value="" required></div>
+                            <div><input type="number" id="project_edit_clientID_Input" name="client_id" value=""
+                                    required></div>
                         </div>
                         <div class="_half">
                             <div><label for="manager_id">担当</label></div>
-                            <div><input type="number" id="project_edit_managerID_Input" name="manager_id" value="" required></div>
+                            <div><input type="number" id="project_edit_managerID_Input" name="manager_id" value=""
+                                    required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="order_month">受注月</label></div>
-                            <div><input type="date" id="project_edit_order_month_Input" name="inspection_month" value="" required></div>
+                            <div><input type="date" id="project_edit_order_month_Input" name="inspection_month" value=""
+                                    required></div>
                         </div>
-                        
+
                         <div class="_half">
                             <div><label for="inspection_month">検収月</label></div>
-                            <div><input type="date" id="project_edit_inspection_month_Input" name="inspection_month" value="" required></div>
+                            <div><input type="date" id="project_edit_inspection_month_Input" name="inspection_month"
+                                    value="" required></div>
                         </div>
                     </div>
 
@@ -77,9 +81,9 @@
                             <div class="custom-select">
                                 <select id="project_edit_order_status_Input" required>
                                     @foreach (config('constants.Order_Status') as $status => $value)
-                                        {{-- @if ($project->status == $value) 
-                                        <option value="" selected>{{ $status }}</option> 
-                                        @else
+                                        {{-- @if ($project->status == $value)
+                                            <option value="" selected>{{ $status }}</option>
+                                            @else
                                             <option value="{{ $value }}">{{ $status }}</option>
                                         @endif --}}
                                         <option>{{ $status }}</option>
@@ -93,9 +97,9 @@
                             <div class="custom-select">
                                 <select id="project_edit_business_situation_Input" required>
                                     @foreach (config('constants.Business_situation') as $situation => $value)
-                                        {{-- @if ($project->situation == $value) 
-                                        <option value="" selected>{{ $situation }}</option> 
-                                        @else
+                                        {{-- @if ($project->situation == $value)
+                                            <option value="" selected>{{ $situation }}</option>
+                                            @else
                                             <option value="{{ $value }}">{{ $situation }}</option>
                                         @endif --}}
                                         <option>{{ $situation }}</option>
@@ -111,9 +115,9 @@
                             <div class="custom-select">
                                 <select id="project_edit_development_stage_Input" required>
                                     @foreach (config('constants.Development_stage') as $stage => $value)
-                                        {{-- @if ($project->stage == $value) 
-                                        <option value="" selected>{{ $stage }}</option> 
-                                        @else
+                                        {{-- @if ($project->stage == $value)
+                                            <option value="" selected>{{ $stage }}</option>
+                                            @else
                                             <option value="{{ $value }}">{{ $stage }}</option>
                                         @endif --}}
                                         <option>{{ $stage }}</option>
@@ -124,14 +128,16 @@
 
                         <div class="_half">
                             <div><label for="sales_total">売上高</label></div>
-                            <div><input type="number" id="project_edit_sales_total_Input" name="sales_total" value="" required></div>
+                            <div><input type="number" id="project_edit_sales_total_Input" name="sales_total" value=""
+                                    required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="transferred_amount">振込金額</label></div>
-                            <div><input type="number" id="project_edit_transferred_amount_Input" name="transferred_amount" value="" required></div>
+                            <div><input type="number" id="project_edit_transferred_amount_Input"
+                                    name="transferred_amount" value="" required></div>
                         </div>
                     </div>
 
@@ -146,6 +152,7 @@
 <script>
     function projectEditModalHandler(projectID) {
         event.preventDefault();
+        event.stopPropagation();
         clearModalData('project-edit-modal');
         showModal('project-edit-modal');
 

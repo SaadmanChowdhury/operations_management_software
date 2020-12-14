@@ -28,6 +28,12 @@
                 <a href="" onclick="adjustRowHeight()">
                     <li class="fa fa-list"> </li>
                 </a>
+
+                @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
+                    <a href="" onclick="ProjectRegisterModalHandler()">
+                        <li> + 登録</li>
+                    </a>
+                @endif
             </ul>
 
             <hr />
@@ -89,149 +95,160 @@
                     {{-- ///====PROJECT-INNER-CONTENT====///
                     --}}
                     <div class="collapse show" id="row1">
-                        <div class="card-body row">
+                        <div class="card-body row _accordion">
                             {{-- ///====PROJECT-INNER_LEFT_TABLE====///
                             --}}
                             <div class="table-left">
                                 <table>
-
                                     <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
+                                        <td>予算</td>
+                                        <td>71,4000　円</td>
                                     </tr>
                                     <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
+                                        <td>原価</td>
+                                        <td>10,0000　円</td>
                                     </tr>
                                     <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
+                                        <td>工数</td>
+                                        <td>10,0000　円</td>
                                     </tr>
                                     <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
+                                        <td>粗利</td>
+                                        <td>1000　円</td>
+                                    </tr>
+                                    <tr>
+                                        <td>率</td>
+                                        <td>75.4　%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>期間</td>
+                                        <td>2001-2004</td>
                                     </tr>
                                 </table>
                             </div>
-                            {{-- ///====PROJECT-ADD_BTN====///
-                            --}}
-                            <div class="add">
-                                <button class="btn round-btn primary"><span class="fa fa-plus"></span></button>
-                            </div>
-                            {{-- ///====PROJECT-INNER-RIGHT-TABLE====///
-                            --}}
-                            <div class="table-right row">
-                                <table class="table-fix">
-                                    <tr>
-                                        <th class="mishti-orange">Member</th>
-                                        <th class="mishti-orange">Ab</th>
-
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">ソフィア</td>
-                                        <td>none</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">ソフィア</td>
-                                        <td>none</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
-                                    </tr>
-                                </table>
-                                <div class="table-des-container">
-                                    <table class="table-des">
+                            <div class="project-rhs">
+                                {{--
+                                ///====PROJECT-ADD_BTN====///--}}
+                                <div class="add-minus-holder">
+                                    <button class="btn round-btn danger _minus"><span
+                                            class="fa fa-minus"></span></button>
+                                    <button class="btn round-btn primary _plus"><span
+                                            class="fa fa-plus"></span></button>
+                                </div>
+                                {{-- ///====PROJECT-INNER-RIGHT-TABLE====///
+                                --}}
+                                <div class="table-right row">
+                                    <table class="table-fix">
                                         <tr>
-                                            <th>2020/01</th>
-                                            <th>2020/02</th>
-                                            <th>2020/03</th>
-                                            <th>2020/04</th>
-                                            <th>2020/05</th>
-                                            <th>2020/06</th>
-                                            <th>2020/07</th>
-                                            <th>2020/08</th>
-                                            <th>2020/09</th>
-                                            <th>2020/10</th>
-                                            <th style="background-color:#ffbf0b;color:black">2020/11</th>
-                                            <th>2020/12</th>
+                                            <th class="mishti-orange">メンバー</th>
+                                            <th class="mishti-orange">工数合計</th>
+
+                                        </tr>
+                                        <tr class="row-total">
+                                            <td>5</td>
+                                            <td>none</td>
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
 
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
                                         </tr>
-                                        <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
-                                        </tr>
-
                                     </table>
+                                    <div class="table-des-container">
+                                        <table class="table-des">
+                                            <tr>
+                                                <th>2020/01</th>
+                                                <th>2020/02</th>
+                                                <th>2020/03</th>
+                                                <th>2020/04</th>
+                                                <th>2020/05</th>
+                                                <th>2020/06</th>
+                                                <th>2020/07</th>
+                                                <th>2020/08</th>
+                                                <th>2020/09</th>
+                                                <th>2020/10</th>
+                                                <th style="background-color:#ffbf0b;color:black">2020/11</th>
+                                                <th>2020/12</th>
+                                            </tr>
+                                            <tr class="row-total">
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="action">
                                 <ul class="list-unstyled">
                                     <li class="list"><button class="btn round-btn danger"><span
                                                 class="fa fa-trash"></span></button></li>
-                                    <li class="list"><button class="btn round-btn success"><span
-                                                class="fa fa-clone"></span></button></li>
+                                    <li class="list"><button class="btn round-btn success midori"><span
+                                                class="fa fa-undo"></span></button></li>
                                     <li class="list"><button class="btn round-btn primary"><span
                                                 class="fa fa-save"></span></button></li>
                                 </ul>
@@ -272,149 +289,196 @@
                     {{-- ///====PROJECT-INNER-CONTENT====///
                     --}}
                     <div class="collapse show" id="row2">
-                        <div class="card-body row">
+                        <div class="card-body row _accordion">
                             {{-- ///====PROJECT-INNER_LEFT_TABLE====///
                             --}}
                             <div class="table-left">
                                 <table>
-
                                     <tr>
-                                        <td>ABC</td>
+                                        <td>予算</td>
                                         <td>Y100000</td>
                                     </tr>
                                     <tr>
-                                        <td>ABC</td>
+                                        <td>原価</td>
                                         <td>Y100000</td>
                                     </tr>
                                     <tr>
-                                        <td>ABC</td>
+                                        <td>工数</td>
                                         <td>Y100000</td>
                                     </tr>
                                     <tr>
-                                        <td>ABC</td>
-                                        <td>Y100000</td>
+                                        <td>粗利</td>
+                                        <td>Y1000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>率</td>
+                                        <td>Y1000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>期間</td>
+                                        <td>Y1000</td>
                                     </tr>
                                 </table>
                             </div>
-                            {{-- ///====PROJECT-ADD_BTN====///
-                            --}}
-                            <div class="add">
-                                <button class="btn round-btn primary"><span class="fa fa-plus"></span></button>
-                            </div>
-                            {{-- ///====PROJECT-INNER-RIGHT-TABLE====///
-                            --}}
-                            <div class="table-right row">
-                                <table class="table-fix">
-                                    <tr>
-                                        <th class="mishti-orange">Member</th>
-                                        <th class="mishti-orange">Ab</th>
-
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">ソフィア</td>
-                                        <td>none</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">ソフィア</td>
-                                        <td>none</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td><img src="img/pro_icon.png">Sofia</td>
-                                        <td>none</td>
-                                    </tr>
-                                </table>
-                                <div class="table-des-container">
-                                    <table class="table-des">
+                            <div class="project-rhs">
+                                {{--
+                                ///====PROJECT-ADD_BTN====///--}}
+                                <div class="add-minus-holder">
+                                    <button class="btn round-btn danger _minus"><span
+                                            class="fa fa-minus"></span></button>
+                                    <button class="btn round-btn primary _plus"><span
+                                            class="fa fa-plus"></span></button>
+                                </div>
+                                {{-- ///====PROJECT-INNER-RIGHT-TABLE====///
+                                --}}
+                                <div class="table-right row">
+                                    <table class="table-fix">
                                         <tr>
-                                            <th>2020/01</th>
-                                            <th>2020/02</th>
-                                            <th>2020/03</th>
-                                            <th>2020/04</th>
-                                            <th>2020/05</th>
-                                            <th>2020/06</th>
-                                            <th>2020/07</th>
-                                            <th>2020/08</th>
-                                            <th>2020/09</th>
-                                            <th>2020/10</th>
-                                            <th style="background-color:#ffbf0b;color:black">2020/11</th>
-                                            <th>2020/12</th>
+                                            <th class="mishti-orange">メンバー</th>
+                                            <th class="mishti-orange">工数合計</th>
+
+                                        </tr>
+                                        <tr class="row-total">
+                                            <td>5</td>
+                                            <td>none</td>
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
 
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
                                         </tr>
                                         <tr>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-                                            <td>5.00</td>
-
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
                                         </tr>
-
+                                        <tr>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="img/pro_icon.png">ソフィア</td>
+                                            <td>none</td>
+                                        </tr>
                                     </table>
+                                    <div class="table-des-container">
+                                        <table class="table-des">
+                                            <tr>
+                                                <th>2020/09</th>
+                                                <th>2020/10</th>
+                                                <th style="background-color:#ffbf0b;color:black">2020/11</th>
+                                                <th>2020/12</th>
+                                            </tr>
+                                            <tr class="row-total">
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                                <td>5.00</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="action">
                                 <ul class="list-unstyled">
                                     <li class="list"><button class="btn round-btn danger"><span
                                                 class="fa fa-trash"></span></button></li>
-                                    <li class="list"><button class="btn round-btn success"><span
-                                                class="fa fa-clone"></span></button></li>
+                                    <li class="list"><button class="btn round-btn success midori"><span
+                                                class="fa fa-undo"></span></button></li>
                                     <li class="list"><button class="btn round-btn primary"><span
                                                 class="fa fa-save"></span></button></li>
                                 </ul>
@@ -428,6 +492,6 @@
 </div>
 
 @include("project.edit")
-{{-- @include("project.create") --}}
+@include("project.create")
 
 @include("footer")
