@@ -128,41 +128,13 @@ class Project extends Model
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
-    public function upsertProjectDetails($request, $projectID)
+    public function upsertProjectDetails($validatedData, $projectID)
     {
-        $validatedData = $request->validated();
-        $loggedUser = auth()->user();
-        $project = $manager_id = null;
-
-        if ($projectID != null) {
-            $project = Project::find($projectID);
-            $manager_id = $project->manager_id;
-        }
-        //only admin and manager can update the project
-        if (
-            $loggedUser->user_authority == config('User_authority.システム管理者') ||
-            $loggedUser->user_id == $manager_id
-        ) {
-            $validatedData = $this->formatDataToCreateOrUpdate($validatedData);
-
-            //updating record
-            Project::updateOrCreate(['project_id' => $projectID], $validatedData);
-
-            return JSONHandler::emptySuccessfulJSONPackage();
-        }
-
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        //updating record
+        Project::updateOrCreate(['project_id' => $projectID], $validatedData);
     }
 
-    public function formatDataToCreateOrUpdate($data)
-    {
-        $formattedData = [];
-        $formattedData['project_name'] = $data['projectName'];
-        $formattedData['client_id'] = $data['clientID'];
-        $formattedData['manager_id'] = $data['managerID'];
-        $formattedData['sales_total'] = $data['salesTotal'];
-        return $formattedData;
-    }
+
 
     public function deleteProject($id)
     {

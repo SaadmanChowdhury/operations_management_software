@@ -84,7 +84,35 @@ class ProjectService
     public function upsertProjectDetails($request, $projectID)
     {
         $projectModel  = new Project;
-        return $projectModel->upsertProjectDetails($request, $projectID);
+
+        $validatedData = $request->validated();
+        $loggedUser = auth()->user();
+        $project = $manager_id = null;
+
+        if ($projectID != null) {
+            $project = Project::find($projectID);
+            $manager_id = $project->manager_id;
+        }
+        //only admin and manager can update the project
+        if (
+            $loggedUser->user_authority == config('User_authority.システム管理者') ||
+            $loggedUser->user_id == $manager_id
+        ) {
+
+            $validatedData = $this->formatDataToCreateOrUpdate($validatedData);
+
+            return $projectModel->upsertProjectDetails($validatedData, $projectID);
+        }
+    }
+
+    public function formatDataToCreateOrUpdate($data)
+    {
+        $formattedData = [];
+        $formattedData['project_name'] = $data['projectName'];
+        $formattedData['client_id'] = $data['clientID'];
+        $formattedData['manager_id'] = $data['managerID'];
+        $formattedData['sales_total'] = $data['salesTotal'];
+        return $formattedData;
     }
 
     private function helper_fetchProjectList($array)
