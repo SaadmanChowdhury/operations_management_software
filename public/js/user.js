@@ -100,6 +100,7 @@ function renderHTML(response) {
     response["resultData"]["user"].forEach((row) => {
         var card=document.createElement('div');
         card.classList.add('card');
+        card.classList.add('_user');
         var cardHead=document.createElement('div');
         cardHead.classList.add('card-header');
         card.appendChild(cardHead);
@@ -115,12 +116,47 @@ function renderHTML(response) {
         // {
         //     li[i]=document.createElement('li');
         // }
+        var pos;
+        switch(row.position)
+        {
+            case 0:
+                pos='PM';
+                break;
+            case 1:
+                pos='PL';
+                break;
+            case 2:
+                pos='SE';
+                break;
+            case 3:
+                pos='PG';
+                break;
+            default:
+                pos='SE';
+        }
+        // USER_LOCATION
+        var loc;
+        switch (row.location) {
+            case 0:
+                loc='宮崎';
+                break;
+            case 1:
+                loc='東京';
+                break;
+            case 2:
+                loc='福岡';
+                break;
+            
+            default:
+                loc='宮崎';
+                break;
+        }
         rowHtml=`<li>${row.userID}</li>`+
-                `<li><img src="{{asset("img/".$pro_icon.".png")}}" class="smallpic">
+                `<li><img src="./img/pro_icon.png" class="smallpic">
                 <div class="user-name">${row.username}</div></li>`+
-                `<li class="user-location">${row.location}</li>`+
-                `<li>${row.position}</li>`+
-                `<li>${row.userID}</li>`+
+                `<li class="user-location">${loc}</li>`+
+                `<li class="pos pos-${pos}">${pos}</li>`+
+                `<li>${row.admissionDay}</li>`+
                 `<li>${row.unitPrice}</li>`;
         display.innerHTML+=rowHtml;
         // switch(row.position)
@@ -156,8 +192,7 @@ function renderHTML(response) {
         // }
         display.innerHTML+=editHtml;
         staffs[0].appendChild(card);
-    });
-    
-    
+    }); 
 
 }
+document.addEventListener("DOMContentLoaded",()=>{fetchUserList_AJAX()});
