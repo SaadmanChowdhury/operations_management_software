@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserUpsert extends FormRequest
@@ -23,9 +24,8 @@ class UserUpsert extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
             'password' => 'required',
             'company' => '',
             'commercial_distribute' => '',
@@ -38,6 +38,21 @@ class UserUpsert extends FormRequest
             'user_authority' => 'required',
             'resign_day' => '',
         ];
+        //for creating new user
+        if ($this->id != null) {
+            $rules['email'] = 'required|email|unique:users';
+            return $rules;
+        }
+
+        // user already exists
+        $email = $this->email;
+        $userExists = User::where('email', $email)->exists();
+        if ($userExists) {
+            return $rules;
+        } else {
+            $rules['email'] = 'required|email|unique:users';
+            return $rules;
+        }
     }
 
     /**
