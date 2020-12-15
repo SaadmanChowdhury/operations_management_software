@@ -130,10 +130,8 @@
                                 {{--
                                 ///====PROJECT-ADD_BTN====///--}}
                                 <div class="add-minus-holder">
-                                    <button class="btn round-btn danger _minus"><span
-                                            class="fa fa-minus"></span></button>
-                                    <button class="btn round-btn primary _plus"><span
-                                            class="fa fa-plus"></span></button>
+                                    <button class="btn round-btn danger _minus"><span class="fa fa-minus"></span></button>
+                                    <button class="btn round-btn primary _plus"><span class="fa fa-plus"></span></button>
                                 </div>
                                 {{-- ///====PROJECT-INNER-RIGHT-TABLE====///
                                 --}}
@@ -245,12 +243,9 @@
                             </div>
                             <div class="action">
                                 <ul class="list-unstyled">
-                                    <li class="list"><button class="btn round-btn danger"><span
-                                                class="fa fa-trash"></span></button></li>
-                                    <li class="list"><button class="btn round-btn success midori"><span
-                                                class="fa fa-undo"></span></button></li>
-                                    <li class="list"><button class="btn round-btn primary"><span
-                                                class="fa fa-save"></span></button></li>
+                                    <li class="list"><button class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
+                                    <li class="list"><button class="btn round-btn success midori"><span class="fa fa-undo"></span></button></li>
+                                    <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"></span></button></li>
                                 </ul>
                             </div>
                         </div>
@@ -324,10 +319,8 @@
                                 {{--
                                 ///====PROJECT-ADD_BTN====///--}}
                                 <div class="add-minus-holder">
-                                    <button class="btn round-btn danger _minus"><span
-                                            class="fa fa-minus"></span></button>
-                                    <button class="btn round-btn primary _plus"><span
-                                            class="fa fa-plus"></span></button>
+                                    <button class="btn round-btn danger _minus"><span class="fa fa-minus"></span></button>
+                                    <button class="btn round-btn primary _plus"><span class="fa fa-plus"></span></button>
                                 </div>
                                 {{-- ///====PROJECT-INNER-RIGHT-TABLE====///
                                 --}}
@@ -475,12 +468,9 @@
                             </div>
                             <div class="action">
                                 <ul class="list-unstyled">
-                                    <li class="list"><button class="btn round-btn danger"><span
-                                                class="fa fa-trash"></span></button></li>
-                                    <li class="list"><button class="btn round-btn success midori"><span
-                                                class="fa fa-undo"></span></button></li>
-                                    <li class="list"><button class="btn round-btn primary"><span
-                                                class="fa fa-save"></span></button></li>
+                                    <li class="list"><button class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
+                                    <li class="list"><button class="btn round-btn success midori"><span class="fa fa-undo"></span></button></li>
+                                    <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"></span></button></li>
                                 </ul>
                             </div>
                         </div>

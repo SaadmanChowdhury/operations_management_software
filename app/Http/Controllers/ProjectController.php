@@ -30,8 +30,12 @@ class ProjectController extends Controller
         $user = new User();
         $project = new Project();
         $list = $project->readProjectList();
+        $managers = User::select(['user_id', 'name'])->get();
+        $clients = Client::select(['client_id', 'client_name'])->get();
 
         $viewParams["list"] = $list;
+        $viewParams["managers"] = $managers;
+        $viewParams["clients"] = $clients;
         $viewParams["loggedInUser"] = auth()->user();
         $viewParams["loggedInAuthority"] = auth()->user()->user_authority;
         $viewParams["initialPreference"] = $user->getUIPreference($viewParams["loggedInUser"]->user_id, "project_list_preference");
@@ -77,8 +81,11 @@ class ProjectController extends Controller
             return redirect('/login');
         }
 
+        $managers = User::select(['user_id', 'name'])->get();
+        $clients = Client::select(['client_id', 'client_name'])->get();
+
         $project = Project::find($id);
-        return view('project.edit', compact('project'));
+        return view('project.edit', compact('project', 'managers', 'clients'));
     }
 
     public function createProject(ProjectUpsert $request)
