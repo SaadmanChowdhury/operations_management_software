@@ -42,7 +42,7 @@ function renderProjectHTML(response){
   console.log(response);
   var projects=document.getElementById('accordian');
   response["resultData"]["project"].forEach((row) => {
-    var profit= row.salesTotal-row.budget;
+    var profit= (row.salesTotal-row.budget)*100/row.salesTotal;
     projectHtml=`<div class="card _project" id="project-row-">`+
     `<div class="card-header" id="row1head" onclick="display(${row.projectID})">`+
         `<div class="display list-unstyled">`+
@@ -62,9 +62,9 @@ function renderProjectHTML(response){
             `<li>${row.inspectionMonth}</li>`+
             `<li>${row.salesTotal}</li>`+
             `<li>${row.budget}</li>`+
-            `<li>${profit}</li>`+
+            `<li>${profit}%</li>`+
             `<li>`+
-                `<div class="edit" onclick="projectEditModalHandler(1)">`+
+                `<div class="edit" onclick="projectEditModalHandler(${row.projectID})">`+
                     `<span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
                 </div>`+
             `</li>`+
