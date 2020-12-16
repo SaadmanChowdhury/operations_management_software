@@ -183,9 +183,3 @@ function filterPos(e) {
             }
     }
 }
-function showCard(x){
-    x.style.display='block';
-}
-function hideCard(x){
-    x.style.display='none';
-}
