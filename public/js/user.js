@@ -1,4 +1,11 @@
 ////====USER-LIST====////
+function numberWithCommas(x) {
+    var z = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // console.log("hey");
+    // document.getElementsByClassName('salary').innerText = z;
+    return z;
+
+}
 
 function fetchUserList_AJAX() {
     $.ajax({
@@ -19,29 +26,13 @@ function fetchUserList_AJAX() {
         }
     });
 }
-
+var staffList,item;
 function renderHTML(response) {
 
     var staffs=document.getElementsByClassName('table-body');
     response["resultData"]["user"].forEach((row) => {
-        var card=document.createElement('div');
-        card.classList.add('card');
-        card.classList.add('_user');
-        var cardHead=document.createElement('div');
-        cardHead.classList.add('card-header');
-        card.appendChild(cardHead);
-        console.log(card);
-        var display=document.createElement('div');
-        display.classList.add('display');
-        display.classList.add('list-unstyled');
-        cardHead.appendChild(display);
-        console.log(card);
-        console.log(row);
-        // var li=[];
-        // for(i=0;i<6;i++)
-        // {
-        //     li[i]=document.createElement('li');
-        // }
+       
+        
         var pos;
         switch(row.position)
         {
@@ -88,8 +79,7 @@ function renderHTML(response) {
             unit='月';
 
         }
-        // console.log(time_diff);
-
+       
         //GENDER
         var gender;
         switch(row.gender)
@@ -101,60 +91,34 @@ function renderHTML(response) {
                 gender='./img/pro_icon3.png';
                 break;
         }
-        console.log(gender);
+        // console.log(gender);
+
+        var unitPrice=numberWithCommas(row.unitPrice);
 
 
-
-        rowHtml=`<li>${row.userID}</li>`+
+        rowHtml=`<div class="card _user" id="user-row-${row.userID}">`+
+                `<div class="card-header">`+
+                `<div class="display list-unstyled">`+
+                `<li>${row.userID}</li>`+
                 `<li><img src="${gender}" class="smallpic">
                 <div class="user-name">${row.username}</div></li>`+
                 `<li class="user-location">${loc}</li>`+
-                `<li class="pos pos-${pos}">${pos}</li>`+
+                `<li><div class="pos pos-${pos}">${pos}</div></li>`+
                 `<li>${time_diff}${unit}</li>`+
-                `<li>${row.unitPrice}</li>`;
-        display.innerHTML+=rowHtml;
-        // switch(row.position)
-        // {
-        //     case 0:
-        //         li[3].textContent='PM';
-        //         break;
-        //     case 1:
-        //         li[3].textContent='PL';
-        //         break;
-        //     case 2:
-        //         li[3].textContent='SE';
-        //         break;
-        //     case 3:
-        //         li[3].textContent='PG';
-        //         break;
-        //     default:
-        //         li[3].textContent='SE';
-        // }
-        // li[0].textContent=row.userID;
-        // li[1].textContent=row.username;
-        // li[2].textContent=row.location;
+                `<li>${unitPrice}</li>`+
+                `<li><div class="edit"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>`+
+                `</div></div></div>`;
         
-        // li[4].textContent=row.userID;
-        // li[5].textContent=row.unitPrice;
-        
-        var editHtml = 
-        `<li><div class="edit"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>`; 
-        
-        // for(i=0;i<6;i++)
-        // {
-        //     display.appendChild(li[i]);
-        // }
-        display.innerHTML+=editHtml;
-        staffs[0].appendChild(card);
+        staffs[0].innerHTML+=rowHtml;
+        staffList = document.querySelectorAll('.staffs .card');
+        item = document.querySelectorAll('.pos');
     }); 
 
 }
 document.addEventListener("DOMContentLoaded",()=>{fetchUserList_AJAX()});
 
-var pos = document.querySelector('.userlist-nav');
-var staffList = document.querySelectorAll('.staffs .card');
-var item = document.querySelectorAll('.pos');
-
+pos = document.querySelector('.userlist-nav');
+console.log(staffList);
 pos.addEventListener("click", filterPos);
 
 function filterPos(e) {
@@ -209,6 +173,7 @@ function filterPos(e) {
                 for (i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PL") {
                         showCard(staffList[i])
+                        console.log(staffList[i]);
                     }
                     else {
                         hideCard(staffList[i])
@@ -218,8 +183,9 @@ function filterPos(e) {
             }
     }
 }
-function numberWithCommas(x) {
-    var z = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    console.log("hey");
-    document.getElementsByClassName('salary').innerText = z;
+function showCard(x){
+    x.style.display='block';
+}
+function hideCard(x){
+    x.style.display='none';
 }
