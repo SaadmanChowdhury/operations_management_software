@@ -17,3 +17,217 @@ function display(x)
     
   }
 }
+
+function fetchProjectList_AJAX() {
+  $.ajax({
+      type: "get",
+      url: "/API/fetchProjectList",
+      data: {
+          _token: $('#csrf-token')[0].content,
+      },
+      cache: false,
+      success: function (response) {
+          if (response["resultStatus"]["isSuccess"]) {
+              renderProjectHTML(response);
+          } else
+              handleAJAXResponse(response);
+      },
+      error: function (err) {
+          handleAJAXError(err);
+      }
+  });
+}
+
+function renderProjectHTML(response){
+  console.log(response);
+  var projects=document.getElementById('accordian');
+  projectHtml=`<div class="card _project" id="project-row-">`+
+  `<div class="card-header" id="row1head" onclick="display(1)">`+
+      `<div class="display list-unstyled">`+
+          `<li>実績管理システム</li>`+
+          `<li>トゥエンティフォーセブン</li>`+
+          `<li><img src="img/pro_icon.png" class="smallpic">`+
+              `<div class="user-name">右田</div>`+
+          `</li>`+
+          `<li>`+
+              `<div class="item-green">見積中</div>`+
+          `</li>`+
+          `<li>`+
+              `<div class="item-red">A</div>`+
+          `</li>`+
+          `<li>設計</li>`+
+          `<li>2001/08</li>`+
+          `<li>2004/08</li>`+
+          `<li>12,0000円</li>`+
+          `<li>40,0000円</li>`+
+          `<li>40%</li>`+
+          `<li>`+
+              `<div class="edit" onclick="projectEditModalHandler(1)">`+
+                  `<span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
+              </div>`+
+          `</li>`+
+      `</div>`+
+  `</div>`+
+  
+  `<div class="collapse show" id="row1">`+
+      `<div class="card-body row _accordion">`+
+          
+          `<div class="table-left">`+
+              `<table>`+
+                  `<tr>
+                      <td>予算</td>
+                      <td>71,4000　円</td>
+                  </tr>`+
+                  `<tr>
+                      <td>原価</td>
+                      <td>10,0000　円</td>
+                  </tr>`+
+                  `<tr>
+                      <td>工数</td>
+                      <td>10,0000　円</td>
+                  </tr>`+
+                  `<tr>
+                      <td>粗利</td>
+                      <td>1000　円</td>
+                  </tr>`+
+                  `<tr>
+                      <td>率</td>
+                      <td>75.4　%</td>
+                  </tr>`+
+                  `<tr>
+                      <td>期間</td>
+                      <td>2001-2004</td>
+                  </tr>`+
+              `</table>`+
+          `</div>`+
+         ` <div class="project-rhs">`+
+              `<div class="add-minus-holder">
+                  <button class="btn round-btn danger _minus"><span
+                          class="fa fa-minus"></span></button>
+                  <button class="btn round-btn primary _plus"><span
+                          class="fa fa-plus"></span></button>
+              </div>`+
+              
+              `<div class="table-right row">`+
+                  `<table class="table-fix">`+
+                      `<tr>
+                          <th class="mishti-orange">メンバー</th>
+                          <th class="mishti-orange">工数合計</th>
+
+                      </tr>`+
+                      `<tr class="row-total">
+                          <td>5</td>
+                          <td>none</td>
+                      </tr>`+
+                      `<tr>
+                          <td><img src="img/pro_icon.png">ソフィア</td>
+                          <td>none</td>
+
+                      </tr>`+
+                      `<tr>
+                          <td><img src="img/pro_icon.png">ソフィア</td>
+                          <td>none</td>
+                      </tr>`+
+                      `<tr>
+                          <td><img src="img/pro_icon.png">ソフィア</td>
+                          <td>none</td>
+                      </tr>`+
+                  `</table>`+
+                  `<div class="table-des-container">`+
+                      `<table class="table-des">`+
+                          `<tr>`+
+                              `<th>2020/01</th>
+                              <th>2020/02</th>
+                              <th>2020/03</th>
+                              <th>2020/04</th>
+                              <th>2020/05</th>
+                              <th>2020/06</th>
+                              <th>2020/07</th>
+                              <th>2020/08</th>
+                              <th>2020/09</th>
+                              <th>2020/10</th>
+                              <th style="background-color:#ffbf0b;color:black">2020/11</th>
+                              <th>2020/12</th>`+
+                          `</tr>`+
+                          `<tr class="row-total">`+
+                              `<td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>`+
+
+                          `</tr>`+
+                          `<tr>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+
+                          </tr>`+
+                          `<tr>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+
+                          </tr>`+
+                          `<tr>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+                              <td>5.00</td>
+
+                          </tr>`+
+
+                      `</table>`+
+                  `</div>`+
+              `</div>`+
+          `</div>`+
+          `<div class="action">`+
+              `<ul class="list-unstyled">
+                  <li class="list"><button class="btn round-btn danger"><span
+                              class="fa fa-trash"></span></button></li>
+                  <li class="list"><button class="btn round-btn success midori"><span
+                              class="fa fa-undo"></span></button></li>
+                  <li class="list"><button class="btn round-btn primary"><span
+                              class="fa fa-save"></span></button></li>
+              </ul>`+
+          `</div>
+      </div>
+  </div>
+</div> `;
+projects.innerHTML+=projectHtml;
+}
+
+document.addEventListener("DOMContentLoaded",()=>{fetchProjectList_AJAX()});
