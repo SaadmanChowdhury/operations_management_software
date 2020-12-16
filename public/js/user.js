@@ -28,7 +28,8 @@ function fetchUserList_AJAX() {
 }
 var staffList,item;
 function renderHTML(response) {
-
+    var auth= document.getElementById('user-authority').value;
+    console.log(auth);
     var staffs=document.getElementsByClassName('table-body');
     response["resultData"]["user"].forEach((row) => {
        
@@ -94,7 +95,9 @@ function renderHTML(response) {
         // console.log(gender);
 
         var unitPrice=numberWithCommas(row.unitPrice);
-
+        if(auth!=0){
+            unitPrice='';
+        }
 
         rowHtml=`<div class="card _user" id="user-row-${row.userID}">`+
                 `<div class="card-header">`+

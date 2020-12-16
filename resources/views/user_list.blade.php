@@ -5,7 +5,8 @@
     @csrf
     <span class="fa fa-user"></span>
     ユーザー一覧
-
+    <input type="hidden" id="logged-in-id" value="{{$loggedUser->user_id}}">
+    <input type="hidden" id="user-authority" value="{{$loggedUser->user_authority}}">
     <input type="hidden" id="page-name" value="user_list">
     <input type="hidden" id="initial-preference" value="{{$initialPreference}}">
 </div>
