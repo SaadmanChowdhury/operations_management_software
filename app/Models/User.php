@@ -154,43 +154,19 @@ class User extends Authenticatable
 
     public function updateUser($request, $id)
     {
-        //validation rules
-        $rules = [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'company' => '',
-            'commercial_distribute' => '',
-            'tel' => 'required',
-            'position' => 'required',
-            'location' => 'required',
-            'admission_day' => 'required',
-            'exit_day' => '',
-            // 'unit_price' => 'required',
-            // 'resign_day' => '',
-        ];
-
-        //only admin can change the unit_price
-        $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
-            $rules['unit_price'] = 'required';
-        }
-
-        //getting user details
-        $user = User::find($id);
-        if ($user->email == $request->email) {
-            $rules['email'] = '';
-        }
+        $validatedData['position'] = $this->convertPositionToInt($request->position);
 
         //validating data
-        $validatedData['position'] = $this->convertPositionToInt($request->position);
-        // $validatedData['location'] = $this->convertLocationToInt($request->location);
-        // $validatedData = $request->validate($rules);
-
         $validatedData = $request->validated();
 
-        //hashing password
-        $validatedData['password'] = bcrypt($request->password);
+        //if the password hashing password
+        if ($request->password != null) {
+            $validatedData['password'] = bcrypt($request->password);
+        }
+
+        //changing the array key name from id to user_id
+        $validatedData['user_id'] = $validatedData['id'];
+        unset($validatedData['id']);
 
         //updating record
         User::where('user_id', $id)->update($validatedData);

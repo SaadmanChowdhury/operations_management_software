@@ -26,7 +26,7 @@ class UserUpsert extends FormRequest
     {
         $rules = [
             'name' => 'required',
-            'password' => 'required',
+            'password' => '',
             'company' => '',
             'commercial_distribute' => '',
             'tel' => 'required',
@@ -35,11 +35,13 @@ class UserUpsert extends FormRequest
             'admission_day' => 'required',
             'exit_day' => '',
             'unit_price' => 'required',
-            'user_authority' => 'required',
+            'user_authority' => '',
             'resign_day' => '',
         ];
+
         //for creating new user
-        if ($this->id != null) {
+        if ($this->id == null) {
+            $rules['password'] = 'required';
             $rules['email'] = 'required|email|unique:users';
             return $rules;
         }
@@ -48,8 +50,10 @@ class UserUpsert extends FormRequest
         $email = $this->email;
         $userExists = User::where('email', $email)->exists();
         if ($userExists) {
+            $rules['id'] = 'required';
             return $rules;
         } else {
+            $rules['id'] = 'required';
             $rules['email'] = 'required|email|unique:users';
             return $rules;
         }
@@ -72,7 +76,7 @@ class UserUpsert extends FormRequest
             'location.required' => 'Location is required',
             'admission_day.required' => 'Admission day is required',
             'unit_price.required' => 'Unit price is required',
-            'user_authority.required' => 'User authority is required',
+            // 'user_authority.required' => 'User authority is required',
         ];
     }
 }

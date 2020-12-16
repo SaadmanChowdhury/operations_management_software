@@ -88,7 +88,6 @@ class UserController extends Controller
 
     public function updateUser(UserUpsert $request)
     {
-
         \Illuminate\Support\Facades\Log::debug($request);
 
         $id = $request->id;
