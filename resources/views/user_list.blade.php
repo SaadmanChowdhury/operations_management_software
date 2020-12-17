@@ -5,7 +5,8 @@
     @csrf
     <span class="fa fa-user"></span>
     ユーザー一覧
-
+    <input type="hidden" id="logged-in-id" value="{{$loggedUser->user_id}}">
+    <input type="hidden" id="user-authority" value="{{$loggedUser->user_authority}}">
     <input type="hidden" id="page-name" value="user_list">
     <input type="hidden" id="initial-preference" value="{{$initialPreference}}">
 </div>
@@ -86,7 +87,7 @@
         <div class="staffs table-body">
 
         {{-- ///====ELAPSED TIME CALCULATION====/// --}}
-            @foreach ($users as $user)
+            {{-- @foreach ($users as $user)
                 @php
                     
                     $mytime=Carbon::today();
@@ -170,14 +171,14 @@
 
 
                 {{-- ///====USER-TABLE DETAILS====/// --}}
-                <div class="card _user" id="user-row-{{ $user->user_id }}" onload="numberWithCommas({{ $user->unit_price }})">
+                {{-- <div class="card _user" id="user-row-{{ $user->user_id }}" onload="numberWithCommas({{ $user->unit_price }})">
                     <div class="card-header">
 
                         <a>
                             <div class="display list-unstyled">
 
                                 <li>{{ $user->user_id }}</li>
-
+                                    
                                 <li>
                                     <img src="{{asset("img/".$pro_icon.".png")}}" class="smallpic">
                                     <div class="user-name">{{ $user->name }}</div>
@@ -215,7 +216,7 @@
                     </div>
                 </div>
             @endforeach
-        </div>
+        </div>  --}}
     </div>
 </div>
 
