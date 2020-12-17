@@ -4,6 +4,9 @@ namespace App\Services;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
+use Illuminate\Support\Facades\Log;
+
+use function Psy\debug;
 
 class ProjectService
 {
@@ -76,9 +79,9 @@ class ProjectService
     public function readProjectDetails($projectID)
     {
         $projectModel  = new Project;
-        $array = $projectModel->readProject($projectID);
+        $project = $projectModel->readProject($projectID);
 
-        return $array;
+        return $project;
     }
 
     public function upsertProjectDetails($request, $projectID)
@@ -112,7 +115,45 @@ class ProjectService
         $formattedData['client_id'] = $data['clientID'];
         $formattedData['manager_id'] = $data['managerID'];
         $formattedData['sales_total'] = $data['salesTotal'];
+
+        $formattedData['order_month'] = $data['orderMonth'];
+        $formattedData['inspection_month'] = $data['inspectionMonth'];
+        $formattedData['order_status'] = $this->convertOrderToInt($data["orderStatus"]);
+        $formattedData['business_situation'] = $this->convertSituationToInt($data["businessSituation"]);
+        $formattedData['development_stage'] = $this->convertDevelopmentToInt($data["developmentStage"]);
+        $formattedData['transferred_amount'] = $data['transferredAmount'];
+        $formattedData['budget'] = $data['budget'];
         return $formattedData;
+    }
+
+    public function convertOrderToInt($sentStatus)
+    {
+        $allStatus = config('constants.Order_Status');
+        foreach ($allStatus as $status => $intStatus) {
+            if ($status == $sentStatus) {
+                return $intStatus;
+            }
+        }
+    }
+
+    public function convertSituationToInt($sentSituation)
+    {
+        $allSituation = config('constants.Business_situation');
+        foreach ($allSituation as $situation => $intSituation) {
+            if ($situation == $sentSituation) {
+                return $intSituation;
+            }
+        }
+    }
+
+    public function convertDevelopmentToInt($sentStage)
+    {
+        $allStage = config('constants.Development_stage');
+        foreach ($allStage as $stage => $intStage) {
+            if ($stage == $sentStage) {
+                return $intStage;
+            }
+        }
     }
 
     private function helper_fetchProjectList($array)

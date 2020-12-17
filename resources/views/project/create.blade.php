@@ -138,16 +138,16 @@
 
     function getProjectRegFormData() {
         return {
-            project_name: $('#project_create_name_Input').val(),
-            client_id: $('#project_create_clientID_Input').val(),
-            manager_id: $('#project_create_managerID_Input').val(),
-            order_month: $('#project_create_order_month_Input').val(),
-            inspection_month: $('#project_create_inspection_month_Input').val(),
-            order_status: $('#project_create_order_status_Input').val(),
-            business_situation: $('#project_create_business_situation_Input').val(),
-            development_stage: $('#project_create_development_stage_Input').val(),
-            sales_total: $('#project_create_sales_total_Input').val(),
-            transferred_amount: $('#project_create_transferred_amount_Input').val(),
+            projectName: $('#project_create_name_Input').val(),
+            clientID: $('#project_create_clientID_Input').val(),
+            managerID	: $('#project_create_managerID_Input').val(),
+            orderMonth: $('#project_create_order_month_Input').val(),
+            inspectionMonth: $('#project_create_inspection_month_Input').val(),
+            orderStatus: $('#project_create_order_status_Input').val(),
+            businessSituation: $('#project_create_business_situation_Input').val(),
+            developmentStage: $('#project_create_development_stage_Input').val(),
+            salesTotal: $('#project_create_sales_total_Input').val(),
+            transferredAmount: $('#project_create_transferred_amount_Input').val(),
             budget: $('#project_create_budget_Input').val(),
             _token: $('input[name=_token]').val()
         };
@@ -185,7 +185,7 @@
 
         $.ajax({
             type: "post",
-            url: "/API/createProject",
+            url: "/API/upsertProjectDetails",
             data: modalData,
             cache: false,
             success: function(response) {
