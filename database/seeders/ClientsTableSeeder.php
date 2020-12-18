@@ -18,7 +18,7 @@ class ClientsTableSeeder extends Seeder
 
         $data = [
             [
-                'client_name' => 'Internal',
+                'client_name' => '社内',
                 'user_id' => 1,
             ],
             [
@@ -27,6 +27,18 @@ class ClientsTableSeeder extends Seeder
             ],
             [
                 'client_name' => 'PIVOT',
+                'user_id' => 1,
+            ],
+            [
+                'client_name' => 'コトログ',
+                'user_id' => 1,
+            ],
+            [
+                'client_name' => 'BJIT',
+                'user_id' => 1,
+            ],
+            [
+                'client_name' => 'ピープル',
                 'user_id' => 1,
             ],
         ];
