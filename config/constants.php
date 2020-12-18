@@ -23,9 +23,10 @@ return [
     // プロジェクト の 開発段階						
     'Development_stage' => [
         '受注前着手' => 0,    //Start before ordering   //config('constants.Development_stage.受注前着手')
-        '要件定義' => 1,    //Requirement definition   //config('constants.Development_stage.要件定義')
-        '設計・製造' => 2,    // 設計/製造-Design/manufacturing   //config('constants.Development_stage.設計')
-        '検収中' => 3,    //Accepted         //config('constants.Development_stage.検収中'),
+        '要件' => 1,    //Requirement definition   //config('constants.Development_stage.要件')
+        '設計' => 2,    // Specification phase   //config('constants.Development_stage.設計')
+        '実装' => 2,    // Implementation phase   //config('constants.Development_stage.実装')
+        'テスト' => 3,    //Accepted         //config('constants.Development_stage.検収中'),
         '完了' => 4,    //Done         //config('constants.Development_stage.完了'),
     ],
 

@@ -23,6 +23,53 @@
                 <a href="">
                     <li> 全て</li>
                 </a>
+                <a href="">
+                    <li>A</li>
+                </a>
+                <a href="">
+                    <li>B</li>
+                </a>
+                <a href="">
+                    <li>C</li>
+                </a>
+                <a href="">
+                    <li>○</li>
+                </a>
+                <a href="">
+                    <li>Z</li>
+                </a>
+            </ul>
+            <ul class="userlist-nav center list-unstyled" style="margin-left: 30px;">
+                <a href="">
+                    <li>見積</li>
+                </a>
+                <a href="">
+                    <li>受注</li>
+                </a>
+                <a href="">
+                    <li>検収</li>
+                </a>
+                <a href="">
+                    <li>完了</li>
+                </a>
+            </ul>
+
+            <ul class="userlist-nav center list-unstyled" style="margin-left: 30px;">
+                <a href="">
+                    <li>要件</li>
+                </a>
+                <a href="">
+                    <li>設計</li>
+                </a>
+                <a href="">
+                    <li>実装</li>
+                </a>
+                <a href="">
+                    <li>テスト</li>
+                </a>
+                <a href="">
+                    <li>完了</li>
+                </a>
             </ul>
             <ul class="userlist-nav center list-unstyled" style="float: right;">
                 <a href="" onclick="adjustRowHeight()">
@@ -30,9 +77,9 @@
                 </a>
 
                 @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
-                <a href="" onclick="ProjectRegisterModalHandler()">
-                    <li> + 登録</li>
-                </a>
+                    <a href="" onclick="ProjectRegisterModalHandler()">
+                        <li> + 登録</li>
+                    </a>
                 @endif
             </ul>
 
@@ -65,7 +112,7 @@
 
             <div id="accordian" class="project table-body">
 
-                
+
             </div>
         </div>
     </div>

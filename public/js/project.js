@@ -150,10 +150,10 @@ function renderEmptyAssignAccordion() {
         `</div>` +
         ` <div class="project-rhs">` +
         `<div class="add-minus-holder">
-                    <button class="btn round-btn danger _minus"><span
-                            class="fa fa-minus"></span></button>
                     <button class="btn round-btn primary _plus"><span
                             class="fa fa-plus"></span></button>
+                    <button class="btn round-btn danger _minus"><span
+                            class="fa fa-minus"></span></button>
                 </div>`+
 
         `<div class="table-right row">` +
