@@ -26,8 +26,19 @@ function fetchProjectList_AJAX() {
         },
         cache: false,
         success: function (response) {
+
             if (response["resultStatus"]["isSuccess"]) {
-                renderProjectHTML(response);
+
+                projectRender();
+
+                function projectRender() {
+                    setTimeout(function () {
+                        if (USER_LIST.length > 0 && CLIENT_LIST.length > 0)
+                            renderProjectHTML(response);
+                        else projectRender();
+                    }, 10)
+                }
+
             } else
                 handleAJAXResponse(response);
         },
@@ -85,9 +96,9 @@ function renderProjectHTML(response) {
             `<div class="card-header" id="row1head" onclick="display(${row.projectID})">` +
             `<div class="display list-unstyled">` +
             `<li>${row.projectName}</li>` +
-            `<li>${row.clientID}</li>` +
+            `<li>${convertClient_IDToName(row.clientID)}</li>` +
             `<li><img src="img/pro_icon.png" class="smallpic">` +
-            `<div class="user-name">${row.projectLeaderID}</div>` +
+            `<div class="user-name">${convertUser_IDToName(row.projectLeaderID)}</div>` +
             `</li>` +
             getOrderStatusHTML(row.orderStatus) +
             getBusinessSituationHTML(row.businessSituation) +

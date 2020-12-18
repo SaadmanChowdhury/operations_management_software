@@ -19,7 +19,7 @@ class ProjectsTableSeeder extends Seeder
         $data = [
             [
                 'project_name' => '勤怠管理システム',
-                'client_id' => 0, //client
+                'client_id' => 1, //client
                 'manager_id' => 3,
                 'sales_total' => 12000000,
                 'budget' => 7140000,
@@ -31,7 +31,7 @@ class ProjectsTableSeeder extends Seeder
             ],
             [
                 'project_name' => '実績管理システム',
-                'client_id' => 0, //client
+                'client_id' => 1, //client
                 'manager_id' => 7,
                 'sales_total' => 7500000,
                 'budget' => 4462500,
@@ -41,7 +41,7 @@ class ProjectsTableSeeder extends Seeder
             ],
             [
                 'project_name' => 'ASE＿HP',
-                'client_id' => 1, //client
+                'client_id' => 2, //client
                 'manager_id' => 6,
                 'sales_total' => 8750000,
                 'budget' => 5206250,
@@ -51,7 +51,7 @@ class ProjectsTableSeeder extends Seeder
             ],
             [
                 'project_name' => 'PIVOT アンドロイドアプリ',
-                'client_id' => 2, //client
+                'client_id' => 3, //client
                 'manager_id' => 4,
                 'sales_total' => 7350000,
                 'budget' => 4373250,
@@ -61,9 +61,9 @@ class ProjectsTableSeeder extends Seeder
             ],
             [
                 'project_name' => 'Zoom プラグイン',
-                'client_id' => 3, //client
+                'client_id' => 4, //client
                 'manager_id' => 4,
-                'sales_total' => 7350000,
+                'sales_total' => 0,
                 'budget' => 0,
                 'order_status' => 3,
                 'business_situation' => 2,
@@ -71,7 +71,7 @@ class ProjectsTableSeeder extends Seeder
             ],
             [
                 'project_name' => 'CBC ムーバルタイプ',
-                'client_id' => 4, //client
+                'client_id' => 5, //client
                 'manager_id' => 4,
                 'sales_total' => 4000000,
                 'budget' => 1400000,
@@ -81,7 +81,7 @@ class ProjectsTableSeeder extends Seeder
             ],
             [
                 'project_name' => 'ピープル LP',
-                'client_id' => 5, //client
+                'client_id' => 6, //client
                 'manager_id' => 5,
                 'sales_total' => 200000,
                 'budget' => 50000,

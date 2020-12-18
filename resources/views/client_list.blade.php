@@ -30,9 +30,9 @@
                 </a>
 
                 @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
-                <a href="" onclick="clientRegisterModalHandler()">
-                    <li> + 登録</li>
-                </a>
+                    <a href="" onclick="clientRegisterModalHandler()">
+                        <li> + 登録</li>
+                    </a>
                 @endif
             </ul>
 
@@ -75,8 +75,8 @@
                                 </li>
 
                                 @if ($loggedInAuthority == config('constants.User_authority.システム管理者') || $loggedInUser->user_id == $client->user_id)
-                                    <li>{{ $client->total_sale }} 円</li>
-                                    <li>{{ $client->total_profit }} 円</li>
+                                    <li class="_money">{{ $client->total_sale }}</li>
+                                    <li class="_money">{{ $client->total_profit }}</li>
 
                                     <li>
                                         <div class="edit" onclick="clientEditModalHandler({{ $client->client_id }})">
@@ -95,7 +95,7 @@
                                         </div>
                                     </li>
                                 @endif
-                                
+
                             </div>
                         </div>
                     </div>

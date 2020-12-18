@@ -121,4 +121,6 @@
 @include("project.edit")
 @include("project.create")
 
+<script src="/js/project.js"></script>
+
 @include("footer")

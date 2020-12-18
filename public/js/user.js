@@ -120,14 +120,14 @@ function filterPos(e) {
     switch (e.target.innerText) {
         case "全て":
             {
-                for (i = 0; i < item.length; i++) {
+                for (let i = 0; i < item.length; i++) {
                     showCard(staffList[i])
                 }
                 break;
             }
         case "PM":
             {
-                for (i = 0; i < item.length; i++) {
+                for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PM") {
                         showCard(staffList[i])
                     }
@@ -139,7 +139,7 @@ function filterPos(e) {
             }
         case "SE":
             {
-                for (i = 0; i < item.length; i++) {
+                for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "SE") {
                         showCard(staffList[i])
                     }
@@ -151,7 +151,7 @@ function filterPos(e) {
             }
         case "PG":
             {
-                for (i = 0; i < item.length; i++) {
+                for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PG") {
                         showCard(staffList[i])
                     }
@@ -163,7 +163,7 @@ function filterPos(e) {
             }
         case "PL":
             {
-                for (i = 0; i < item.length; i++) {
+                for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PL") {
                         showCard(staffList[i])
                         console.log(staffList[i]);

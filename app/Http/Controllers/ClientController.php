@@ -71,7 +71,7 @@ class ClientController extends Controller
         return $client->getTotalProfit($id);
     }
 
-    public function readClient( Request $request)
+    public function readClient(Request $request)
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
@@ -123,5 +123,11 @@ class ClientController extends Controller
         } else {
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
         }
+    }
+
+    public function fetchClientLookup(Request $request)
+    {
+        $user = new Client();
+        return $user->fetchClientLookup();
     }
 }

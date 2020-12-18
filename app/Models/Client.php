@@ -170,4 +170,15 @@ class Client extends Model
     {
         return $this->hasMany('App\Models\Project', 'client_id', 'client_id');
     }
+
+    public function fetchClientLookup()
+    {
+        $list = DB::table('clients')->select(
+            'client_id AS id',
+            'client_name AS name',
+        )
+            ->whereNull("deleted_at")
+            ->get()->toArray();
+        return $list;
+    }
 }

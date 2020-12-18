@@ -29,6 +29,13 @@ Auth::routes();
 //----------------------------------------------------------------------------
 //----------------------------------------------------------------------------
 
+Route::post("/API/fetchUserLookup", [UserController::class, 'fetchUserLookup']);
+Route::post("/API/fetchClientLookup", [ClientController::class, 'fetchClientLookup']);
+
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/home', function () {
     return redirect('user');

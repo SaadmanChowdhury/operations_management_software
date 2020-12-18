@@ -18,6 +18,7 @@
         integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
         crossorigin="anonymous"></script>
 
+    <script src="/js/lookup.js"></script>
     <script>
         function showBody() {
             $("body").css('transition', '2s ease-in');
@@ -26,6 +27,9 @@
                 $("body").css('transition', 'unset')
             }, 2000);
         }
+
+        fetchUserList();
+        fetchClientList();
 
     </script>
 </head>

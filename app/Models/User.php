@@ -244,4 +244,15 @@ class User extends Authenticatable
     {
         User::where('user_id', $id)->update(array($column => $value));
     }
+
+    public function fetchUserLookup()
+    {
+        $list = DB::table('users')->select(
+            'user_id AS id',
+            'name AS name',
+        )
+            ->whereNull("deleted_at")
+            ->get()->toArray();
+        return $list;
+    }
 }

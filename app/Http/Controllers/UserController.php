@@ -156,4 +156,10 @@ class UserController extends Controller
 
         return JSONHandler::emptySuccessfulJSONPackage();
     }
+
+    public function fetchUserLookup(Request $request)
+    {
+        $user = new User();
+        return $user->fetchUserLookup();
+    }
 }
