@@ -59,7 +59,6 @@ function validateForm() {
 
 const mainContainerFlexFlag = false;
 
-var text = $(".label-text.sidebar");
 var menu = document.getElementById('header_top');
 var shade = document.getElementById('background-shade');
 var content = document.getElementsByClassName('page-container');
@@ -74,6 +73,7 @@ var isMouseOnSideBar = false;
 var isMenuUndergoingCloseOperation = false;
 
 function sidebar_expand(sidebar) {
+    var text = $(".label-text.sidebar");
     isMouseOnSideBar = true;
     sidebar.style.transition = sidebarDuration + " " + sidebarOpenCurve;
     sidebar.style.width = sidebarOpenWidth;
@@ -98,6 +98,7 @@ function sidebar_expand(sidebar) {
 }
 
 function sidebar_contract(sidebar) {
+    var text = $(".label-text.sidebar");
 
     isMouseOnSideBar = false;
     for (var i = 0; i < 5; i++) {
