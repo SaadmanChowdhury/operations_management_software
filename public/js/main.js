@@ -291,3 +291,8 @@ function closeModal(id) {
 function clearModalData(id) {
     $("#" + id).find("input").val("");
 }
+
+function numberWithCommas(x) {
+    var z = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return z;
+}

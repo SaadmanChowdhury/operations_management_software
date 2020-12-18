@@ -94,8 +94,8 @@ function renderProjectHTML(response) {
             getDevelopmentStageHTML(row.developmentStage) +
             `<li>${row.orderMonth}</li>` +
             `<li>${row.inspectionMonth}</li>` +
-            `<li>${row.salesTotal}</li>` +
-            `<li>${row.budget}</li>` +
+            `<li class="right-align">${numberWithCommas(row.salesTotal) + " 円"}</li>` +
+            `<li class="right-align">${numberWithCommas(row.budget) + " 円"}</li>` +
             `<li>${profit}%</li>` +
             `<li>` +
             `<div class="edit" onclick="projectEditModalHandler(${row.projectID})">` +

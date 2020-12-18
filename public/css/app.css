@@ -1413,6 +1413,10 @@ button.cancel:hover {
     border-bottom: 0.5px solid #00000010;
 }
 
+.project .card-header.row-adjust-compressed {
+    padding: 7px 0 7px;
+}
+
 .project .card-header:hover {
     cursor: pointer;
 }
@@ -1825,16 +1829,16 @@ td img {
 }
 
 .business-tag {
-    /* width: 60px; */
+    width: 50px;
     height: 14px;
-    padding: 4px 14px;
+    padding: 4px 0px 4px 15px;
     padding-left: 10px;
     text-align: left;
     line-height: 14px;
     border-radius: 10px;
 }
 
-.business-tag._blu {
+.business-tag._blue {
     background-color: #e0e0e0;
     color: #505050;
 }
@@ -2078,4 +2082,8 @@ td img {
 
 .justify-content-center {
     justify-content: center;
+}
+
+.right-align {
+    justify-content: flex-end !important;
 }
