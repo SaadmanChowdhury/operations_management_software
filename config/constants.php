@@ -27,7 +27,7 @@ return [
         '設計' => 2,    // Specification phase   //config('constants.Development_stage.設計')
         '実装' => 2,    // Implementation phase   //config('constants.Development_stage.実装')
         'テスト' => 3,    //Accepted         //config('constants.Development_stage.検収中'),
-        '完了' => 4,    //Done         //config('constants.Development_stage.完了'),
+        '開発完了' => 4,    //Done         //config('constants.Development_stage.完了'),
     ],
 
     // プロジェクト の ステータスの見積もり アイヂ						

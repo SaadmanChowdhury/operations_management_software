@@ -62,7 +62,7 @@ class ProjectsTableSeeder extends Seeder
             [
                 'project_name' => 'Zoom プラグイン',
                 'client_id' => 4, //client
-                'manager_id' => 4,
+                'manager_id' => 7,
                 'sales_total' => 0,
                 'budget' => 0,
                 'order_status' => 3,
@@ -72,7 +72,7 @@ class ProjectsTableSeeder extends Seeder
             [
                 'project_name' => 'CBC ムーバルタイプ',
                 'client_id' => 5, //client
-                'manager_id' => 4,
+                'manager_id' => 6,
                 'sales_total' => 4000000,
                 'budget' => 1400000,
                 'order_status' => 0,
@@ -82,7 +82,7 @@ class ProjectsTableSeeder extends Seeder
             [
                 'project_name' => 'ピープル LP',
                 'client_id' => 6, //client
-                'manager_id' => 5,
+                'manager_id' => 6,
                 'sales_total' => 200000,
                 'budget' => 50000,
                 'order_status' => 0,

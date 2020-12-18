@@ -21,7 +21,7 @@
 
             <ul class="userlist-nav center list-unstyled">
                 <a href="">
-                    <li> 全て</li>
+                    <li>全て</li>
                 </a>
                 <a href="">
                     <li>A</li>
@@ -68,7 +68,7 @@
                     <li>テスト</li>
                 </a>
                 <a href="">
-                    <li>完了</li>
+                    <li>開発完了</li>
                 </a>
             </ul>
             <ul class="userlist-nav center list-unstyled" style="float: right;">

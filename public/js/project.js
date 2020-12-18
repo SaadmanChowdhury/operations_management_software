@@ -1,6 +1,7 @@
 var coll1 = document.getElementById("row1head");
 var content1 = document.getElementById("row1");
 var content2 = document.getElementById("row2");
+PROJECT_CARDS = [];
 
 
 function display(x) {
@@ -33,8 +34,9 @@ function fetchProjectList_AJAX() {
 
                 function projectRender() {
                     setTimeout(function () {
-                        if (USER_LIST.length > 0 && CLIENT_LIST.length > 0)
+                        if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
                             renderProjectHTML(response);
+                        }
                         else projectRender();
                     }, 10)
                 }
@@ -75,9 +77,10 @@ function getDevelopmentStageHTML(data) {
     switch (data) {
         case 0: return "<li><div class='development-tag _blue'>受注前着手</div></li>";
         case 1: return "<li><div class='development-tag _blue'>要件定義</div></li>";
-        case 2: return "<li><div class='development-tag _blue'>設計・製造</div></li>";
-        case 3: return "<li><div class='development-tag _blue'>検収中</div></li>";
-        case 4: return "<li><div class='development-tag _blue'>完了</div></li>";
+        case 2: return "<li><div class='development-tag _blue'>設計</div></li>";
+        case 3: return "<li><div class='development-tag _blue'>実装</div></li>";
+        case 4: return "<li><div class='development-tag _blue'>テスト</div></li>";
+        case 5: return "<li><div class='development-tag _blue'>開発完了</div></li>";
         default: return "<li></li>";
     }
 }
@@ -122,6 +125,9 @@ function renderProjectHTML(response) {
             `</div>`;
         projects.innerHTML += projectHtml;
     });
+
+    PROJECT_CARDS = document.querySelectorAll('._project.card');
+    console.log(PROJECT_CARDS);
 
 }
 
@@ -175,21 +181,21 @@ function renderEmptyAssignAccordion() {
 
                         </tr>`+
         `<tr class="row-total">
-                            <td>5</td>
-                            <td>none</td>
+                            <td>3</td>
+                            <td>54.0</td>
                         </tr>`+
         `<tr>
-                            <td><img src="img/pro_icon.png">ソフィア</td>
-                            <td>none</td>
+                            <td><img src="img/pro_icon.png">社員</td>
+                            <td>18.0</td>
 
                         </tr>`+
         `<tr>
-                            <td><img src="img/pro_icon.png">ソフィア</td>
-                            <td>none</td>
+                            <td><img src="img/pro_icon.png">社員</td>
+                            <td>18.0</td>
                         </tr>`+
         `<tr>
-                            <td><img src="img/pro_icon.png">ソフィア</td>
-                            <td>none</td>
+                            <td><img src="img/pro_icon.png">社員</td>
+                            <td>18.0</td>
                         </tr>`+
         `</table>` +
         `<div class="table-des-container">` +
@@ -205,22 +211,35 @@ function renderEmptyAssignAccordion() {
                                 <th>2020/08</th>
                                 <th>2020/09</th>
                                 <th>2020/10</th>
-                                <th style="background-color:#ffbf0b;color:black">2020/11</th>
-                                <th>2020/12</th>`+
+                                <th>2020/11</th>
+                                <th style="background-color:#ffbf0b;color:black">2020/12</th>
+                                <th>2021/01</th>
+                                <th>2022/02</th>
+                                <th>2021/03</th>
+                                <th>2022/04</th>
+                                <th>2021/05</th>
+                                <th>2022/06</th>`+
+
         `</tr>` +
         `<tr class="row-total">` +
-        `<td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>`+
+        `<td>3.00</td>
+                                <td>3.00</td>
+                                <td>3.00</td>
+                                <td>3.00</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>
+                                <td>3.0</td>`+
 
         `</tr>` +
         `<tr>
@@ -236,15 +255,6 @@ function renderEmptyAssignAccordion() {
                                 <td>1.00</td>
                                 <td>1.00</td>
                                 <td>1.00</td>
-
-                            </tr>`+
-        `<tr>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
                                 <td>1.00</td>
                                 <td>1.00</td>
                                 <td>1.00</td>
@@ -254,6 +264,33 @@ function renderEmptyAssignAccordion() {
 
                             </tr>`+
         `<tr>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+
+                            </tr>`+
+        `<tr>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
                                 <td>1.00</td>
                                 <td>1.00</td>
                                 <td>1.00</td>
@@ -289,3 +326,119 @@ function renderEmptyAssignAccordion() {
 }
 
 document.addEventListener("DOMContentLoaded", () => { fetchProjectList_AJAX() });
+
+
+pos = $('.userlist-nav a li');
+
+pos.off("click");
+pos.on("click", function () {
+    event.preventDefault();
+
+    clickedItem = $($(this)[0]).html();
+    console.log(clickedItem);
+
+
+    switch (clickedItem) {
+        case "全て":
+            for (let i = 0; i < PROJECT_CARDS.length; i++) {
+                showCard(PROJECT_CARDS[i])
+            }
+            return;
+        case "A": case "B": case "C": case "○": case "Z":
+            showHideProjectHandler("order-tag", clickedItem);
+            return;
+        case "見積": case "受注": case "検収": case "完了":
+            showHideProjectHandler("business-tag", clickedItem);
+            return;
+        case "要件": case "設計": case "実装": case "テスト": case "開発完了":
+            showHideProjectHandler("development-tag", clickedItem);
+            return;
+    }
+
+
+    function showHideProjectHandler(domType, itemName) {
+        for (let i = 0; i < PROJECT_CARDS.length; i++) {
+
+            text = $(PROJECT_CARDS[i]).find("." + domType).html();
+            console.log(text);
+
+            if (text == null) {
+                hideCard(PROJECT_CARDS[i])
+                continue;
+            }
+
+            if (text.includes(itemName)) {
+                showCard(PROJECT_CARDS[i])
+            }
+            else {
+                hideCard(PROJECT_CARDS[i])
+            }
+
+        }
+    }
+
+});
+
+
+function filterProject(e) {
+    e.preventDefault();
+    console.log(e.target.innerText);
+    switch (e.target.innerText) {
+        case "全て":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    showCard(staffList[i])
+                }
+                break;
+            }
+        case "PM":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PM") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+        case "SE":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "SE") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+        case "PG":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PG") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+        case "PL":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PL") {
+                        showCard(staffList[i])
+                        console.log(staffList[i]);
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+    }
+}
