@@ -118,6 +118,8 @@ Route::get("test", [ClientController::class, 'getTotalProfit']);
 Route::get('/API/fetchProjectList', [ProjectController::class, 'fetchProjectList']);
 Route::get('/API/readProjectDetails', [ProjectController::class, 'readProjectDetails']);
 Route::post('/API/upsertProjectDetails', [ProjectController::class, 'upsertProjectDetails']);
+Route::get('/API/readProjectAssign', [ProjectController::class, 'readProjectAssign']);
+
 
 //for testing the update function
 Route::get('/test-view', function () {

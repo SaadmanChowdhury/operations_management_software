@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Assign;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
+use Illuminate\Support\Facades\DB;
 
 class ProjectService
 {
@@ -140,5 +142,32 @@ class ProjectService
         $formattedArray['project'] = $array;
 
         return $formattedArray;
+    }
+
+    public function readProjectAssign($projectID)
+    {
+        $projectModel  = new Project;
+        $assignModel  = new Assign;
+        $data['project'] = $projectModel->getProjectData($projectID);
+        $data['project']->member = $assignModel->getMemberId($projectID);
+
+        //for looping
+        $count = $assignModel->getCountOfMembers($projectID);
+
+        for ($i = 0; $i < $count - 1; $i++) {
+            $user = $data['project']->member[$i];
+            $memberID = $user->memberID;
+            $data['project']->member[$i]->assign = $assignModel->getAssignInfo($projectID, $memberID);
+        }
+
+        return $data;
+    }
+
+    public function getProjectAssignDetails($projectID)
+    {
+        $projectModel  = new Project;
+        $array = $projectModel->getProjectAssignDetails($projectID);
+
+        return $array;
     }
 }
