@@ -1,3 +1,5 @@
+// const { data } = require("jquery");
+
 var coll1 = document.getElementById("row1head");
 var content1 = document.getElementById("row1");
 var content2 = document.getElementById("row2");
@@ -120,7 +122,7 @@ function renderProjectHTML(response) {
             `</div>` +
 
             `<div class="collapse show" id="row${row.projectID}">` +
-            renderEmptyAssignAccordion() +
+            renderEmptyAssignAccordion(row.projectID) +
             `</div>` +
             `</div>`;
         projects.innerHTML += projectHtml;
@@ -131,7 +133,7 @@ function renderProjectHTML(response) {
 
 }
 
-function renderEmptyAssignAccordion() {
+function renderEmptyAssignAccordion(projectID) {
 
     accordionHTML =
 
@@ -166,7 +168,7 @@ function renderEmptyAssignAccordion() {
         `</table>` +
         `</div>` +
         ` <div class="project-rhs">` +
-        `<div class="add-minus-holder">
+        `<div class="add-minus-holder editMode">
                     <button class="btn round-btn primary _plus"><span
                             class="fa fa-plus"></span></button>
                     <button class="btn round-btn danger _minus"><span
@@ -242,7 +244,7 @@ function renderEmptyAssignAccordion() {
                                 <td>3.0</td>`+
 
         `</tr>` +
-        `<tr>
+        `<tr class="editMode-input">
                                 <td>1.00</td>
                                 <td>1.00</td>
                                 <td>1.00</td>
@@ -305,6 +307,7 @@ function renderEmptyAssignAccordion() {
                                 <td>1.00</td>
 
                             </tr>`+
+                            
 
         `</table>` +
         `</div>` +
@@ -312,12 +315,15 @@ function renderEmptyAssignAccordion() {
         `</div>` +
         `<div class="action">` +
         `<ul class="list-unstyled">
-                    <li class="list"><button class="btn round-btn danger"><span
-                                class="fa fa-trash"></span></button></li>
-                    <li class="list"><button class="btn round-btn success midori"><span
-                                class="fa fa-undo"></span></button></li>
-                    <li class="list"><button class="btn round-btn primary"><span
-                                class="fa fa-save"></span></button></li>
+                    <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
+                    <div class="editMode">
+                        <li class="list"><button class="btn round-btn danger"><span
+                        class="fa fa-trash"></span></button></li>
+                        <li class="list"><button class="btn round-btn success midori"><span
+                                    class="fa fa-undo"></span></button></li>
+                        <li class="list"><button class="btn round-btn primary"><span
+                                    class="fa fa-save" onclick="editModeOff(${projectID})"></span></button></li>
+                    </div>
                 </ul>`+
         `</div>` +
         `</div>`;
@@ -441,4 +447,39 @@ function filterProject(e) {
                 break;
             }
     }
+}
+
+function editModeOn(x){
+
+    var buttons = document.getElementsByClassName('editMode');
+    var dataTable=document.querySelectorAll('.table-des');
+    var dataCells=dataTable[x-1].querySelectorAll('td');
+    console.log(dataCells);
+    for(let i=0;i<buttons.length;i++)
+    {
+        buttons[i].style.display="block";
+        document.getElementsByClassName('pencil-btn')[x-1].style.display="none";
+    }
+    for(let j=0;j<dataCells.length;j++){
+        dataCells[j].innerHTML="<input type=\"text\" class=\"data-cell\" value=\"1.00\">";
+        
+    }
+      
+}
+
+function editModeOff(x){
+    var buttons = document.getElementsByClassName('editMode');
+    var dataTable=document.querySelectorAll('.table-des');
+    var dataCells=dataTable[x-1].querySelectorAll('td');
+    console.log(buttons);
+    for(let i=0;i<buttons.length;i++)
+    {
+        buttons[i].style.display="none";
+        document.getElementsByClassName('pencil-btn')[x-1].style.display="block";
+    }
+    for(let j=0;j<dataCells.length;j++){
+        dataCells[j].innerHTML="1.00";
+    }
+   
+    
 }
