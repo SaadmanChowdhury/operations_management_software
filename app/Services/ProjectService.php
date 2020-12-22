@@ -113,14 +113,19 @@ class ProjectService
         $formattedData = [];
         $formattedData['project_name'] = $data['projectName'];
         $formattedData['client_id'] = $data['clientID'];
-        $formattedData['manager_id'] = $data['managerID'];
+        $formattedData['manager_id'] = $data['projectLeaderID'];
         $formattedData['sales_total'] = $data['salesTotal'];
 
         $formattedData['order_month'] = $data['orderMonth'];
         $formattedData['inspection_month'] = $data['inspectionMonth'];
-        $formattedData['order_status'] = $this->convertOrderToInt($data["orderStatus"]);
-        $formattedData['business_situation'] = $this->convertSituationToInt($data["businessSituation"]);
-        $formattedData['development_stage'] = $this->convertDevelopmentToInt($data["developmentStage"]);
+        // $formattedData['order_status'] = $this->convertOrderToInt($data["orderStatus"]);
+        // $formattedData['business_situation'] = $this->convertSituationToInt($data["businessSituation"]);
+        // $formattedData['development_stage'] = $this->convertDevelopmentToInt($data["developmentStage"]);
+        
+        $formattedData['order_status'] = $data["orderStatus"];
+        $formattedData['business_situation'] = $data["businessSituation"];
+        $formattedData['development_stage'] = $data["developmentStage"];
+        
         $formattedData['transferred_amount'] = $data['transferredAmount'];
         $formattedData['budget'] = $data['budget'];
         return $formattedData;

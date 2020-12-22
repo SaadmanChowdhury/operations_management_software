@@ -162,9 +162,9 @@
             projectLeaderID: $('#project_edit_managerID_Input').val(),
             orderMonth: $('#project_edit_order_month_Input').val(),
             inspectionMonth: $('#project_edit_inspection_month_Input').val(),
-            orderStatus: $("#project_edit_order_status_Input"),
+            orderStatus: $("#project_edit_order_status_Input").val(),
             businessSituation: $('#project_edit_business_situation_Input').val(),
-            developmentStage: $("#project_edit_development_stage_Input"),
+            developmentStage: $("#project_edit_development_stage_Input").val(),
             salesTotal: $('#project_edit_sales_total_Input').val(),
             transferredAmount: $('#project_edit_transferred_amount_Input').val(),
             budget: $('#project_edit_budget_Input').val(),
@@ -265,7 +265,8 @@
         event.preventDefault();
 
         modalData = getProjectEditFormData();
-        console.log(modalData);
+        console.log(modalData)
+        // console.log(modalData);
 
         $.ajax({
             type: "post",
