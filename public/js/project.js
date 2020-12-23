@@ -192,16 +192,16 @@ function renderEmptyAssignAccordion(projectID) {
                             <td>3</td>
                             <td>54.0</td>
                      </tr>`+
-                    `<tr>
+                    `<tr class="editMode-input">
                         <td><img src="img/pro_icon.png">社員</td>
                         <td>18.0</td>
 
                     </tr>`+
-                    `<tr>
+                    `<tr class="editMode-input">
                         <td><img src="img/pro_icon.png">社員</td>
                         <td>18.0</td>
                     </tr>`+
-                    `<tr>
+                    `<tr class="editMode-input">
                         <td><img src="img/pro_icon.png">社員</td>
                         <td>18.0</td>
                     </tr>`+
@@ -480,6 +480,20 @@ function editModeOn(x){
             dataCells[j].innerHTML="<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">";
         }
     }
+
+    //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
+    var fixTable=$('.table-fix')[x-1];
+    var dataTable2=fixTable.querySelectorAll('.editMode-input');
+    console.log(dataTable2);
+    
+    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
+    for(i=0;i<dataTable2.length;i++){
+        dataCells=dataTable2[i].querySelectorAll('td');
+        for(let j=0;j<dataCells.length;j++){
+            dataCells[j].innerHTML=`<input type="number" name="pro_member" class="data-cell-fixed" required="" value="0">`;
+                        
+        }
+    }
     
       
 }
@@ -488,6 +502,16 @@ function editModeOn(x){
 
 function editModeOff(x){
 
+
+    //==FETCHING ALL EDITING BUTTONS==//
+    var buttons = $('.editMode');
+
+    //===DISAPPEARING EDITING BUTTONS===//
+    for(let i=0;i<buttons.length;i++)
+    {
+        buttons[i].style.display="none";
+        document.getElementsByClassName('pencil-btn')[x-1].style.display="block";
+    }
     
     var details,user_details;
     //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
@@ -496,7 +520,23 @@ function editModeOff(x){
           val: $(this).val(),
         };
       }).get();
+
+    //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
+
+    var rightTable=$('.table-des');
+    var dataTable=rightTable[x-1].querySelectorAll('.editMode-input ');
     
+    let k=0;
+    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
+    for(i=0;i<dataTable.length;i++){
+        var dataCells=dataTable[i].querySelectorAll('td');
+        // console.log(dataCells);
+        for(let j=0;j<dataCells.length;j++){
+            dataCells[j].innerHTML=details[k].val;
+            k++;            
+        }
+    }
+    k=0;
     //=== STORING DETAILS OF ORANGE-FIXED TABLE===//
     user_details = $('.data-cell-fixed').map(function() {
         return {
@@ -506,43 +546,19 @@ function editModeOff(x){
     console.log(user_details.length);
     console.log(details.length);
 
-    //==FETCHING ALL EDITING BUTTONS==//
-    var buttons = $('.editMode');
-
-    //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
-
-    var rightTable=$('.table-des');
-    var dataTable=rightTable[x-1].querySelectorAll('.editMode-input ');
-    
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
     var fixTable=$('.table-fix')[x-1];
     var dataTable2=fixTable.querySelectorAll('.editMode-input');
     console.log(dataTable2);
     
-
-    //===DISAPPEARING EDITING BUTTONS===//
-    for(let i=0;i<buttons.length;i++)
-    {
-        buttons[i].style.display="none";
-        document.getElementsByClassName('pencil-btn')[x-1].style.display="block";
-    }
-    let k=0;
-    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    for(i=0;i<dataTable.length;i++){
-        var dataCells=dataTable[i].querySelectorAll('td');
-        // console.log(dataCells);
-        for(let j=0;j<dataCells.length;j++){
-            dataCells[j].innerHTML=details[k].val;
-            k++            
-        }
-    }
-    k=0;
-
     //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
     for(i=0;i<dataTable2.length;i++){
         dataCells=dataTable2[i].querySelectorAll('td');
         for(let j=0;j<dataCells.length;j++){
-            dataCells[j].innerHTML=user_details[k].val;
+            if(j%2==0)
+                dataCells[j].innerHTML=`<img src="img/pro_icon.png">`+user_details[k].val;
+            else
+                dataCells[j].innerHTML=user_details[k].val;
             k++            
         }
     }
@@ -556,7 +572,7 @@ function editModeOff(x){
 function addRow(x){
     $('.table-fix tbody')[x-1].innerHTML+=`<tr class="editMode-input">
                                                 <td><input type="number" name="pro_member" class="data-cell-fixed" required="" value="0"></td>
-                                                <td>0.00</td>
+                                                <td><input type="number" name="pro_member" class="data-cell-fixed" required="" value="0"></td>
                                             </tr>`;
     $('.table-des tbody')[x-1].innerHTML+= `<tr class="editMode-input">
                                             <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
