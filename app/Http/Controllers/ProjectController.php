@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AssignUpsert;
 use App\Http\Requests\ProjectUpsert;
 use App\Services\ProjectService;
 use App\Models\Client;
@@ -151,6 +152,17 @@ class ProjectController extends Controller
         if (gettype($data) == "string") {
             return JSONHandler::errorJSONPackage($data);
         }
+
+        /** Otherwise package the data into JSON-data and return */
+        return JSONHandler::packagedJSONData($data);
+    }
+
+    public function upsertAssign(AssignUpsert $request)
+    {
+        if (!Auth::check())
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
+        $data = $this->projectService->upsertAssign($request);
 
         /** Otherwise package the data into JSON-data and return */
         return JSONHandler::packagedJSONData($data);
