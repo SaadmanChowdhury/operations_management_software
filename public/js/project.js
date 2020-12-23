@@ -462,12 +462,12 @@ function editModeOn(x){
         buttons[i].style.display="block";
         document.getElementsByClassName('pencil-btn')[x-1].style.display="none";
     }
+    
     for(i=0;i<dataTable.length;i++){
         var dataCells=dataTable[i].querySelectorAll('td');
         console.log(dataCells);
         for(let j=0;j<dataCells.length;j++){
-            dataCells[j].innerHTML="<input type=\"text\" class=\"data-cell\" value=\"1.00\">";
-            
+            dataCells[j].innerHTML="<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">";
         }
     }
     
@@ -475,6 +475,13 @@ function editModeOn(x){
 }
 
 function editModeOff(x){
+    var details;
+    details = $('.data-cell').map(function() {
+        return {
+          val: $(this).val(),
+        };
+      }).get();
+      console.log(details[0].val);
     var buttons = document.getElementsByClassName('editMode');
     var rightTable=document.querySelectorAll('.table-des');
     // var dataCells=dataTable[x-1].querySelectorAll('td');
@@ -485,14 +492,16 @@ function editModeOff(x){
         buttons[i].style.display="none";
         document.getElementsByClassName('pencil-btn')[x-1].style.display="block";
     }
+    let k=0;
     for(i=0;i<dataTable.length;i++){
         var dataCells=dataTable[i].querySelectorAll('td');
         // console.log(dataCells);
         for(let j=0;j<dataCells.length;j++){
-            dataCells[j].innerHTML="1.00";
-            
+            dataCells[j].innerHTML=details[k].val;
+            k++            
         }
     }
+    k=0;
    
     
 }
