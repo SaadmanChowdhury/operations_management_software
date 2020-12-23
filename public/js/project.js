@@ -265,7 +265,7 @@ function renderEmptyAssignAccordion(projectID) {
                                 <td>1.00</td>
 
                             </tr>`+
-        `<tr>
+        `<tr class="editMode-input">
                                 <td>1.00</td>
                                 <td>1.00</td>
                                 <td>1.00</td>
@@ -286,7 +286,7 @@ function renderEmptyAssignAccordion(projectID) {
                                 <td>1.00</td>
 
                             </tr>`+
-        `<tr>
+        `<tr class="editMode-input">
                                 <td>1.00</td>
                                 <td>1.00</td>
                                 <td>1.00</td>
@@ -450,35 +450,48 @@ function filterProject(e) {
 }
 
 function editModeOn(x){
+    
 
     var buttons = document.getElementsByClassName('editMode');
-    var dataTable=document.querySelectorAll('.table-des');
-    var dataCells=dataTable[x-1].querySelectorAll('td');
-    console.log(dataCells);
+    var rightTable=document.querySelectorAll('.table-des');
+    // var dataCells=dataTable[x-1].querySelectorAll('td');
+    var dataTable=rightTable[x-1].querySelectorAll('.editMode-input ');
+    // console.log(dataTable.length);
     for(let i=0;i<buttons.length;i++)
     {
         buttons[i].style.display="block";
         document.getElementsByClassName('pencil-btn')[x-1].style.display="none";
     }
-    for(let j=0;j<dataCells.length;j++){
-        dataCells[j].innerHTML="<input type=\"text\" class=\"data-cell\" value=\"1.00\">";
-        
+    for(i=0;i<dataTable.length;i++){
+        var dataCells=dataTable[i].querySelectorAll('td');
+        console.log(dataCells);
+        for(let j=0;j<dataCells.length;j++){
+            dataCells[j].innerHTML="<input type=\"text\" class=\"data-cell\" value=\"1.00\">";
+            
+        }
     }
+    
       
 }
 
 function editModeOff(x){
     var buttons = document.getElementsByClassName('editMode');
-    var dataTable=document.querySelectorAll('.table-des');
-    var dataCells=dataTable[x-1].querySelectorAll('td');
-    console.log(buttons);
+    var rightTable=document.querySelectorAll('.table-des');
+    // var dataCells=dataTable[x-1].querySelectorAll('td');
+    var dataTable=rightTable[x-1].querySelectorAll('.editMode-input ');
+    // console.log(buttons);
     for(let i=0;i<buttons.length;i++)
     {
         buttons[i].style.display="none";
         document.getElementsByClassName('pencil-btn')[x-1].style.display="block";
     }
-    for(let j=0;j<dataCells.length;j++){
-        dataCells[j].innerHTML="1.00";
+    for(i=0;i<dataTable.length;i++){
+        var dataCells=dataTable[i].querySelectorAll('td');
+        // console.log(dataCells);
+        for(let j=0;j<dataCells.length;j++){
+            dataCells[j].innerHTML="1.00";
+            
+        }
     }
    
     
