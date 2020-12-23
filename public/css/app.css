@@ -2107,7 +2107,7 @@ td img {
     display: none;
 }
 
-.project input[type=text]{
+.project input[type=text],input[type=number]{
     padding: 0;
     width:55px;
     margin:0;

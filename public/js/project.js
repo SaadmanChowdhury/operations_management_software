@@ -20,6 +20,9 @@ function display(x) {
     }
 }
 
+
+//=== FETCHING PROJECT DETAILS FROM PROJECT API ===//
+
 function fetchProjectList_AJAX() {
     $.ajax({
         type: "get",
@@ -87,6 +90,8 @@ function getDevelopmentStageHTML(data) {
     }
 }
 
+//=== RENDERING PROJECT CARD HEADER ===//
+
 function renderProjectHTML(response) {
 
     var projects = document.getElementById('accordian');
@@ -133,6 +138,8 @@ function renderProjectHTML(response) {
 
 }
 
+//=== RENDERING PROJECT DETAILS TABLES ===//
+
 function renderEmptyAssignAccordion(projectID) {
 
     accordionHTML =
@@ -140,111 +147,110 @@ function renderEmptyAssignAccordion(projectID) {
         `<div class="card-body row _accordion">` +
 
         `<div class="table-left">` +
-        `<table>` +
-        `<tr>
-                        <td>予算</td>
-                        <td>71,4000　円</td>
-                    </tr>`+
-        `<tr>
-                        <td>原価</td>
-                        <td>10,0000　円</td>
-                    </tr>`+
-        `<tr>
-                        <td>工数</td>
-                        <td>10,0000　円</td>
-                    </tr>`+
-        `<tr>
-                        <td>粗利</td>
-                        <td>1000　円</td>
-                    </tr>`+
-        `<tr>
-                        <td>率</td>
-                        <td>75.4　%</td>
-                    </tr>`+
-        `<tr>
-                        <td>期間</td>
-                        <td>2001-2004</td>
-                    </tr>`+
-        `</table>` +
+            `<table>` +
+                `<tr>
+                    <td>予算</td>
+                    <td>71,4000　円</td>
+                </tr>`+
+                `<tr>
+                    <td>原価</td>
+                    <td>10,0000　円</td>
+                </tr>`+
+                `<tr>
+                    <td>工数</td>
+                    <td>10,0000　円</td>
+                </tr>`+
+                `<tr>
+                    <td>粗利</td>
+                    <td>1000　円</td>
+                </tr>`+
+                `<tr>
+                    <td>率</td>
+                    <td>75.4　%</td>
+                </tr>`+
+                `<tr>
+                    <td>期間</td>
+                    <td>2001-2004</td>
+                </tr>`+
+            `</table>` +
         `</div>` +
         ` <div class="project-rhs">` +
-        `<div class="add-minus-holder editMode">
-                    <button class="btn round-btn primary _plus"><span
+            `<div class="add-minus-holder editMode">
+                    <button class="btn round-btn primary _plus" onclick="addRow(${projectID})"><span
                             class="fa fa-plus"></span></button>
                     <button class="btn round-btn danger _minus"><span
                             class="fa fa-minus"></span></button>
                 </div>`+
+            `<div class="table-right row">` +
+            `<table class="table-fix">` +
+        `           <tr>
+                        <th class="mishti-orange">メンバー</th>
+                        <th class="mishti-orange">工数合計</th>
 
-        `<div class="table-right row">` +
-        `<table class="table-fix">` +
-        `<tr>
-                            <th class="mishti-orange">メンバー</th>
-                            <th class="mishti-orange">工数合計</th>
-
-                        </tr>`+
-        `<tr class="row-total">
+                    </tr>`+
+                    `<tr class="row-total">
                             <td>3</td>
                             <td>54.0</td>
-                        </tr>`+
-        `<tr>
-                            <td><img src="img/pro_icon.png">社員</td>
-                            <td>18.0</td>
+                     </tr>`+
+                    `<tr>
+                        <td><img src="img/pro_icon.png">社員</td>
+                        <td>18.0</td>
 
-                        </tr>`+
-        `<tr>
-                            <td><img src="img/pro_icon.png">社員</td>
-                            <td>18.0</td>
-                        </tr>`+
-        `<tr>
-                            <td><img src="img/pro_icon.png">社員</td>
-                            <td>18.0</td>
-                        </tr>`+
-        `</table>` +
+                    </tr>`+
+                    `<tr>
+                        <td><img src="img/pro_icon.png">社員</td>
+                        <td>18.0</td>
+                    </tr>`+
+                    `<tr>
+                        <td><img src="img/pro_icon.png">社員</td>
+                        <td>18.0</td>
+                    </tr>`+
+                `</table>` +
         `<div class="table-des-container">` +
-        `<table class="table-des">` +
-        `<tr>` +
-        `<th>2020/01</th>
-                                <th>2020/02</th>
-                                <th>2020/03</th>
-                                <th>2020/04</th>
-                                <th>2020/05</th>
-                                <th>2020/06</th>
-                                <th>2020/07</th>
-                                <th>2020/08</th>
-                                <th>2020/09</th>
-                                <th>2020/10</th>
-                                <th>2020/11</th>
-                                <th style="background-color:#ffbf0b;color:black">2020/12</th>
-                                <th>2021/01</th>
-                                <th>2022/02</th>
-                                <th>2021/03</th>
-                                <th>2022/04</th>
-                                <th>2021/05</th>
-                                <th>2022/06</th>`+
+            `<table class="table-des">` +
+                `<tr>` +
+                    `<th>2020/01</th>
+                        <th>2020/02</th>
+                        <th>2020/03</th>
+                        <th>2020/04</th>
+                        <th>2020/05</th>
+                        <th>2020/06</th>
+                        <th>2020/07</th>
+                        <th>2020/08</th>
+                        <th>2020/09</th>
+                        <th>2020/10</th>
+                        <th>2020/11</th>
+                        <th style="background-color:#ffbf0b;color:black">2020/12</th>
+                        <th>2021/01</th>
+                        <th>2022/02</th>
+                        <th>2021/03</th>
+                        <th>2022/04</th>
+                        <th>2021/05</th>
+                        <th>2022/06</th>`+
 
-        `</tr>` +
-        `<tr class="row-total">` +
-        `<td>3.00</td>
-                                <td>3.00</td>
-                                <td>3.00</td>
-                                <td>3.00</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>
-                                <td>3.0</td>`+
+                `</tr>` +
+                `<tr class="row-total">` +
+                        `<td>3.00</td>
+                            <td>3.00</td>
+                            <td>3.00</td>
+                            <td>3.00</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>`+
 
-        `</tr>` +
-        `<tr class="editMode-input">
+                `</tr>` +
+                `<tr class="editMode-input">
                                 <td>1.00</td>
                                 <td>1.00</td>
                                 <td>1.00</td>
@@ -449,6 +455,9 @@ function filterProject(e) {
     }
 }
 
+
+//===TURNING ON EDIT-MODE===//
+
 function editModeOn(x){
     
     var project=document.getElementById('project-row-'+x);
@@ -475,25 +484,50 @@ function editModeOn(x){
       
 }
 
+//===TURNING OFF EDIT-MODE===//
+
 function editModeOff(x){
-    var details;
+
+    
+    var details,user_details;
+    //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
     details = $('.data-cell').map(function() {
         return {
           val: $(this).val(),
         };
       }).get();
+    
+    //=== STORING DETAILS OF ORANGE-FIXED TABLE===//
+    user_details = $('.data-cell-fixed').map(function() {
+        return {
+          val: $(this).val(),
+        };
+      }).get();
+    console.log(user_details.length);
     console.log(details.length);
-    var buttons = document.getElementsByClassName('editMode');
-    var rightTable=document.querySelectorAll('.table-des');
-    // var dataCells=dataTable[x-1].querySelectorAll('td');
+
+    //==FETCHING ALL EDITING BUTTONS==//
+    var buttons = $('.editMode');
+
+    //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
+
+    var rightTable=$('.table-des');
     var dataTable=rightTable[x-1].querySelectorAll('.editMode-input ');
-    // console.log(buttons);
+    
+    //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
+    var fixTable=$('.table-fix')[x-1];
+    var dataTable2=fixTable.querySelectorAll('.editMode-input');
+    console.log(dataTable2);
+    
+
+    //===DISAPPEARING EDITING BUTTONS===//
     for(let i=0;i<buttons.length;i++)
     {
         buttons[i].style.display="none";
         document.getElementsByClassName('pencil-btn')[x-1].style.display="block";
     }
     let k=0;
+    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
     for(i=0;i<dataTable.length;i++){
         var dataCells=dataTable[i].querySelectorAll('td');
         // console.log(dataCells);
@@ -502,8 +536,47 @@ function editModeOff(x){
             k++            
         }
     }
-
     k=0;
-   
-    
+
+    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
+    for(i=0;i<dataTable2.length;i++){
+        dataCells=dataTable2[i].querySelectorAll('td');
+        for(let j=0;j<dataCells.length;j++){
+            dataCells[j].innerHTML=user_details[k].val;
+            k++            
+        }
+    }
+    k=0;
+
+
+}
+
+//===ADDING ROWS on CLICKING ADD BUTTON===//
+
+function addRow(x){
+    $('.table-fix tbody')[x-1].innerHTML+=`<tr class="editMode-input">
+                                                <td><input type="number" name="pro_member" class="data-cell-fixed" required="" value="0"></td>
+                                                <td>0.00</td>
+                                            </tr>`;
+    $('.table-des tbody')[x-1].innerHTML+= `<tr class="editMode-input">
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
+                                        </tr>`;
+
 }
