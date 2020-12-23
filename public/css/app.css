@@ -1406,7 +1406,7 @@ button.cancel:hover {
     user-select: none;
 }
 
-/* ////====PROJECT-LIST====//// */
+/* ////====PROJECT-LIST STARTS====//// */
 
 .project.table-body {
     font-size: 14px;
@@ -1881,7 +1881,10 @@ td img {
     width: 20%;
 }
 
-/* ////====ASSIGN STYLING====//// */
+/* ////====PROJECT-LIST ENDS====//// */
+
+
+/* ////====ASSIGN STYLING STARTS====//// */
 
 #table-nav._assign {
     position: relative;
@@ -2097,7 +2100,9 @@ td img {
 .right-align {
     justify-content: flex-end !important;
 }
+/* ////====ASSIGN STYLING ENDS====//// */
 
+/* ////====PROJECT EDIT-MODE STYLING STARTS====//// */
 .editMode{
     display: none;
 }
@@ -2113,3 +2118,5 @@ td img {
     line-height: 1.3rem;
     text-align: center;
 }
+
+/* ////====PROJECT EDIT-MODE STYLING ENDS====//// */

@@ -97,7 +97,7 @@ function renderProjectHTML(response) {
 
         var profit = (row.salesTotal - row.budget) * 100 / row.salesTotal;
         projectHtml =
-            `<div class="card _project" id="project-row-">` +
+            `<div class="card _project" id="project-row-${row.projectID}">` +
             `<div class="card-header" id="row1head" onclick="display(${row.projectID})">` +
             `<div class="display list-unstyled">` +
             `<li>${row.projectName}</li>` +
@@ -451,11 +451,12 @@ function filterProject(e) {
 
 function editModeOn(x){
     
-
-    var buttons = document.getElementsByClassName('editMode');
+    var project=document.getElementById('project-row-'+x);
+    console.log(project);
+    var buttons = project.getElementsByClassName('editMode');
     var rightTable=document.querySelectorAll('.table-des');
     // var dataCells=dataTable[x-1].querySelectorAll('td');
-    var dataTable=rightTable[x-1].querySelectorAll('.editMode-input ');
+    var dataTable=rightTable[x-1].querySelectorAll('.editMode-input');
     // console.log(dataTable.length);
     for(let i=0;i<buttons.length;i++)
     {
@@ -481,7 +482,7 @@ function editModeOff(x){
           val: $(this).val(),
         };
       }).get();
-      console.log(details[0].val);
+    console.log(details.length);
     var buttons = document.getElementsByClassName('editMode');
     var rightTable=document.querySelectorAll('.table-des');
     // var dataCells=dataTable[x-1].querySelectorAll('td');
@@ -501,6 +502,7 @@ function editModeOff(x){
             k++            
         }
     }
+
     k=0;
    
     
