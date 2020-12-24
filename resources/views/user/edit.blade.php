@@ -141,6 +141,7 @@
 
         </form>
     </div>
+    <div><img src="{{ asset('img/pencil.png') }}" class="miju" alt="display photo"></div>
 </div>
 
 

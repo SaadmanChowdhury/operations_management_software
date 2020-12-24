@@ -2097,3 +2097,37 @@ td img {
 .right-align {
     justify-content: flex-end !important;
 }
+
+
+/* test watermark for modals 
+
+.miju {
+    
+    position: absolute;
+    top: 50px;
+    right: 0;
+    /* content: '';
+    
+    left: 0; */
+    /* background-image: url('img/plus.png'); */
+    /* background-size: 50px;
+    background-position: right;
+    background-repeat: no-repeat; */
+    
+    /*width: 50%;
+    height: 50%;
+    opacity: .2;
+    z-index: 5;
+
+}*/
+
+.miju {
+    position: absolute;
+    top: 350px;
+    right: 200px;
+    /* background-image: url(img/plus.png); */
+    width: 10;
+    height: 10%;
+    opacity: .2;
+    z-index: 5;
+}

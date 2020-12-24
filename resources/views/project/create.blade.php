@@ -125,7 +125,9 @@
             <div id="message"></div>
 
         </form>
+        
     </div>
+    <div><img src="{{ asset('img/plus.png') }}" class="miju" alt="display photo"></div>
 </div>
 
 
