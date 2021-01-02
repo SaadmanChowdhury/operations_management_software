@@ -131,6 +131,11 @@
 
 
 <script>
+    $(function() {
+        convertToSearchableDropDown("project_create_managerID_Input", "USER");
+        convertToSearchableDropDown("project_create_clientID_Input", "CLIENT");
+    })
+
     function ProjectRegisterModalHandler() {
         event.preventDefault();
         showModal('project-create-modal');

@@ -51,6 +51,10 @@
 
 
 <script>
+    $(function() {
+        convertToSearchableDropDown("client_create_userID_Input", "USER");
+    })
+
     function clientRegisterModalHandler() {
         event.preventDefault();
         showModal('client-create-modal');

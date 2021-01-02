@@ -79,3 +79,40 @@ function fetchClientList() {
         }
     });
 }
+
+function convertToSearchableDropDown(id, type) {
+    dom = $("#" + id);
+    let options = "";
+    currentVal = $(dom).val();
+
+    if (type == "USER") {
+        options = userSelectGenerator();
+    }
+    else if (type == "CLIENT") {
+        options = clientSelectGenerator();
+    }
+
+    $(dom).replaceWith(`<select id="${id}">${options}</select>`);
+    $(dom).val(currentVal);
+
+}
+
+function userSelectGenerator() {
+    innerHTML = "";
+
+    for (let i = 0; i < USER_LIST.length; i++)
+        innerHTML += `<option value="${USER_LIST[i].id}">${USER_LIST[i].name}</option>`;
+
+    return innerHTML;
+
+}
+
+function clientSelectGenerator() {
+
+    innerHTML = "";
+
+    for (let i = 0; i < CLIENT_LIST.length; i++)
+        innerHTML += `<option value="${CLIENT_LIST[i].id}">${CLIENT_LIST[i].name}</option>`;
+
+    return innerHTML;
+}

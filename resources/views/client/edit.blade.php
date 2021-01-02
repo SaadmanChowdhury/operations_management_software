@@ -65,6 +65,10 @@
 
 
 <script>
+    $(function() {
+        convertToSearchableDropDown("client_edit_user_id", "USER");
+    })
+
     function clientEditModalHandler(clientID) {
         event.preventDefault();
         clearModalData('client-edit-modal');

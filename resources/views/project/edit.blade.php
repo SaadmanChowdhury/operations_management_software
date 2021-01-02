@@ -139,6 +139,11 @@
 
 
 <script>
+    $(function() {
+        convertToSearchableDropDown("project_edit_managerID_Input", "USER");
+        convertToSearchableDropDown("project_edit_clientID_Input", "CLIENT");
+    })
+
     function projectEditModalHandler(projectID) {
         event.preventDefault();
         event.stopPropagation();
