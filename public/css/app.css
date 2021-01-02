@@ -1883,7 +1883,6 @@ td img {
 
 /* ////====PROJECT-LIST ENDS====//// */
 
-
 /* ////====ASSIGN STYLING STARTS====//// */
 
 #table-nav._assign {
@@ -2100,17 +2099,19 @@ td img {
 .right-align {
     justify-content: flex-end !important;
 }
+
 /* ////====ASSIGN STYLING ENDS====//// */
 
 /* ////====PROJECT EDIT-MODE STYLING STARTS====//// */
-.editMode{
+
+.editMode {
     display: none;
 }
 
-.project input[type=text],input[type=number]{
+.project input[type=text], .project input[type=number] {
     padding: 0;
-    width:55px;
-    margin:0;
+    width: 55px;
+    margin: 0;
     border-radius: 0;
     border: 0.5px solid#dddddd;
     height: 1.3rem;

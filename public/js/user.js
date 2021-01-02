@@ -22,7 +22,7 @@ function fetchUserList_AJAX() {
 var staffList, item;
 function renderHTML(response) {
     var auth = document.getElementById('user-authority').value;
-    console.log(auth);
+
     var staffs = document.getElementsByClassName('table-body');
     response["resultData"]["user"].forEach((row) => {
 
@@ -99,7 +99,7 @@ function renderHTML(response) {
             `<li><div class="pos pos-${pos}">${pos}</div></li>` +
             `<li>${time_diff}${unit}</li>` +
             `<li>${unitPrice}</li>` +
-            `<li><div class="edit"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>` +
+            `<li><div class="edit" onclick="userEditModalHandler(${row.userID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>` +
             `</div></div></div>`;
 
         staffs[0].innerHTML += rowHtml;
@@ -111,12 +111,12 @@ function renderHTML(response) {
 document.addEventListener("DOMContentLoaded", () => { fetchUserList_AJAX() });
 
 pos = document.querySelector('.userlist-nav');
-console.log(staffList);
+
 pos.addEventListener("click", filterPos);
 
 function filterPos(e) {
     e.preventDefault();
-    console.log(e.target.innerText);
+
     switch (e.target.innerText) {
         case "全て":
             {
@@ -166,7 +166,6 @@ function filterPos(e) {
                 for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PL") {
                         showCard(staffList[i])
-                        console.log(staffList[i]);
                     }
                     else {
                         hideCard(staffList[i])
