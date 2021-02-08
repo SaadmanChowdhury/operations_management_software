@@ -29,16 +29,16 @@
                     </div>
 
                     @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
-                    <div onclick="deleteProject()">
-                        <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o" aria-hidden="true"></i>
-                            削除</a>
-                    </div>
+                        <div onclick="deleteProject()">
+                            <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
+                                    aria-hidden="true"></i>
+                                削除</a>
+                        </div>
                     @endif
                 </div>
 
 
                 <div class="column right _project">
-                    <input type="hidden" id="id" value="">
 
                     <div class="modal-form-input-container">
                         <div class="_full">
@@ -66,7 +66,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_order_status_Input" required>
                                     @foreach (config('constants.Order_Status') as $status => $value)
-                                    <option value="{{ $value }}">{{ $status }}</option>
+                                        <option>{{ $status }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -77,7 +77,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_business_situation_Input" required>
                                     @foreach (config('constants.Business_situation') as $situation => $value)
-                                    <option value="{{ $value }}">{{ $situation }}</option>
+                                        <option>{{ $situation }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -88,7 +88,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_development_stage_Input" required>
                                     @foreach (config('constants.Development_stage') as $stage => $value)
-                                    <option value="{{ $value }}">{{ $stage }}</option>
+                                        <option>{{ $stage }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -105,7 +105,8 @@
 
                         <div class="_third">
                             <div><label for="transferred_amount">振込金額</label></div>
-                            <div><input type="number" id="project_edit_transferred_amount_Input" name="transferred_amount" required></div>
+                            <div><input type="number" id="project_edit_transferred_amount_Input"
+                                    name="transferred_amount" required></div>
                         </div>
 
                         <div class="_third">
@@ -117,12 +118,14 @@
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="order_month">受注月</label></div>
-                            <div><input type="date" id="project_edit_order_month_Input" name="inspection_month" required></div>
+                            <div><input type="date" id="project_edit_order_month_Input" name="inspection_month"
+                                    required></div>
                         </div>
 
                         <div class="_half">
                             <div><label for="inspection_month">検収月</label></div>
-                            <div><input type="date" id="project_edit_inspection_month_Input" name="inspection_month" required></div>
+                            <div><input type="date" id="project_edit_inspection_month_Input" name="inspection_month"
+                                    required></div>
                         </div>
                     </div>
 
@@ -147,29 +150,25 @@
         clearModalData('project-edit-modal');
         showModal('project-edit-modal');
 
-        // PROJECT_EDIT_PROJECT_ID = projectID;
-
         getProjectData(projectID);
     }
 
     function getProjectEditFormData() {
         return {
-            projectID: $('#id').val(),
-            projectName: $('#project_edit_name_Input').val(),
-            clientID: $('#project_edit_clientID_Input').val(),
-            projectLeaderID: $('#project_edit_managerID_Input').val(),
-            orderMonth: $('#project_edit_order_month_Input').val(),
-            inspectionMonth: $('#project_edit_inspection_month_Input').val(),
-            orderStatus: $("#project_edit_order_status_Input").val(),
-            businessSituation: $('#project_edit_business_situation_Input').val(),
-            developmentStage: $("#project_edit_development_stage_Input").val(),
-            salesTotal: $('#project_edit_sales_total_Input').val(),
-            transferredAmount: $('#project_edit_transferred_amount_Input').val(),
-            budget: $('#project_edit_budget_Input').val(),
+            id: $('#id').val(),
+            project_name: $('#project_edit_name_Input').val(),
+            client_id: $('#project_edit_clientID_Input').val(),
+            manager_id: $('#project_edit_managerID_Input').val(),
+            order_month: $('#project_edit_order_month_Input').val(),
+            inspection_month: $('#project_edit_inspection_month_Input').val(),
+            order_status: $("#project_edit_order_status_Input"),
+            business_situation: $('#project_edit_business_situation_Input').val(),
+            development_stage: $("#project_edit_development_stage_Input"),
+            sales_total: $('#project_edit_sales_total_Input').val(),
+            transferred_amount: $('#project_edit_transferred_amount_Input').val(),
             _token: $('input[name=_token]').val()
         };
     }
-    // console.log(getProjectEditFormData());
 
     function handleAJAXResponse(response) {
 
@@ -191,20 +190,19 @@
         console.log(updatedData);
 
         console.log("UDPATE Project TABLE")
-        alert('Please add update project table');
 
-        // let row = $("#project-row-" + updatedData.projectID);
+        let row = $("#project-row-" + updatedData.id);
 
-        // row.find(".project-name").html(updatedData.projectName);
-        // row.find(".project-clientID").html(updatedData.clientID);
-        // row.find(".project-projectLeaderID").html(updatedData.projectLeaderID);
-        // row.find(".project-orderMonth").html(updatedData.order_month);
-        // row.find(".project-inspectionMonth").html(updatedData.inspection_month);
-        // row.find(".project-orderStatus").html(updatedData.order_status);
-        // row.find(".project-businessSituation").html(updatedData.business_situation);
-        // row.find(".project-developmentStage").html(updatedData.development_stage);
-        // row.find(".project-salesTotal").html(updatedData.salesTotal);
-        // row.find(".project-transferredAmount").html(updatedData.transferred_amount);
+        row.find(".project-name").html(updatedData.project_name);
+        row.find(".project-clientID").html(updatedData.client_id);
+        row.find(".project-managerID").html(updatedData.manager_id);
+        row.find(".project-orderMonth").html(updatedData.order_month);
+        row.find(".project-inspectionMonth").html(updatedData.inspection_month);
+        row.find(".project-orderStatus").html(updatedData.order_status);
+        row.find(".project-businessSituation").html(updatedData.business_situation);
+        row.find(".project-developmentStage").html(updatedData.development_stage);
+        row.find(".project-salesTotal").html(updatedData.sales_total);
+        row.find(".project-transferredAmount").html(updatedData.transferred_amount);
 
         /*row.find(".user-location").html(updatedData.locationText);
 
@@ -223,31 +221,29 @@
                 data[i] = "";
         }
 
-        $("#id").val(data.projectID)
-        $("#project_edit_name_Input").val(data.projectName)
-        $("#project_edit_clientID_Input").val(data.clientID)
-        $("#project_edit_managerID_Input").val(data.projectLeaderID)
-        $("#project_edit_order_month_Input").val(data.orderMonth)
-        $("#project_edit_inspection_month_Input").val(data.inspectionMonth)
-        $("#project_edit_order_status_Input").val(data.orderStatus)
-        $("#project_edit_business_situation_Input").val(data.businessSituation)
-        $("#project_edit_development_stage_Input").val(data.developmentStage)
-        $("#project_edit_sales_total_Input").val(data.salesTotal)
-        $("#project_edit_transferred_amount_Input").val(data.transferredAmount)
-        $("#project_edit_budget_Input").val(data.budget)
+        $("#id").val(data.project_id)
+        $("#project_edit_name_Input").val(data.project_name)
+        $("#project_edit_clientID_Input").val(data.client_id)
+        $("#project_edit_managerID_Input").val(data.manager_id)
+        $("#project_edit_order_month_Input").val(data.order_month)
+        $("#project_edit_inspection_month_Input").val(data.inspection_month)
+        $("#project_edit_order_status_Input").val(data.order_status)
+        $("#project_edit_business_situation_Input").val(data.business_situation)
+        $("#project_edit_development_stage_Input").val(data.development_stage)
+        $("#project_edit_sales_total_Input").val(data.sales_total)
+        $("#project_edit_transferred_amount_Input").val(data.transferred_amount)
     }
 
     function getProjectData(projectID) {
         $.ajax({
             type: "post",
-            url: "/API/readProjectDetails",
+            url: "/API/readProject",
             data: {
                 projectID: projectID,
                 _token: $('input[name=_token]').val()
             },
             cache: false,
             success: function(response) {
-                console.log(response);
                 if (response["resultStatus"]["isSuccess"]) {
                     updateProjectEditModalData(response["resultData"]);
                 } else
@@ -263,12 +259,10 @@
         event.preventDefault();
 
         modalData = getProjectEditFormData();
-        console.log(modalData)
-        // console.log(modalData);
 
         $.ajax({
             type: "post",
-            url: "/API/upsertProjectDetails",
+            url: "/API/updateProject",
             data: modalData,
             cache: false,
             success: function(response) {
@@ -308,4 +302,5 @@
             }
         });
     }
+
 </script>

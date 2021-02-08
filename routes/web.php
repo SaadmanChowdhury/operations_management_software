@@ -123,8 +123,8 @@ Route::post("/API/deleteProject", [ProjectController::class, 'deleteProject']);
 
 Route::get("test", [ClientController::class, 'getTotalProfit']);
 
-Route::post('/API/fetchProjectList', [ProjectController::class, 'fetchProjectList']);
-Route::post('/API/readProjectDetails', [ProjectController::class, 'readProjectDetails']);
+Route::get('/API/fetchProjectList', [ProjectController::class, 'fetchProjectList']);
+Route::get('/API/readProjectDetails', [ProjectController::class, 'readProjectDetails']);
 Route::post('/API/upsertProjectDetails', [ProjectController::class, 'upsertProjectDetails']);
 
 //for testing the update function
