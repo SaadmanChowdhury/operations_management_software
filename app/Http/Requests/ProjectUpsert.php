@@ -26,7 +26,7 @@ class ProjectUpsert extends FormRequest
         return [
             'projectName' => 'required',
             'clientID' => 'required',
-            'managerID' => 'required',
+            'projectLeaderID' => 'required',
             'orderMonth' => '',
             'inspectionMonth' => '',
             'orderStatus' => '',
