@@ -225,6 +225,19 @@ class Project extends Model
         return $projectProfit;
     }
 
+
+    public function getProjectAssignDetails($projectID)
+    {
+        return Assign::where('project_id', $projectID)->get();
+    }
+
+    public function getProjectData($projectID)
+    {
+        return DB::table('projects')
+            ->select('project_id as projectID', 'manager_id as projectLeaderID')
+            ->where('projects.project_id', $projectID)->whereNull("deleted_at")->first();
+    }
+
     /**
      * The users that belong to the project.
      */

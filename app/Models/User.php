@@ -183,7 +183,7 @@ class User extends Authenticatable
         //validating data
         $validatedData = $request->validated();
 
-        //if the password hashing password
+        //if the password has been changed -> hashing password
         if ($request->password != null) {
             $validatedData['password'] = bcrypt($request->password);
         }

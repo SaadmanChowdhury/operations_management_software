@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Assign;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
+use Illuminate\Support\Facades\DB;
 
 class ProjectService
 {
@@ -140,5 +142,81 @@ class ProjectService
         $formattedArray['project'] = $array;
 
         return $formattedArray;
+    }
+
+    public function readProjectAssign($projectID)
+    {
+        $projectModel  = new Project;
+        $assignModel  = new Assign;
+        $data['project'] = $projectModel->getProjectData($projectID);
+        $data['project']->member = $assignModel->getMemberId($projectID);
+
+        //for looping
+        $count = $assignModel->getCountOfMembers($projectID);
+
+        for ($i = 0; $i < $count - 1; $i++) {
+            $user = $data['project']->member[$i];
+            $memberID = $user->memberID;
+            $data['project']->member[$i]->assign = $assignModel->getAssignInfo($projectID, $memberID);
+        }
+
+        return $data;
+    }
+
+    public function getProjectAssignDetails($projectID)
+    {
+        $projectModel  = new Project;
+        $array = $projectModel->getProjectAssignDetails($projectID);
+
+        return $array;
+    }
+
+    public function upsertAssign($request)
+    {
+        $assignModel  = new Assign;
+
+        $data = $request->all();
+
+        //for testing getting the dummy data
+        $data = $this->getUpsertAssignData();
+        $formattedData = $this->getFormattedDataForUpsertAssign($data);
+
+        return $assignModel->upsertAssign($formattedData);
+    }
+
+    public function getFormattedDataForUpsertAssign($data)
+    {
+        $formattedData = [];
+        foreach ($data as $key => $value) {
+            $formattedData[$key]['assign_id'] = $value['assignID'];
+            $formattedData[$key]['project_id'] = $value['projectID'];
+            $formattedData[$key]['user_id'] = $value['memberID'];
+            $formattedData[$key]['year'] = $value['year'];
+            $formattedData[$key]['month'] = $value['month'];
+            $formattedData[$key]['execution'] = $value['value'];
+        }
+        return $formattedData;
+    }
+
+    public function getUpsertAssignData()
+    {
+        return [
+            0 => [
+                'assignID' => null,
+                'projectID' => 33,
+                'memberID' => 33,
+                'year' => 33,
+                'month' => 33,
+                'value' => 33,
+            ],
+            1 => [
+                'assignID' => 89,
+                'projectID' => 1,
+                'memberID' => 1,
+                'year' => 1,
+                'month' => 1,
+                'value' => 1,
+            ],
+        ];
     }
 }
