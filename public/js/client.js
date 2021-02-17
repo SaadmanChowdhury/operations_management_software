@@ -42,7 +42,6 @@ function client_modal_open(e) {
         modal.style.display = "block";
 }
 
-
 ///====MODAL CLOSE ACTION====////
 function client_modal_close(e) {
     e.preventDefault();
@@ -108,3 +107,70 @@ $(function () {
     }
 
 });
+
+function fetchClientList_AJAX() {
+    $.ajax({
+        type: "post",
+        url: "/API/fetchClientList",
+        data: {
+            _token: $('#csrf-token')[0].content,
+        },
+        cache: false,
+        success: function (response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                renderClientHTML(response);
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function (err) {
+            handleAJAXError(err);
+        }
+    });
+}
+
+function renderClientHTML(response){
+
+
+
+
+    rowClientHTML=`<div class="card _client" id="client-row-${response.clientID}">`+
+    `<div class="card-header">`+
+        `<div class="display list-unstyled">`+
+            `<li>${response.clientID}</li>`+
+            `<li>${response.clientName}</li>`+
+            `<li>
+                <img src="img/pro_icon.png" class="smallpic">
+                <div class="user-name">
+                    ${response.clientID}
+                </div>
+                
+            </li>`+
+
+            
+                `<li>${response.totalSales} 円</li>`+
+                `<li>${response.totalProfit} 円</li>`+
+
+                `<li>
+                    <div class="edit" onclick="clientEditModalHandler(${response.clientID})">
+                        <span style="font-size: 11px; margin:6px;width:auto"
+                            class="fa fa-pencil"></span>編集
+                    </div>
+                </li>`+
+            
+                `<li class="transparent">円</li>
+                <li class="transparent">円</li>`+
+
+                `<li>
+                    <div class="edit transparent">
+                        <span style="font-size: 11px; margin:6px;width:auto"
+                            class="fa fa-pencil"></span>編集
+                    </div>
+                </li>`+
+            
+            
+        `</div>
+    </div>
+</div>`;
+
+
+}
