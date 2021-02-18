@@ -103,13 +103,13 @@ class ProjectController extends Controller
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
-    public function readProjectDetails($projectID)
+    public function readProjectDetails(Request $request)
     {
         if (!Auth::check())
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
 
 
-        $data = $this->projectService->readProjectDetails($projectID);
+        $data = $this->projectService->readProjectDetails($request->projectID);
 
         /** if the returned data is a string, then probably an error happened in the Service or Modal layer */
         /** in that case package the error into JSON-error and return */

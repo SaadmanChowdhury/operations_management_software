@@ -25,7 +25,7 @@ function display(x) {
 
 function fetchProjectList_AJAX() {
     $.ajax({
-        type: "get",
+        type: "post",
         url: "/API/fetchProjectList",
         data: {
             _token: $('#csrf-token')[0].content,

@@ -27,8 +27,8 @@ class CreateProjectsTable extends Migration
             $table->tinyInteger('business_situation')->nullable();
             $table->tinyInteger('development_stage')->nullable();
             $table->bigInteger('sales_total')->nullable();
-            $table->integer('transferred_amount')->nullable();
-            $table->integer('budget')->nullable();
+            $table->bigInteger('transferred_amount')->nullable();
+            $table->bigInteger('budget')->nullable();
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();

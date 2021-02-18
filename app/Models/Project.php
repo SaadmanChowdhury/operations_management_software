@@ -26,6 +26,7 @@ class Project extends Model
         'development_stage',
         'sales_total',
         'transferred_amount',
+        'budget',
     ];
 
     public function readProjectList()
@@ -53,7 +54,6 @@ class Project extends Model
 
     public function createProject($request)
     {
-        Log::debug($request);
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             $validatedData = $request->validated();
@@ -123,14 +123,13 @@ class Project extends Model
             $loggedUser->user_authority == config('User_authority.システム管理者') ||
             $loggedUser->user_id == $project->manager_id
         ) {
-            return JSONHandler::packagedJSONData($project);
+            return $project;
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
     public function upsertProjectDetails($validatedData, $projectID)
     {
-        //updating record
         Project::updateOrCreate(['project_id' => $projectID], $validatedData);
     }
 

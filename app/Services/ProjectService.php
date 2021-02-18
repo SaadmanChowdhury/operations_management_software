@@ -87,21 +87,21 @@ class ProjectService
     {
         $projectModel  = new Project;
 
-        $validatedData = $request->validated();
+        // $validatedData = $request->validated();
         $loggedUser = auth()->user();
-        $project = $manager_id = null;
+        $project = $managerID = null;
 
         if ($projectID != null) {
             $project = Project::find($projectID);
-            $manager_id = $project->manager_id;
+            $managerID = $project->managerID;
         }
         //only admin and manager can update the project
         if (
             $loggedUser->user_authority == config('User_authority.システム管理者') ||
-            $loggedUser->user_id == $manager_id
+            $loggedUser->user_id == $managerID
         ) {
 
-            $validatedData = $this->formatDataToCreateOrUpdate($validatedData);
+            $validatedData = $this->formatDataToCreateOrUpdate($request);
 
             return $projectModel->upsertProjectDetails($validatedData, $projectID);
         }
@@ -112,8 +112,16 @@ class ProjectService
         $formattedData = [];
         $formattedData['project_name'] = $data['projectName'];
         $formattedData['client_id'] = $data['clientID'];
-        $formattedData['manager_id'] = $data['managerID'];
+        $formattedData['manager_id'] = $data['projectLeaderID'];
+        $formattedData['order_status'] = $data['orderStatus'];
+        $formattedData['business_situation'] = $data['businessSituation'];
+        $formattedData['development_stage'] = $data['developmentStage'];
+        $formattedData['order_month'] = $data['orderMonth'];
+        $formattedData['inspection_month'] = $data['inspectionMonth'];
         $formattedData['sales_total'] = $data['salesTotal'];
+        $formattedData['transferred_amount'] = $data['transferredAmount'];
+        $formattedData['budget'] = $data['budget'];
+        
         return $formattedData;
     }
 

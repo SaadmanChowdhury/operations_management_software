@@ -26,15 +26,15 @@ class ProjectUpsert extends FormRequest
         return [
             'projectName' => 'required',
             'clientID' => 'required',
-            'managerID' => 'required',
+            'projectLeaderID' => 'required',
             'orderMonth' => '',
             'inspectionMonth' => '',
             'orderStatus' => '',
             'businessSituation' => '',
             'developmentStage' => '',
-            'salesTotal' => 'required',
+            'salesTotal' => '',
             'transferredAmount' => '',
-            'budget' => '',
+            'budget' => 'required',
         ];
     }
 
@@ -48,8 +48,8 @@ class ProjectUpsert extends FormRequest
         return [
             'projectName.required' => 'Project name required',
             'clientID.required' => 'Client is required',
-            'managerID.required' => 'Manager is required',
-            'salesTotal.required' => 'Sales total is required',
+            'projectLeaderID.required' => 'Project Leader is required',
+            'budget.required' => 'Budget total is required',
         ];
     }
 }
