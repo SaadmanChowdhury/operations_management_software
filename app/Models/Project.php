@@ -178,6 +178,20 @@ class Project extends Model
         return $data;
     }
 
+    /**
+     * get total man-hours of a project
+     */
+    public function getTotalManHours($project_id)
+    {
+        //getting the total man-month
+        $totalManMonth = $this->getTotalManMonth($project_id);
+
+        //converting man-month to man-hours
+        $totalManHours = intval($totalManMonth) * 22 * 8;
+
+        return $totalManHours;
+    }
+
     public function getAssignUsersId($project_id)
     {
         $data = DB::table('assign')
@@ -210,8 +224,8 @@ class Project extends Model
 
     public function getProjectBudget($project_id)
     {
-        $project = Project::select('sales_total')->where('project_id', $project_id)->first();
-        return $project->sales_total;
+        $project = Project::select('budget')->where('project_id', $project_id)->first();
+        return $project->budget;
     }
 
     public function getProjectProfit($project_id)
@@ -233,7 +247,7 @@ class Project extends Model
     public function getProjectData($projectID)
     {
         return DB::table('projects')
-            ->select('project_id as projectID', 'manager_id as projectLeaderID')
+            ->select('project_id as projectID', 'manager_id as projectLeaderID', 'budget as budget')
             ->where('projects.project_id', $projectID)->whereNull("deleted_at")->first();
     }
 
