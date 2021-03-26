@@ -706,6 +706,7 @@ footer {
 
 .content-width {
     width: 100%;
+    overflow: scroll;
 }
 
 /*=== USER_LIST NAV=== */
@@ -809,7 +810,8 @@ footer {
 
 #table-nav {
     font-size: 80%;
-    width: auto;
+    /* width: auto; */
+    min-width: 1000px;
     padding: 1px;
     border-radius: 4px;
     margin-bottom: 5px;
@@ -827,7 +829,7 @@ footer {
 }
 
 .table-body {
-    overflow: scroll;
+    
     height: calc(100vh - 230px);
     padding-bottom: 10px;
 }
@@ -843,7 +845,8 @@ footer {
 }
 
 .card {
-    width: 99%;
+    /* width: 99%; */
+    min-width: 1000px;
     position: relative;
     margin: auto;
     display: -ms-flexbox;
