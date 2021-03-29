@@ -55,7 +55,7 @@ body {
     top: 72px;
     padding: 15px 30px 10px 30px;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: fit-content;
     background-color: #F8F8F8;
     overflow: hidden;
 }
@@ -706,7 +706,7 @@ footer {
 
 .content-width {
     width: 100%;
-    overflow: scroll;
+    overflow-x: scroll;
 }
 
 /*=== USER_LIST NAV=== */
@@ -810,7 +810,6 @@ footer {
 
 #table-nav {
     font-size: 80%;
-    /* width: auto; */
     min-width: 1200px;
     padding: 1px;
     border-radius: 4px;
@@ -829,10 +828,10 @@ footer {
 }
 
 .table-body {
-    
+    min-width: 1200px;
+    overflow: scroll;
     height: calc(100vh - 230px);
     padding-bottom: 10px;
-    min-width: 1200px;
 }
 
 #table-nav .fa {
@@ -846,8 +845,7 @@ footer {
 }
 
 .card {
-    /* width: 99%; */
-    min-width: 1000px;
+    width: 99%;
     position: relative;
     margin: auto;
     display: -ms-flexbox;
@@ -1414,7 +1412,6 @@ button.cancel:hover {
 
 .project.table-body {
     font-size: 14px;
-    min-width: 1200px;
 }
 
 .project #table-nav .flex-col {
