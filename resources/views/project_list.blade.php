@@ -18,7 +18,8 @@
 
     <div class="row row-content">
         <div class="content-width">
-
+        
+        <div style="min-width: 1200px">
             <ul class="userlist-nav center list-unstyled">
                 <a href="">
                     <li>全て</li>
@@ -84,6 +85,7 @@
             </ul>
 
             <hr />
+        </div>
 
             {{-- ///====PROJECT-TABLE HEADER====/// --}}
             <div class="project">

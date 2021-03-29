@@ -811,7 +811,7 @@ footer {
 #table-nav {
     font-size: 80%;
     /* width: auto; */
-    min-width: 1000px;
+    min-width: 1200px;
     padding: 1px;
     border-radius: 4px;
     margin-bottom: 5px;
@@ -832,6 +832,7 @@ footer {
     
     height: calc(100vh - 230px);
     padding-bottom: 10px;
+    min-width: 1200px;
 }
 
 #table-nav .fa {
@@ -1413,6 +1414,7 @@ button.cancel:hover {
 
 .project.table-body {
     font-size: 14px;
+    min-width: 1200px;
 }
 
 .project #table-nav .flex-col {

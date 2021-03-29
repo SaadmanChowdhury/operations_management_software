@@ -16,36 +16,40 @@
     <div class="content-width">
 
         {{-- ///====FILTER NAVIGATION====/// --}}
-        <ul class="userlist-nav center list-unstyled">
-            <a href="">
-                <li> 全て</li>
-            </a>
-            <a href="">
-                <li> PM</li>
-            </a>
-            <a href="">
-                <li> PL</li>
-            </a>
-            <a href="">
-                <li> SE</li>
-            </a>
-            <a href="">
-                <li> PG</li>
-            </a>
-        </ul>
-
-        <ul class="userlist-nav center list-unstyled" style="float: right;">
-            <a href="" onclick="adjustRowHeight()">
-                <li class="fa fa-list"> </li>
-            </a>
-            @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                <a href="" onclick="userRegisterModalHandler()">
-                    <li> + 登録</li>
+        <div style="min-width: 1200px">
+            <ul class="userlist-nav center list-unstyled">
+                <a href="">
+                    <li> 全て</li>
                 </a>
-            @endif
-        </ul>
+                <a href="">
+                    <li> PM</li>
+                </a>
+                <a href="">
+                    <li> PL</li>
+                </a>
+                <a href="">
+                    <li> SE</li>
+                </a>
+                <a href="">
+                    <li> PG</li>
+                </a>
+            </ul>
+
+            <ul class="userlist-nav center list-unstyled" style="float: right;">
+                <a href="" onclick="adjustRowHeight()">
+                    <li class="fa fa-list"> </li>
+                </a>
+                @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
+                    <a href="" onclick="userRegisterModalHandler()">
+                        <li> + 登録</li>
+                    </a>
+                @endif
+            </ul>
+        
 
         <hr />
+
+    </div>
 
 
 

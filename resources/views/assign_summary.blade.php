@@ -18,49 +18,51 @@
 
     <div class="row row-content">
         <div class="content-width">
+            <div style="min-width: 1200px">
+                <ul class="userlist-nav center list-unstyled">
+                    <a href="">
+                        <li> 全て</li>
+                    </a>
+                    <a href="">
+                        <li> PM</li>
+                    </a>
+                    <a href="">
+                        <li> PL</li>
+                    </a>
+                    <a href="">
+                        <li> SE</li>
+                    </a>
+                    <a href="">
+                        <li> PG</li>
+                    </a>
+                </ul>
+                <ul class="userlist-nav center list-unstyled" style="margin-left: 30px;">
+                    <a href="">
+                        <li> 無し
+                        </li>
+                    </a>
+                    <a href="">
+                        <li> 限界</li>
+                    </a>
+                    <a href="">
+                        <li> 未だ</li>
+                    </a>
+                </ul>
 
-            <ul class="userlist-nav center list-unstyled">
-                <a href="">
-                    <li> 全て</li>
-                </a>
-                <a href="">
-                    <li> PM</li>
-                </a>
-                <a href="">
-                    <li> PL</li>
-                </a>
-                <a href="">
-                    <li> SE</li>
-                </a>
-                <a href="">
-                    <li> PG</li>
-                </a>
-            </ul>
-            <ul class="userlist-nav center list-unstyled" style="margin-left: 30px;">
-                <a href="">
-                    <li> 無し
-                    </li>
-                </a>
-                <a href="">
-                    <li> 限界</li>
-                </a>
-                <a href="">
-                    <li> 未だ</li>
-                </a>
-            </ul>
-
-            <ul class="userlist-nav center list-unstyled" style="float: right; ">
-                <a href="" onclick="alert('Adjust font size');">
-                    <li class="fa fa-arrows-alt"> </li>
-                </a>
-            </ul>
+                <ul class="userlist-nav center list-unstyled" style="float: right; ">
+                    <a href="" onclick="alert('Adjust font size');">
+                        <li class="fa fa-arrows-alt"> </li>
+                    </a>
+                </ul>
 
 
 
-            <hr />
+                <hr />
+            </div>
 
             {{-- ///====ASSIGN-SUMMARY-TABLE HEADER====///
             --}}
+            <div style="min-width: 1200px">
             <div id="table-nav" class=" _assign mild-yellow text-medium">
                 
                 <div class="assign-header-sub-row mild-yellow ">
@@ -290,7 +292,7 @@
                         </div>
                     </div>
                 </div>
-                
+            </div>    
 
 
                 {{-- <div class="assign-user-tab">

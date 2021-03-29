@@ -18,25 +18,26 @@
 
     <div class="row row-content">
         <div class="content-width">
-
-            <ul class="userlist-nav center list-unstyled">
-                <a href="">
-                    <li> 全て</li>
-                </a>
-            </ul>
-            <ul class="userlist-nav center list-unstyled" style="float: right;">
-                <a href="" onclick="adjustRowHeight()">
-                    <li class="fa fa-list"> </li>
-                </a>
-
-                @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
-                    <a href="" onclick="clientRegisterModalHandler()">
-                        <li> + 登録</li>
+            <div style="min-width: 1200px">
+                <ul class="userlist-nav center list-unstyled">
+                    <a href="">
+                        <li> 全て</li>
                     </a>
-                @endif
-            </ul>
+                </ul>
+                <ul class="userlist-nav center list-unstyled" style="float: right;">
+                    <a href="" onclick="adjustRowHeight()">
+                        <li class="fa fa-list"> </li>
+                    </a>
 
-            <hr />
+                    @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
+                        <a href="" onclick="clientRegisterModalHandler()">
+                            <li> + 登録</li>
+                        </a>
+                    @endif
+                </ul>
+
+                <hr />
+            </div>
 
             {{-- ///====CLIENT-TABLE HEADER====/// --}}
             <div id="table-nav" class="midori">
