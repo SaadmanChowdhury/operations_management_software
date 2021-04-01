@@ -58,11 +58,21 @@ class Project extends Model
         if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
             $validatedData = $request->validated();
 
-            $validatedData['order_status'] = $this->convertOrderStatusToInt($request->order_status);
-            $validatedData['business_situation'] = $this->convertBusinessSituationToInt($request->business_situation);
-            $validatedData['development_stage'] = $this->convertDevelopmentStageToInt($request->development_stage);
             //saving new record
-            Project::create($validatedData);
+            DB::table('projects')->insert([
+                'project_name' => $validatedData['projectName'],
+                'client_id' => $validatedData['clientID'],
+                'manager_id' => $validatedData['projectLeaderID'],
+                'order_month' => $validatedData['orderMonth'],
+                'inspection_month' => $validatedData['inspectionMonth'],
+                'order_status' => $validatedData['orderStatus'],
+                'business_situation' => $validatedData['businessSituation'],
+                'development_stage' => $validatedData['developmentStage'],
+                'sales_total' => $validatedData['salesTotal'],
+                'transferred_amount' => $validatedData['transferredAmount'],
+                'budget' => $validatedData['budget'],
+            ]);
+
             return JSONHandler::emptySuccessfulJSONPackage();
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");

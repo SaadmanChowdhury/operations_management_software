@@ -77,9 +77,9 @@
                 </a>
 
                 @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
-                    <a href="" onclick="ProjectRegisterModalHandler()">
-                        <li> + 登録</li>
-                    </a>
+                <a href="" onclick="ProjectRegisterModalHandler()">
+                    <li> + 登録</li>
+                </a>
                 @endif
             </ul>
 

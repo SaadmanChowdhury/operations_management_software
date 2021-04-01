@@ -91,6 +91,7 @@ class ProjectController extends Controller
 
     public function createProject(ProjectUpsert $request)
     {
+        \Illuminate\Support\Facades\Log::debug($request);
         // $project = new Project();
         // $project->createProject($request);
         $loggedUser = auth()->user();
