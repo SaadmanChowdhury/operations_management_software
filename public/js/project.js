@@ -133,7 +133,7 @@ function renderProjectHTML(response) {
     });
 
     PROJECT_CARDS = document.querySelectorAll('._project.card');
-    console.log(PROJECT_CARDS);
+    // console.log(PROJECT_CARDS);
 
 }
 

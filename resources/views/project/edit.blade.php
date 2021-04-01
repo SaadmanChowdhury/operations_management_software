@@ -29,11 +29,10 @@
                     </div>
 
                     @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
-                        <div onclick="deleteProject()">
-                            <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
-                                    aria-hidden="true"></i>
-                                削除</a>
-                        </div>
+                    <div onclick="deleteProject()">
+                        <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            削除</a>
+                    </div>
                     @endif
                 </div>
 
@@ -68,7 +67,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_order_status_Input" required>
                                     @foreach (config('constants.Order_Status') as $status => $value)
-                                        <option value="{{ $value }}">{{ $status }}</option>
+                                    <option value="{{ $value }}">{{ $status }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -79,7 +78,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_business_situation_Input" required>
                                     @foreach (config('constants.Business_situation') as $situation => $value)
-                                        <option value="{{ $value }}">{{ $situation }}</option>
+                                    <option value="{{ $value }}">{{ $situation }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -90,7 +89,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_development_stage_Input" required>
                                     @foreach (config('constants.Development_stage') as $stage => $value)
-                                        <option value="{{ $value }}">{{ $stage }}</option>
+                                    <option value="{{ $value }}">{{ $stage }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -107,8 +106,7 @@
 
                         <div class="_third">
                             <div><label for="transferred_amount">振込金額</label></div>
-                            <div><input type="number" id="project_edit_transferred_amount_Input"
-                                    name="transferred_amount" required></div>
+                            <div><input type="number" id="project_edit_transferred_amount_Input" name="transferred_amount" required></div>
                         </div>
 
                         <div class="_third">
@@ -120,14 +118,12 @@
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="order_month">受注月</label></div>
-                            <div><input type="date" id="project_edit_order_month_Input" name="inspection_month"
-                                    required></div>
+                            <div><input type="date" id="project_edit_order_month_Input" name="inspection_month" required></div>
                         </div>
 
                         <div class="_half">
                             <div><label for="inspection_month">検収月</label></div>
-                            <div><input type="date" id="project_edit_inspection_month_Input" name="inspection_month"
-                                    required></div>
+                            <div><input type="date" id="project_edit_inspection_month_Input" name="inspection_month" required></div>
                         </div>
                     </div>
 
@@ -264,7 +260,6 @@
         event.preventDefault();
 
         modalData = getProjectEditFormData();
-        console.log(modalData)
 
         $.ajax({
             type: "post",
@@ -284,6 +279,8 @@
         });
     }
 
+
+
     function deleteProject() {
         event.preventDefault();
         projectId = $('#id').val();
@@ -292,7 +289,7 @@
             type: "post",
             url: "/API/deleteProject",
             data: {
-                id: projectId,
+                id: $('#id').val(),
                 _token: $('input[name=_token]').val()
             },
             cache: false,
@@ -308,5 +305,4 @@
             }
         });
     }
-
 </script>

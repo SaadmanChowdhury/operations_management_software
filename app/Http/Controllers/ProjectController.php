@@ -134,10 +134,11 @@ class ProjectController extends Controller
         return JSONHandler::emptySuccessfulJSONPackage();
     }
 
-    public function deleteProject($id)
+    public function deleteProject(Request $request)
     {
+        $id = $request->id;
         $project = new Project();
-        $project->deleteProject($id);
+        return $project->deleteProject($id);
     }
 
     public function getProjectProfit($project_id)
