@@ -20,17 +20,16 @@
 
     <script src="/js/lookup.js"></script>
     <script>
-        function showBody() {
-            $("body").css('transition', '2s ease-in');
-            $("body").css('opacity', '1');
-            setTimeout(function() {
-                $("body").css('transition', 'unset')
-            }, 2000);
-        }
+    function showBody() {
+        $("body").css('transition', '2s ease-in');
+        $("body").css('opacity', '1');
+        setTimeout(function() {
+            $("body").css('transition', 'unset')
+        }, 2000);
+    }
 
-        fetchUserList();
-        fetchClientList();
-
+    fetchUserList();
+    fetchClientList();
     </script>
 </head>
 
@@ -41,7 +40,29 @@
 
     <body style="opacity: 0;" onload="showBody()"> --}}
 
-        @include("sidebar")
+    <div id="id01" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container ">
 
-        <div id="background-shade"></div>
-        <div class="page-container">
+                <div class="w3-modal-content-header"> お願い </div>
+                <hr>
+
+                <span class="w3-container-text">スクリーンの解像度の影響で画面が正確に表示されておりませんと検出致しました。
+                    恐れ入りますが、
+                    デザインがスクリーンと合うまで、</span>
+                </br></br>
+
+                <div class="w3-container-text"> Windowsの場合は、<span class="w3-container-button">Ctrl ー</span> と、</div>
+                <div class="w3-container-text"> Macの場合は、<span class="w3-container-button">Cmd ー</span> </div>
+                </br>
+                <div class="w3-container-text"> をお押しください。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @include("sidebar")
+
+    <div id="background-shade"></div>
+    <div id="background-shade-for-design-anomaly" class="bg-shade"></div>
+    <div class="page-container">

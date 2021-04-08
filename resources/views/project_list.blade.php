@@ -118,17 +118,10 @@
     </div>
 </div>
 
-<div id="id01" class="w3-modal">
-    <div class="w3-modal-content">
-        <div class="w3-container">
-            <p>Please zoom out because your screen size is not compaitble.</p>
-        </div>
-    </div>
-</div>
 
-@include("project.edit")
-@include("project.create")
+    @include("project.edit")
+    @include("project.create")
 
-<script src="/js/project.js"></script>
-<script src="/js/anamolyChecker.js"></script>
-@include("footer")
+    <script src="/js/project.js"></script>
+    <script src="/js/anamolyChecker.js"></script>
+    @include("footer")
