@@ -30,10 +30,13 @@ function showHideErrorModalBasedOnAlignments(){
 
 		var shade=document.getElementById('background-shade-for-design-anomaly')
 		
-		shade.style.display = "block";;
-		setTimeout(function () {
-			shade.style.opacity = 0.3;
-		}, 0);
+		if ( shade.classList.contains('bg-shade') ){
+
+			shade.classList.remove("bg-shade");
+			shade.classList.add("bg-shade-an");
+			
+
+		}
 
 		console.log(document.getElementById('background-shade-for-design-anomaly'));
 		setTimeout(function(){
@@ -55,10 +58,13 @@ function showHideErrorModalBasedOnAlignments(){
 
 		var shade=document.getElementById('background-shade-for-design-anomaly')
 		
-		shade.style.display = "none";;
-		setTimeout(function () {
-			shade.style.opacity = 0.0;
-		}, 0);
+		if ( shade.classList.contains('bg-shade-an') ){
+
+			shade.classList.remove("bg-shade-an");
+			shade.classList.add("bg-shade");
+			
+
+		}
 
 		setTimeout(function(){
 

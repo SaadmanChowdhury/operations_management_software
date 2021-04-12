@@ -2126,23 +2126,40 @@ td img {
 
 
 .bg-shade{
-    display: none;
+   
     position: fixed;
     top: 0;
-    left: 60px;
-    width: calc(100% - 60px);
+    width: 100%;
     height: 100%;
     background-color: black;
-    opacity: 0;
+    opacity: .9;
     transition: 0.3s ease all;
-    z-index: 100;
+    z-index: 9000;
+    display: none;
+   
+
+}
+
+.bg-shade-an{
+   
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .9;
+    transition: 0.3s ease all;
+    z-index: 9000;
+    display: block;
+    backdrop-filter: blur(20px);
+
 }
 
 .w3-modal{ 
     
     transition: 1s;
     margin-top: 50%;
-    z-index:101;
+    z-index:9001;
     display:none; 
     padding-top:100px;
     position:fixed;
@@ -2159,8 +2176,7 @@ td img {
 
 .w3-modal-an{ 
     
-    z-index:101;
-    display:none; 
+    z-index:9001;
     padding-top:100px;
     position:fixed;
     left:0;
@@ -2169,8 +2185,8 @@ td img {
     height:100%;
     overflow:auto;
     background-color:rgba(0, 0, 0, 0.0);
-    /* backdrop-filter: blur(5px); */
-    transition: 1s;
+    /* backdrop-filter: blur(5px);  */
+    transition: 1s ease all;
     
    
 
@@ -2179,7 +2195,7 @@ td img {
 
 .w3-modal-content {
     margin: auto;
-    background-color:  rgba(11, 24, 65, 0.99);
+    background-color:  rgb(5 7 12 / 99%);
     position: relative;
     padding: 20px;
     outline: 0;
@@ -2190,6 +2206,7 @@ td img {
     filter: alpha(opacity=90);  /* IE 5-7 */
     -moz-opacity: 0.9;          /* Netscape */
     -khtml-opacity: 0.9;        /* Safari 1.x */
+    backdrop-filter: blur(5px);
     opacity: 0.9;  
     
     /* box-shadow: inset 0 0 2000px rgba(0, 0, 0, .5); */
