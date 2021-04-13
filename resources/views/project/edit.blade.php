@@ -67,7 +67,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_order_status_Input" required>
                                     @foreach (config('constants.Order_Status') as $status => $value)
-                                    <option value="{{ $value }}">{{ $status }}</option>
+                                    <option>{{ $status }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -78,7 +78,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_business_situation_Input" required>
                                     @foreach (config('constants.Business_situation') as $situation => $value)
-                                    <option value="{{ $value }}">{{ $situation }}</option>
+                                    <option>{{ $situation }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -89,7 +89,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_development_stage_Input" required>
                                     @foreach (config('constants.Development_stage') as $stage => $value)
-                                    <option value="{{ $value }}">{{ $stage }}</option>
+                                    <option>{{ $stage }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -182,13 +182,13 @@
     }
 
     function handleAJAXError(err) {
-        console.log(err);
+        // console.log(err);
     }
 
     function updateProjectTable(updatedData) {
-        console.log(updatedData);
+        // console.log(updatedData);
 
-        console.log("UDPATE Project TABLE")
+        // console.log("UDPATE Project TABLE")
 
         let row = $("#project-row-" + updatedData.id);
 
@@ -245,7 +245,7 @@
             cache: false,
             success: function(response) {
                 if (response["resultStatus"]["isSuccess"]) {
-                    console.log(response)
+                    // console.log(response)
                     updateProjectEditModalData(response["resultData"]);
                 } else
                     handleAJAXResponse(response);
