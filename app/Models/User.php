@@ -136,9 +136,9 @@ class User extends Authenticatable
         $validatedData = $request->validated();
 
         $validatedData['password'] = bcrypt($request->password);
-        $validatedData['position'] = $this->convertPositionToInt($request->position);
-        $validatedData['user_authority'] = $this->convertAuthToInt($request->user_authority);
-        $validatedData['location'] = $this->convertLocationToInt($request->location);
+        // $validatedData['position'] = $this->convertPositionToInt($request->position);
+        // $validatedData['user_authority'] = $this->convertAuthToInt($request->user_authority);
+        // $validatedData['location'] = $this->convertLocationToInt($request->location);
 
         //saving new record
         User::create($validatedData);

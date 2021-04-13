@@ -61,7 +61,7 @@ class UserController extends Controller
     {
         $loggedUser = auth()->user();
 
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $user = new User();
             $user->createUser($request);
             return JSONHandler::emptySuccessfulJSONPackage();

@@ -22,8 +22,7 @@
                     </div>
 
                     <div>
-                        <button type="submit" class="cancel" onclick="closeModal('user-create-modal')"><i
-                                class="fa fa-times" aria-hidden="true"></i> 戻る</button>
+                        <button type="submit" class="cancel" onclick="closeModal('user-create-modal')"><i class="fa fa-times" aria-hidden="true"></i> 戻る</button>
                     </div>
                 </div>
 
@@ -58,7 +57,7 @@
                             <div class="custom-select">
                                 <select id="user_create_locationInput" required>
                                     @foreach (config('constants.Location') as $location => $value)
-                                        <option>{{ $location }}</option>
+                                    <option>{{ $location }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -76,7 +75,7 @@
                             <div class="custom-select">
                                 <select id="user_create_positionInput" required>
                                     @foreach (config('constants.Position') as $position => $value)
-                                        <option>{{ $position }}</option>
+                                    <option>{{ $position }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -95,7 +94,7 @@
                             <div class="custom-select">
                                 <select id="user_create_authorityInput" required>
                                     @foreach (config('constants.User_authority') as $authority => $value)
-                                        <option name="user_authority">{{ $authority }}</option>
+                                    <option name="user_authority">{{ $authority }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -181,5 +180,4 @@
             }
         });
     }
-
 </script>
