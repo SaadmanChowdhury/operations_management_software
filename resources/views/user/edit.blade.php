@@ -28,12 +28,11 @@
                         </button>
                     </div>
 
-                    @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                        <div onclick="deleteUser()">
-                            <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
-                                    aria-hidden="true"></i>
-                                削除</a>
-                        </div>
+                    @if ($loggedUser->user_authority == 'システム管理者')
+                    <div onclick="deleteUser()">
+                        <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            削除</a>
+                    </div>
                     @endif
                 </div>
 
@@ -71,7 +70,7 @@
                             <div class="custom-select">
                                 <select id="user_edit_locationInput">
                                     @foreach (config('constants.Location') as $location => $value)
-                                        <option value="{{ $value }}">{{ $location }}</option>
+                                    <option>{{ $location }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -82,14 +81,14 @@
 
                         <div class="_half">
                             <div><label for="salary">原価</label></div>
-                            @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                                <div>
-                                    <input type="number" id="user_edit_salaryInput" name="salary" value="" required>
-                                </div>
+                            @if ($loggedUser->user_authority == 'システム管理者')
+                            <div>
+                                <input type="number" id="user_edit_salaryInput" name="salary" value="" required>
+                            </div>
                             @else
-                                <div>
-                                    <input type="number" id="user_edit_salaryInput" name="salary" value="" readonly>
-                                </div>
+                            <div>
+                                <input type="number" id="user_edit_salaryInput" name="salary" value="" readonly>
+                            </div>
                             @endif
                         </div>
 
@@ -98,7 +97,7 @@
                             <div class="custom-select">
                                 <select id="user_edit_positionInput">
                                     @foreach (config('constants.Position') as $position => $value)
-                                        <option value="{{ $value }}">{{ $position }}</option>
+                                    <option>{{ $position }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -108,30 +107,27 @@
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="admission_day">入場日</label></div>
-                            @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                                <div>
-                                    <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
-                                </div>
+                            @if ($loggedUser->user_authority == 'システム管理者')
+                            <div>
+                                <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
+                            </div>
                             @else
-                                <div>
-                                    <input type="date" id="user_edit_admission_dayInput" name="admission_day" value=""
-                                        readonly>
-                                </div>
+                            <div>
+                                <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="" readonly>
+                            </div>
                             @endif
                         </div>
 
                         <div class="_half">
                             <div><label for="resignation_year">退職日</label></div>
-                            @if ($loggedUser->user_authority == config('constants.User_authority.システム管理者'))
-                                <div>
-                                    <input type="date" id="user_edit_resignation_yearInput" name="resignation_year"
-                                        value="">
-                                </div>
+                            @if ($loggedUser->user_authority == 'システム管理者')
+                            <div>
+                                <input type="date" id="user_edit_resignation_yearInput" name="resignation_year" value="">
+                            </div>
                             @else
-                                <div>
-                                    <input type="date" id="user_edit_resignation_yearInput" name="resignation_year"
-                                        value="" readonly>
-                                </div>
+                            <div>
+                                <input type="date" id="user_edit_resignation_yearInput" name="resignation_year" value="" readonly>
+                            </div>
                             @endif
                         </div>
                     </div>
@@ -293,5 +289,4 @@
             }
         });
     }
-
 </script>

@@ -178,7 +178,7 @@ class User extends Authenticatable
 
     public function updateUser($request, $id)
     {
-        $validatedData['position'] = $this->convertPositionToInt($request->position);
+        // $validatedData['position'] = $this->convertPositionToInt($request->position);
 
         //validating data
         $validatedData = $request->validated();
@@ -186,6 +186,11 @@ class User extends Authenticatable
         //if the password has been changed -> hashing password
         if ($request->password != null) {
             $validatedData['password'] = bcrypt($request->password);
+        } else {
+            // the password is not changed, so setting the old password
+            $data = User::select('password')->where('user_id', $id)->first();
+            $oldPassword = $data->password;
+            $validatedData['password'] = $oldPassword;
         }
 
         //changing the array key name from id to user_id
