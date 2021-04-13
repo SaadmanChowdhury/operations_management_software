@@ -96,10 +96,7 @@ class ProjectService
             $managerID = $project->managerID;
         }
         //only admin and manager can update the project
-        if (
-            $loggedUser->user_authority == config('User_authority.システム管理者') ||
-            $loggedUser->user_id == $managerID
-        ) {
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $managerID) {
 
             $validatedData = $this->formatDataToCreateOrUpdate($request);
 
@@ -128,7 +125,7 @@ class ProjectService
     private function helper_fetchProjectList($array)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             // take your decision
             return $array;
         }

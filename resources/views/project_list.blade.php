@@ -76,7 +76,7 @@
                     <li class="fa fa-list"> </li>
                 </a>
 
-                @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
+                @if ($loggedInUser->user_authority == 'システム管理者')
                 <a href="" onclick="ProjectRegisterModalHandler()">
                     <li> + 登録</li>
                 </a>

@@ -56,35 +56,35 @@ function fetchProjectList_AJAX() {
 
 function getOrderStatusHTML(data) {
     switch (data) {
-        case 0: return "<li><div class='order-tag _red'>A</div></li>";
-        case 1: return "<li><div class='order-tag _orange'>B</div></li>";
-        case 2: return "<li><div class='order-tag _orange'>C</div></li>";
-        case 3: return "<li><div class='order-tag _gray'>Z</div></li>";
-        case 4: return "<li><div class='order-tag _green'>○</div></li>";
+        case 'A': return "<li><div class='order-tag _red'>A</div></li>";
+        case 'B': return "<li><div class='order-tag _orange'>B</div></li>";
+        case 'C': return "<li><div class='order-tag _orange'>C</div></li>";
+        case 'Z': return "<li><div class='order-tag _gray'>Z</div></li>";
+        case '●': return "<li><div class='order-tag _green'>○</div></li>";
         default: return "<li></li>";
     }
 }
 
 function getBusinessSituationHTML(data) {
     switch (data) {
-        case 0: return "<li><div class='business-tag _green'>● 見積前</div></li>";
-        case 1: return "<li><div class='business-tag _green'>● 見積中</div></li>";
-        case 2: return "<li><div class='business-tag _green'>● 見積済</div></li>";
-        case 3: return "<li><div class='business-tag _green'>● 受注</div></li>";
-        case 4: return "<li><div class='business-tag _green'>● 検収中</div></li>";
-        case 5: return "<li><div class='business-tag _green'>● 完了</div></li>";
+        case '見積前': return "<li><div class='business-tag _green'>● 見積前</div></li>";
+        case '見積中': return "<li><div class='business-tag _green'>● 見積中</div></li>";
+        case '見積済': return "<li><div class='business-tag _green'>● 見積済</div></li>";
+        case '受注': return "<li><div class='business-tag _green'>● 受注</div></li>";
+        case '検収中': return "<li><div class='business-tag _green'>● 検収中</div></li>";
+        case '完了': return "<li><div class='business-tag _green'>● 完了</div></li>";
         default: return "<li></li>";
     }
 }
 
 function getDevelopmentStageHTML(data) {
     switch (data) {
-        case 0: return "<li><div class='development-tag _blue'>受注前着手</div></li>";
-        case 1: return "<li><div class='development-tag _blue'>要件定義</div></li>";
-        case 2: return "<li><div class='development-tag _blue'>設計</div></li>";
-        case 3: return "<li><div class='development-tag _blue'>実装</div></li>";
-        case 4: return "<li><div class='development-tag _blue'>テスト</div></li>";
-        case 5: return "<li><div class='development-tag _blue'>開発完了</div></li>";
+        case '受注前着手': return "<li><div class='development-tag _blue'>受注前着手</div></li>";
+        case '要件': return "<li><div class='development-tag _blue'>要件定義</div></li>";
+        case '設計': return "<li><div class='development-tag _blue'>設計</div></li>";
+        case '実装': return "<li><div class='development-tag _blue'>実装</div></li>";
+        case 'テスト': return "<li><div class='development-tag _blue'>テスト</div></li>";
+        case '開発完了': return "<li><div class='development-tag _blue'>開発完了</div></li>";
         default: return "<li></li>";
     }
 }

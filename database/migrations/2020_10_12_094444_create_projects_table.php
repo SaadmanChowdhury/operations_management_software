@@ -23,9 +23,9 @@ class CreateProjectsTable extends Migration
 
             $table->date('order_month')->nullable();
             $table->date('inspection_month')->nullable();
-            $table->tinyInteger('order_status')->nullable();
-            $table->tinyInteger('business_situation')->nullable();
-            $table->tinyInteger('development_stage')->nullable();
+            $table->enum('order_status', ['A', 'B', 'C', 'Z', '●'])->nullable();
+            $table->enum('business_situation', ['見積前', '見積中', '見積済', '受注', '検収中', '完了'])->nullable();
+            $table->enum('development_stage', ['受注前着手', '要件', '設計', '実装', 'テスト', '開発完了'])->nullable();
             $table->bigInteger('sales_total')->nullable();
             $table->bigInteger('transferred_amount')->nullable();
             $table->bigInteger('budget')->nullable();
