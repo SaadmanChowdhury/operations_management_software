@@ -26,19 +26,18 @@ function renderHTML(response) {
     var staffs = document.getElementsByClassName('table-body');
     response["resultData"]["user"].forEach((row) => {
 
-
         var pos;
         switch (row.position) {
-            case 0:
+            case 'PM':
                 pos = 'PM';
                 break;
-            case 1:
+            case 'PL':
                 pos = 'PL';
                 break;
-            case 2:
+            case 'SE':
                 pos = 'SE';
                 break;
-            case 3:
+            case 'PG':
                 pos = 'PG';
                 break;
             default:
@@ -47,13 +46,13 @@ function renderHTML(response) {
         // USER_LOCATION
         var loc;
         switch (row.location) {
-            case 0:
+            case '宮崎':
                 loc = '宮崎';
                 break;
-            case 1:
+            case '東京':
                 loc = '東京';
                 break;
-            case 2:
+            case '福岡':
                 loc = '福岡';
                 break;
 
@@ -85,7 +84,7 @@ function renderHTML(response) {
         // console.log(gender);
 
         var unitPrice = numberWithCommas(row.unitPrice) + " 円";
-        if (auth != 0) {
+        if (auth != 'システム管理者') {
             unitPrice = '';
         }
 
