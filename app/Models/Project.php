@@ -148,10 +148,7 @@ class Project extends Model
         $project = Project::find($id);
 
         //if admin or manager
-        if (
-            $loggedUser->user_authority == config('User_authority.システム管理者') ||
-            $loggedUser->user_id == $project->manager_id
-        ) {
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
             //soft delete
             $project->delete();
             return JSONHandler::emptySuccessfulJSONPackage();
