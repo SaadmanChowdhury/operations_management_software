@@ -54,7 +54,7 @@
                             <div class="custom-select">
                                 <select id="project_create_order_status_Input" required>
                                     @foreach (config('constants.Order_Status') as $status => $value)
-                                    <option value="{{ $value }}">{{ $status }}</option>
+                                    <option>{{ $status }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -65,7 +65,7 @@
                             <div class="custom-select">
                                 <select id="project_create_business_situation_Input" required>
                                     @foreach (config('constants.Business_situation') as $situation => $value)
-                                    <option value="{{ $value }}">{{ $situation }}</option>
+                                    <option>{{ $situation }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -76,7 +76,7 @@
                             <div class="custom-select">
                                 <select id="project_create_development_stage_Input" required>
                                     @foreach (config('constants.Development_stage') as $stage => $value)
-                                    <option value="{{ $value }}">{{ $stage }}</option>
+                                    <option>{{ $stage }}</option>
                                     @endforeach
                                 </select>
                             </div>

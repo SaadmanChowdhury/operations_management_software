@@ -96,7 +96,7 @@ class ProjectController extends Controller
         // $project->createProject($request);
         $loggedUser = auth()->user();
 
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $project = new Project();
             $project->createProject($request);
             return JSONHandler::emptySuccessfulJSONPackage();

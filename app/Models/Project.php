@@ -55,7 +55,7 @@ class Project extends Model
     public function createProject($request)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $validatedData = $request->validated();
 
             //saving new record
@@ -129,10 +129,7 @@ class Project extends Model
             ->whereNull("deleted_at")
             ->first();
         //if admin or manager
-        if (
-            $loggedUser->user_authority == config('User_authority.システム管理者') ||
-            $loggedUser->user_id == $project->manager_id
-        ) {
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
             return $project;
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");

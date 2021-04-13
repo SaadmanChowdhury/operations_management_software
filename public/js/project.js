@@ -346,7 +346,7 @@ pos.on("click", function () {
     event.preventDefault();
 
     clickedItem = $($(this)[0]).html();
-    console.log(clickedItem);
+    // console.log(clickedItem);
 
 
     switch (clickedItem) {
