@@ -78,9 +78,9 @@
                 </a>
 
                 @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
-                    <a href="" onclick="ProjectRegisterModalHandler()">
-                        <li> + 登録</li>
-                    </a>
+                <a href="" onclick="ProjectRegisterModalHandler()">
+                    <li> + 登録</li>
+                </a>
                 @endif
             </ul>
 
@@ -120,9 +120,10 @@
     </div>
 </div>
 
-@include("project.edit")
-@include("project.create")
 
-<script src="/js/project.js"></script>
+    @include("project.edit")
+    @include("project.create")
 
-@include("footer")
+    <script src="/js/project.js"></script>
+    <script src="/js/anamolyChecker.js"></script>
+    @include("footer")
