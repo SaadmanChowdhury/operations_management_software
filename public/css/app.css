@@ -586,9 +586,10 @@ footer {
 }
 
 .modal-container {
+    overflow: scroll;
     display: none;
     position: absolute;
-    top: 0px;
+    top: -4px;
     left: 0px;
     height: calc(100vh - 60px - 4px);
     width: calc(100% - 0px);
@@ -629,7 +630,7 @@ footer {
 
 .modal-form-container._project {
     max-height: 1200px;
-    top: 50vh;
+    top: 60vh;
 }
 
 .modal-show .modal-form-container {
@@ -998,6 +999,12 @@ footer {
 }
 
 .column.left {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    
+    overflow: hidden;
+    align-self: flex-start;
     background-color: #F0F0F0;
     text-align: center;
     margin-right: 20px;
@@ -1124,7 +1131,8 @@ input:read-only {
 }
 
 .modal-title {
-    position: relative;
+    top: -3px;
+    position: sticky;
     font-size: 24px;
     letter-spacing: 10px;
     text-align: center;
@@ -1161,7 +1169,7 @@ input:read-only {
 button.cancel {
     color: gray;
     border: 2px solid gray;
-    margin-bottom: 80px;
+    
 }
 
 button.cancel:hover {
@@ -2301,3 +2309,42 @@ td img {
     
 }
 /* ////====Design anomaly modal css ended ====//// */
+
+
+@media (-webkit-device-pixel-ratio: 1.50) {
+  
+  .modal-form-container._project {
+    
+        top: 80%;}
+}
+@media (-webkit-device-pixel-ratio: 1) {
+  
+    .modal-form-container._project {
+      
+      top: 50vh;
+  }
+  .modal-form-container._user {
+      
+    top: 90vh;
+}
+.modal-form-container._client {
+      
+    top: 90vh;
+}
+}
+
+@media (-webkit-device-pixel-ratio: 1.75) {
+  
+    .modal-form-container._project {
+      
+      top: 90vh;
+  }
+  .modal-form-container._user {
+      
+    top: 90vh;
+}
+.modal-form-container._client {
+      
+    top: 90vh;
+}
+}
