@@ -23,13 +23,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 1, //tokyo
+                'location' => '東京', //tokyo
                 'tel' => '0123645789',
-                'position' => 0, //PM
+                'position' => 'PM', //PM
                 'admission_day' => '2019-01-01',
                 'exit_day' => null,
                 'unit_price' => 400000,
-                'user_authority' => 0,
+                'user_authority' => 'システム管理者',
                 'resign_day' => null,
             ],
             [
@@ -38,13 +38,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 0, //miyazaki
+                'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
-                'position' => 1, //PL
+                'position' => 'PL', //PL
                 'admission_day' => '2019-01-01',
                 'exit_day' => null,
                 'unit_price' => 350000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -53,13 +53,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 0, //miyazaki
+                'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
-                'position' => 2, //SE
+                'position' => 'SE', //SE
                 'admission_day' => '2019-04-01',
                 'exit_day' => null,
                 'unit_price' => 300000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -68,13 +68,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 0, //miyazaki
+                'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
-                'position' => 2, //SE
+                'position' => 'SE', //SE
                 'admission_day' => '2019-04-01',
                 'exit_day' => null,
                 'unit_price' => 280000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -83,13 +83,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 0, //miyazaki
+                'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2019-04-01',
                 'exit_day' => null,
                 'unit_price' => 240000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -98,13 +98,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 0, //miyazaki
+                'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2019-04-01',
                 'exit_day' => null,
                 'unit_price' => 240000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -113,13 +113,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 0, //miyazaki
+                'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2020-01-01',
                 'exit_day' => null,
                 'unit_price' => 220000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -128,13 +128,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 1, //female
-                'location' => 0, //miyazaki
+                'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2020-01-01',
                 'exit_day' => null,
                 'unit_price' => 220000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -143,13 +143,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 1, //tokyo
+                'location' => '東京', //tokyo
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2020-01-01',
                 'exit_day' => null,
                 'unit_price' => 220000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -158,13 +158,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 1, //tokyo
+                'location' => '東京', //tokyo
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
                 'exit_day' => null,
                 'unit_price' => 220000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -173,13 +173,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 1, //female
-                'location' => 1, //tokyo
+                'location' => '東京', //tokyo
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
                 'exit_day' => null,
                 'unit_price' => 220000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -188,13 +188,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 1, //tokyo
+                'location' => '東京', //tokyo
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
                 'exit_day' => null,
                 'unit_price' => 220000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -203,13 +203,13 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 0, //miyazaki
+                'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
                 'exit_day' => null,
                 'unit_price' => 220000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
@@ -218,28 +218,28 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 1, //female
-                'location' => 0, //miyazaki
+                'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
                 'exit_day' => null,
                 'unit_price' => 220000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
             [
-                'name' => 'ウッショブ',
+                'name' => 'ロイ',
                 'email' => 'utshab@gtmi.co.jp',
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'), // password
                 'gender' => 0, //male
-                'location' => 0, //miyazaki
+                'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
-                'position' => 3, //PG
+                'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
                 'exit_day' => null,
                 'unit_price' => 220000,
-                'user_authority' => 2,
+                'user_authority' => '一般ユーザー',
                 'resign_day' => null,
             ],
         ];

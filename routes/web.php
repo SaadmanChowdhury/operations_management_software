@@ -81,9 +81,9 @@ Route::get('/assign', [AssignController::class, 'index']);
 //----------------------------------------------------------------------------
 
 
-Route::get('/project', function () {
-    return view('project_list');
-});
+// Route::get('/project', function () {
+//     return view('project_list');
+// });
 
 
 //----------------------------------------------------------------------------

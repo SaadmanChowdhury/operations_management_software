@@ -1,5 +1,4 @@
 // const { data } = require("jquery");
-
 var coll1 = document.getElementById("row1head");
 var content1 = document.getElementById("row1");
 var content2 = document.getElementById("row2");
@@ -57,35 +56,35 @@ function fetchProjectList_AJAX() {
 
 function getOrderStatusHTML(data) {
     switch (data) {
-        case 0: return "<li><div class='order-tag _red'>A</div></li>";
-        case 1: return "<li><div class='order-tag _orange'>B</div></li>";
-        case 2: return "<li><div class='order-tag _orange'>C</div></li>";
-        case 3: return "<li><div class='order-tag _gray'>Z</div></li>";
-        case 4: return "<li><div class='order-tag _green'>○</div></li>";
+        case 'A': return "<li><div class='order-tag _red'>A</div></li>";
+        case 'B': return "<li><div class='order-tag _orange'>B</div></li>";
+        case 'C': return "<li><div class='order-tag _orange'>C</div></li>";
+        case 'Z': return "<li><div class='order-tag _gray'>Z</div></li>";
+        case '●': return "<li><div class='order-tag _green'>○</div></li>";
         default: return "<li></li>";
     }
 }
 
 function getBusinessSituationHTML(data) {
     switch (data) {
-        case 0: return "<li><div class='business-tag _green'>● 見積前</div></li>";
-        case 1: return "<li><div class='business-tag _green'>● 見積中</div></li>";
-        case 2: return "<li><div class='business-tag _green'>● 見積済</div></li>";
-        case 3: return "<li><div class='business-tag _green'>● 受注</div></li>";
-        case 4: return "<li><div class='business-tag _green'>● 検収中</div></li>";
-        case 5: return "<li><div class='business-tag _green'>● 完了</div></li>";
+        case '見積前': return "<li><div class='business-tag _green'>● 見積前</div></li>";
+        case '見積中': return "<li><div class='business-tag _green'>● 見積中</div></li>";
+        case '見積済': return "<li><div class='business-tag _green'>● 見積済</div></li>";
+        case '受注': return "<li><div class='business-tag _green'>● 受注</div></li>";
+        case '検収中': return "<li><div class='business-tag _green'>● 検収中</div></li>";
+        case '完了': return "<li><div class='business-tag _green'>● 完了</div></li>";
         default: return "<li></li>";
     }
 }
 
 function getDevelopmentStageHTML(data) {
     switch (data) {
-        case 0: return "<li><div class='development-tag _blue'>受注前着手</div></li>";
-        case 1: return "<li><div class='development-tag _blue'>要件定義</div></li>";
-        case 2: return "<li><div class='development-tag _blue'>設計</div></li>";
-        case 3: return "<li><div class='development-tag _blue'>実装</div></li>";
-        case 4: return "<li><div class='development-tag _blue'>テスト</div></li>";
-        case 5: return "<li><div class='development-tag _blue'>開発完了</div></li>";
+        case '受注前着手': return "<li><div class='development-tag _blue'>受注前着手</div></li>";
+        case '要件': return "<li><div class='development-tag _blue'>要件定義</div></li>";
+        case '設計': return "<li><div class='development-tag _blue'>設計</div></li>";
+        case '実装': return "<li><div class='development-tag _blue'>実装</div></li>";
+        case 'テスト': return "<li><div class='development-tag _blue'>テスト</div></li>";
+        case '開発完了': return "<li><div class='development-tag _blue'>開発完了</div></li>";
         default: return "<li></li>";
     }
 }
@@ -134,7 +133,7 @@ function renderProjectHTML(response) {
     });
 
     PROJECT_CARDS = document.querySelectorAll('._project.card');
-    console.log(PROJECT_CARDS);
+    // console.log(PROJECT_CARDS);
 
 }
 
@@ -147,69 +146,69 @@ function renderEmptyAssignAccordion(projectID) {
         `<div class="card-body row _accordion">` +
 
         `<div class="table-left">` +
-            `<table>` +
-                `<tr>
+        `<table>` +
+        `<tr>
                     <td>予算</td>
                     <td>71,4000　円</td>
                 </tr>`+
-                `<tr>
+        `<tr>
                     <td>原価</td>
                     <td>10,0000　円</td>
                 </tr>`+
-                `<tr>
+        `<tr>
                     <td>工数</td>
                     <td>10,0000　円</td>
                 </tr>`+
-                `<tr>
+        `<tr>
                     <td>粗利</td>
                     <td>1000　円</td>
                 </tr>`+
-                `<tr>
+        `<tr>
                     <td>率</td>
                     <td>75.4　%</td>
                 </tr>`+
-                `<tr>
+        `<tr>
                     <td>期間</td>
                     <td>2001-2004</td>
                 </tr>`+
-            `</table>` +
+        `</table>` +
         `</div>` +
         ` <div class="project-rhs">` +
-            `<div class="add-minus-holder editMode">
+        `<div class="add-minus-holder editMode">
                     <button class="btn round-btn primary _plus" onclick="addRow(${projectID})"><span
                             class="fa fa-plus"></span></button>
                     <button class="btn round-btn danger _minus"><span
                             class="fa fa-minus"></span></button>
                 </div>`+
-            `<div class="table-right row">` +
-            `<table class="table-fix">` +
+        `<div class="table-right row">` +
+        `<table class="table-fix">` +
         `           <tr>
                         <th class="mishti-orange">メンバー</th>
                         <th class="mishti-orange">工数合計</th>
 
                     </tr>`+
-                    `<tr class="row-total">
+        `<tr class="row-total">
                             <td>3</td>
                             <td>54.0</td>
                      </tr>`+
-                    `<tr class="editMode-input">
+        `<tr class="editMode-input">
                         <td><img src="img/pro_icon.png">社員</td>
                         <td>18.0</td>
 
                     </tr>`+
-                    `<tr class="editMode-input">
+        `<tr class="editMode-input">
                         <td><img src="img/pro_icon.png">社員</td>
                         <td>18.0</td>
                     </tr>`+
-                    `<tr class="editMode-input">
+        `<tr class="editMode-input">
                         <td><img src="img/pro_icon.png">社員</td>
                         <td>18.0</td>
                     </tr>`+
-                `</table>` +
+        `</table>` +
         `<div class="table-des-container">` +
-            `<table class="table-des">` +
-                `<tr>` +
-                    `<th>2020/01</th>
+        `<table class="table-des">` +
+        `<tr>` +
+        `<th>2020/01</th>
                         <th>2020/02</th>
                         <th>2020/03</th>
                         <th>2020/04</th>
@@ -228,9 +227,9 @@ function renderEmptyAssignAccordion(projectID) {
                         <th>2021/05</th>
                         <th>2022/06</th>`+
 
-                `</tr>` +
-                `<tr class="row-total">` +
-                        `<td>3.00</td>
+        `</tr>` +
+        `<tr class="row-total">` +
+        `<td>3.00</td>
                             <td>3.00</td>
                             <td>3.00</td>
                             <td>3.00</td>
@@ -249,28 +248,7 @@ function renderEmptyAssignAccordion(projectID) {
                             <td>3.0</td>
                             <td>3.0</td>`+
 
-                `</tr>` +
-                `<tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                            </tr>`+
+        `</tr>` +
         `<tr class="editMode-input">
                                 <td>1.00</td>
                                 <td>1.00</td>
@@ -313,7 +291,28 @@ function renderEmptyAssignAccordion(projectID) {
                                 <td>1.00</td>
 
                             </tr>`+
-                            
+        `<tr class="editMode-input">
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+
+                            </tr>`+
+
 
         `</table>` +
         `</div>` +
@@ -347,7 +346,7 @@ pos.on("click", function () {
     event.preventDefault();
 
     clickedItem = $($(this)[0]).html();
-    console.log(clickedItem);
+    // console.log(clickedItem);
 
 
     switch (clickedItem) {
@@ -458,123 +457,121 @@ function filterProject(e) {
 
 //===TURNING ON EDIT-MODE===//
 
-function editModeOn(x){
-    
-    var project=document.getElementById('project-row-'+x);
+function editModeOn(x) {
+
+    var project = document.getElementById('project-row-' + x);
     console.log(project);
     var buttons = project.getElementsByClassName('editMode');
-    var rightTable=document.querySelectorAll('.table-des');
+    var rightTable = document.querySelectorAll('.table-des');
     // var dataCells=dataTable[x-1].querySelectorAll('td');
-    var dataTable=rightTable[x-1].querySelectorAll('.editMode-input');
+    var dataTable = rightTable[x - 1].querySelectorAll('.editMode-input');
     // console.log(dataTable.length);
-    for(let i=0;i<buttons.length;i++)
-    {
-        buttons[i].style.display="block";
-        document.getElementsByClassName('pencil-btn')[x-1].style.display="none";
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.display = "block";
+        document.getElementsByClassName('pencil-btn')[x - 1].style.display = "none";
     }
-    
-    for(i=0;i<dataTable.length;i++){
-        var dataCells=dataTable[i].querySelectorAll('td');
+
+    for (i = 0; i < dataTable.length; i++) {
+        var dataCells = dataTable[i].querySelectorAll('td');
         console.log(dataCells);
-        for(let j=0;j<dataCells.length;j++){
-            dataCells[j].innerHTML="<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">";
+        for (let j = 0; j < dataCells.length; j++) {
+            dataCells[j].innerHTML = "<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">";
         }
     }
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
-    var fixTable=$('.table-fix')[x-1];
-    var dataTable2=fixTable.querySelectorAll('.editMode-input');
+    var fixTable = $('.table-fix')[x - 1];
+    var dataTable2 = fixTable.querySelectorAll('.editMode-input');
     console.log(dataTable2);
-    
+
     //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    for(i=0;i<dataTable2.length;i++){
-        dataCells=dataTable2[i].querySelectorAll('td');
-        for(let j=0;j<dataCells.length;j++){
-            dataCells[j].innerHTML=`<input type="number" name="pro_member" class="data-cell-fixed" required="" value="0">`;
-                        
+    for (i = 0; i < dataTable2.length; i++) {
+        dataCells = dataTable2[i].querySelectorAll('td');
+        for (let j = 0; j < dataCells.length; j++) {
+            dataCells[j].innerHTML = `<input type="number" name="pro_member" class="data-cell-fixed" required="" value="0">`;
+
         }
     }
-    
-      
+
+
 }
 
 //===TURNING OFF EDIT-MODE===//
 
-function editModeOff(x){
+function editModeOff(x) {
 
 
     //==FETCHING ALL EDITING BUTTONS==//
     var buttons = $('.editMode');
 
     //===DISAPPEARING EDITING BUTTONS===//
-    for(let i=0;i<buttons.length;i++)
-    {
-        buttons[i].style.display="none";
-        document.getElementsByClassName('pencil-btn')[x-1].style.display="block";
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.display = "none";
+        document.getElementsByClassName('pencil-btn')[x - 1].style.display = "block";
     }
-    
-    var details,user_details;
+
+    var details, user_details;
     //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
-    details = $('.data-cell').map(function() {
+    details = $('.data-cell').map(function () {
         return {
-          val: $(this).val(),
+            val: $(this).val(),
         };
-      }).get();
+    }).get();
 
     //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
 
-    var rightTable=$('.table-des');
-    var dataTable=rightTable[x-1].querySelectorAll('.editMode-input ');
-    
-    let k=0;
+    var rightTable = $('.table-des');
+    var dataTable = rightTable[x - 1].querySelectorAll('.editMode-input ');
+
+    let k = 0;
     //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    for(i=0;i<dataTable.length;i++){
-        var dataCells=dataTable[i].querySelectorAll('td');
+    for (i = 0; i < dataTable.length; i++) {
+        var dataCells = dataTable[i].querySelectorAll('td');
         // console.log(dataCells);
-        for(let j=0;j<dataCells.length;j++){
-            dataCells[j].innerHTML=details[k].val;
-            k++;            
+        for (let j = 0; j < dataCells.length; j++) {
+            dataCells[j].innerHTML = details[k].val;
+            k++;
         }
     }
-    k=0;
+    k = 0;
     //=== STORING DETAILS OF ORANGE-FIXED TABLE===//
-    user_details = $('.data-cell-fixed').map(function() {
+    user_details = $('.data-cell-fixed').map(function () {
         return {
-          val: $(this).val(),
+            val: $(this).val(),
         };
-      }).get();
+    }).get();
     console.log(user_details.length);
     console.log(details.length);
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
-    var fixTable=$('.table-fix')[x-1];
-    var dataTable2=fixTable.querySelectorAll('.editMode-input');
+    var fixTable = $('.table-fix')[x - 1];
+    var dataTable2 = fixTable.querySelectorAll('.editMode-input');
     console.log(dataTable2);
-    
+
     //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    for(i=0;i<dataTable2.length;i++){
-        dataCells=dataTable2[i].querySelectorAll('td');
-        for(let j=0;j<dataCells.length;j++){
-            if(j%2==0)
-                dataCells[j].innerHTML=`<img src="img/pro_icon.png">`+user_details[k].val;
+    for (i = 0; i < dataTable2.length; i++) {
+        dataCells = dataTable2[i].querySelectorAll('td');
+        for (let j = 0; j < dataCells.length; j++) {
+            if (j % 2 == 0)
+                dataCells[j].innerHTML = `<img src="img/pro_icon.png">` + user_details[k].val;
             else
-                dataCells[j].innerHTML=user_details[k].val;
-            k++            
+                dataCells[j].innerHTML = user_details[k].val;
+            k++
         }
     }
-    k=0;
+    k = 0;
 
 
 }
 
 //===ADDING ROWS on CLICKING ADD BUTTON===//
 
-function addRow(x){
-    $('.table-fix tbody')[x-1].innerHTML+=`<tr class="editMode-input">
+function addRow(x) {
+    $('.table-fix tbody')[x - 1].innerHTML += `<tr class="editMode-input">
                                                 <td><input type="number" name="pro_member" class="data-cell-fixed" required="" value="0"></td>
                                                 <td><input type="number" name="pro_member" class="data-cell-fixed" required="" value="0"></td>
                                             </tr>`;
-    $('.table-des tbody')[x-1].innerHTML+= `<tr class="editMode-input">
+    $('.table-des tbody')[x - 1].innerHTML += `<tr class="editMode-input">
                                             <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
                                             <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
                                             <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>

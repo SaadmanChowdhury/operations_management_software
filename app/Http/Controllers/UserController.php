@@ -61,7 +61,7 @@ class UserController extends Controller
     {
         $loggedUser = auth()->user();
 
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $user = new User();
             $user->createUser($request);
             return JSONHandler::emptySuccessfulJSONPackage();
@@ -89,7 +89,7 @@ class UserController extends Controller
         $loggedUser = auth()->user();
         $id = $request->userID;
 
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
 
             $user = new User();
             $info = $user->readUser($id);
@@ -112,8 +112,7 @@ class UserController extends Controller
 
         $id = $request->id;
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
-
+        if ($loggedUser->user_authority == 'システム管理者') {
             $user = new User();
             $user->updateUser($request, $id);
             return JSONHandler::emptySuccessfulJSONPackage();
@@ -133,7 +132,7 @@ class UserController extends Controller
     public function deleteUser(Request $request)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
 
             $user = new User();
             $user->deleteUser($request->id);

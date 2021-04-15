@@ -55,14 +55,24 @@ class Project extends Model
     public function createProject($request)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $validatedData = $request->validated();
 
-            $validatedData['order_status'] = $this->convertOrderStatusToInt($request->order_status);
-            $validatedData['business_situation'] = $this->convertBusinessSituationToInt($request->business_situation);
-            $validatedData['development_stage'] = $this->convertDevelopmentStageToInt($request->development_stage);
             //saving new record
-            Project::create($validatedData);
+            DB::table('projects')->insert([
+                'project_name' => $validatedData['projectName'],
+                'client_id' => $validatedData['clientID'],
+                'manager_id' => $validatedData['projectLeaderID'],
+                'order_month' => $validatedData['orderMonth'],
+                'inspection_month' => $validatedData['inspectionMonth'],
+                'order_status' => $validatedData['orderStatus'],
+                'business_situation' => $validatedData['businessSituation'],
+                'development_stage' => $validatedData['developmentStage'],
+                'sales_total' => $validatedData['salesTotal'],
+                'transferred_amount' => $validatedData['transferredAmount'],
+                'budget' => $validatedData['budget'],
+            ]);
+
             return JSONHandler::emptySuccessfulJSONPackage();
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
@@ -119,10 +129,7 @@ class Project extends Model
             ->whereNull("deleted_at")
             ->first();
         //if admin or manager
-        if (
-            $loggedUser->user_authority == config('User_authority.システム管理者') ||
-            $loggedUser->user_id == $project->manager_id
-        ) {
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
             return $project;
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
@@ -141,10 +148,7 @@ class Project extends Model
         $project = Project::find($id);
 
         //if admin or manager
-        if (
-            $loggedUser->user_authority == config('User_authority.システム管理者') ||
-            $loggedUser->user_id == $project->manager_id
-        ) {
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
             //soft delete
             $project->delete();
             return JSONHandler::emptySuccessfulJSONPackage();
@@ -176,6 +180,20 @@ class Project extends Model
             ->whereNull("deleted_at")
             ->sum('assign.execution');
         return $data;
+    }
+
+    /**
+     * get total man-hours of a project
+     */
+    public function getTotalManHours($project_id)
+    {
+        //getting the total man-month
+        $totalManMonth = $this->getTotalManMonth($project_id);
+
+        //converting man-month to man-hours
+        $totalManHours = intval($totalManMonth) * 22 * 8;
+
+        return $totalManHours;
     }
 
     public function getAssignUsersId($project_id)
@@ -210,8 +228,8 @@ class Project extends Model
 
     public function getProjectBudget($project_id)
     {
-        $project = Project::select('sales_total')->where('project_id', $project_id)->first();
-        return $project->sales_total;
+        $project = Project::select('budget')->where('project_id', $project_id)->first();
+        return $project->budget;
     }
 
     public function getProjectProfit($project_id)
@@ -233,7 +251,7 @@ class Project extends Model
     public function getProjectData($projectID)
     {
         return DB::table('projects')
-            ->select('project_id as projectID', 'manager_id as projectLeaderID')
+            ->select('project_id as projectID', 'manager_id as projectLeaderID', 'budget as budget')
             ->where('projects.project_id', $projectID)->whereNull("deleted_at")->first();
     }
 

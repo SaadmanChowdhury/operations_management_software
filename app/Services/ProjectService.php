@@ -96,10 +96,7 @@ class ProjectService
             $managerID = $project->managerID;
         }
         //only admin and manager can update the project
-        if (
-            $loggedUser->user_authority == config('User_authority.システム管理者') ||
-            $loggedUser->user_id == $managerID
-        ) {
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $managerID) {
 
             $validatedData = $this->formatDataToCreateOrUpdate($request);
 
@@ -121,14 +118,14 @@ class ProjectService
         $formattedData['sales_total'] = $data['salesTotal'];
         $formattedData['transferred_amount'] = $data['transferredAmount'];
         $formattedData['budget'] = $data['budget'];
-        
+
         return $formattedData;
     }
 
     private function helper_fetchProjectList($array)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             // take your decision
             return $array;
         }
@@ -157,6 +154,10 @@ class ProjectService
         $projectModel  = new Project;
         $assignModel  = new Assign;
         $data['project'] = $projectModel->getProjectData($projectID);
+        $data['project']->cost = $projectModel->getProjectCost($projectID);
+        $data['project']->profit = $projectModel->getProjectProfit($projectID);
+        $data['project']->totalManMonth = $projectModel->getTotalManMonth($projectID);
+
         $data['project']->member = $assignModel->getMemberId($projectID);
 
         //for looping

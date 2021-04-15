@@ -25,9 +25,9 @@ return [
         '受注前着手' => 0,    //Start before ordering   //config('constants.Development_stage.受注前着手')
         '要件' => 1,    //Requirement definition   //config('constants.Development_stage.要件')
         '設計' => 2,    // Specification phase   //config('constants.Development_stage.設計')
-        '実装' => 2,    // Implementation phase   //config('constants.Development_stage.実装')
-        'テスト' => 3,    //Accepted         //config('constants.Development_stage.検収中'),
-        '開発完了' => 4,    //Done         //config('constants.Development_stage.完了'),
+        '実装' => 3,    // Implementation phase   //config('constants.Development_stage.実装')
+        'テスト' => 4,    //Accepted         //config('constants.Development_stage.検収中'),
+        '開発完了' => 5,    //Done         //config('constants.Development_stage.完了'),
     ],
 
     // プロジェクト の ステータスの見積もり アイヂ						

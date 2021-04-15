@@ -22,13 +22,13 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             $table->integer('gender')->nullable();
-            $table->integer('location')->nullable();
+            $table->enum('location', ['宮崎', '東京', '福岡'])->nullable();
             $table->string('tel');
-            $table->integer('position');
+            $table->enum('position', ['PM', 'PL', 'SE', 'PG'])->nullable();
             $table->date('admission_day');
             $table->date('exit_day')->nullable();
             $table->integer('unit_price');
-            $table->integer('user_authority');
+            $table->enum('user_authority', ['システム管理者', '一般管理者', '一般ユーザー']);
             $table->date('resign_day')->nullable();
 
             $table->integer('user_list_preference')->default(0);
