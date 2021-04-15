@@ -9,6 +9,9 @@
     {{-- @include("client-modal") --}}
     <script src="/js/main.js"></script>
     <script src="/js/assign.js"></script>
+    <script>
+        document.querySelector("meta[name=viewport]").setAttribute('content', 'width=device-width, initial-scale='+(1/window.devicePixelRatio));
+    </script>
     </body>
 
 
