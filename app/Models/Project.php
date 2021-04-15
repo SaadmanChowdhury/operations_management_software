@@ -158,15 +158,15 @@ class Project extends Model
 
 
     /**
-     * this will return the total execution value for a stuff of the project
+     * this will return the total plan_man_month value for a stuff of the project
      */
-    public function getIndividualTotalExecution($project_id, $user_id)
+    public function getIndividualTotalplan_man_month($project_id, $user_id)
     {
         $data = DB::table('assign')
             ->where('assign.project_id', $project_id)
             ->where('assign.user_id', $user_id)
             ->whereNull("deleted_at")
-            ->sum('assign.execution');
+            ->sum('assign.plan_man_month');
         return $data;
     }
 
@@ -178,7 +178,7 @@ class Project extends Model
         $data = DB::table('assign')
             ->where('assign.project_id', $project_id)
             ->whereNull("deleted_at")
-            ->sum('assign.execution');
+            ->sum('assign.plan_man_month');
         return $data;
     }
 
@@ -218,9 +218,9 @@ class Project extends Model
         $totalCost = 0;
         foreach ($assignedUsersId as $user) {
             $user_id = $user->user_id;
-            $individualExecution = $this->getIndividualTotalExecution($project_id, $user_id);
+            $individualplan_man_month = $this->getIndividualTotalplan_man_month($project_id, $user_id);
             $unit_price = $this->getUserUnitPrice($user_id);
-            $totalCost += $individualExecution * $unit_price;
+            $totalCost += $individualplan_man_month * $unit_price;
         }
 
         return $totalCost;

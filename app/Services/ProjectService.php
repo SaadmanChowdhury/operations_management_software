@@ -202,7 +202,7 @@ class ProjectService
             $formattedData[$key]['user_id'] = $value['memberID'];
             $formattedData[$key]['year'] = $value['year'];
             $formattedData[$key]['month'] = $value['month'];
-            $formattedData[$key]['execution'] = $value['value'];
+            $formattedData[$key]['plan_man_month'] = $value['value'];
         }
         return $formattedData;
     }
