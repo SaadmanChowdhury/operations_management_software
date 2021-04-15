@@ -620,17 +620,17 @@ footer {
 
 .modal-form-container._user {
     max-height: 1200px;
-    top: 50vh;
+    top: 25em;
 }
 
 .modal-form-container._client {
     max-height: 1200px;
-    top: 50vh;
+    top: 21em;
 }
 
 .modal-form-container._project {
     max-height: 1200px;
-    top: 60vh;
+    top: 25em;
 }
 
 .modal-show .modal-form-container {
@@ -2311,47 +2311,3 @@ td img {
 /* ////====Design anomaly modal css ended ====//// */
 
 
-@media (-webkit-device-pixel-ratio: 1.50) {
-  
-  .modal-form-container._project {
-    
-        top: 80%;}
-        .modal-form-container._user {
-    
-            top: 80%;}
-            .modal-form-container._client {
-    
-                top: 80%;}
-        
-}
-@media (-webkit-device-pixel-ratio: 1) {
-  
-    .modal-form-container._project {
-      
-      top: 50vh;
-  }
-  .modal-form-container._user {
-      
-    top: 90vh;
-}
-.modal-form-container._client {
-      
-    top: 90vh;
-}
-}
-
-@media (-webkit-device-pixel-ratio: 1.75) {
-  
-    .modal-form-container._project {
-      
-      top: 90vh;
-  }
-  .modal-form-container._user {
-      
-    top: 90vh;
-}
-.modal-form-container._client {
-      
-    top: 90vh;
-}
-}
