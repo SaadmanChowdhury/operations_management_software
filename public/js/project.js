@@ -1,7 +1,9 @@
 // const { data } = require("jquery");
-var coll1 = document.getElementById("row1head");
-var content1 = document.getElementById("row1");
-var content2 = document.getElementById("row2");
+// var coll1 = document.getElementById("row1head");
+// var content1 = document.getElementById("row1");
+// var content2 = document.getElementById("row2");
+
+
 PROJECT_CARDS = [];
 
 
@@ -90,6 +92,16 @@ function renderProjectHTML(response) {
     response["resultData"]["project"].forEach((row) => {
 
         Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
+        //=== CALCULATING NUMBER OF DAYS ===//
+        var date1 = new Date(row.orderMonth);
+        var date2 = new Date(row.inspectionMonth);
+        
+        // To calculate the time difference of two dates
+        var Difference_In_Time = date2.getTime() - date1.getTime();
+        
+        // To calculate the no. of days between two dates
+        var Difference_In_Month =Math.ceil( Difference_In_Time / (1000 * 3600 * 24*30));
+        console.log(Difference_In_Month);
 
         var profit = (row.salesTotal - row.budget) * 100 / row.salesTotal;
         projectHtml =
@@ -104,24 +116,25 @@ function renderProjectHTML(response) {
             getOrderStatusHTML(row.orderStatus) +
             getBusinessSituationHTML(row.businessSituation) +
             getDevelopmentStageHTML(row.developmentStage) +
-            `<li>${row.orderMonth}</li>` +
-            `<li>${row.inspectionMonth}</li>` +
-            `<li class="right-align">${numberWithCommas(row.salesTotal) + " 円"}</li>` +
-            `<li class="right-align">${numberWithCommas(row.budget) + " 円"}</li>` +
-            `<li>${profit}%</li>` +
-            `<li>` +
-            `<div class="edit" onclick="projectEditModalHandler(${row.projectID})">` +
-            `<span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集` +
-            `</div>` +
-            `</li>` +
-            `</div>` +
-            `</div>` +
+            `<li>${row.orderMonth}</li>
+             <li>${row.inspectionMonth}</li>
+             <li class="right-align">${numberWithCommas(row.salesTotal) + " 円"}</li>
+             <li class="right-align">${numberWithCommas(row.budget) + " 円"}</li>
+             <li>${profit}%</li>
+             <li>
+             <div class="edit" onclick="projectEditModalHandler(${row.projectID})">
+             <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
+             </div>
+             </li>
+             </div>
+             </div>
 
-            `<div class="collapse show" id="row${row.projectID}">` +
-            renderEmptyAssignAccordion(row.projectID) +
-            `</div>` +
-            `</div>`;
+             <div class="collapse show" id="row${row.projectID}">` +
+            renderEmptyAssignAccordion(row.projectID,Difference_In_Month) +
+            `</div>
+             </div>`;
         $('#accordian').append(projectHtml);
+        
     });
 
     PROJECT_CARDS = document.querySelectorAll('._project.card');
@@ -129,9 +142,18 @@ function renderProjectHTML(response) {
 
 }
 
+function printHeader(x){
+    var print;
+    for(i=0;i<x;i++){
+        print+=`<th>2020/01</th>`;
+    }
+    return print;
+}
+
+
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
-function renderEmptyAssignAccordion(projectID) {
+function renderEmptyAssignAccordion(projectID,x) {
 
     accordionHTML =
 
@@ -196,29 +218,13 @@ function renderEmptyAssignAccordion(projectID) {
                         <td>18.0</td>
                     </tr>
                 </table>
-                <div class="table-des-container">
-                    <table class="table-des">
-                        <tr>
-                            <th>2020/01</th>
-                            <th>2020/02</th>
-                            <th>2020/03</th>
-                            <th>2020/04</th>
-                            <th>2020/05</th>
-                            <th>2020/06</th>
-                            <th>2020/07</th>
-                            <th>2020/08</th>
-                            <th>2020/09</th>
-                            <th>2020/10</th>
-                            <th>2020/11</th>
-                            <th style="background-color:#ffbf0b;color:black">2020/12</th>
-                            <th>2021/01</th>
-                            <th>2022/02</th>
-                            <th>2021/03</th>
-                            <th>2022/04</th>
-                            <th>2021/05</th>
-                            <th>2022/06</th>
+                <div class="table-des-container">`+
+                    `<table class="table-des">
+                        <tr>`+
+                            
+                            printHeader(x)+
     
-                        </tr>
+                        `</tr>
                         <tr class="row-total">
                             <td>3.00</td>
                             <td>3.00</td>
@@ -449,50 +455,30 @@ function filterProject(e) {
 //===TURNING ON EDIT-MODE===//
 
 function editModeOn(x) {
-
-    
-    var rightTable = document.querySelectorAll('.table-des');
-    var dataTable = rightTable[x - 1].querySelectorAll('.editMode-input');
     
     $( '#project-row-' + x +' .editMode').each(function( index ) {
         $( this ).show("slow");
         $('.pencil-btn').eq(x-1).hide();
     });
 
-    // for (i = 0; i < dataTable.length; i++) {
-    //     var dataCells = dataTable[i].querySelectorAll('td');
-    //     console.log(dataCells);
-    //     for (let j = 0; j < dataCells.length; j++) {
-    //         dataCells[j].innerHTML = "<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">";
-    //     }
-    // }
-
-    var $dataTable= $('.table-des').eq(x-1).children('.editMode-input');
-    console.log($dataTable);
+    //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
+    var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
+    //==ADDING EDITING FIELDS TO BLUE TABLE==//
     $dataTable.each(function(i){
-    console.log(i);
-
         $(this).children('td').each(function( index ){
-    console.log(index);
-
-            this.html("<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">");
+            $(this).html("<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">");
         });
-
     });
 
+
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
-    var fixTable = $('.table-fix')[x - 1];
-    var dataTable2 = fixTable.querySelectorAll('.editMode-input');
-    console.log(dataTable2);
-
-    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    for (i = 0; i < dataTable2.length; i++) {
-        dataCells = dataTable2[i].querySelectorAll('td');
-        for (let j = 0; j < dataCells.length; j++) {
-            dataCells[j].innerHTML = `<input type="number" name="pro_member" class="data-cell-fixed" required="" value="0">`;
-
-        }
-    }
+    var $dataTable2= $('.table-fix').eq(x-1).find('.editMode-input');
+    //==ADDING EDITING FIELDS TO ORANGE TABLE==//
+    $dataTable2.each(function(i){
+        $(this).children('td').each(function( index ){
+            $(this).html("<input type=\"number\" name=\"pro_member\" class=\"data-cell-fixed\" required=\"\" value=\"0\">");
+        });
+    });
 
 
 }
@@ -502,14 +488,12 @@ function editModeOn(x) {
 function editModeOff(x) {
 
 
-    //==FETCHING ALL EDITING BUTTONS==//
-    var buttons = $('.editMode');
-
     //===DISAPPEARING EDITING BUTTONS===//
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].style.display = "none";
-        document.getElementsByClassName('pencil-btn')[x - 1].style.display = "block";
-    }
+    
+    $('.editMode').each(function(index,element){
+        $(element).hide("200");
+        $('.pencil-btn').eq(x-1).show();
+    });
 
     var details, user_details;
     //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
@@ -521,45 +505,43 @@ function editModeOff(x) {
 
     //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
 
-    var rightTable = $('.table-des');
-    var dataTable = rightTable[x - 1].querySelectorAll('.editMode-input ');
+    
+    var $dataTable = $('.table-des').eq(x - 1).find('.editMode-input ');
 
     let k = 0;
     //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    for (i = 0; i < dataTable.length; i++) {
-        var dataCells = dataTable[i].querySelectorAll('td');
-        // console.log(dataCells);
-        for (let j = 0; j < dataCells.length; j++) {
-            dataCells[j].innerHTML = details[k].val;
-            k++;
-        }
-    }
+    $dataTable.each(function(i){
+        $(this).children('td').each(function( index ){
+            $(this).html(details[k].val);
+                k++;
+        });
+    });
     k = 0;
+
     //=== STORING DETAILS OF ORANGE-FIXED TABLE===//
     user_details = $('.data-cell-fixed').map(function () {
         return {
             val: $(this).val(),
         };
     }).get();
-    console.log(user_details.length);
-    console.log(details.length);
+    
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
-    var fixTable = $('.table-fix')[x - 1];
-    var dataTable2 = fixTable.querySelectorAll('.editMode-input');
-    console.log(dataTable2);
+    
+    var $dataTable2 = $('.table-fix').eq(x - 1).find('.editMode-input');
+    
 
-    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    for (i = 0; i < dataTable2.length; i++) {
-        dataCells = dataTable2[i].querySelectorAll('td');
-        for (let j = 0; j < dataCells.length; j++) {
-            if (j % 2 == 0)
-                dataCells[j].innerHTML = `<img src="img/pro_icon.png">` + user_details[k].val;
+    //===DISAPPEARING EDITING FIELDS OF ORANGE TABLE===//
+    
+    $dataTable2.each(function(i){
+        $(this).children('td').each(function( index ){
+            if (index % 2 == 0)
+                $(this).html('<img src="img/pro_icon.png">' + user_details[k].val);
             else
-                dataCells[j].innerHTML = user_details[k].val;
-            k++
-        }
-    }
+                $(this).html(user_details[k].val);    
+            k++;
+        });
+    });
     k = 0;
 
 
