@@ -7,16 +7,8 @@ PROJECT_CARDS = [];
 
 function display(x) {
 
-    var row = document.getElementById('row' + x);
-    console.log(row.style.display);
-
-    if (row.style.display === "block") {
-        row.style.display = "none";
-    } else {
-
-        row.style.display = "block";
-
-    }
+    $('#row' + x).toggle("3000");
+    
 }
 
 
@@ -101,14 +93,14 @@ function renderProjectHTML(response) {
 
         var profit = (row.salesTotal - row.budget) * 100 / row.salesTotal;
         projectHtml =
-            `<div class="card _project" id="project-row-${row.projectID}">` +
-            `<div class="card-header" id="row1head" onclick="display(${row.projectID})">` +
-            `<div class="display list-unstyled">` +
-            `<li>${row.projectName}</li>` +
-            `<li>${convertClient_IDToName(row.clientID)}</li>` +
-            `<li><img src="img/pro_icon.png" class="smallpic">` +
-            `<div class="user-name">${convertUser_IDToName(row.projectLeaderID)}</div>` +
-            `</li>` +
+            `<div class="card _project" id="project-row-${row.projectID}">
+             <div class="card-header" id="row1head" onclick="display(${row.projectID})">
+             <div class="display list-unstyled">
+             <li>${row.projectName}</li>
+             <li>${convertClient_IDToName(row.clientID)}</li>
+             <li><img src="img/pro_icon.png" class="smallpic">
+              <div class="user-name">${convertUser_IDToName(row.projectLeaderID)}</div>
+             </li>` +
             getOrderStatusHTML(row.orderStatus) +
             getBusinessSituationHTML(row.businessSituation) +
             getDevelopmentStageHTML(row.developmentStage) +
@@ -129,7 +121,7 @@ function renderProjectHTML(response) {
             renderEmptyAssignAccordion(row.projectID) +
             `</div>` +
             `</div>`;
-        projects.innerHTML += projectHtml;
+        $('#accordian').append(projectHtml);
     });
 
     PROJECT_CARDS = document.querySelectorAll('._project.card');
@@ -143,96 +135,95 @@ function renderEmptyAssignAccordion(projectID) {
 
     accordionHTML =
 
-        `<div class="card-body row _accordion">` +
-
-        `<div class="table-left">` +
-        `<table>` +
-        `<tr>
+        `<div class="card-body row _accordion">
+    
+        <div class="table-left">
+            <table>
+                <tr>
                     <td>予算</td>
                     <td>71,4000　円</td>
-                </tr>`+
-        `<tr>
+                </tr>
+                <tr>
                     <td>原価</td>
                     <td>10,0000　円</td>
-                </tr>`+
-        `<tr>
+                </tr>
+                <tr>
                     <td>工数</td>
                     <td>10,0000　円</td>
-                </tr>`+
-        `<tr>
+                </tr>
+                <tr>
                     <td>粗利</td>
                     <td>1000　円</td>
-                </tr>`+
-        `<tr>
+                </tr>
+                <tr>
                     <td>率</td>
                     <td>75.4　%</td>
-                </tr>`+
-        `<tr>
+                </tr>
+                <tr>
                     <td>期間</td>
                     <td>2001-2004</td>
-                </tr>`+
-        `</table>` +
-        `</div>` +
-        ` <div class="project-rhs">` +
-        `<div class="add-minus-holder editMode">
-                    <button class="btn round-btn primary _plus" onclick="addRow(${projectID})"><span
-                            class="fa fa-plus"></span></button>
-                    <button class="btn round-btn danger _minus"><span
-                            class="fa fa-minus"></span></button>
-                </div>`+
-        `<div class="table-right row">` +
-        `<table class="table-fix">` +
-        `           <tr>
+                </tr>
+            </table>
+        </div>
+        <div class="project-rhs">
+            <div class="add-minus-holder editMode">
+                <button class="btn round-btn primary _plus" onclick="addRow(${projectID})"><span
+                        class="fa fa-plus"></span></button>
+                <button class="btn round-btn danger _minus"><span class="fa fa-minus"></span></button>
+            </div>
+            <div class="table-right row">
+                <table class="table-fix">
+                    <tr>
                         <th class="mishti-orange">メンバー</th>
                         <th class="mishti-orange">工数合計</th>
-
-                    </tr>`+
-        `<tr class="row-total">
-                            <td>3</td>
-                            <td>54.0</td>
-                     </tr>`+
-        `<tr class="editMode-input">
+    
+                    </tr>
+                    <tr class="row-total">
+                        <td>3</td>
+                        <td>54.0</td>
+                    </tr>
+                    <tr class="editMode-input">
                         <td><img src="img/pro_icon.png">社員</td>
                         <td>18.0</td>
-
-                    </tr>`+
-        `<tr class="editMode-input">
+    
+                    </tr>
+                    <tr class="editMode-input">
                         <td><img src="img/pro_icon.png">社員</td>
                         <td>18.0</td>
-                    </tr>`+
-        `<tr class="editMode-input">
+                    </tr>
+                    <tr class="editMode-input">
                         <td><img src="img/pro_icon.png">社員</td>
                         <td>18.0</td>
-                    </tr>`+
-        `</table>` +
-        `<div class="table-des-container">` +
-        `<table class="table-des">` +
-        `<tr>` +
-        `<th>2020/01</th>
-                        <th>2020/02</th>
-                        <th>2020/03</th>
-                        <th>2020/04</th>
-                        <th>2020/05</th>
-                        <th>2020/06</th>
-                        <th>2020/07</th>
-                        <th>2020/08</th>
-                        <th>2020/09</th>
-                        <th>2020/10</th>
-                        <th>2020/11</th>
-                        <th style="background-color:#ffbf0b;color:black">2020/12</th>
-                        <th>2021/01</th>
-                        <th>2022/02</th>
-                        <th>2021/03</th>
-                        <th>2022/04</th>
-                        <th>2021/05</th>
-                        <th>2022/06</th>`+
-
-        `</tr>` +
-        `<tr class="row-total">` +
-        `<td>3.00</td>
+                    </tr>
+                </table>
+                <div class="table-des-container">
+                    <table class="table-des">
+                        <tr>
+                            <th>2020/01</th>
+                            <th>2020/02</th>
+                            <th>2020/03</th>
+                            <th>2020/04</th>
+                            <th>2020/05</th>
+                            <th>2020/06</th>
+                            <th>2020/07</th>
+                            <th>2020/08</th>
+                            <th>2020/09</th>
+                            <th>2020/10</th>
+                            <th>2020/11</th>
+                            <th style="background-color:#ffbf0b;color:black">2020/12</th>
+                            <th>2021/01</th>
+                            <th>2022/02</th>
+                            <th>2021/03</th>
+                            <th>2022/04</th>
+                            <th>2021/05</th>
+                            <th>2022/06</th>
+    
+                        </tr>
+                        <tr class="row-total">
                             <td>3.00</td>
                             <td>3.00</td>
                             <td>3.00</td>
+                            <td>3.00</td>
                             <td>3.0</td>
                             <td>3.0</td>
                             <td>3.0</td>
@@ -246,92 +237,92 @@ function renderEmptyAssignAccordion(projectID) {
                             <td>3.0</td>
                             <td>3.0</td>
                             <td>3.0</td>
-                            <td>3.0</td>`+
-
-        `</tr>` +
-        `<tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                            </tr>`+
-        `<tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                            </tr>`+
-        `<tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                            </tr>`+
-
-
-        `</table>` +
-        `</div>` +
-        `</div>` +
-        `</div>` +
-        `<div class="action">` +
-        `<ul class="list-unstyled">
-                    <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
-                    <div class="editMode">
-                        <li class="list"><button class="btn round-btn danger"><span
-                        class="fa fa-trash"></span></button></li>
-                        <li class="list"><button class="btn round-btn success midori"><span
-                                    class="fa fa-undo"></span></button></li>
-                        <li class="list"><button class="btn round-btn primary"><span
-                                    class="fa fa-save" onclick="editModeOff(${projectID})"></span></button></li>
-                    </div>
-                </ul>`+
-        `</div>` +
-        `</div>`;
+                            <td>3.0</td>
+    
+                        </tr>
+                        <tr class="editMode-input">
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+    
+                        </tr>
+                        <tr class="editMode-input">
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+    
+                        </tr>
+                        <tr class="editMode-input">
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+                            <td>1.00</td>
+    
+                        </tr>
+    
+    
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="action">
+            <ul class="list-unstyled">
+                <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span
+                            style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
+                <div class="editMode">
+                    <li class="list"><button class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
+                    <li class="list"><button class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
+                    </li>
+                    <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"
+                                onclick="editModeOff(${projectID})"></span></button></li>
+                </div>
+            </ul>
+        </div>
+    </div>`;
 
     return accordionHTML;
 }
@@ -459,25 +450,35 @@ function filterProject(e) {
 
 function editModeOn(x) {
 
-    var project = document.getElementById('project-row-' + x);
-    console.log(project);
-    var buttons = project.getElementsByClassName('editMode');
+    
     var rightTable = document.querySelectorAll('.table-des');
-    // var dataCells=dataTable[x-1].querySelectorAll('td');
     var dataTable = rightTable[x - 1].querySelectorAll('.editMode-input');
-    // console.log(dataTable.length);
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].style.display = "block";
-        document.getElementsByClassName('pencil-btn')[x - 1].style.display = "none";
-    }
+    
+    $( '#project-row-' + x +' .editMode').each(function( index ) {
+        $( this ).show("slow");
+        $('.pencil-btn').eq(x-1).hide();
+    });
 
-    for (i = 0; i < dataTable.length; i++) {
-        var dataCells = dataTable[i].querySelectorAll('td');
-        console.log(dataCells);
-        for (let j = 0; j < dataCells.length; j++) {
-            dataCells[j].innerHTML = "<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">";
-        }
-    }
+    // for (i = 0; i < dataTable.length; i++) {
+    //     var dataCells = dataTable[i].querySelectorAll('td');
+    //     console.log(dataCells);
+    //     for (let j = 0; j < dataCells.length; j++) {
+    //         dataCells[j].innerHTML = "<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">";
+    //     }
+    // }
+
+    var $dataTable= $('.table-des').eq(x-1).children('.editMode-input');
+    console.log($dataTable);
+    $dataTable.each(function(i){
+    console.log(i);
+
+        $(this).children('td').each(function( index ){
+    console.log(index);
+
+            this.html("<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">");
+        });
+
+    });
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
     var fixTable = $('.table-fix')[x - 1];
