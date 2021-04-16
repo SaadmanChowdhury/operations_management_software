@@ -160,7 +160,7 @@ class Project extends Model
     /**
      * this will return the total plan_man_month value for a stuff of the project
      */
-    public function getIndividualTotalplan_man_month($project_id, $user_id)
+    public function getIndividualTotalPlanManMonth($project_id, $user_id)
     {
         $data = DB::table('assign')
             ->where('assign.project_id', $project_id)
@@ -218,9 +218,9 @@ class Project extends Model
         $totalCost = 0;
         foreach ($assignedUsersId as $user) {
             $user_id = $user->user_id;
-            $individualplan_man_month = $this->getIndividualTotalplan_man_month($project_id, $user_id);
+            $individualPlanManMonth = $this->getIndividualTotalPlanManMonth($project_id, $user_id);
             $unit_price = $this->getUserUnitPrice($user_id);
-            $totalCost += $individualplan_man_month * $unit_price;
+            $totalCost += $individualPlanManMonth * $unit_price;
         }
 
         return $totalCost;
@@ -240,6 +240,24 @@ class Project extends Model
         $projectProfit = intval($projectBudget) - intval($projectCost);
 
         return $projectProfit;
+    }
+
+    /**
+     * this method returns the project profit percentage
+     *
+     * @param [int] $project_id
+     * @return int
+     */
+    public function getProjectProfitPercentage($project_id)
+    {
+        $projectProfit = $this->getProjectProfit($project_id);
+        $projectBudget = $this->getProjectBudget($project_id);
+
+        $profitPercentage = $projectProfit * 100 / $projectBudget;
+
+        $profitPercentage = number_format((float)$profitPercentage, 2, '.', '');
+
+        return $profitPercentage;
     }
 
 

@@ -75,6 +75,19 @@ class Assign extends Model
             }
         } //end of foreach loop
 
-        return $assignIdArray;
+        //creating project object
+        $projectObj = new Project;
+
+        //get gross profit of the project
+        $projectProfit = $projectObj->getProjectProfit($project_id);
+
+        //get profit percentage of the project
+        $profitPercentage = $projectObj->getProjectProfitPercentage($project_id);
+
+        //creating array for the return data
+        $returnArray = [];
+        $returnArray['grossProfit'] = $projectProfit;
+        $returnArray['profitPercentage'] = $profitPercentage;
+        return $returnArray;
     }
 }
