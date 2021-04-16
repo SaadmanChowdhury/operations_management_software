@@ -127,7 +127,10 @@ Route::post('/API/fetchProjectList', [ProjectController::class, 'fetchProjectLis
 Route::post('/API/readProjectDetails', [ProjectController::class, 'readProjectDetails']);
 Route::post('/API/upsertProjectDetails', [ProjectController::class, 'upsertProjectDetails']);
 Route::post('/API/readProjectAssign', [ProjectController::class, 'readProjectAssign']);
+
 Route::post('/API/upsertAssign', [ProjectController::class, 'upsertAssign']);
+
+Route::post('/API/assignSummary', [AssignController::class, 'assignSummary']);
 
 
 
