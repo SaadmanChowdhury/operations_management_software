@@ -24,23 +24,44 @@ function fetchProjectList_AJAX() {
             _token: $('#csrf-token')[0].content,
         },
         cache: false,
-        success: function (response) {
+        success: function (response01) {
 
-            if (response["resultStatus"]["isSuccess"]) {
+            if (response01["resultStatus"]["isSuccess"]) {
 
-                projectRender();
+                $.ajax({
+                    type: "post",
+                    url: "/API/readProjectAssign",
+                    data: {
+                        _token: $('#csrf-token')[0].content,
+                    },
+                    cache: false,
+                    success: function (response02) {
+            
+                        if (response02["resultStatus"]["isSuccess"]) {
+                            projectRender();
 
-                function projectRender() {
-                    setTimeout(function () {
-                        if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
-                            renderProjectHTML(response);
-                        }
-                        else projectRender();
-                    }, 10)
-                }
+                                function projectRender() {
+                                    setTimeout(function () {
+                                        if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
+                                            renderProjectHTML(response01,response02);
+                                        }
+                                        else projectRender();
+                                    }, 10)
+                                }
+                            
+            
+                        } else
+                            handleAJAXResponse(response02);
+                    },
+                    error: function (err) {
+                        handleAJAXError(err);
+                    }
+                });
+
+                
 
             } else
-                handleAJAXResponse(response);
+                handleAJAXResponse(response01);
         },
         error: function (err) {
             handleAJAXError(err);
@@ -85,11 +106,11 @@ function getDevelopmentStageHTML(data) {
 
 //=== RENDERING PROJECT CARD HEADER ===//
 
-function renderProjectHTML(response) {
+function renderProjectHTML(response01,response02) {
 
     var projects = document.getElementById('accordian');
 
-    response["resultData"]["project"].forEach((row) => {
+    response01["resultData"]["project"].forEach((row) => {
 
         Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
         //=== CALCULATING NUMBER OF DAYS ===//
