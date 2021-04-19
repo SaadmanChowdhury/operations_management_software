@@ -22,8 +22,8 @@ class CreateAssignTable extends Migration
             $table->unsignedInteger('year')->length(4);
             $table->unsignedInteger('month')->length(2);
 
-            $table->double('plan_month_year', 2)->nullable();
-            $table->double('execution', 2)->nullable();
+            $table->double('actual_man_month', 2)->nullable();
+            $table->double('plan_man_month', 2)->nullable();
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();
