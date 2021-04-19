@@ -187,7 +187,7 @@ class ProjectService
         $data = $request->all();
 
         //for testing getting the dummy data
-        $data = $this->getUpsertAssignData();
+        // $data = $this->getUpsertAssignData();
         $formattedData = $this->getFormattedDataForUpsertAssign($data);
 
         return $assignModel->upsertAssign($formattedData);
