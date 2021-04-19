@@ -17,7 +17,7 @@ class Assign extends Model
     public function getAssignInfo($projectID, $memberID)
     {
         return DB::table('assign')
-            ->select('assign_id as assignID', 'year', 'month', 'execution as value')
+            ->select('assign_id as assignID', 'year', 'month', 'plan_man_month as value')
             ->where('assign.project_id', $projectID)
             ->where('assign.user_id', $memberID)
             ->get();
@@ -51,7 +51,7 @@ class Assign extends Model
             $user_id = $value['user_id'];
             $year = $value['year'];
             $month = $value['month'];
-            $execution = $value['execution'];
+            $plan_man_month = $value['plan_man_month'];
 
             if ($assign_id == null) {
                 $new_id = Assign::create([
@@ -59,7 +59,7 @@ class Assign extends Model
                     'user_id' => $user_id,
                     'year' => $year,
                     'month' => $month,
-                    'execution' => $execution,
+                    'plan_man_month' => $plan_man_month,
                 ])->id;
 
                 array_push($assignIdArray, $new_id);
@@ -69,12 +69,25 @@ class Assign extends Model
                     'user_id' => $user_id,
                     'year' => $year,
                     'month' => $month,
-                    'execution' => $execution,
+                    'plan_man_month' => $plan_man_month,
                 ]);
                 array_push($assignIdArray, $assign_id);
             }
         } //end of foreach loop
 
-        return $assignIdArray;
+        //creating project object
+        $projectObj = new Project;
+
+        //get gross profit of the project
+        $projectProfit = $projectObj->getProjectProfit($project_id);
+
+        //get profit percentage of the project
+        $profitPercentage = $projectObj->getProjectProfitPercentage($project_id);
+
+        //creating array for the return data
+        $returnArray = [];
+        $returnArray['grossProfit'] = $projectProfit;
+        $returnArray['profitPercentage'] = $profitPercentage;
+        return $returnArray;
     }
 }

@@ -121,13 +121,16 @@ Route::post("/API/readProject",   [ProjectController::class, 'readProject']);
 Route::post("/API/updateProject", [ProjectController::class, 'updateProject']);
 Route::post("/API/deleteProject", [ProjectController::class, 'deleteProject']);
 
-Route::get("/API/getTotalProfit", [ClientController::class, 'getTotalProfit']);
+Route::post("/API/getTotalProfit", [ClientController::class, 'getTotalProfit']);
 
 Route::post('/API/fetchProjectList', [ProjectController::class, 'fetchProjectList']);
 Route::post('/API/readProjectDetails', [ProjectController::class, 'readProjectDetails']);
 Route::post('/API/upsertProjectDetails', [ProjectController::class, 'upsertProjectDetails']);
 Route::post('/API/readProjectAssign', [ProjectController::class, 'readProjectAssign']);
-Route::get('/API/upsertAssign', [ProjectController::class, 'upsertAssign']);
+
+Route::post('/API/upsertAssign', [ProjectController::class, 'upsertAssign']);
+
+Route::post('/API/assignSummary', [AssignController::class, 'assignSummary']);
 
 
 
