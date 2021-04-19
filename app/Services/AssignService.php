@@ -77,7 +77,7 @@ class AssignService
             ->whereYear('admission_day', '<=', $first_day_of_year)
             ->whereYear('exit_day', '>=', $first_day_of_year)
             ->get();
-
+            $user_name = [];
         for ($i = 0; $i < count($active_users); $i++) {
             $user_id = $active_users[$i]->user_id;
             $user_name[$i] = DB::table('users')->where('user_id', $user_id)->first('name as userName');
