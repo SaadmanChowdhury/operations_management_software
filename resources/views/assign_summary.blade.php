@@ -378,8 +378,8 @@ var users = [
         projects: [
 
             {
-                porjectName: "project name 1",
-                assigns: [
+                projectName: "project name 1",
+                assign: [
 
                     {
                         year: 2020,
@@ -402,8 +402,8 @@ var users = [
             },
 
             {
-                porjectName: "project name 2",
-                assigns: [
+                projectName: "project name 2",
+                assign: [
 
                     {
                         year: 2020,
@@ -429,29 +429,7 @@ var users = [
 
         projects: [
 
-            {
-                porjectName: "project name 1",
-                assigns: [
 
-                    {
-                        year: 2020,
-                        month: 1,
-                        assignValue: 1.0
-                    },
-                    {
-                        year: 2020,
-                        month: 2,
-                        assignValue: 1.0
-                    },
-                    {
-                        year: 2020,
-                        month: 3,
-                        assignValue: 1.0
-                    }
-
-
-                ]
-            },
 
         ]
 
@@ -609,17 +587,18 @@ class AssignSummrayRenderer {
 
 
     parseUserPro(pro) {
+        console.log(pro)
         var pro_row = [];
-        pro_row[0] = pro.porjectName;
+        pro_row[0] = pro.projectName;
 
         for (let i = 1; i < 13; i++) {
             pro_row[i] = 0;
         }
 
-        for (let index = 0; index < pro.assigns.length; index++) {
+        for (let index = 0; index < pro.assign.length; index++) {
             for (let month = 1; month < 13; month++) {
-                if (pro.assigns[index].month == month) {
-                    pro_row[month] = pro.assigns[index].assignValue;
+                if (pro.assign[index].month == month) {
+                    pro_row[month] = pro.assign[index].assignValue;
                 }
             }
         }
@@ -647,8 +626,8 @@ class AssignSummrayRenderer {
 
     inflateAllUserWithProjects() {
         document.getElementById("assign_summary_table").innerHTML = "";
-        for (let index = 0; index < users.length; index++) {
-            this.calcUserProject(users[index], index);
+        for (let index = 0; index < this.users.length; index++) {
+            this.calcUserProject(this.users[index], index);
         }
     }
 
@@ -763,11 +742,37 @@ function removePopup(parent, index) {
 
 }
 
-function onYearChanged() {
 
-    var x = new AssignSummrayRenderer(users);
-    x.render();
+function getUserData(aYear) {
+    $.ajax({
+        type: "post",
+        url: "/API/assignSummary",
+        data: {
+            year: aYear,
+            _token: $('input[name=_token]').val()
+        },
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"]) {
 
+
+                var x = new AssignSummrayRenderer(response["resultData"]["user"]);
+                x.render();
+
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function(err) {
+            handleAJAXError(err);
+        }
+    });
+}
+
+function onYearChanged(year) {
+
+
+
+    getUserData(year);
 
     var all_list = document.getElementById("cumulitive_values").getElementsByTagName("li");
     for (let index = 2; index < all_list.length; index++) {
@@ -779,6 +784,9 @@ function onYearChanged() {
     }
 
 }
+
+var year = document.getElementById('assign_year').innerHTML;
+onYearChanged(year);
 </script>
 
 @include("footer")

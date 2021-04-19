@@ -21,7 +21,7 @@ function year_inc(x){
   $assign_year=x;
   year.innerText=x;
     
-  onYearChanged();
+  onYearChanged(x);
 }
 
 function year_dec(x){
@@ -30,5 +30,5 @@ function year_dec(x){
   $assign_year=x;
   year.innerText=x;
 
-  onYearChanged();
+  onYearChanged(x);
 }
