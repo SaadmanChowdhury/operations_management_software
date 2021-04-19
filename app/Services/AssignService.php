@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Assign;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class AssignService
@@ -30,6 +31,12 @@ class AssignService
             ->where('user_id', $user_id)
             ->where('year', $year)
             ->groupBy('project_id')->get('project_id')->toArray();
+
+        // if the active user does not have any project
+        if ($projects_id == null) {
+            $project_assign_details = [];
+            return $project_assign_details;
+        }
 
         for ($i = 0; $i < count($projects_id); $i++) {
             $project_id = $projects_id[$i]->project_id;
@@ -62,10 +69,17 @@ class AssignService
     public function assignSummary($year)
     {
         $main_array = [];
-        $users_id = DB::table('assign')->where('year', $year)->groupBy('user_id')->get('user_id');
+        $carbon = new Carbon("first day of January $year");
+        $first_day_of_year = $carbon->toDateTimeString();
 
-        for ($i = 0; $i < count($users_id); $i++) {
-            $user_id = $users_id[$i]->user_id;
+        $active_users  = DB::table('users')
+            ->select('user_id')
+            ->whereYear('admission_day', '<=', $first_day_of_year)
+            ->whereYear('exit_day', '>=', $first_day_of_year)
+            ->get();
+
+        for ($i = 0; $i < count($active_users); $i++) {
+            $user_id = $active_users[$i]->user_id;
             $user_name[$i] = DB::table('users')->where('user_id', $user_id)->first('name as userName');
 
             $user_name[$i]->projects = $this->getAssignedProjectsDetails($user_id, $year);
@@ -74,5 +88,10 @@ class AssignService
         $main_array['user'] = $user_name;
 
         return $main_array;
+    }
+
+    public function activeUserCount($year)
+    {
+        $users_id = DB::table('users')->where('year', $year)->groupBy('user_id')->get('user_id');
     }
 }
