@@ -130,7 +130,7 @@ function renderProjectHTML(response) {
              </div>
 
              <div class="collapse show" id="row${row.projectID}">` +
-            renderEmptyAssignAccordion(row.projectID,Difference_In_Month) +
+            renderEmptyAssignAccordion(row.projectID,Difference_In_Month,row.orderMonth,convertUser_IDToName(row.projectLeaderID)) +
             `</div>
              </div>`;
         $('#accordian').append(projectHtml);
@@ -142,10 +142,30 @@ function renderProjectHTML(response) {
 
 }
 
-function printHeader(x){
-    var print;
+function printHeader(x,orderMonth){
+    var print='';
     for(i=0;i<x;i++){
-        print+=`<th>2020/01</th>`;
+        var date=new Date(orderMonth);
+        orderMonth=date.toLocaleDateString();
+        print+=`<th>`+orderMonth+`</th>`;
+        date=new Date(orderMonth);
+        date.setMonth(date.getMonth() + 1);
+        orderMonth=date.toLocaleDateString();
+
+    }
+    return print;
+}
+function printTotal(x){
+    var print='';
+    for(i=0;i<x;i++){
+        print+=` <td>3.00</td>`;
+    }
+    return print;
+}
+function printBody(x){
+    var print='';
+    for(i=0;i<x;i++){
+        print+=`<td>1.00</td>`;
     }
     return print;
 }
@@ -153,7 +173,7 @@ function printHeader(x){
 
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
-function renderEmptyAssignAccordion(projectID,x) {
+function renderEmptyAssignAccordion(projectID,x,orderMonth,leader) {
 
     accordionHTML =
 
@@ -205,7 +225,7 @@ function renderEmptyAssignAccordion(projectID,x) {
                         <td>54.0</td>
                     </tr>
                     <tr class="editMode-input">
-                        <td><img src="img/pro_icon.png">社員</td>
+                        <td><img src="img/pro_icon.png">${leader}</td>
                         <td>18.0</td>
     
                     </tr>
@@ -222,95 +242,25 @@ function renderEmptyAssignAccordion(projectID,x) {
                     `<table class="table-des">
                         <tr>`+
                             
-                            printHeader(x)+
+                            printHeader(x,orderMonth)+
     
                         `</tr>
-                        <tr class="row-total">
-                            <td>3.00</td>
-                            <td>3.00</td>
-                            <td>3.00</td>
-                            <td>3.00</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
+                        <tr class="row-total">`+
+                            printTotal(x)
     
-                        </tr>
-                        <tr class="editMode-input">
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-    
-                        </tr>
-                        <tr class="editMode-input">
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-    
-                        </tr>
-                        <tr class="editMode-input">
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-                            <td>1.00</td>
-    
-                        </tr>
-    
-    
+                        +`</tr>
+                        <tr class="editMode-input">`+
+                            printBody(x)
+
+                        +`</tr>
+                        <tr class="editMode-input">`+
+                            printBody(x)
+
+                        +`</tr>
+                        <tr class="editMode-input">`+
+                            printBody(x)
+
+                        +`</tr>
                     </table>
                 </div>
             </div>
