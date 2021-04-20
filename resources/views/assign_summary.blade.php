@@ -440,9 +440,8 @@ var users = [
 
 
 
-var man_mon = [2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2, 2
-];
+
+
 
 
 
@@ -451,9 +450,10 @@ var man_mon = [2, 2, 2, 2, 2, 2,
 
 class AssignSummrayRenderer {
 
-    constructor(users) {
+    constructor(users , man_months) {
         this.users = users;
         this.cumSumAllUser = new Array(12).fill(0);
+        this.man_mon = man_months;
 
     }
 
@@ -529,7 +529,7 @@ class AssignSummrayRenderer {
 
 
 
-        console.log(val)
+        //console.log(val)
 
         var list = `<li class="faded-green">エラー</li>`;
 
@@ -587,7 +587,7 @@ class AssignSummrayRenderer {
 
 
     parseUserPro(pro) {
-        console.log(pro)
+        //console.log(pro)
         var pro_row = [];
         pro_row[0] = pro.projectName;
 
@@ -633,17 +633,30 @@ class AssignSummrayRenderer {
 
 
 
+
+
+    checkValidNumber(num){
+        if(!isNaN(num) && num>0){
+            return true;
+        }
+        return false;
+    }
+
     makeListOfCumulitiveSum(cumCell, index) {
 
         var sinCellList = `<li class="yellow tooltip">${cumCell}</li>`;
 
-        if (index > 1) {
+        if(index==0 || index==1)
+         return sinCellList;
+
+        else if (index > 1) {
 
 
-            var colorWeight = cumCell / man_mon[(index)];
-
-            console.log("----")
-            console.log(colorWeight);
+            var colorWeight = 0;
+            
+            if( this.checkValidNumber(cumCell)  &&  this.checkValidNumber( this.man_mon[(index-2)]) )
+             colorWeight =cumCell / this.man_mon[(index-2)];
+           // console.log(cumCell, index ,this.man_mon[(index-2)], colorWeight);
 
 
             if (cumCell > 0) {
@@ -664,10 +677,7 @@ class AssignSummrayRenderer {
             }
 
 
-        } else {
-
-            sinCellList = `<li class="yellow tooltip">${cumCell}</li>`;
-        }
+        } 
 
 
         return sinCellList;
@@ -696,50 +706,97 @@ class AssignSummrayRenderer {
 
     showCumulitiveValueForAllUsers() {
         this.cumSumAllUser.unshift("");
-        this.cumSumAllUser.unshift("Max");
+        this.cumSumAllUser.unshift("");
         this.renderCumulitiveValueForAllUser(this.cumSumAllUser);
     }
 
+
+    
+
+    
+     removePopup(parent, index) {
+        document.getElementById("popup" + index).remove();;
+    }
+
+
+     createPopup(parent, index , usersPerMonth) {
+
+        var span = document.getElementById("popup" + index);
+
+        // console.log(span);
+        if (span == null)
+
+        {
+
+            span = document.createElement("span");
+            span.classList.add("tooltiptext");
+            span.id="popup" + index;
+            span.innerHTML = usersPerMonth;
+
+            parent.appendChild(span);
+        }
+
+    }
+
+
+
+    inflatePopupForManMonths(){
+        var all_list = document.getElementById("cumulitive_values").getElementsByTagName("li");
+            for (let index = 2; index < all_list.length; index++) {
+
+                var _self=this;
+                all_list[index].onmouseover = function() {
+                    _self.createPopup(all_list[index], index - 2 , _self.man_mon[index - 2]);
+                }
+
+            }
+    }
 
     render() {
 
         //the sequence is important 
         this.inflateAllUserWithProjects();
         this.showCumulitiveValueForAllUsers();
+        this.inflatePopupForManMonths();
     }
 
 
 }
 
 
-function createPopup(parent, index) {
-
-    var span = document.getElementById("popup" + index);
-
-    // console.log(span);
-    if (span == null)
-
-    {
-
-        span = document.createElement("span");
-        span.classList.add("tooltiptext");
-
-        span.innerHTML = man_mon[index];
-
-        parent.appendChild(span);
-    }
 
 
 
 
-}
+function getManMonthByYear(aYear) {
+
+    var active_users_per_month= [0,0,0,0,0,0,
+    0,0,0,0,0,0];
+
+    $.ajax({
+        type: "post",
+        async:false,
+        url: "/API/activeUserCount",
+        data: {
+            year: aYear,
+            _token: $('input[name=_token]').val()
+        },
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"]) {
 
 
-function removePopup(parent, index) {
+             active_users_per_month= response["resultData"]["userCount"];
 
-    document.getElementById("popup" + index).remove();;
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function(err) {
+            handleAJAXError(err);
+        }
+    });
 
-
+    return active_users_per_month;
 }
 
 
@@ -755,8 +812,9 @@ function getUserData(aYear) {
         success: function(response) {
             if (response["resultStatus"]["isSuccess"]) {
 
-
-                var x = new AssignSummrayRenderer(response["resultData"]["user"]);
+                var x = new AssignSummrayRenderer(response["resultData"]["user"] ,
+                getManMonthByYear(aYear)
+                );
                 x.render();
 
             } else
@@ -774,14 +832,6 @@ function onYearChanged(year) {
 
     getUserData(year);
 
-    var all_list = document.getElementById("cumulitive_values").getElementsByTagName("li");
-    for (let index = 2; index < all_list.length; index++) {
-
-        all_list[index].onmouseover = function() {
-            createPopup(this, index - 2);
-        }
-
-    }
 
 }
 
