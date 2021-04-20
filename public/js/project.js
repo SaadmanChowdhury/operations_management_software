@@ -7,9 +7,36 @@
 PROJECT_CARDS = [];
 
 
-function display(x) {
+function display(x,diff,order,leader) {
+
+
+if( $( "#row"+x ).is(":hidden"))    
+ {   $.ajax({
+        type: "post",
+        url: "/API/readProjectAssign",
+        data: {
+            _token: $('#csrf-token')[0].content,
+            projectID: x
+
+        },
+        cache: false,
+        success: function (response02) {
+            console.log(response02);
+            if(response02["resultStatus"]["isSuccess"]) {
+                  console.log($( "#row"+x ).is(":visible"));              
+                    renderEmptyAssignAccordion(x,diff,order,leader,response02);
+            
+            } else
+                handleAJAXResponse(response02);
+        },
+        error: function (err) {
+            handleAJAXError(err);
+        }
+    });
+  }
 
     $('#row' + x).toggle("3000");
+    
     
 }
 
@@ -27,40 +54,16 @@ function fetchProjectList_AJAX() {
         success: function (response01) {
             console.log(response01);
             if(response01["resultStatus"]["isSuccess"]) {
+                projectRender();
 
-                $.ajax({
-                    type: "post",
-                    url: "/API/readProjectAssign",
-                    data: {
-                        _token: $('#csrf-token')[0].content,
-                        projectID: 1
-                        
-                    },
-                    cache: false,
-                    success: function (response02) {
-                        console.log(response02);
-                        if(response02["resultStatus"]["isSuccess"]) {
-                            projectRender();
-
-                                function projectRender() {
-                                    setTimeout(function () {
-                                        if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
-                                            renderProjectHTML(response01,response02);
-                                        }
-                                        else projectRender();
-                                    }, 10)
-                                }
-                            
-            
-                        } else
-                            handleAJAXResponse(response02);
-                    },
-                    error: function (err) {
-                        handleAJAXError(err);
-                    }
-                });
-
-                
+                function projectRender() {
+                    setTimeout(function () {
+                        if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
+                            renderProjectHTML(response01);
+                        }
+                        else projectRender();
+                    }, 10)
+                }
 
             } else
                 handleAJAXResponse(response01);
@@ -108,7 +111,7 @@ function getDevelopmentStageHTML(data) {
 
 //=== RENDERING PROJECT CARD HEADER ===//
 
-function renderProjectHTML(response01,response02) {
+function renderProjectHTML(response01) {
 
     var projects = document.getElementById('accordian');
 
@@ -124,12 +127,12 @@ function renderProjectHTML(response01,response02) {
         
         // To calculate the no. of days between two dates
         var Difference_In_Month =Math.ceil( Difference_In_Time / (1000 * 3600 * 24*30));
-        console.log(Difference_In_Month);
-
+        //console.log(Difference_In_Month);
+        var leader= convertUser_IDToName(row.projectLeaderID);
         var profit = (row.salesTotal - row.budget) * 100 / row.salesTotal;
         projectHtml =
             `<div class="card _project" id="project-row-${row.projectID}">
-             <div class="card-header" id="row1head" onclick="display(${row.projectID})">
+             <div class="card-header" id="row1head" onclick="display(${row.projectID},${Difference_In_Month},${row.orderMonth},'${leader}')">
              <div class="display list-unstyled">
              <li>${row.projectName}</li>
              <li>${convertClient_IDToName(row.clientID)}</li>
@@ -153,7 +156,6 @@ function renderProjectHTML(response01,response02) {
              </div>
 
              <div class="collapse show" id="row${row.projectID}">` +
-            renderEmptyAssignAccordion(row.projectID,Difference_In_Month,row.orderMonth,convertUser_IDToName(row.projectLeaderID)) +
             `</div>
              </div>`;
         $('#accordian').append(projectHtml);
@@ -189,6 +191,7 @@ function printBody(x){
     var print='';
     for(i=0;i<x;i++){
         print+=`<td>1.00</td>`;
+        console.log(print);
     }
     return print;
 }
@@ -196,8 +199,8 @@ function printBody(x){
 
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
-function renderEmptyAssignAccordion(projectID,x,orderMonth,leader) {
-
+function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
+    
     accordionHTML =
 
         `<div class="card-body row _accordion">
@@ -302,8 +305,9 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader) {
             </ul>
         </div>
     </div>`;
-
-    return accordionHTML;
+    console.log($('#row'+projectID).html());
+    if($('#row'+projectID).html()=="")
+        $('#row'+projectID).append(accordionHTML);
 }
 
 document.addEventListener("DOMContentLoaded", () => { fetchProjectList_AJAX() });
