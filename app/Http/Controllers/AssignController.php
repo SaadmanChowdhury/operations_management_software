@@ -43,12 +43,12 @@ class AssignController extends Controller
         return JSONHandler::packagedJSONData($data);
     }
 
-    public function activeUserCount($year = 2020)
+    public function activeUserCount(Request $request)
     {
         if (!Auth::check())
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
 
-        // $year = $request->year;
+        $year = $request->year;
         $data = $this->assignService->activeUserCount($year);
 
         /** Otherwise package the data into JSON-data and return */
