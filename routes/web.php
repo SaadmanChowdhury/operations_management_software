@@ -131,7 +131,7 @@ Route::post('/API/readProjectAssign', [ProjectController::class, 'readProjectAss
 Route::post('/API/upsertAssign', [ProjectController::class, 'upsertAssign']);
 Route::post('/API/assignSummary', [AssignController::class, 'assignSummary']);
 
-Route::get('/API/activeUserCount', [AssignController::class, 'activeUserCount']);
+Route::post('/API/activeUserCount', [AssignController::class, 'activeUserCount']);
 
 
 
