@@ -34,6 +34,7 @@ function fetchProjectList_AJAX() {
                     data: {
                         _token: $('#csrf-token')[0].content,
                         projectID: 1
+                        
                     },
                     cache: false,
                     success: function (response02) {
