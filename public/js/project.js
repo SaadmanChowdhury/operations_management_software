@@ -9,36 +9,32 @@ PROJECT_CARDS = [];
 
 function display(x,diff,order,leader) {
 
+$('#row' + x).toggle("3000");    
+$.ajax({
+    type: "post",
+    url: "/API/readProjectAssign",
+    data: {
+        _token: $('#csrf-token')[0].content,
+        projectID: x
 
-if( $( "#row"+x ).is(":hidden"))    
- {   $.ajax({
-        type: "post",
-        url: "/API/readProjectAssign",
-        data: {
-            _token: $('#csrf-token')[0].content,
-            projectID: x
-
-        },
-        cache: false,
-        success: function (response02) {
-            console.log(response02);
-            if(response02["resultStatus"]["isSuccess"]) {
-                  console.log($( "#row"+x ).is(":visible"));              
-                    renderEmptyAssignAccordion(x,diff,order,leader,response02);
-            
-            } else
-                handleAJAXResponse(response02);
-        },
-        error: function (err) {
-            handleAJAXError(err);
-        }
-    });
-  }
-
-    $('#row' + x).toggle("3000");
-    
-    
+    },
+    cache: false,
+    success: function (response02) {
+        console.log(response02);
+        if(response02["resultStatus"]["isSuccess"]) {
+            //   console.log($( "#row"+x ).is(":visible"));              
+                renderEmptyAssignAccordion(x,diff,order,leader,response02);
+        
+        } else
+            handleAJAXResponse(response02);
+    },
+    error: function (err) {
+        handleAJAXError(err);
+    }
+});
 }
+
+
 
 
 //=== FETCHING PROJECT DETAILS FROM PROJECT API ===//
@@ -132,7 +128,7 @@ function renderProjectHTML(response01) {
         var profit = (row.salesTotal - row.budget) * 100 / row.salesTotal;
         projectHtml =
             `<div class="card _project" id="project-row-${row.projectID}">
-             <div class="card-header" id="row1head" onclick="display(${row.projectID},${Difference_In_Month},${row.orderMonth},'${leader}')">
+             <div class="card-header" id="row1head" onclick="display(${row.projectID},${Difference_In_Month},'${row.orderMonth}','${leader}')">
              <div class="display list-unstyled">
              <li>${row.projectName}</li>
              <li>${convertClient_IDToName(row.clientID)}</li>
@@ -187,11 +183,27 @@ function printTotal(x){
     }
     return print;
 }
-function printBody(x){
+function printBody(x,response){
+    //console.log(response);
     var print='';
+    response.forEach((assign)=>{
+        print+=`<td>${assign.value}</td>`;
+    });
+    // for(i=0;i<response.length;i++){
+    //     console.log(response[i].value);
+    //     print+=`<td>${response[i].value}</td>`;
+    // }
+    
     for(i=0;i<x;i++){
-        print+=`<td>1.00</td>`;
-        console.log(print);
+        if(i>=response.length){
+            print+=`<td>0.0</td>`;
+        }
+        else
+        {
+                        
+        }    
+        
+        // console.log(print);
     }
     return print;
 }
@@ -249,22 +261,19 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
                     <tr class="row-total">
                         <td>3</td>
                         <td>54.0</td>
-                    </tr>
-                    <tr class="editMode-input">
-                        <td><img src="img/pro_icon.png">${leader}</td>
+                    </tr>`;
+                    
+                    response02["resultData"]["project"]["member"].forEach((row) => {
+
+                        Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
+                    accordionHTML+=
+                    `<tr class="editMode-input">
+                        <td><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
                         <td>18.0</td>
-    
-                    </tr>
-                    <tr class="editMode-input">
-                        <td><img src="img/pro_icon.png">社員</td>
-                        <td>18.0</td>
-                    </tr>
-                    <tr class="editMode-input">
-                        <td><img src="img/pro_icon.png">社員</td>
-                        <td>18.0</td>
-                    </tr>
-                </table>
-                <div class="table-des-container">`+
+                    </tr>`});
+                    accordionHTML+=
+                    `</table>
+                    <div class="table-des-container">`+
                     `<table class="table-des">
                         <tr>`+
                             
@@ -274,20 +283,21 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
                         <tr class="row-total">`+
                             printTotal(x)
     
-                        +`</tr>
-                        <tr class="editMode-input">`+
-                            printBody(x)
+                        +`</tr>`;
+                        response02["resultData"]["project"]["member"].forEach((row) => {
 
-                        +`</tr>
-                        <tr class="editMode-input">`+
-                            printBody(x)
+                            Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
+                            // row["assign"].foreach((member) => {
 
-                        +`</tr>
-                        <tr class="editMode-input">`+
-                            printBody(x)
-
-                        +`</tr>
-                    </table>
+                            // });
+                                accordionHTML+=
+                                `<tr class="editMode-input">`+
+                                    printBody(x,row.assign)
+                                +`</tr>`;
+                        });
+                        
+                        accordionHTML+=
+                    `</table>
                 </div>
             </div>
         </div>
@@ -305,7 +315,7 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
             </ul>
         </div>
     </div>`;
-    console.log($('#row'+projectID).html());
+    // console.log($('#row'+projectID).html());
     if($('#row'+projectID).html()=="")
         $('#row'+projectID).append(accordionHTML);
 }
@@ -553,3 +563,28 @@ function addRow(x) {
                                         </tr>`;
 
 }
+
+// var projects =[
+
+//     project={
+
+//         projectID:1,
+//         projectLeaderID:1,
+//         budget:1000000,
+//         cost:100000,
+//         profit:200,
+//         profitPercentage:20%,
+//         totalManHours:4,
+//         minMonth:10,
+//         minYear:2,
+//         maxMonth:12,
+//         maxYear:5,
+
+
+        
+
+
+//     }
+
+// ];
+
