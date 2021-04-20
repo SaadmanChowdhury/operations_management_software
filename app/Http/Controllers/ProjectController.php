@@ -155,6 +155,7 @@ class ProjectController extends Controller
 
         $projectID =  $request->projectID;
 
+
         $data = $this->projectService->readProjectAssign($projectID);
 
         /** if the returned data is a string, then probably an error happened in the Service or Modal layer */

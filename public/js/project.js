@@ -25,19 +25,20 @@ function fetchProjectList_AJAX() {
         },
         cache: false,
         success: function (response01) {
-
-            if (response01["resultStatus"]["isSuccess"]) {
+            console.log(response01);
+            if(response01["resultStatus"]["isSuccess"]) {
 
                 $.ajax({
                     type: "post",
                     url: "/API/readProjectAssign",
                     data: {
                         _token: $('#csrf-token')[0].content,
+                        projectID: 1
                     },
                     cache: false,
                     success: function (response02) {
-            
-                        if (response02["resultStatus"]["isSuccess"]) {
+                        console.log(response02);
+                        if(response02["resultStatus"]["isSuccess"]) {
                             projectRender();
 
                                 function projectRender() {
