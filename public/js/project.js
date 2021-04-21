@@ -172,7 +172,6 @@ function printHeader(x,orderMonth){
         date=new Date(orderMonth);
         date.setMonth(date.getMonth() + 1);
         orderMonth=date.toLocaleDateString();
-
     }
     return print;
 }
@@ -184,7 +183,7 @@ function printTotal(x){
     return print;
 }
 function printBody(x,response){
-    //console.log(response);
+    console.log(response);
     var print='';
     response.forEach((assign)=>{
         print+=`<td>${assign.value}</td>`;
@@ -290,6 +289,7 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
                             // row["assign"].foreach((member) => {
 
                             // });
+                                console.log(row);
                                 accordionHTML+=
                                 `<tr class="editMode-input">`+
                                     printBody(x,row.assign)
