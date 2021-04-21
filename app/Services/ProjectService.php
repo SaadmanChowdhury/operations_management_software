@@ -156,6 +156,7 @@ class ProjectService
         $data['project'] = $projectModel->getProjectData($projectID);
         $data['project']->cost = $projectModel->getProjectCost($projectID);
         $data['project']->profit = $projectModel->getProjectProfit($projectID);
+        $data['project']->profitPercentage = $projectModel->getProjectProfitPercentage($projectID);
         $data['project']->totalManMonth = $projectModel->getTotalManMonth($projectID);
 
         $data['project']->member = $assignModel->getMemberId($projectID);
