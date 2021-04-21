@@ -185,24 +185,23 @@ function printTotal(x){
 function printBody(x,response){
     console.log(response);
     var print='';
-    response.forEach((assign)=>{
-        print+=`<td>${assign.value}</td>`;
-    });
-    // for(i=0;i<response.length;i++){
-    //     console.log(response[i].value);
-    //     print+=`<td>${response[i].value}</td>`;
-    // }
+    if(response!=null)
+    {
+        response.forEach((assign)=>{
+            print+=`<td>${assign.value}</td>`;
+        });
     
-    for(i=0;i<x;i++){
-        if(i>=response.length){
-            print+=`<td>0.0</td>`;
+        for(i=0;i<x;i++){
+            if(i>=response.length){
+                print+=`<td>0.0</td>`;
+            }
+            else
+            {
+                            
+            }    
+            
+            // console.log(print);
         }
-        else
-        {
-                        
-        }    
-        
-        // console.log(print);
     }
     return print;
 }
@@ -240,7 +239,7 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
                 </tr>
                 <tr>
                     <td>期間</td>
-                    <td>2001-2004</td>
+                    <td>${x}月</td>
                 </tr>
             </table>
         </div>
@@ -265,11 +264,16 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
                     
                     response02["resultData"]["project"]["member"].forEach((row) => {
                         Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
+                        console.log(row["assign"]);
+                        var sum=0;
+                        row["assign"].forEach((assign)=>{
+                                sum+=parseFloat(assign.value);
+                        });
 
                     accordionHTML+=
                     `<tr class="editMode-input">
                         <td><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
-                        <td>18.0</td>
+                        <td>${sum}</td>
                     </tr>`});
                     accordionHTML+=
                     `</table>
