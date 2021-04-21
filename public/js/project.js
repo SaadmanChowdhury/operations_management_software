@@ -211,7 +211,7 @@ function printBody(x,response){
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
 function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
-    
+    console.log(response02["resultData"]["project"]);
     accordionHTML =
 
         `<div class="card-body row _accordion">
@@ -220,23 +220,23 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
             <table>
                 <tr>
                     <td>予算</td>
-                    <td>71,4000　円</td>
+                    <td>${response02["resultData"]["project"].budget}円</td>
                 </tr>
                 <tr>
                     <td>原価</td>
-                    <td>10,0000　円</td>
+                    <td>${response02["resultData"]["project"].cost}円</td>
                 </tr>
                 <tr>
                     <td>工数</td>
-                    <td>10,0000　円</td>
+                    <td>${response02["resultData"]["project"].member.length}</td>
                 </tr>
                 <tr>
                     <td>粗利</td>
-                    <td>1000　円</td>
+                    <td>${response02["resultData"]["project"].profit}円</td>
                 </tr>
                 <tr>
                     <td>率</td>
-                    <td>75.4　%</td>
+                    <td>${response02["resultData"]["project"].profitPercentage}%</td>
                 </tr>
                 <tr>
                     <td>期間</td>
@@ -261,10 +261,11 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
                         <td>3</td>
                         <td>54.0</td>
                     </tr>`;
+           
                     
                     response02["resultData"]["project"]["member"].forEach((row) => {
-
                         Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
+
                     accordionHTML+=
                     `<tr class="editMode-input">
                         <td><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
