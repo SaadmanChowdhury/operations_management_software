@@ -35,9 +35,10 @@ class Assign extends Model
     public function getCountOfMembers($projectID)
     {
         return DB::table('assign')
+            ->select('user_id')
             ->where('assign.project_id', $projectID)
             ->groupBy('assign.user_id')
-            ->count();
+            ->get()->count();
     }
 
     public function upsertAssign($data)
