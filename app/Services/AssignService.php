@@ -90,7 +90,10 @@ class AssignService
         $user_name = [];
         for ($i = 0; $i < count($active_users); $i++) {
             $user_id = $active_users[$i]->user_id;
-            $user_name[$i] = DB::table('users')->where('user_id', $user_id)->first('name as userName');
+            $user_name[$i] = DB::table('users')
+                ->select('name as userName', 'position')
+                ->where('user_id', $user_id)
+                ->first();
 
             $user_name[$i]->projects = $this->getAssignedProjectsDetails($user_id, $year);
         }
