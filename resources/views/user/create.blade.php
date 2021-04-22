@@ -22,7 +22,8 @@
                     </div>
 
                     <div>
-                        <button type="submit" class="cancel" onclick="closeModal('user-create-modal')"><i class="fa fa-times" aria-hidden="true"></i> 戻る</button>
+                        <button type="submit" class="cancel" onclick="closeModal('user-create-modal')"><i
+                                class="fa fa-times" aria-hidden="true"></i> 戻る</button>
                     </div>
                 </div>
 
@@ -113,71 +114,59 @@
 
 
 <script>
-    function userRegisterModalHandler() {
-        event.preventDefault();
+function userRegisterModalHandler() {
+    event.preventDefault();
 
-        showModal('user-create-modal');
-    }
+    showModal('user-create-modal');
+}
 
-    function getRegFormData() {
-        return {
-            name: $('#user_create_nameInput').val(),
-            email: $('#user_create_emailInput').val(),
-            password: $('#user_create_passwordInput').val(),
-            tel: $('#user_create_telInput').val(),
-            position: $('#user_create_positionInput').val(),
-            location: $('#user_create_locationInput').val(),
-            admission_day: $('#user_create_admission_dayInput').val(),
-            unit_price: $('#user_create_salaryInput').val(),
-            user_authority: $('#user_create_authorityInput').val(),
-            _token: $('input[name=_token]').val()
-        };
-    }
+function getRegFormData() {
+    return {
+        name: $('#user_create_nameInput').val(),
+        email: $('#user_create_emailInput').val(),
+        password: $('#user_create_passwordInput').val(),
+        tel: $('#user_create_telInput').val(),
+        position: $('#user_create_positionInput').val(),
+        location: $('#user_create_locationInput').val(),
+        admission_day: $('#user_create_admission_dayInput').val(),
+        unit_price: $('#user_create_salaryInput').val(),
+        user_authority: $('#user_create_authorityInput').val(),
+        _token: $('input[name=_token]').val()
+    };
+}
 
-    function handleAJAXResponse(response) {
-        if (response["resultStatus"]["isSuccess"])
-            $('#message').html("Operation Succesful");
-        else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
-            $('#message').html("You are not authorized to make this change");
-        else
-            $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
-    }
+function handleAJAXResponse(response) {
+    if (response["resultStatus"]["isSuccess"])
+        $('#message').html("Operation Succesful");
+    else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
+        $('#message').html("You are not authorized to make this change");
+    else
+        $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
+}
 
-    function handleAJAXError(err) {
-        console.log(err);
 
-        if (err.status == "422") {
-            if (err.responseJSON.errors.email != null) {
-                $('#message').html(err.responseJSON.errors.email);
-            }
-            /*
-            if (err.responseJSON.errors.client_name != null) {
-                $('#message').html("エラー　： " + "顧客名が入力していないです。");
-            }*/
+
+
+function createUser() {
+    event.preventDefault();
+
+    modalData = getRegFormData();
+
+    $.ajax({
+        type: "post",
+        url: "/API/createUser",
+        data: modalData,
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                updateUserTable(modalData);
+                closeModal('user-create-modal');
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function(err) {
+            handleAJAXError(err);
         }
-    }
-
-
-    function createUser() {
-        event.preventDefault();
-
-        modalData = getRegFormData();
-
-        $.ajax({
-            type: "post",
-            url: "/API/createUser",
-            data: modalData,
-            cache: false,
-            success: function(response) {
-                if (response["resultStatus"]["isSuccess"]) {
-                    updateUserTable(modalData);
-                    closeModal('user-create-modal');
-                } else
-                    handleAJAXResponse(response);
-            },
-            error: function(err) {
-                handleAJAXError(err);
-            }
-        });
-    }
+    });
+}
 </script>

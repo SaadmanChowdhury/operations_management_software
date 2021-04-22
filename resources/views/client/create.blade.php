@@ -51,69 +51,52 @@
 
 
 <script>
-    $(function() {
-        convertToSearchableDropDown("client_create_userID_Input", "USER");
-    })
+$(function() {
+    convertToSearchableDropDown("client_create_userID_Input", "USER");
+})
 
-    function clientRegisterModalHandler() {
-        event.preventDefault();
-        showModal('client-create-modal');
-    }
+function clientRegisterModalHandler() {
+    event.preventDefault();
+    showModal('client-create-modal');
+}
 
-    function getClientRegFormData() {
-        return {
-            client_name: $('#client_create_name_Input').val(),
-            user_id: $('#client_create_userID_Input').val(),
-            _token: $('input[name=_token]').val()
-        };
-    }
-
-
-    function handleAJAXResponse(response) {
-        if (response["resultStatus"]["isSuccess"])
-            $('#message').html("Operation Succesful");
-        else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
-            $('#message').html("You are not authorized to make this change");
-        else
-            $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
-    }
+function getClientRegFormData() {
+    return {
+        client_name: $('#client_create_name_Input').val(),
+        user_id: $('#client_create_userID_Input').val(),
+        _token: $('input[name=_token]').val()
+    };
+}
 
 
-    function handleAJAXError(err) {
-        console.log(err);
+function handleAJAXResponse(response) {
+    if (response["resultStatus"]["isSuccess"])
+        $('#message').html("Operation Succesful");
+    else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
+        $('#message').html("You are not authorized to make this change");
+    else
+        $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
+}
 
-        if (err.status == "422") {
-            if (err.responseJSON.errors.email != null) {
-                $('#message').html(err.responseJSON.errors.email);
-            }
-            /*
-            if (err.responseJSON.errors.client_name != null) {
-                $('#message').html("エラー　： " + "顧客名が入力していないです。");
-            }*/
+function createClient() {
+    event.preventDefault();
+    modalData = getClientRegFormData();
+
+    $.ajax({
+        type: "post",
+        url: "/API/createClient",
+        data: modalData,
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                updateClientTable(modalData);
+                closeModal('client-create-modal');
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function(err) {
+            handleAJAXError(err);
         }
-    }
-
-
-    function createClient() {
-        event.preventDefault();
-        modalData = getClientRegFormData();
-
-        $.ajax({
-            type: "post",
-            url: "/API/createClient",
-            data: modalData,
-            cache: false,
-            success: function(response) {
-                if (response["resultStatus"]["isSuccess"]) {
-                    updateClientTable(modalData);
-                    closeModal('client-create-modal');
-                } else
-                    handleAJAXResponse(response);
-            },
-            error: function(err) {
-                handleAJAXError(err);
-            }
-        });
-    }
-
+    });
+}
 </script>

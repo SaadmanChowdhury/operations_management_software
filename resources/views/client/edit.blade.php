@@ -29,11 +29,11 @@
                     </div>
 
                     @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
-                        <div onclick="deleteClient()">
-                            <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
-                                    aria-hidden="true"></i>
-                                削除</a>
-                        </div>
+                    <div onclick="deleteClient()">
+                        <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
+                                aria-hidden="true"></i>
+                            削除</a>
+                    </div>
                     @endif
                 </div>
 
@@ -65,141 +65,136 @@
 
 
 <script>
-    $(function() {
-        convertToSearchableDropDown("client_edit_user_id", "USER");
-    })
+$(function() {
+    convertToSearchableDropDown("client_edit_user_id", "USER");
+})
 
-    function clientEditModalHandler(clientID) {
-        event.preventDefault();
-        clearModalData('client-edit-modal');
-        showModal('client-edit-modal');
+function clientEditModalHandler(clientID) {
+    event.preventDefault();
+    clearModalData('client-edit-modal');
+    showModal('client-edit-modal');
 
-        getClientData(clientID);
+    getClientData(clientID);
+}
+
+function getClientEditFormData() {
+    return {
+        id: $('#id').val(),
+        client_name: $('#client_edit_nameInput').val(),
+        user_id: $('#client_edit_user_id').val(),
+        _token: $('input[name=_token]').val()
+    };
+}
+
+function handleAJAXResponse(response) {
+
+    if (response["resultStatus"]["isSuccess"])
+        updateClientTable();
+
+    else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
+        $('#message').html("You are not authorized to make this change");
+
+    else
+        $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
+}
+
+function updateClientTable(updatedData) {
+    console.log(updatedData);
+
+    console.log("UDPATE Client TABLE")
+
+    let row = $("#client-row-" + updatedData.id);
+
+    row.find(".client-name").html(updatedData.name);
+    row.find(".client-userID").html(updatedData.userID);
+
+
+    positionDom = row.find(".pos");
+    positionDom.html(updatedData.positionText);
+    positionDom.removeClass();
+    positionDom.addClass("pos");
+    positionDom.addClass("pos-" + updatedData.positionText);
+
+}
+
+function updateClientEditModalData(data) {
+    console.log(data);
+    for (let i = 0; i < data.length; i++) {
+        if (data[i] == null)
+            data[i] = "";
     }
 
-    function getClientEditFormData() {
-        return {
-            id: $('#id').val(),
-            client_name: $('#client_edit_nameInput').val(),
-            user_id: $('#client_edit_user_id').val(),
+    $("#id").val(data.client_id)
+    $("#client_edit_nameInput").val(data.client_name)
+    $("#client_edit_user_id").val(data.user_id)
+}
+
+function getClientData(clientID) {
+    $.ajax({
+        type: "post",
+        url: "/API/readClient",
+        data: {
+            clientID: clientID,
             _token: $('input[name=_token]').val()
-        };
-    }
-
-    function handleAJAXResponse(response) {
-
-        if (response["resultStatus"]["isSuccess"])
-            updateClientTable();
-
-        else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
-            $('#message').html("You are not authorized to make this change");
-
-        else
-            $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
-    }
-
-    function handleAJAXError(err) {
-        console.log(err);
-    }
-
-    function updateClientTable(updatedData) {
-        console.log(updatedData);
-
-        console.log("UDPATE Client TABLE")
-
-        let row = $("#client-row-" + updatedData.id);
-
-        row.find(".client-name").html(updatedData.name);
-        row.find(".client-userID").html(updatedData.userID);
-
-
-        positionDom = row.find(".pos");
-        positionDom.html(updatedData.positionText);
-        positionDom.removeClass();
-        positionDom.addClass("pos");
-        positionDom.addClass("pos-" + updatedData.positionText);
-
-    }
-
-    function updateClientEditModalData(data) {
-        console.log(data);
-        for (let i = 0; i < data.length; i++) {
-            if (data[i] == null)
-                data[i] = "";
+        },
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                updateClientEditModalData(response["resultData"]);
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function(err) {
+            handleAJAXError(err);
         }
+    });
+}
 
-        $("#id").val(data.client_id)
-        $("#client_edit_nameInput").val(data.client_name)
-        $("#client_edit_user_id").val(data.user_id)
-    }
+function updateClient() {
+    event.preventDefault();
 
-    function getClientData(clientID) {
-        $.ajax({
-            type: "post",
-            url: "/API/readClient",
-            data: {
-                clientID: clientID,
-                _token: $('input[name=_token]').val()
-            },
-            cache: false,
-            success: function(response) {
-                if (response["resultStatus"]["isSuccess"]) {
-                    updateClientEditModalData(response["resultData"]);
-                } else
-                    handleAJAXResponse(response);
-            },
-            error: function(err) {
-                handleAJAXError(err);
-            }
-        });
-    }
+    modalData = getClientEditFormData();
 
-    function updateClient() {
-        event.preventDefault();
-
-        modalData = getClientEditFormData();
-
-        $.ajax({
-            type: "post",
-            url: "/API/updateClient",
-            data: modalData,
-            cache: false,
-            success: function(response) {
-                if (response["resultStatus"]["isSuccess"]) {
-                    updateClientTable(modalData);
-                    closeModal('client-edit-modal');
-                } else
-                    handleAJAXResponse(response);
-            },
-            error: function(err) {
-                handleAJAXError(err);
-            }
-        });
-    }
-
-    function deleteClient() {
-        event.preventDefault();
-        clientId = $('#id').val();
-
-        $.ajax({
-            type: "post",
-            url: "/API/deleteClient",
-            data: {
-                clientID: clientId,
-                _token: $('input[name=_token]').val()
-            },
-            cache: false,
-            success: function(response) {
-                if (response["resultStatus"]["isSuccess"])
-                    $("#client-row-" + clientId).remove();
-                else
-                    handleAJAXResponse(response);
+    $.ajax({
+        type: "post",
+        url: "/API/updateClient",
+        data: modalData,
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                updateClientTable(modalData);
                 closeModal('client-edit-modal');
-            },
-            error: function(err) {
-                handleAJAXError(err);
-            }
-        });
-    }
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function(err) {
+            handleAJAXError(err);
+        }
+    });
+}
 
+function deleteClient() {
+    event.preventDefault();
+    clientId = $('#id').val();
+
+    $.ajax({
+        type: "post",
+        url: "/API/deleteClient",
+        data: {
+            clientID: clientId,
+            _token: $('input[name=_token]').val()
+        },
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"])
+                $("#client-row-" + clientId).remove();
+            else
+                handleAJAXResponse(response);
+            closeModal('client-edit-modal');
+        },
+        error: function(err) {
+            handleAJAXError(err);
+        }
+    });
+}
 </script>
