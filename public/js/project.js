@@ -3,27 +3,30 @@
 // var content1 = document.getElementById("row1");
 // var content2 = document.getElementById("row2");
 
+//const { assign } = require("lodash");
+
 
 PROJECT_CARDS = [];
 
 
-function display(x,diff,order,leader) {
+function display(id,diff,order,leader) {
 
-$('#row' + x).toggle("3000");    
+$('#row' + id).toggle("3000");    
 $.ajax({
     type: "post",
     url: "/API/readProjectAssign",
     data: {
         _token: $('#csrf-token')[0].content,
-        projectID: x
+        projectID: id
 
     },
     cache: false,
     success: function (response02) {
         console.log(response02);
         if(response02["resultStatus"]["isSuccess"]) {
-            //   console.log($( "#row"+x ).is(":visible"));              
-                renderEmptyAssignAccordion(x,diff,order,leader,response02);
+            //   console.log($( "#row"+id ).is(":visible")); 
+            // response02 = project details of selected project             
+                renderEmptyAssignAccordion(id,diff,order,leader,response02);
         
         } else
             handleAJAXResponse(response02);
@@ -182,6 +185,9 @@ function printTotal(x){
     }
     return print;
 }
+
+
+
 function printBody(x,response){
     console.log(response);
     var print='';
@@ -206,11 +212,70 @@ function printBody(x,response){
     return print;
 }
 
+function objectToArray(obj){
+    var array=[];
+    var i=0;
+    obj.forEach((row) => {
 
+        // Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
+            //console.log(row);
+            array.push(row);
+            
+    });
+    //console.log(array);
+    return array;
+}
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
-function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
-    console.log(response02["resultData"]["project"]);
+function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02) {
+    //console.log(response02["resultData"]["project"]["member"].length);
+    var x=response02["resultData"]["project"]["member"].length+2;
+    var members=objectToArray(response02["resultData"]["project"]["member"]);
+    //console.log(x,diff);
+    //console.log(members[0]);
+    var assign = new Array(x);
+    for (var i = 0; i < assign.length; i++) {
+        assign[i] = new Array(diff);
+    }
+    
+    for(var i=0;i<members.length+2;i++)
+    {
+        
+        for(var j=0;j<diff;j++)
+        {
+            assign[i][j]=0;
+            if(i==0){
+                date=new Date(orderMonth);
+                // orderMonth=date.toLocaleDateString();
+                if(j!=0)
+                    date.setMonth(date.getMonth() + 1);
+                orderMonth=date.toLocaleDateString();
+                assign[i][j]= date;
+                //console.log(assign[i][j]);
+            }
+            else if(i==1){
+                assign[i][j]=1;
+                //console.log(assign[i][j]);
+            }
+            else{
+
+                members[i-2].assign.forEach((value)=>{
+                    console.log(value.month, assign[0][j].getMonth());
+                    if(assign[0][j].getMonth()==value.month){
+                        assign[i][j]=value.value;
+                    }
+                    else
+                        assign[i][j]=0;
+                });
+                
+                
+                
+            }
+            
+        }
+    }
+    console.log(assign);
+
     accordionHTML =
 
         `<div class="card-body row _accordion">
@@ -239,7 +304,7 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
                 </tr>
                 <tr>
                     <td>期間</td>
-                    <td>${x}月</td>
+                    <td>${diff}月</td>
                 </tr>
             </table>
         </div>
@@ -281,11 +346,11 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
                     `<table class="table-des">
                         <tr>`+
                             
-                            printHeader(x,orderMonth)+
+                            printHeader(diff,orderMonth)+
     
                         `</tr>
                         <tr class="row-total">`+
-                            printTotal(x)
+                            printTotal(diff)
     
                         +`</tr>`;
                         response02["resultData"]["project"]["member"].forEach((row) => {
@@ -297,7 +362,7 @@ function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
                                 console.log(row);
                                 accordionHTML+=
                                 `<tr class="editMode-input">`+
-                                    printBody(x,row.assign)
+                                    printBody(diff,row.assign)
                                 +`</tr>`;
                         });
                         
@@ -569,27 +634,39 @@ function addRow(x) {
 
 }
 
-// var projects =[
-
-//     project={
-
-//         projectID:1,
-//         projectLeaderID:1,
-//         budget:1000000,
-//         cost:100000,
-//         profit:200,
-//         profitPercentage:20%,
-//         totalManHours:4,
-//         minMonth:10,
-//         minYear:2,
-//         maxMonth:12,
-//         maxYear:5,
 
 
-        
+class ProjectListRenderer{
 
+    constructor(projectID,monthDiff) {
+        this.project = projectID;
+        this.cumSumAllProject = new Array(monthDiff).fill(0);
+    }
+    
+}
 
-//     }
+function getUserData(aYear) {
+    $.ajax({
+        type: "post",
+        url: "/API/assignSummary",
+        data: {
+            year: aYear,
+            _token: $('input[name=_token]').val()
+        },
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"]) {
 
-// ];
+                var x = new ProjectListRenderer(response["resultData"]["project"].projectID ,
+                getManMonthByYear(aYear)
+                );
+                x.render();
 
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function(err) {
+            handleAJAXError(err);
+        }
+    });
+}
