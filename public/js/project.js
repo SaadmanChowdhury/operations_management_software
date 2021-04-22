@@ -26,7 +26,7 @@ $.ajax({
     success: function (response02) {
         console.log(response02);
         if(response02["resultStatus"]["isSuccess"]) {
-            //   console.log($( "#row"+id ).is(":visible")); 
+            
             // response02 = project details of selected project             
                 renderEmptyAssignAccordion(id,diff,order,leader,response02);
         
@@ -164,8 +164,7 @@ function renderProjectHTML(response01) {
     });
 
     PROJECT_CARDS = document.querySelectorAll('._project.card');
-    // console.log(PROJECT_CARDS);
-
+    
 }
 
 function printHeader(x,orderMonth){
@@ -194,24 +193,7 @@ function printTotal(x,totalWorkMonth){
 function printBody(diff,assign,index){
     console.log(assign);
     var print='';
-    // if(response!=null)
-    // {
-    //     response.forEach((assign)=>{
-    //         print+=`<td>${assign.value}</td>`;
-    //     });
     
-    //     for(i=0;i<x;i++){
-    //         if(i>=response.length){
-    //             print+=`<td>0.0</td>`;
-    //         }
-    //         else
-    //         {
-                            
-    //         }    
-            
-    //         // console.log(print);
-    //     }
-    // }
     for(var i=0;i<diff;i++){
         print+=`<td>${assign[index][i]}</td>`;
     }
@@ -222,19 +204,15 @@ function objectToArray(obj){
     var array=[];
     var i=0;
     obj.forEach((row) => {
-
-        // Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
-            //console.log(row);
-            array.push(row);
-            
+            array.push(row);           
     });
-    //console.log(array);
+
     return array;
 }
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
 function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02) {
-    //console.log(response02["resultData"]["project"]["member"].length);
+    
     
     var x=response02["resultData"]["project"]["member"].length+1;
     var members=objectToArray(response02["resultData"]["project"]["member"]);
@@ -376,9 +354,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                         response02["resultData"]["project"]["member"].forEach((row) => {
 
                             Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
-                            // row["assign"].foreach((member) => {
-
-                            // });
+                            
                                 console.log(row);
                                 accordionHTML+=
                                 `<tr class="editMode-input">`+
@@ -406,7 +382,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
             </ul>
         </div>
     </div>`;
-    // console.log($('#row'+projectID).html());
+    
     if($('#row'+projectID).html()=="")
         $('#row'+projectID).append(accordionHTML);
 }
@@ -657,37 +633,3 @@ function addRow(x) {
 
 
 
-class ProjectListRenderer{
-
-    constructor(projectID,monthDiff) {
-        this.project = projectID;
-        this.cumSumAllProject = new Array(monthDiff).fill(0);
-    }
-    
-}
-
-function getUserData(aYear) {
-    $.ajax({
-        type: "post",
-        url: "/API/assignSummary",
-        data: {
-            year: aYear,
-            _token: $('input[name=_token]').val()
-        },
-        cache: false,
-        success: function(response) {
-            if (response["resultStatus"]["isSuccess"]) {
-
-                var x = new ProjectListRenderer(response["resultData"]["project"].projectID ,
-                getManMonthByYear(aYear)
-                );
-                x.render();
-
-            } else
-                handleAJAXResponse(response);
-        },
-        error: function(err) {
-            handleAJAXError(err);
-        }
-    });
-}
