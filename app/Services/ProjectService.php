@@ -187,7 +187,7 @@ class ProjectService
         $data = $request->all();
 
         //for testing getting the dummy data
-        $data = $this->getUpsertAssignData();
+        // $data = $this->getUpsertAssignData();
         $formattedData = $this->getFormattedDataForUpsertAssign($data);
 
         return $assignModel->upsertAssign($formattedData);
@@ -202,7 +202,7 @@ class ProjectService
             $formattedData[$key]['user_id'] = $value['memberID'];
             $formattedData[$key]['year'] = $value['year'];
             $formattedData[$key]['month'] = $value['month'];
-            $formattedData[$key]['execution'] = $value['value'];
+            $formattedData[$key]['plan_man_month'] = $value['value'];
         }
         return $formattedData;
     }
@@ -211,12 +211,12 @@ class ProjectService
     {
         return [
             0 => [
-                'assignID' => null,
-                'projectID' => 33,
-                'memberID' => 33,
-                'year' => 33,
-                'month' => 33,
-                'value' => 33,
+                'assignID' => 1,
+                'projectID' => 1,
+                'memberID' => 2,
+                'year' => 2,
+                'month' => 2,
+                'value' => 2,
             ],
             1 => [
                 'assignID' => 89,

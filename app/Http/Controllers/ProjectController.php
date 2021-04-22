@@ -148,11 +148,12 @@ class ProjectController extends Controller
     }
 
 
-    public function readProjectAssign($projectID)
+    public function readProjectAssign(Request $request)
     {
-
         if (!Auth::check())
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
+        $projectID =  $request->projectID;
 
         $data = $this->projectService->readProjectAssign($projectID);
 

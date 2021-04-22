@@ -26,40 +26,40 @@ function renderHTML(response) {
     var staffs = document.getElementsByClassName('table-body');
     response["resultData"]["user"].forEach((row) => {
 
-        var pos;
-        switch (row.position) {
-            case 'PM':
-                pos = 'PM';
-                break;
-            case 'PL':
-                pos = 'PL';
-                break;
-            case 'SE':
-                pos = 'SE';
-                break;
-            case 'PG':
-                pos = 'PG';
-                break;
-            default:
-                pos = 'SE';
-        }
+        var pos = row.position;
+        // switch (row.position) {
+        //     case 'PM':
+        //         pos = 'PM';
+        //         break;
+        //     case 'PL':
+        //         pos = 'PL';
+        //         break;
+        //     case 'SE':
+        //         pos = 'SE';
+        //         break;
+        //     case 'PG':
+        //         pos = 'PG';
+        //         break;
+        //     default:
+        //         pos = 'SE';
+        // }
         // USER_LOCATION
-        var loc;
-        switch (row.location) {
-            case '宮崎':
-                loc = '宮崎';
-                break;
-            case '東京':
-                loc = '東京';
-                break;
-            case '福岡':
-                loc = '福岡';
-                break;
+        var loc = row.location;
+        // switch (row.location) {
+        //     case '宮崎':
+        //         loc = '宮崎';
+        //         break;
+        //     case '東京':
+        //         loc = '東京';
+        //         break;
+        //     case '福岡':
+        //         loc = '福岡';
+        //         break;
 
-            default:
-                loc = '宮崎';
-                break;
-        }
+        //     default:
+        //         loc = '宮崎';
+        //         break;
+        // }
         // DATE
         let today = new Date();
         let date = new Date(row.admissionDay);
