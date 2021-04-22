@@ -156,14 +156,16 @@ class ProjectService
         $data['project'] = $projectModel->getProjectData($projectID);
         $data['project']->cost = $projectModel->getProjectCost($projectID);
         $data['project']->profit = $projectModel->getProjectProfit($projectID);
+        $data['project']->profitPercentage = $projectModel->getProjectProfitPercentage($projectID);
         $data['project']->totalManMonth = $projectModel->getTotalManMonth($projectID);
 
         $data['project']->member = $assignModel->getMemberId($projectID);
 
         //for looping
-        $count = $assignModel->getCountOfMembers($projectID);
+        // $count = $assignModel->getCountOfMembers($projectID);
+        $count = count($data['project']->member);
 
-        for ($i = 0; $i < $count - 1; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $user = $data['project']->member[$i];
             $memberID = $user->memberID;
             $data['project']->member[$i]->assign = $assignModel->getAssignInfo($projectID, $memberID);

@@ -1,23 +1,40 @@
 // const { data } = require("jquery");
-var coll1 = document.getElementById("row1head");
-var content1 = document.getElementById("row1");
-var content2 = document.getElementById("row2");
+// var coll1 = document.getElementById("row1head");
+// var content1 = document.getElementById("row1");
+// var content2 = document.getElementById("row2");
+
+
 PROJECT_CARDS = [];
 
 
-function display(x) {
+function display(x,diff,order,leader) {
 
-    var row = document.getElementById('row' + x);
-    console.log(row.style.display);
+$('#row' + x).toggle("3000");    
+$.ajax({
+    type: "post",
+    url: "/API/readProjectAssign",
+    data: {
+        _token: $('#csrf-token')[0].content,
+        projectID: x
 
-    if (row.style.display === "block") {
-        row.style.display = "none";
-    } else {
-
-        row.style.display = "block";
-
+    },
+    cache: false,
+    success: function (response02) {
+        console.log(response02);
+        if(response02["resultStatus"]["isSuccess"]) {
+            //   console.log($( "#row"+x ).is(":visible"));              
+                renderEmptyAssignAccordion(x,diff,order,leader,response02);
+        
+        } else
+            handleAJAXResponse(response02);
+    },
+    error: function (err) {
+        handleAJAXError(err);
     }
+});
 }
+
+
 
 
 //=== FETCHING PROJECT DETAILS FROM PROJECT API ===//
@@ -30,23 +47,22 @@ function fetchProjectList_AJAX() {
             _token: $('#csrf-token')[0].content,
         },
         cache: false,
-        success: function (response) {
-
-            if (response["resultStatus"]["isSuccess"]) {
-
+        success: function (response01) {
+            console.log(response01);
+            if(response01["resultStatus"]["isSuccess"]) {
                 projectRender();
 
                 function projectRender() {
                     setTimeout(function () {
                         if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
-                            renderProjectHTML(response);
+                            renderProjectHTML(response01);
                         }
                         else projectRender();
                     }, 10)
                 }
 
             } else
-                handleAJAXResponse(response);
+                handleAJAXResponse(response01);
         },
         error: function (err) {
             handleAJAXError(err);
@@ -91,45 +107,55 @@ function getDevelopmentStageHTML(data) {
 
 //=== RENDERING PROJECT CARD HEADER ===//
 
-function renderProjectHTML(response) {
+function renderProjectHTML(response01) {
 
     var projects = document.getElementById('accordian');
 
-    response["resultData"]["project"].forEach((row) => {
+    response01["resultData"]["project"].forEach((row) => {
 
         Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
-
+        //=== CALCULATING NUMBER OF DAYS ===//
+        var date1 = new Date(row.orderMonth);
+        var date2 = new Date(row.inspectionMonth);
+        
+        // To calculate the time difference of two dates
+        var Difference_In_Time = date2.getTime() - date1.getTime();
+        
+        // To calculate the no. of days between two dates
+        var Difference_In_Month =Math.ceil( Difference_In_Time / (1000 * 3600 * 24*30));
+        //console.log(Difference_In_Month);
+        var leader= convertUser_IDToName(row.projectLeaderID);
         var profit = (row.salesTotal - row.budget) * 100 / row.salesTotal;
         projectHtml =
-            `<div class="card _project" id="project-row-${row.projectID}">` +
-            `<div class="card-header" id="row1head" onclick="display(${row.projectID})">` +
-            `<div class="display list-unstyled">` +
-            `<li>${row.projectName}</li>` +
-            `<li>${convertClient_IDToName(row.clientID)}</li>` +
-            `<li><img src="img/pro_icon.png" class="smallpic">` +
-            `<div class="user-name">${convertUser_IDToName(row.projectLeaderID)}</div>` +
-            `</li>` +
+            `<div class="card _project" id="project-row-${row.projectID}">
+             <div class="card-header" id="row1head" onclick="display(${row.projectID},${Difference_In_Month},'${row.orderMonth}','${leader}')">
+             <div class="display list-unstyled">
+             <li>${row.projectName}</li>
+             <li>${convertClient_IDToName(row.clientID)}</li>
+             <li><img src="img/pro_icon.png" class="smallpic">
+              <div class="user-name">${convertUser_IDToName(row.projectLeaderID)}</div>
+             </li>` +
             getOrderStatusHTML(row.orderStatus) +
             getBusinessSituationHTML(row.businessSituation) +
             getDevelopmentStageHTML(row.developmentStage) +
-            `<li>${row.orderMonth}</li>` +
-            `<li>${row.inspectionMonth}</li>` +
-            `<li class="right-align">${numberWithCommas(row.salesTotal) + " 円"}</li>` +
-            `<li class="right-align">${numberWithCommas(row.budget) + " 円"}</li>` +
-            `<li>${profit}%</li>` +
-            `<li>` +
-            `<div class="edit" onclick="projectEditModalHandler(${row.projectID})">` +
-            `<span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集` +
-            `</div>` +
-            `</li>` +
-            `</div>` +
-            `</div>` +
+            `<li>${row.orderMonth}</li>
+             <li>${row.inspectionMonth}</li>
+             <li class="right-align">${numberWithCommas(row.salesTotal) + " 円"}</li>
+             <li class="right-align">${numberWithCommas(row.budget) + " 円"}</li>
+             <li>${profit}%</li>
+             <li>
+             <div class="edit" onclick="projectEditModalHandler(${row.projectID})">
+             <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
+             </div>
+             </li>
+             </div>
+             </div>
 
-            `<div class="collapse show" id="row${row.projectID}">` +
-            renderEmptyAssignAccordion(row.projectID) +
-            `</div>` +
-            `</div>`;
-        projects.innerHTML += projectHtml;
+             <div class="collapse show" id="row${row.projectID}">` +
+            `</div>
+             </div>`;
+        $('#accordian').append(projectHtml);
+        
     });
 
     PROJECT_CARDS = document.querySelectorAll('._project.card');
@@ -137,203 +163,161 @@ function renderProjectHTML(response) {
 
 }
 
+function printHeader(x,orderMonth){
+    var print='';
+    for(i=0;i<x;i++){
+        var date=new Date(orderMonth);
+        orderMonth=date.toLocaleDateString();
+        print+=`<th>`+orderMonth+`</th>`;
+        date=new Date(orderMonth);
+        date.setMonth(date.getMonth() + 1);
+        orderMonth=date.toLocaleDateString();
+    }
+    return print;
+}
+function printTotal(x){
+    var print='';
+    for(i=0;i<x;i++){
+        print+=` <td>3.00</td>`;
+    }
+    return print;
+}
+function printBody(x,response){
+    console.log(response);
+    var print='';
+    response.forEach((assign)=>{
+        print+=`<td>${assign.value}</td>`;
+    });
+    // for(i=0;i<response.length;i++){
+    //     console.log(response[i].value);
+    //     print+=`<td>${response[i].value}</td>`;
+    // }
+    
+    for(i=0;i<x;i++){
+        if(i>=response.length){
+            print+=`<td>0.0</td>`;
+        }
+        else
+        {
+                        
+        }    
+        
+        // console.log(print);
+    }
+    return print;
+}
+
+
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
-function renderEmptyAssignAccordion(projectID) {
-
+function renderEmptyAssignAccordion(projectID,x,orderMonth,leader,response02) {
+    
     accordionHTML =
 
-        `<div class="card-body row _accordion">` +
-
-        `<div class="table-left">` +
-        `<table>` +
-        `<tr>
+        `<div class="card-body row _accordion">
+    
+        <div class="table-left">
+            <table>
+                <tr>
                     <td>予算</td>
                     <td>71,4000　円</td>
-                </tr>`+
-        `<tr>
+                </tr>
+                <tr>
                     <td>原価</td>
                     <td>10,0000　円</td>
-                </tr>`+
-        `<tr>
+                </tr>
+                <tr>
                     <td>工数</td>
                     <td>10,0000　円</td>
-                </tr>`+
-        `<tr>
+                </tr>
+                <tr>
                     <td>粗利</td>
                     <td>1000　円</td>
-                </tr>`+
-        `<tr>
+                </tr>
+                <tr>
                     <td>率</td>
                     <td>75.4　%</td>
-                </tr>`+
-        `<tr>
+                </tr>
+                <tr>
                     <td>期間</td>
                     <td>2001-2004</td>
-                </tr>`+
-        `</table>` +
-        `</div>` +
-        ` <div class="project-rhs">` +
-        `<div class="add-minus-holder editMode">
-                    <button class="btn round-btn primary _plus" onclick="addRow(${projectID})"><span
-                            class="fa fa-plus"></span></button>
-                    <button class="btn round-btn danger _minus"><span
-                            class="fa fa-minus"></span></button>
-                </div>`+
-        `<div class="table-right row">` +
-        `<table class="table-fix">` +
-        `           <tr>
+                </tr>
+            </table>
+        </div>
+        <div class="project-rhs">
+            <div class="add-minus-holder editMode">
+                <button class="btn round-btn primary _plus" onclick="addRow(${projectID})"><span
+                        class="fa fa-plus"></span></button>
+                <button class="btn round-btn danger _minus"><span class="fa fa-minus"></span></button>
+            </div>
+            <div class="table-right row">
+                <table class="table-fix">
+                    <tr>
                         <th class="mishti-orange">メンバー</th>
                         <th class="mishti-orange">工数合計</th>
+    
+                    </tr>
+                    <tr class="row-total">
+                        <td>3</td>
+                        <td>54.0</td>
+                    </tr>`;
+                    
+                    response02["resultData"]["project"]["member"].forEach((row) => {
 
-                    </tr>`+
-        `<tr class="row-total">
-                            <td>3</td>
-                            <td>54.0</td>
-                     </tr>`+
-        `<tr class="editMode-input">
-                        <td><img src="img/pro_icon.png">社員</td>
+                        Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
+                    accordionHTML+=
+                    `<tr class="editMode-input">
+                        <td><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
                         <td>18.0</td>
+                    </tr>`});
+                    accordionHTML+=
+                    `</table>
+                    <div class="table-des-container">`+
+                    `<table class="table-des">
+                        <tr>`+
+                            
+                            printHeader(x,orderMonth)+
+    
+                        `</tr>
+                        <tr class="row-total">`+
+                            printTotal(x)
+    
+                        +`</tr>`;
+                        response02["resultData"]["project"]["member"].forEach((row) => {
 
-                    </tr>`+
-        `<tr class="editMode-input">
-                        <td><img src="img/pro_icon.png">社員</td>
-                        <td>18.0</td>
-                    </tr>`+
-        `<tr class="editMode-input">
-                        <td><img src="img/pro_icon.png">社員</td>
-                        <td>18.0</td>
-                    </tr>`+
-        `</table>` +
-        `<div class="table-des-container">` +
-        `<table class="table-des">` +
-        `<tr>` +
-        `<th>2020/01</th>
-                        <th>2020/02</th>
-                        <th>2020/03</th>
-                        <th>2020/04</th>
-                        <th>2020/05</th>
-                        <th>2020/06</th>
-                        <th>2020/07</th>
-                        <th>2020/08</th>
-                        <th>2020/09</th>
-                        <th>2020/10</th>
-                        <th>2020/11</th>
-                        <th style="background-color:#ffbf0b;color:black">2020/12</th>
-                        <th>2021/01</th>
-                        <th>2022/02</th>
-                        <th>2021/03</th>
-                        <th>2022/04</th>
-                        <th>2021/05</th>
-                        <th>2022/06</th>`+
+                            Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
+                            // row["assign"].foreach((member) => {
 
-        `</tr>` +
-        `<tr class="row-total">` +
-        `<td>3.00</td>
-                            <td>3.00</td>
-                            <td>3.00</td>
-                            <td>3.00</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>`+
-
-        `</tr>` +
-        `<tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                            </tr>`+
-        `<tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                            </tr>`+
-        `<tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                            </tr>`+
-
-
-        `</table>` +
-        `</div>` +
-        `</div>` +
-        `</div>` +
-        `<div class="action">` +
-        `<ul class="list-unstyled">
-                    <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
-                    <div class="editMode">
-                        <li class="list"><button class="btn round-btn danger"><span
-                        class="fa fa-trash"></span></button></li>
-                        <li class="list"><button class="btn round-btn success midori"><span
-                                    class="fa fa-undo"></span></button></li>
-                        <li class="list"><button class="btn round-btn primary"><span
-                                    class="fa fa-save" onclick="editModeOff(${projectID})"></span></button></li>
-                    </div>
-                </ul>`+
-        `</div>` +
-        `</div>`;
-
-    return accordionHTML;
+                            // });
+                                console.log(row);
+                                accordionHTML+=
+                                `<tr class="editMode-input">`+
+                                    printBody(x,row.assign)
+                                +`</tr>`;
+                        });
+                        
+                        accordionHTML+=
+                    `</table>
+                </div>
+            </div>
+        </div>
+        <div class="action">
+            <ul class="list-unstyled">
+                <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span
+                            style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
+                <div class="editMode">
+                    <li class="list"><button class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
+                    <li class="list"><button class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
+                    </li>
+                    <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"
+                                onclick="editModeOff(${projectID})"></span></button></li>
+                </div>
+            </ul>
+        </div>
+    </div>`;
+    // console.log($('#row'+projectID).html());
+    if($('#row'+projectID).html()=="")
+        $('#row'+projectID).append(accordionHTML);
 }
 
 document.addEventListener("DOMContentLoaded", () => { fetchProjectList_AJAX() });
@@ -458,40 +442,30 @@ function filterProject(e) {
 //===TURNING ON EDIT-MODE===//
 
 function editModeOn(x) {
+    
+    $( '#project-row-' + x +' .editMode').each(function( index ) {
+        $( this ).show("slow");
+        $('.pencil-btn').eq(x-1).hide();
+    });
 
-    var project = document.getElementById('project-row-' + x);
-    console.log(project);
-    var buttons = project.getElementsByClassName('editMode');
-    var rightTable = document.querySelectorAll('.table-des');
-    // var dataCells=dataTable[x-1].querySelectorAll('td');
-    var dataTable = rightTable[x - 1].querySelectorAll('.editMode-input');
-    // console.log(dataTable.length);
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].style.display = "block";
-        document.getElementsByClassName('pencil-btn')[x - 1].style.display = "none";
-    }
+    //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
+    var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
+    //==ADDING EDITING FIELDS TO BLUE TABLE==//
+    $dataTable.each(function(i){
+        $(this).children('td').each(function( index ){
+            $(this).html("<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">");
+        });
+    });
 
-    for (i = 0; i < dataTable.length; i++) {
-        var dataCells = dataTable[i].querySelectorAll('td');
-        console.log(dataCells);
-        for (let j = 0; j < dataCells.length; j++) {
-            dataCells[j].innerHTML = "<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">";
-        }
-    }
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
-    var fixTable = $('.table-fix')[x - 1];
-    var dataTable2 = fixTable.querySelectorAll('.editMode-input');
-    console.log(dataTable2);
-
-    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    for (i = 0; i < dataTable2.length; i++) {
-        dataCells = dataTable2[i].querySelectorAll('td');
-        for (let j = 0; j < dataCells.length; j++) {
-            dataCells[j].innerHTML = `<input type="number" name="pro_member" class="data-cell-fixed" required="" value="0">`;
-
-        }
-    }
+    var $dataTable2= $('.table-fix').eq(x-1).find('.editMode-input');
+    //==ADDING EDITING FIELDS TO ORANGE TABLE==//
+    $dataTable2.each(function(i){
+        $(this).children('td').each(function( index ){
+            $(this).html("<input type=\"number\" name=\"pro_member\" class=\"data-cell-fixed\" required=\"\" value=\"0\">");
+        });
+    });
 
 
 }
@@ -501,14 +475,12 @@ function editModeOn(x) {
 function editModeOff(x) {
 
 
-    //==FETCHING ALL EDITING BUTTONS==//
-    var buttons = $('.editMode');
-
     //===DISAPPEARING EDITING BUTTONS===//
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].style.display = "none";
-        document.getElementsByClassName('pencil-btn')[x - 1].style.display = "block";
-    }
+    
+    $('.editMode').each(function(index,element){
+        $(element).hide("200");
+        $('.pencil-btn').eq(x-1).show();
+    });
 
     var details, user_details;
     //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
@@ -520,45 +492,43 @@ function editModeOff(x) {
 
     //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
 
-    var rightTable = $('.table-des');
-    var dataTable = rightTable[x - 1].querySelectorAll('.editMode-input ');
+    
+    var $dataTable = $('.table-des').eq(x - 1).find('.editMode-input ');
 
     let k = 0;
     //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    for (i = 0; i < dataTable.length; i++) {
-        var dataCells = dataTable[i].querySelectorAll('td');
-        // console.log(dataCells);
-        for (let j = 0; j < dataCells.length; j++) {
-            dataCells[j].innerHTML = details[k].val;
-            k++;
-        }
-    }
+    $dataTable.each(function(i){
+        $(this).children('td').each(function( index ){
+            $(this).html(details[k].val);
+                k++;
+        });
+    });
     k = 0;
+
     //=== STORING DETAILS OF ORANGE-FIXED TABLE===//
     user_details = $('.data-cell-fixed').map(function () {
         return {
             val: $(this).val(),
         };
     }).get();
-    console.log(user_details.length);
-    console.log(details.length);
+    
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
-    var fixTable = $('.table-fix')[x - 1];
-    var dataTable2 = fixTable.querySelectorAll('.editMode-input');
-    console.log(dataTable2);
+    
+    var $dataTable2 = $('.table-fix').eq(x - 1).find('.editMode-input');
+    
 
-    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    for (i = 0; i < dataTable2.length; i++) {
-        dataCells = dataTable2[i].querySelectorAll('td');
-        for (let j = 0; j < dataCells.length; j++) {
-            if (j % 2 == 0)
-                dataCells[j].innerHTML = `<img src="img/pro_icon.png">` + user_details[k].val;
+    //===DISAPPEARING EDITING FIELDS OF ORANGE TABLE===//
+    
+    $dataTable2.each(function(i){
+        $(this).children('td').each(function( index ){
+            if (index % 2 == 0)
+                $(this).html('<img src="img/pro_icon.png">' + user_details[k].val);
             else
-                dataCells[j].innerHTML = user_details[k].val;
-            k++
-        }
-    }
+                $(this).html(user_details[k].val);    
+            k++;
+        });
+    });
     k = 0;
 
 
@@ -593,3 +563,28 @@ function addRow(x) {
                                         </tr>`;
 
 }
+
+// var projects =[
+
+//     project={
+
+//         projectID:1,
+//         projectLeaderID:1,
+//         budget:1000000,
+//         cost:100000,
+//         profit:200,
+//         profitPercentage:20%,
+//         totalManHours:4,
+//         minMonth:10,
+//         minYear:2,
+//         maxMonth:12,
+//         maxYear:5,
+
+
+        
+
+
+//     }
+
+// ];
+
