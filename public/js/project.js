@@ -3,6 +3,8 @@
 // var content1 = document.getElementById("row1");
 // var content2 = document.getElementById("row2");
 
+// const { assign } = require("lodash");
+
 //const { assign } = require("lodash");
 
 
@@ -167,6 +169,7 @@ function renderProjectHTML(response01) {
 }
 
 function printHeader(x,orderMonth){
+    console.log(orderMonth);
     var print='';
     for(i=0;i<x;i++){
         var date=new Date(orderMonth);
@@ -178,36 +181,39 @@ function printHeader(x,orderMonth){
     }
     return print;
 }
-function printTotal(x){
+function printTotal(x,totalWorkMonth){
     var print='';
     for(i=0;i<x;i++){
-        print+=` <td>3.00</td>`;
+        print+=` <td>${totalWorkMonth[i]}</td>`;
     }
     return print;
 }
 
 
 
-function printBody(x,response){
-    console.log(response);
+function printBody(diff,assign,index){
+    console.log(assign);
     var print='';
-    if(response!=null)
-    {
-        response.forEach((assign)=>{
-            print+=`<td>${assign.value}</td>`;
-        });
+    // if(response!=null)
+    // {
+    //     response.forEach((assign)=>{
+    //         print+=`<td>${assign.value}</td>`;
+    //     });
     
-        for(i=0;i<x;i++){
-            if(i>=response.length){
-                print+=`<td>0.0</td>`;
-            }
-            else
-            {
+    //     for(i=0;i<x;i++){
+    //         if(i>=response.length){
+    //             print+=`<td>0.0</td>`;
+    //         }
+    //         else
+    //         {
                             
-            }    
+    //         }    
             
-            // console.log(print);
-        }
+    //         // console.log(print);
+    //     }
+    // }
+    for(var i=0;i<diff;i++){
+        print+=`<td>${assign[index][i]}</td>`;
     }
     return print;
 }
@@ -229,16 +235,16 @@ function objectToArray(obj){
 
 function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02) {
     //console.log(response02["resultData"]["project"]["member"].length);
-    var x=response02["resultData"]["project"]["member"].length+2;
+    
+    var x=response02["resultData"]["project"]["member"].length+1;
     var members=objectToArray(response02["resultData"]["project"]["member"]);
-    //console.log(x,diff);
-    //console.log(members[0]);
+    
     var assign = new Array(x);
     for (var i = 0; i < assign.length; i++) {
         assign[i] = new Array(diff);
     }
-    
-    for(var i=0;i<members.length+2;i++)
+   
+    for(var i=0;i<x;i++)
     {
         
         for(var j=0;j<diff;j++)
@@ -251,29 +257,42 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                     date.setMonth(date.getMonth() + 1);
                 orderMonth=date.toLocaleDateString();
                 assign[i][j]= date;
-                //console.log(assign[i][j]);
+                console.log(orderMonth);
             }
-            else if(i==1){
-                assign[i][j]=1;
-                //console.log(assign[i][j]);
-            }
+           
             else{
 
-                members[i-2].assign.forEach((value)=>{
-                    console.log(value.month, assign[0][j].getMonth());
-                    if(assign[0][j].getMonth()==value.month){
+                var flag=0;
+                members[i-1].assign.forEach((value)=>{
+                    console.log(value.month, assign[0][j].getMonth()+1);
+                    if(assign[0][j].getMonth()+1==value.month){
                         assign[i][j]=value.value;
-                    }
-                    else
-                        assign[i][j]=0;
+                        flag=1;
+                    }        
                 });
-                
-                
-                
+                if(!flag){
+                    assign[i][j]=0;
+                }                
             }
             
+            
         }
+        
     }
+    
+    var totalWorkMonth=[];
+    var sumWork=0;
+    for(var i=0;i<diff;i++)
+    {
+        var sum=0;
+        for(var j=1;j<x;j++)
+        {
+            sum+=assign[j][i];
+        }
+        sumWork+=sum;
+        totalWorkMonth.push(sum);
+    }
+    console.log(totalWorkMonth);
     console.log(assign);
 
     accordionHTML =
@@ -322,8 +341,8 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     
                     </tr>
                     <tr class="row-total">
-                        <td>3</td>
-                        <td>54.0</td>
+                        <td>${x-1}</td>
+                        <td>${sumWork}</td>
                     </tr>`;
            
                     
@@ -346,13 +365,14 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                     `<table class="table-des">
                         <tr>`+
                             
-                            printHeader(diff,orderMonth)+
+                            printHeader(diff,assign[0][0])+
     
                         `</tr>
                         <tr class="row-total">`+
-                            printTotal(diff)
+                            printTotal(diff,totalWorkMonth)
     
                         +`</tr>`;
+                        var index=1;
                         response02["resultData"]["project"]["member"].forEach((row) => {
 
                             Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
@@ -362,8 +382,9 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                                 console.log(row);
                                 accordionHTML+=
                                 `<tr class="editMode-input">`+
-                                    printBody(diff,row.assign)
+                                    printBody(diff,assign,index)
                                 +`</tr>`;
+                                index++;
                         });
                         
                         accordionHTML+=
