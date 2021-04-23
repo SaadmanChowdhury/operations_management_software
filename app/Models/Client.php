@@ -59,7 +59,7 @@ class Client extends Model
     {
         //only admin can create new client
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $validatedData = $request->validated();
 
             //Creating record-- a client record can be created if any user exists as a point_of_contact_person
@@ -76,7 +76,7 @@ class Client extends Model
     {
         //only admin can read a single client's info
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $client = Client::select([
                 'client_id',
                 'client_name',
@@ -99,7 +99,7 @@ class Client extends Model
 
         //only admin can change customer's info
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $rules['client_name'] = 'required';
             $rules['user_id'] = 'required';
         }
@@ -123,7 +123,7 @@ class Client extends Model
     public function deleteClient($id)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $client = Client::find($id);
             //soft delete
             $client->delete();

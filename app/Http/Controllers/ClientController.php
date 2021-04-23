@@ -37,7 +37,7 @@ class ClientController extends Controller
             return redirect('/login');
         }
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             return view('client.create');
         } else {
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
@@ -48,7 +48,7 @@ class ClientController extends Controller
     public function createClient(ClientUpsert $request)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $client = new Client();
             $client->createClient($request);
             // return 'Client is successfully created.';
@@ -74,7 +74,7 @@ class ClientController extends Controller
     public function readClient(Request $request)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $client = new Client();
             $info = $client->readClient($request->clientID);
             return JSONHandler::packagedJSONData($info);
@@ -90,7 +90,7 @@ class ClientController extends Controller
             return redirect('/login');
         }
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $client = Client::find($id);
             return view('client.edit', compact('client'));
         } else {
@@ -103,7 +103,7 @@ class ClientController extends Controller
     {
         $id = $request->id;
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $client = new Client();
             $client->updateClient($request, $id);
             return JSONHandler::emptySuccessfulJSONPackage();
@@ -116,7 +116,7 @@ class ClientController extends Controller
     public function deleteClient(Request $request)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $client = new Client();
             $client->deleteClient($request->clientID);
             return JSONHandler::emptySuccessfulJSONPackage();
