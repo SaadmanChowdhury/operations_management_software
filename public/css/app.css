@@ -2017,6 +2017,13 @@ td img {
     height: 100%;
 }
 
+.data-cell-fixed{
+    margin: 0;
+    padding: 0;
+    width: auto;
+    border: 1px solid rgba(235, 229, 229, 0.58);;
+}
+
 .text-medium {
     font-weight: 600;
 }

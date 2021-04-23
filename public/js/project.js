@@ -370,7 +370,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         </div>
         <div class="action">
             <ul class="list-unstyled">
-                <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span
+                <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID},${assign})"><span
                             style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
                 <div class="editMode">
                     <li class="list"><button class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
@@ -508,14 +508,14 @@ function filterProject(e) {
 
 //===TURNING ON EDIT-MODE===//
 
-function editModeOn(x) {
+function editModeOn(x,assign) {
     
     $( '#project-row-' + x +' .editMode').each(function( index ) {
         $( this ).show("slow");
         $('.pencil-btn').eq(x-1).hide();
     });
 
-    //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
+    //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
     var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
     //==ADDING EDITING FIELDS TO BLUE TABLE==//
     $dataTable.each(function(i){
@@ -523,6 +523,12 @@ function editModeOn(x) {
             $(this).html("<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">");
         });
     });
+    for(var i=0;i<assign.length;i++){
+        for(var j=0;j<assign[0].length;j++)
+        {
+            
+        }
+    }
 
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
@@ -530,7 +536,18 @@ function editModeOn(x) {
     //==ADDING EDITING FIELDS TO ORANGE TABLE==//
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
-            $(this).html("<input type=\"number\" name=\"pro_member\" class=\"data-cell-fixed\" required=\"\" value=\"0\">");
+            console.log(index);
+            if(index%2==0 && i!=0){
+                
+                var string=`<select class=\"data-cell-fixed\" required>`;
+                   for(var j=0;j<12;j++)
+                   {
+                     string+=`<option>${convertUser_IDToName(j)}</option>`;
+                   }
+                   string+=`</select>`;
+                   //$(this).html("<input type=\"number\" name=\"pro_member\" class=\"data-cell-fixed\" required=\"\" value=\"0\">");
+                   $(this).html(string);
+            }
         });
     });
 
