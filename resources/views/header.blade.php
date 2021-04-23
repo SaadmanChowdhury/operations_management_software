@@ -19,6 +19,9 @@
         crossorigin="anonymous"></script>
 
     <script src="/js/lookup.js"></script>
+    <script src="/js/validator.js"></script>
+    <script src="/js/toast.js"></script>
+
     <script>
     function showBody() {
         $("body").css('transition', '2s ease-in');

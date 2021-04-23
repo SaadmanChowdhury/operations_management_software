@@ -30,7 +30,8 @@
 
                     @if ($loggedUser->user_authority == 'システム管理者')
                     <div onclick="deleteUser()">
-                        <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
+                                aria-hidden="true"></i>
                             削除</a>
                     </div>
                     @endif
@@ -113,7 +114,8 @@
                             </div>
                             @else
                             <div>
-                                <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="" readonly>
+                                <input type="date" id="user_edit_admission_dayInput" name="admission_day" value=""
+                                    readonly>
                             </div>
                             @endif
                         </div>
@@ -122,11 +124,13 @@
                             <div><label for="resignation_year">退職日</label></div>
                             @if ($loggedUser->user_authority == 'システム管理者')
                             <div>
-                                <input type="date" id="user_edit_resignation_yearInput" name="resignation_year" value="">
+                                <input type="date" id="user_edit_resignation_yearInput" name="resignation_year"
+                                    value="">
                             </div>
                             @else
                             <div>
-                                <input type="date" id="user_edit_resignation_yearInput" name="resignation_year" value="" readonly>
+                                <input type="date" id="user_edit_resignation_yearInput" name="resignation_year" value=""
+                                    readonly>
                             </div>
                             @endif
                         </div>
@@ -141,152 +145,152 @@
 
 
 <script>
-    function userEditModalHandler(userID) {
-        event.preventDefault();
-        clearModalData('user-edit-modal');
-        showModal('user-edit-modal');
+function userEditModalHandler(userID) {
+    event.preventDefault();
+    clearModalData('user-edit-modal');
+    showModal('user-edit-modal');
 
-        getUserData(userID);
+    getUserData(userID);
+}
+
+function getEditFormData() {
+    return {
+        id: $('#id').val(),
+        name: $('#user_edit_nameInput').val(),
+        email: $('#user_edit_emailInput').val(),
+        password: $('#user_edit_passwordInput').val(),
+        tel: $('#user_edit_telInput').val(),
+        position: $('#user_edit_positionInput').val(),
+        positionText: $("#user_edit_positionInput").find(":selected").text(),
+        location: $('#user_edit_locationInput').val(),
+        locationText: $("#user_edit_locationInput").find(":selected").text(),
+        admission_day: $('#user_edit_admission_dayInput').val(),
+        unit_price: $('#user_edit_salaryInput').val(),
+        user_authority: $('#user_edit_authorityInput').val(),
+        _token: $('input[name=_token]').val()
+    };
+}
+
+function handleAJAXResponse(response) {
+
+    if (response["resultStatus"]["isSuccess"])
+        updateUserTable();
+
+    else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
+        $('#message').html("You are not authorized to make this change");
+
+    else
+        $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
+}
+
+function handleAJAXError(err) {
+    console.log(err.responseText);
+}
+
+function updateUserTable(updatedData) {
+    console.log(updatedData);
+
+    console.log("UDPATE USER TABLE")
+
+    let row = $("#user-row-" + updatedData.id);
+
+    row.find(".user-name").html(updatedData.name);
+    row.find(".salary").html(updatedData.unit_price);
+
+    row.find(".user-location").html(updatedData.locationText);
+
+    positionDom = row.find(".pos");
+    positionDom.html(updatedData.positionText);
+    positionDom.removeClass();
+    positionDom.addClass("pos");
+    positionDom.addClass("pos-" + updatedData.positionText);
+
+}
+
+function updateUserEditModalData(data) {
+
+    for (let i = 0; i < data.length; i++) {
+        if (data[i] == null)
+            data[i] = "";
     }
 
-    function getEditFormData() {
-        return {
-            id: $('#id').val(),
-            name: $('#user_edit_nameInput').val(),
-            email: $('#user_edit_emailInput').val(),
-            password: $('#user_edit_passwordInput').val(),
-            tel: $('#user_edit_telInput').val(),
-            position: $('#user_edit_positionInput').val(),
-            positionText: $("#user_edit_positionInput").find(":selected").text(),
-            location: $('#user_edit_locationInput').val(),
-            locationText: $("#user_edit_locationInput").find(":selected").text(),
-            admission_day: $('#user_edit_admission_dayInput').val(),
-            unit_price: $('#user_edit_salaryInput').val(),
-            user_authority: $('#user_edit_authorityInput').val(),
+    $("#id").val(data.user_id)
+    $("#user_edit_nameInput").val(data.name)
+    $("#user_edit_emailInput").val(data.email)
+    $("#user_edit_telInput").val(data.tel)
+    $("#user_edit_locationInput").val(data.location)
+    $("#user_edit_positionInput").val(data.position)
+    $("#user_edit_admission_dayInput").val(data.admission_day)
+    $("#user_edit_resignation_yearInput").val(data.resign_day)
+    $("#user_edit_salaryInput").val(data.unit_price)
+}
+
+function getUserData(userID) {
+    $.ajax({
+        type: "post",
+        url: "/API/readUser",
+        data: {
+            userID: userID,
             _token: $('input[name=_token]').val()
-        };
-    }
-
-    function handleAJAXResponse(response) {
-
-        if (response["resultStatus"]["isSuccess"])
-            updateUserTable();
-
-        else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
-            $('#message').html("You are not authorized to make this change");
-
-        else
-            $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
-    }
-
-    function handleAJAXError(err) {
-        console.log(err);
-    }
-
-    function updateUserTable(updatedData) {
-        console.log(updatedData);
-
-        console.log("UDPATE USER TABLE")
-
-        let row = $("#user-row-" + updatedData.id);
-
-        row.find(".user-name").html(updatedData.name);
-        row.find(".salary").html(updatedData.unit_price);
-
-        row.find(".user-location").html(updatedData.locationText);
-
-        positionDom = row.find(".pos");
-        positionDom.html(updatedData.positionText);
-        positionDom.removeClass();
-        positionDom.addClass("pos");
-        positionDom.addClass("pos-" + updatedData.positionText);
-
-    }
-
-    function updateUserEditModalData(data) {
-
-        for (let i = 0; i < data.length; i++) {
-            if (data[i] == null)
-                data[i] = "";
+        },
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                updateUserEditModalData(response["resultData"]);
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function(err) {
+            handleAJAXError(err);
         }
+    });
+}
 
-        $("#id").val(data.user_id)
-        $("#user_edit_nameInput").val(data.name)
-        $("#user_edit_emailInput").val(data.email)
-        $("#user_edit_telInput").val(data.tel)
-        $("#user_edit_locationInput").val(data.location)
-        $("#user_edit_positionInput").val(data.position)
-        $("#user_edit_admission_dayInput").val(data.admission_day)
-        $("#user_edit_resignation_yearInput").val(data.resign_day)
-        $("#user_edit_salaryInput").val(data.unit_price)
-    }
+function updateUser() {
+    event.preventDefault();
 
-    function getUserData(userID) {
-        $.ajax({
-            type: "post",
-            url: "/API/readUser",
-            data: {
-                userID: userID,
-                _token: $('input[name=_token]').val()
-            },
-            cache: false,
-            success: function(response) {
-                if (response["resultStatus"]["isSuccess"]) {
-                    updateUserEditModalData(response["resultData"]);
-                } else
-                    handleAJAXResponse(response);
-            },
-            error: function(err) {
-                handleAJAXError(err);
-            }
-        });
-    }
+    modalData = getEditFormData();
 
-    function updateUser() {
-        event.preventDefault();
-
-        modalData = getEditFormData();
-
-        $.ajax({
-            type: "post",
-            url: "/API/updateUser",
-            data: modalData,
-            cache: false,
-            success: function(response) {
-                if (response["resultStatus"]["isSuccess"]) {
-                    updateUserTable(modalData);
-                    closeModal('user-edit-modal');
-                } else
-                    handleAJAXResponse(response);
-            },
-            error: function(err) {
-                handleAJAXError(err);
-            }
-        });
-    }
-
-    function deleteUser() {
-        event.preventDefault();
-        userId = $('#id').val();
-
-        $.ajax({
-            type: "post",
-            url: "/API/deleteUser",
-            data: {
-                id: userId,
-                _token: $('input[name=_token]').val()
-            },
-            cache: false,
-            success: function(response) {
-                if (response["resultStatus"]["isSuccess"])
-                    $("#user-row-" + userId).remove();
-                else
-                    handleAJAXResponse(response);
+    $.ajax({
+        type: "post",
+        url: "/API/updateUser",
+        data: modalData,
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                updateUserTable(modalData);
                 closeModal('user-edit-modal');
-            },
-            error: function(err) {
-                handleAJAXError(err);
-            }
-        });
-    }
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function(err) {
+            handleAJAXError(err);
+        }
+    });
+}
+
+function deleteUser() {
+    event.preventDefault();
+    userId = $('#id').val();
+
+    $.ajax({
+        type: "post",
+        url: "/API/deleteUser",
+        data: {
+            id: userId,
+            _token: $('input[name=_token]').val()
+        },
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"])
+                $("#user-row-" + userId).remove();
+            else
+                handleAJAXResponse(response);
+            closeModal('user-edit-modal');
+        },
+        error: function(err) {
+            handleAJAXError(err);
+        }
+    });
+}
 </script>
