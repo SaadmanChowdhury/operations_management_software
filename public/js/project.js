@@ -315,7 +315,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                 
             </div>
             <div class="table-right row">
-                <table class="table-fix">
+                <table class="table-fix" id="tableLeft-${projectID}">
                     <tr>
                         <th class="mishti-orange">メンバー</th>
                         <th class="mishti-orange">工数合計</th>
@@ -344,7 +344,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                     accordionHTML+=
                     `</table>
                     <div class="table-des-container">`+
-                    `<table class="table-des">
+                    `<table class="table-des" id="tableRight-${projectID}">
                         <tr>`+
                             
                             printHeader(diff,assign[0][0])+
@@ -390,6 +390,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     
     if($('#row'+projectID).html()=="")
         $('#row'+projectID).append(accordionHTML);
+    
 }
 
 document.addEventListener("DOMContentLoaded", () => { fetchProjectList_AJAX() });
@@ -581,7 +582,29 @@ function editModeOn(x) {
        //$(buttons[index]).show();
    }
 
+   deleteRowActionListener(x);
 
+}
+
+function deleteRowActionListener(x){
+
+    var i=0;
+    
+    document.getElementById("project-row-"+x).querySelectorAll(".delete").forEach(function(obj,index){
+        obj.addEventListener("click", function(event){
+            
+            // if(i==0){
+            document.getElementById("tableLeft-"+x).deleteRow(index+2);
+            document.getElementById("tableRight-"+x).deleteRow(index+2);
+            //  i++;
+            // }
+            
+            deleteRowActionListener(x);
+
+            
+        });
+        //console.log(obj);
+    });
 }
 
 //===TURNING OFF EDIT-MODE===//
@@ -691,6 +714,9 @@ function addRow(x) {
                                         </tr>`;
 
 }
+
+
+
 
 
 

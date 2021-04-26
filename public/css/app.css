@@ -1564,7 +1564,12 @@ button.cancel:hover {
     border-bottom: 0px solid #cc0909;
     /* box-shadow: 0 0 5px #ff1010; */
 }
-
+.delete:hover {
+    background-color: #ff1010;
+    border-top: 0px solid #ff6b6b;
+    border-bottom: 0px solid #cc0909;
+    /* box-shadow: 0 0 5px #ff1010; */
+}
 .btn.primary:hover {
     border-top: 0px;
     border-bottom: 0px;
@@ -1593,12 +1598,12 @@ button.cancel:hover {
 }
 
 .add-minus-holder ._plus {
-    margin-bottom: 50px;
+    margin-top: 5px;
 }
 
 .add-minus-holder .round-btn {
     position: absolute;
-    bottom: 0px;
+    top: 0px;
     right: 0;
 }
 
