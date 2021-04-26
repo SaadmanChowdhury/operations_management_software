@@ -594,8 +594,10 @@ function deleteRowActionListener(x){
         obj.addEventListener("click", function(event){
             
             // if(i==0){
-            document.getElementById("tableLeft-"+x).deleteRow(index+2);
-            document.getElementById("tableRight-"+x).deleteRow(index+2);
+            event.target.parentNode.remove();
+            var i=event.target.parentNode.index()+1;
+            // document.getElementById("tableLeft-"+x).deleteRow(index+2);
+            document.getElementById("tableRight-"+x).deleteRow(i+2);
             //  i++;
             // }
             
