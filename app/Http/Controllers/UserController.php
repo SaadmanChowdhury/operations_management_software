@@ -89,43 +89,26 @@ class UserController extends Controller
         $loggedUser = auth()->user();
         $id = $request->userID;
 
-        if ($loggedUser->user_authority == 'システム管理者') {
-
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $id) {
             $user = new User();
             $info = $user->readUser($id);
             return JSONHandler::packagedJSONData($info);
         } else {
-
-            if ($loggedUser->user_id == $id) {
-
-                $user = new User();
-                $info = $user->readUser($id);
-                return JSONHandler::packagedJSONData($info);
-            } else {
-                return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
-            }
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
         }
     }
 
+
     public function updateUser(UserUpsert $request)
     {
-
         $id = $request->id;
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == 'システム管理者') {
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $id) {
             $user = new User();
             $user->updateUser($request, $id);
             return JSONHandler::emptySuccessfulJSONPackage();
         } else {
-
-            if ($loggedUser->user_id == $id) {
-
-                $user = new User();
-                $user->updateUser($request, $id);
-                return JSONHandler::emptySuccessfulJSONPackage();
-            } else {
-                return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
-            }
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
         }
     }
 

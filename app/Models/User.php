@@ -178,8 +178,7 @@ class User extends Authenticatable
 
     public function updateUser($request, $id)
     {
-        // $validatedData['position'] = $this->convertPositionToInt($request->position);
-
+        $loggedUser = auth()->user();
         //validating data
         $validatedData = $request->validated();
 
@@ -191,6 +190,11 @@ class User extends Authenticatable
             $data = User::select('password')->where('user_id', $id)->first();
             $oldPassword = $data->password;
             $validatedData['password'] = $oldPassword;
+        }
+
+        //if the logged in user is general user then he/she will not be able to change the unit_price
+        if ($loggedUser->user_authority != 'システム管理者') {
+            unset($validatedData['unit_price']);
         }
 
         //changing the array key name from id to user_id
