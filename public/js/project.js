@@ -210,14 +210,15 @@ function objectToArray(obj){
     return array;
 }
 //=== RENDERING PROJECT DETAILS TABLES ===//
-
+var assign;
+var cache_assign=[];
 function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02) {
     
     
     var x=response02["resultData"]["project"]["member"].length+1;
     var members=objectToArray(response02["resultData"]["project"]["member"]);
     
-    var assign = new Array(x);
+    assign = new Array(x);
     for (var i = 0; i < assign.length; i++) {
         assign[i] = new Array(diff);
     }
@@ -235,14 +236,14 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                     date.setMonth(date.getMonth() + 1);
                 orderMonth=date.toLocaleDateString();
                 assign[i][j]= date;
-                console.log(orderMonth);
+                //console.log(orderMonth);
             }
            
             else{
 
                 var flag=0;
                 members[i-1].assign.forEach((value)=>{
-                    console.log(value.month, assign[0][j].getMonth()+1);
+                    //console.log(value.month, assign[0][j].getMonth()+1);
                     if(assign[0][j].getMonth()+1==value.month){
                         assign[i][j]=value.value;
                         flag=1;
@@ -255,6 +256,8 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
             
             
         }
+
+        cache_assign[projectID]=assign;
         
     }
     
@@ -334,7 +337,8 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
 
                     accordionHTML+=
                     `<tr class="editMode-input">
-                        <td><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
+                        
+                        <td><button class="delete editMode">-</button><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
                         <td>${sum}</td>
                     </tr>`});
                     accordionHTML+=
@@ -362,7 +366,8 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                                 +`</tr>`;
                                 index++;
                         });
-                        
+                        var arr=JSON.stringify(assign);
+                        console.log(arr);
                         accordionHTML+=
                     `</table>
                 </div>
@@ -370,7 +375,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         </div>
         <div class="action">
             <ul class="list-unstyled">
-                <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID},${assign})"><span
+                <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span
                             style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
                 <div class="editMode">
                     <li class="list"><button class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
@@ -508,27 +513,41 @@ function filterProject(e) {
 
 //===TURNING ON EDIT-MODE===//
 
-function editModeOn(x,assign) {
+function editModeOn(x) {
+    //assign=JSON.parse(assign);
+
+    assign=cache_assign[x];
+    console.log( assign[0].length);
     
     $( '#project-row-' + x +' .editMode').each(function( index ) {
-        $( this ).show("slow");
+        this.classList.remove("editMode");
         $('.pencil-btn').eq(x-1).hide();
     });
+    // $( '#project-row-' + x +'.editMode-input').each(function( index ) {
+
+    //     $( this ).show("slow");
+    //     console.log(x);
+    // });
+
+    
+
+
+
+    //document.querySelector("#row1 > div > div.project-rhs > div.table-right.row > table > tbody > tr:nth-child(3) > td:nth-child(1) > button")
 
     //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
     var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
     //==ADDING EDITING FIELDS TO BLUE TABLE==//
+    
     $dataTable.each(function(i){
-        $(this).children('td').each(function( index ){
-            $(this).html("<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">");
-        });
-    });
-    for(var i=0;i<assign.length;i++){
         for(var j=0;j<assign[0].length;j++)
         {
-            
+            if(j==0)
+                $(this).html("<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+            else
+                $(this).append("<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
         }
-    }
+    });
 
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
@@ -536,10 +555,10 @@ function editModeOn(x,assign) {
     //==ADDING EDITING FIELDS TO ORANGE TABLE==//
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
-            console.log(index);
+            //console.log(index);
             if(index%2==0 && i!=0){
                 
-                var string=`<select class=\"data-cell-fixed\" required>`;
+                var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
                    for(var j=0;j<12;j++)
                    {
                      string+=`<option>${convertUser_IDToName(j)}</option>`;
@@ -550,6 +569,17 @@ function editModeOn(x,assign) {
             }
         });
     });
+
+    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+
+   for (let index = 0; index < buttons.length; index++) {
+       //const element = buttons[index];
+
+        console.log(buttons[index])
+       buttons[index].classList.remove("editMode");
+       //buttons[index].style.display="block";
+       //$(buttons[index]).show();
+   }
 
 
 }
@@ -563,6 +593,7 @@ function editModeOff(x) {
     
     $('.editMode').each(function(index,element){
         $(element).hide("200");
+        // this.classList.add("editMode");
         $('.pencil-btn').eq(x-1).show();
     });
 
@@ -604,16 +635,28 @@ function editModeOff(x) {
 
     //===DISAPPEARING EDITING FIELDS OF ORANGE TABLE===//
     
-    $dataTable2.each(function(i){
-        $(this).children('td').each(function( index ){
-            if (index % 2 == 0)
-                $(this).html('<img src="img/pro_icon.png">' + user_details[k].val);
-            else
-                $(this).html(user_details[k].val);    
-            k++;
-        });
-    });
-    k = 0;
+    // $dataTable2.each(function(i){
+    //     $(this).children('td').each(function( index ){
+    //         if (index % 2 == 0)
+    //             $(this).html('<img src="img/pro_icon.png">' + user_details[k].val);
+    //         else
+    //             $(this).html(user_details[k].val);    
+    //         k++;
+    //     });
+    // });
+    // k = 0;
+    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+
+    for (let index = 0; index < buttons.length; index++) {
+        //const element = buttons[index];
+ 
+         console.log(buttons[index])
+        buttons[index].classList.add("editMode");
+        //buttons[index].style.display="block";
+        //$(buttons[index]).show();
+    }
+    
+ 
 
 
 }
