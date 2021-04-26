@@ -312,7 +312,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
             <div class="add-minus-holder editMode">
                 <button class="btn round-btn primary _plus" onclick="addRow(${projectID})"><span
                         class="fa fa-plus"></span></button>
-                <button class="btn round-btn danger _minus"><span class="fa fa-minus"></span></button>
+                
             </div>
             <div class="table-right row">
                 <table class="table-fix">
@@ -520,7 +520,7 @@ function editModeOn(x) {
     console.log( assign[0].length);
     
     $( '#project-row-' + x +' .editMode').each(function( index ) {
-        this.classList.remove("editMode");
+        this.style.display="block";
         $('.pencil-btn').eq(x-1).hide();
     });
     // $( '#project-row-' + x +'.editMode-input').each(function( index ) {
@@ -592,8 +592,9 @@ function editModeOff(x) {
     //===DISAPPEARING EDITING BUTTONS===//
     
     $('.editMode').each(function(index,element){
-        $(element).hide("200");
+        //$(element).hide("200");
         // this.classList.add("editMode");
+        this.style.display="none";
         $('.pencil-btn').eq(x-1).show();
     });
 
@@ -621,11 +622,11 @@ function editModeOff(x) {
     k = 0;
 
     //=== STORING DETAILS OF ORANGE-FIXED TABLE===//
-    user_details = $('.data-cell-fixed').map(function () {
-        return {
-            val: $(this).val(),
-        };
-    }).get();
+    // user_details = $('.data-cell-fixed').map(function () {
+    //     return {
+    //         val: $(this).val(),
+    //     };
+    // }).get();
     
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
@@ -650,9 +651,9 @@ function editModeOff(x) {
     for (let index = 0; index < buttons.length; index++) {
         //const element = buttons[index];
  
-         console.log(buttons[index])
+        console.log(buttons[index])
         buttons[index].classList.add("editMode");
-        //buttons[index].style.display="block";
+        buttons[index].style.display="none";
         //$(buttons[index]).show();
     }
     
