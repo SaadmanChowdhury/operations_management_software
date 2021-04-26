@@ -16,9 +16,8 @@ class ClientController extends Controller
 
     public function index()
     {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
+        if (!Auth::check())
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
 
         $client = new Client();
         $list = $client->readClientList();
@@ -33,9 +32,9 @@ class ClientController extends Controller
 
     public function create()
     {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
+        if (!Auth::check())
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == 'システム管理者') {
             return view('client.create');
@@ -73,8 +72,13 @@ class ClientController extends Controller
 
     public function readClient(Request $request)
     {
+        $id =  intval($request->clientID);
+
+        $client = DB::table('clients')->where('client_id', $id)->first();
+        $pointsOfContact = $client->user_id;
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == 'システム管理者') {
+
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $pointsOfContact) {
             $client = new Client();
             $info = $client->readClient($request->clientID);
             return JSONHandler::packagedJSONData($info);
@@ -102,8 +106,11 @@ class ClientController extends Controller
     public function updateClient(ClientUpsert $request)
     {
         $id = $request->id;
+        $client = DB::table('clients')->where('client_id', $id)->first();
+        $pointsOfContact = $client->user_id;
+
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == 'システム管理者') {
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $pointsOfContact) {
             $client = new Client();
             $client->updateClient($request, $id);
             return JSONHandler::emptySuccessfulJSONPackage();
