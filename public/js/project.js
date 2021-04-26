@@ -598,7 +598,7 @@ function deleteRowActionListener(x){
                 document.getElementById("tableRight-"+x).deleteRow(index+2);
                  i++;
 
-                setTimeout( deleteRowActionListener(x) ,10);
+                deleteRowActionListener(x);
              } 
         });
     });
