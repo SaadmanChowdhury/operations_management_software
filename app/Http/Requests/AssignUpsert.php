@@ -23,7 +23,7 @@ class AssignUpsert extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        $rules['assignments'] = [
             'projectID' => 'required',
             'memberID' => 'required',
             'year' => 'required',
