@@ -4,7 +4,7 @@
 function checkDesignAnomaly(path){
 	var all_ancs = document.querySelectorAll(path);
 	
-	console.log(all_ancs);
+	//console.log(all_ancs);
 	var isAnomaly=false;
 	
 	if (typeof all_ancs !== 'undefined') {

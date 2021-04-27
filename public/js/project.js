@@ -210,16 +210,23 @@ function objectToArray(obj){
     return array;
 }
 //=== RENDERING PROJECT DETAILS TABLES ===//
+var assign;
+var assignObj;
 
+var cache_assign=[];
+var temp_cacheAssign=[];
+var all_cacheAssign=[];
 function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02) {
     
     
     var x=response02["resultData"]["project"]["member"].length+1;
     var members=objectToArray(response02["resultData"]["project"]["member"]);
     
-    var assign = new Array(x);
+    assign = new Array(x);
+    assignObj=new Array(x);
     for (var i = 0; i < assign.length; i++) {
         assign[i] = new Array(diff);
+        assignObj[i]=new Array(diff);
     }
    
     for(var i=0;i<x;i++)
@@ -227,37 +234,62 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         
         for(var j=0;j<diff;j++)
         {
+            
+            
             assign[i][j]=0;
+            assignObj[i][j]={};
+            assignObj[i][j]['projectID']=projectID;
             if(i==0){
                 date=new Date(orderMonth);
                 // orderMonth=date.toLocaleDateString();
                 if(j!=0)
                     date.setMonth(date.getMonth() + 1);
+                    
                 orderMonth=date.toLocaleDateString();
                 assign[i][j]= date;
-                console.log(orderMonth);
+                assignObj[i][j]['month']=date.getMonth()+1;
+                assignObj[i][j]['year']=date.getFullYear();
+                //console.log(orderMonth);
             }
            
             else{
 
+                assignObj[i][j]['memberID']=members[i-1].memberID;
+
+                assignObj[i][j]['month']=assignObj[0][j]['month'];
+                assignObj[i][j]['year']=assignObj[0][j]['year'];
+
                 var flag=0;
-                members[i-1].assign.forEach((value)=>{
-                    console.log(value.month, assign[0][j].getMonth()+1);
+                console.log(members[i-1].assign);
+                members[i-1].assign.forEach((value,index)=>{
+                    //console.log(members[i-1].memberID,value);
+                    //console.log(value.month, assign[0][j].getMonth()+1);
                     if(assign[0][j].getMonth()+1==value.month){
                         assign[i][j]=value.value;
+                        assignObj[i][j]['assignID']=value.assignID;
+                        assignObj[i][j]['value']=value.value;
                         flag=1;
+                        
                     }        
                 });
                 if(!flag){
                     assign[i][j]=0;
+                    assignObj[i][j]['assignID']=null;
+                    assignObj[i][j]['value']=0;
                 }                
             }
             
             
         }
-        
+
+        cache_assign[projectID]=assign;
+               
     }
-    
+    all_cacheAssign[projectID]=assignObj;
+    temp_cacheAssign=[...cache_assign];
+    temp_cacheAssign=temp_cacheAssign[1];
+    //console.log(cache_assign===temp_cacheAssign);
+
     var totalWorkMonth=[];
     var sumWork=0;
     for(var i=0;i<diff;i++)
@@ -272,6 +304,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     }
     console.log(totalWorkMonth);
     console.log(assign);
+    console.log(assignObj);
 
     accordionHTML =
 
@@ -307,12 +340,12 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         </div>
         <div class="project-rhs">
             <div class="add-minus-holder editMode">
-                <button class="btn round-btn primary _plus" onclick="addRow(${projectID})"><span
+                <button class="btn round-btn primary _plus" onclick="addRow(${projectID},${diff})"><span
                         class="fa fa-plus"></span></button>
-                <button class="btn round-btn danger _minus"><span class="fa fa-minus"></span></button>
+                
             </div>
-            <div class="table-right row">
-                <table class="table-fix">
+            <div class="table-right row" id="table-right-${projectID}">
+                <table class="table-fix" id="tableLeft-${projectID}">
                     <tr>
                         <th class="mishti-orange">メンバー</th>
                         <th class="mishti-orange">工数合計</th>
@@ -331,16 +364,27 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                         row["assign"].forEach((assign)=>{
                                 sum+=parseFloat(assign.value);
                         });
-
-                    accordionHTML+=
-                    `<tr class="editMode-input">
-                        <td><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
-                        <td>${sum}</td>
-                    </tr>`});
+                        if(leader==convertUser_IDToName(row.memberID)){
+                            accordionHTML+=
+                                `<tr class="editMode-input">
+                                    
+                                    <td><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
+                                    <td>${sum}</td>
+                                </tr>`
+                        }
+                        else{
+                            accordionHTML+=
+                                    `<tr class="editMode-input">
+                                        
+                                        <td><button class="delete editMode">-</button><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
+                                        <td>${sum}</td>
+                                    </tr>`
+                        }
+                    });
                     accordionHTML+=
                     `</table>
                     <div class="table-des-container">`+
-                    `<table class="table-des">
+                    `<table class="table-des" id="tableRight-${projectID}">
                         <tr>`+
                             
                             printHeader(diff,assign[0][0])+
@@ -373,8 +417,8 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                 <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span
                             style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
                 <div class="editMode">
-                    <li class="list"><button class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
-                    <li class="list"><button class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
+                    <li class="list"><button id="trash-${projectID}" class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
+                    <li class="list"><button id="reset-${projectID}" class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
                     </li>
                     <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"
                                 onclick="editModeOff(${projectID})"></span></button></li>
@@ -385,6 +429,21 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     
     if($('#row'+projectID).html()=="")
         $('#row'+projectID).append(accordionHTML);
+    document.getElementById('reset-'+projectID).onclick=function(){
+
+        document.getElementById('row'+projectID).innerHTML="";        
+        renderEmptyAssignAccordion(projectID,diff,assign[0][0],leader,response02);
+        editModeOn(projectID);
+    }; 
+    
+    document.getElementById('trash-'+projectID).onclick=function(){
+
+        document.getElementById('row'+projectID).innerHTML="";        
+        renderEmptyAssignAccordion(projectID,diff,assign[0][0],leader,response02);
+        
+    };        
+    
+    
 }
 
 document.addEventListener("DOMContentLoaded", () => { fetchProjectList_AJAX() });
@@ -510,18 +569,28 @@ function filterProject(e) {
 
 function editModeOn(x) {
     
+    assign=cache_assign[x];
+    console.log( assign[0].length);
+    
     $( '#project-row-' + x +' .editMode').each(function( index ) {
-        $( this ).show("slow");
+        this.style.display="block";
         $('.pencil-btn').eq(x-1).hide();
     });
+    
 
-    //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
+    //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
     var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
+    //$dataTable.innerHTML=``;
     //==ADDING EDITING FIELDS TO BLUE TABLE==//
+    
     $dataTable.each(function(i){
-        $(this).children('td').each(function( index ){
-            $(this).html("<input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"1.00\">");
-        });
+        for(var j=0;j<assign[0].length;j++)
+        {
+            if(j==0)
+                $(this).html("<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+            else
+                $(this).append("<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+        }
     });
 
 
@@ -530,11 +599,49 @@ function editModeOn(x) {
     //==ADDING EDITING FIELDS TO ORANGE TABLE==//
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
-            $(this).html("<input type=\"number\" name=\"pro_member\" class=\"data-cell-fixed\" required=\"\" value=\"0\">");
+            //console.log(index);
+            if(index%2==0 && i!=0){
+                
+                var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
+                   for(var j=0;j<12;j++)
+                   {
+                     string+=`<option>${convertUser_IDToName(j)}</option>`;
+                   }
+                   string+=`</select>`;
+                   //$(this).html("<input type=\"number\" name=\"pro_member\" class=\"data-cell-fixed\" required=\"\" value=\"0\">");
+                   $(this).html(string);
+            }
         });
     });
 
+    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
 
+   for (let index = 0; index < buttons.length; index++) {
+       
+       buttons[index].classList.remove("editMode");
+       
+   }
+
+   deleteRowActionListener(x);
+
+}
+
+
+function deleteRowActionListener(x){
+
+    var i=0;  
+    document.getElementById("project-row-"+x).querySelectorAll(".delete").forEach(function(obj,index){ 
+        obj.addEventListener("click", function(event){
+            
+             if(i==0){
+                document.getElementById("tableLeft-"+x).deleteRow(index+3);
+                document.getElementById("tableRight-"+x).deleteRow(index+3);
+                 i++;
+
+                deleteRowActionListener(x);
+             } 
+        });
+    });
 }
 
 //===TURNING OFF EDIT-MODE===//
@@ -542,94 +649,229 @@ function editModeOn(x) {
 function editModeOff(x) {
 
 
-    //===DISAPPEARING EDITING BUTTONS===//
+    //===DISAPPEARING EDITING PENCIL===//
     
     $('.editMode').each(function(index,element){
-        $(element).hide("200");
+        
+        this.style.display="none";
         $('.pencil-btn').eq(x-1).show();
     });
 
     var details, user_details;
-    //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
-    details = $('.data-cell').map(function () {
-        return {
-            val: $(this).val(),
-        };
-    }).get();
+    // //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
+    // details = $('.data-cell').map(function () {
+    //     return {
+    //         val: $(this).val(),
+    //     };
+    // }).get();
 
-    //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
+    // //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
 
     
-    var $dataTable = $('.table-des').eq(x - 1).find('.editMode-input ');
+    // var $dataTable = $('.table-des').eq(x - 1).find('.editMode-input ');
 
-    let k = 0;
-    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    $dataTable.each(function(i){
-        $(this).children('td').each(function( index ){
-            $(this).html(details[k].val);
-                k++;
-        });
-    });
-    k = 0;
+    // let k = 0;
+    // //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
+    // $dataTable.each(function(i){
+    //     $(this).children('td').each(function( index ){
+    //         $(this).html(details[k].val);
+    //             k++;
+    //     });
+    // });
+    // k = 0;
 
-    //=== STORING DETAILS OF ORANGE-FIXED TABLE===//
-    user_details = $('.data-cell-fixed').map(function () {
-        return {
-            val: $(this).val(),
-        };
-    }).get();
     
-
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
     
     var $dataTable2 = $('.table-fix').eq(x - 1).find('.editMode-input');
     
 
-    //===DISAPPEARING EDITING FIELDS OF ORANGE TABLE===//
+    //===DISAPPEARING EDITING BUTTONS===//
     
-    $dataTable2.each(function(i){
-        $(this).children('td').each(function( index ){
-            if (index % 2 == 0)
-                $(this).html('<img src="img/pro_icon.png">' + user_details[k].val);
-            else
-                $(this).html(user_details[k].val);    
-            k++;
-        });
-    });
-    k = 0;
+   
+    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
 
+    for (let index = 0; index < buttons.length; index++) {
+         
+        console.log(buttons[index])
+        buttons[index].classList.add("editMode");
+        buttons[index].style.display="none";
+        
+    }
+
+    saveInput(x);
+ 
+}
+function saveInput(x){
+    console.log(all_cacheAssign[x]);
+    var rows=document.getElementById("tableRight-"+x).getElementsByTagName("tr");
+
+    var assigns=new Array(rows.length);
+    for (let index = 2; index < rows.length; index++) {
+        var inputs= rows[index].getElementsByTagName("input");
+        assigns[index]=new Array(inputs.length);
+        for (let j = 0; j < inputs.length; j++) {
+
+            assigns[index][j]=inputs[j].value;
+        }
+    }
+
+    for (let index = 1; index < all_cacheAssign[x].length; index++) {
+        
+        for (let j = 0; j < all_cacheAssign[x][index].length; j++) {
+            
+            all_cacheAssign[x][index][j].value=parseFloat(assigns[index+1][j]);
+            
+        }
+        
+    }
+
+    var assign_arr=[];
+    for (let index = 1; index < all_cacheAssign[x].length; index++) {
+      
+        
+        for (let j = 0; j < all_cacheAssign[x][index].length; j++) {
+       
+            assign_arr.push(
+
+                {
+                    assignID :all_cacheAssign[x][index][j].assignID,
+                    projectID:all_cacheAssign[x][index][j].projectID,
+                    memberID:all_cacheAssign[x][index][j].memberID,	
+                    year: all_cacheAssign[x][index][j].year,
+                    month:all_cacheAssign[x][index][j].month,
+                    value:all_cacheAssign[x][index][j].value
+
+                }
+
+            );
+
+            
+            
+    }
+    }
+
+    console.log(assign_arr);
+    updateAssignData_AJAX(assign_arr);
+
+    console.log(all_cacheAssign);
 
 }
 
 //===ADDING ROWS on CLICKING ADD BUTTON===//
 
-function addRow(x) {
+function addRow(x,diff) {
+    
+    var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
+                   for(var j=0;j<12;j++)
+                   {
+                     string+=`<option>${convertUser_IDToName(j)}</option>`;
+                   }
+                   string+=`</select></td>`;
     $('.table-fix tbody')[x - 1].innerHTML += `<tr class="editMode-input">
-                                                <td><input type="number" name="pro_member" class="data-cell-fixed" required="" value="0"></td>
-                                                <td><input type="number" name="pro_member" class="data-cell-fixed" required="" value="0"></td>
+                                                `+string+`
+                                                <td>0</td>
                                             </tr>`;
+    string=``;
+    console.log(temp_cacheAssign.length);
+    var length=temp_cacheAssign.length;
+    temp_cacheAssign[length]=new Array(diff);
+    console.log(temp_cacheAssign);
+    for (let index = 0; index < diff; index++) {
+        string+=`<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0\"></td>`;
+        temp_cacheAssign[length][index]=0;
+        
+    }
     $('.table-des tbody')[x - 1].innerHTML += `<tr class="editMode-input">
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                        </tr>`;
+                                            `+string +`</tr>`;
+    console.log(temp_cacheAssign);
 
 }
+function resetActionListener(x){
+
+    assign=cache_assign[x];
+    console.log( "hi");
+    
+    $( '#project-row-' + x +' .editMode').each(function( index ) {
+        this.style.display="block";
+        $('.pencil-btn').eq(x-1).hide();
+    });
+    
+
+    //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
+    var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
+    //==ADDING EDITING FIELDS TO BLUE TABLE==//
+    
+    $dataTable.each(function(i){
+        for(var j=0;j<assign[0].length;j++)
+        {
+            if(j==0)
+                $(this).html("<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+            else
+                $(this).append("<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+        }
+    });
+
+
+    //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
+    var $dataTable2= $('.table-fix').eq(x-1).find('.editMode-input');
+    //==ADDING EDITING FIELDS TO ORANGE TABLE==//
+    $dataTable2.each(function(i){
+        $(this).children('td').each(function( index ){
+            //console.log(index);
+            if(index%2==0 && i!=0){
+                
+                var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
+                   for(var j=0;j<12;j++)
+                   {
+                     string+=`<option>${convertUser_IDToName(j)}</option>`;
+                   }
+                   string+=`</select>`;
+                   //$(this).html("<input type=\"number\" name=\"pro_member\" class=\"data-cell-fixed\" required=\"\" value=\"0\">");
+                   $(this).html(string);
+            }
+        });
+    });
+
+    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+
+   for (let index = 0; index < buttons.length; index++) {
+       
+       buttons[index].classList.remove("editMode");
+       
+   }
+
+
+}
+
+function trashActionListener(x){
+    editModeOn(x);
+    editModeOff(x);
+}
+function updateAssignData_AJAX(assignData) {
+    $.ajax({
+        type: "post",
+        url: "/API/upsertAssign",
+        data: {
+            _token: $('#csrf-token')[0].content,
+            assignments:assignData
+        },
+        cache: false,
+        success: function (response01) {
+            console.log(response01);
+            if(response01["resultStatus"]["isSuccess"]) {
+               
+
+            } else
+                handleAJAXResponse(response01);
+        },
+        error: function (err) {
+            handleAJAXError(err);
+        }
+    });
+}
+
+
 
 
 
