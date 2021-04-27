@@ -133,9 +133,12 @@ class ProjectService
         for ($i = 0; $i < count($array); $i++) {
             // If user is not project leader [General user]
             if ($array[$i]->projectLeaderID != $loggedUser->user_id) {
-                unset($array[$i]->salesTotal);
-                unset($array[$i]->transferredAmount);
-                unset($array[$i]->budget);
+                // unset($array[$i]->salesTotal);
+                // unset($array[$i]->transferredAmount);
+                // unset($array[$i]->budget);
+                $array[$i]->salesTotal = '';
+                $array[$i]->transferredAmount = '';
+                $array[$i]->budget = '';
             }
         }
 
