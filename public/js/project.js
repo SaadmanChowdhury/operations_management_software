@@ -211,7 +211,10 @@ function objectToArray(obj){
 }
 //=== RENDERING PROJECT DETAILS TABLES ===//
 var assign;
+var assignObj;
+
 var cache_assign=[];
+var temp_cacheAssign=[];
 function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02) {
     
     
@@ -219,8 +222,10 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     var members=objectToArray(response02["resultData"]["project"]["member"]);
     
     assign = new Array(x);
+    assignObj=new Array(x);
     for (var i = 0; i < assign.length; i++) {
         assign[i] = new Array(diff);
+        assignObj[i]=new Array(diff);
     }
    
     for(var i=0;i<x;i++)
@@ -229,17 +234,22 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         for(var j=0;j<diff;j++)
         {
             assign[i][j]=0;
+            assignObj[i][j]={};
             if(i==0){
                 date=new Date(orderMonth);
                 // orderMonth=date.toLocaleDateString();
                 if(j!=0)
                     date.setMonth(date.getMonth() + 1);
+                    
                 orderMonth=date.toLocaleDateString();
                 assign[i][j]= date;
+                assignObj[i][j]['month']=date.getMonth()+1;
+                assignObj[i][j]['year']=date.getYear()-100;
                 //console.log(orderMonth);
             }
            
             else{
+
 
                 var flag=0;
                 members[i-1].assign.forEach((value)=>{
@@ -260,7 +270,10 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         cache_assign[projectID]=assign;
         
     }
-    
+    temp_cacheAssign=[...cache_assign];
+    temp_cacheAssign=temp_cacheAssign[1];
+    //console.log(cache_assign===temp_cacheAssign);
+
     var totalWorkMonth=[];
     var sumWork=0;
     for(var i=0;i<diff;i++)
@@ -275,6 +288,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     }
     console.log(totalWorkMonth);
     console.log(assign);
+    console.log(assignObj);
 
     accordionHTML =
 
@@ -310,7 +324,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         </div>
         <div class="project-rhs">
             <div class="add-minus-holder editMode">
-                <button class="btn round-btn primary _plus" onclick="addRow(${projectID})"><span
+                <button class="btn round-btn primary _plus" onclick="addRow(${projectID},${diff})"><span
                         class="fa fa-plus"></span></button>
                 
             </div>
@@ -334,13 +348,23 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                         row["assign"].forEach((assign)=>{
                                 sum+=parseFloat(assign.value);
                         });
-
-                    accordionHTML+=
-                    `<tr class="editMode-input">
-                        
-                        <td><button class="delete editMode">-</button><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
-                        <td>${sum}</td>
-                    </tr>`});
+                        if(leader==convertUser_IDToName(row.memberID)){
+                            accordionHTML+=
+                                `<tr class="editMode-input">
+                                    
+                                    <td><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
+                                    <td>${sum}</td>
+                                </tr>`
+                        }
+                        else{
+                            accordionHTML+=
+                                    `<tr class="editMode-input">
+                                        
+                                        <td><button class="delete editMode">-</button><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
+                                        <td>${sum}</td>
+                                    </tr>`
+                        }
+                    });
                     accordionHTML+=
                     `</table>
                     <div class="table-des-container">`+
@@ -366,8 +390,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                                 +`</tr>`;
                                 index++;
                         });
-                        var arr=JSON.stringify(assign);
-                        console.log(arr);
+                        
                         accordionHTML+=
                     `</table>
                 </div>
@@ -378,7 +401,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                 <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span
                             style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
                 <div class="editMode">
-                    <li class="list"><button class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
+                    <li class="list"><button class="btn round-btn danger"><span class="fa fa-trash" onclick="trashActionListener(${projectID})"></span></button></li>
                     <li class="list"><button class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
                     </li>
                     <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"
@@ -515,8 +538,7 @@ function filterProject(e) {
 //===TURNING ON EDIT-MODE===//
 
 function editModeOn(x) {
-    //assign=JSON.parse(assign);
-
+    
     assign=cache_assign[x];
     console.log( assign[0].length);
     
@@ -524,20 +546,11 @@ function editModeOn(x) {
         this.style.display="block";
         $('.pencil-btn').eq(x-1).hide();
     });
-    // $( '#project-row-' + x +'.editMode-input').each(function( index ) {
-
-    //     $( this ).show("slow");
-    //     console.log(x);
-    // });
-
     
-
-
-
-    //document.querySelector("#row1 > div > div.project-rhs > div.table-right.row > table > tbody > tr:nth-child(3) > td:nth-child(1) > button")
 
     //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
     var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
+    //$dataTable.innerHTML=``;
     //==ADDING EDITING FIELDS TO BLUE TABLE==//
     
     $dataTable.each(function(i){
@@ -574,12 +587,9 @@ function editModeOn(x) {
     var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
 
    for (let index = 0; index < buttons.length; index++) {
-       //const element = buttons[index];
-
-        console.log(buttons[index])
+       
        buttons[index].classList.remove("editMode");
-       //buttons[index].style.display="block";
-       //$(buttons[index]).show();
+       
    }
 
    deleteRowActionListener(x);
@@ -594,8 +604,8 @@ function deleteRowActionListener(x){
         obj.addEventListener("click", function(event){
             
              if(i==0){
-                document.getElementById("tableLeft-"+x).deleteRow(index+2);
-                document.getElementById("tableRight-"+x).deleteRow(index+2);
+                document.getElementById("tableLeft-"+x).deleteRow(index+3);
+                document.getElementById("tableRight-"+x).deleteRow(index+3);
                  i++;
 
                 deleteRowActionListener(x);
@@ -684,32 +694,93 @@ function editModeOff(x) {
 
 //===ADDING ROWS on CLICKING ADD BUTTON===//
 
-function addRow(x) {
+function addRow(x,diff) {
+    
+    var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
+                   for(var j=0;j<12;j++)
+                   {
+                     string+=`<option>${convertUser_IDToName(j)}</option>`;
+                   }
+                   string+=`</select></td>`;
     $('.table-fix tbody')[x - 1].innerHTML += `<tr class="editMode-input">
-                                                <td><input type="number" name="pro_member" class="data-cell-fixed" required="" value="0"></td>
-                                                <td><input type="number" name="pro_member" class="data-cell-fixed" required="" value="0"></td>
+                                                `+string+`
+                                                <td>0</td>
                                             </tr>`;
+    string=``;
+    console.log(temp_cacheAssign.length);
+    var length=temp_cacheAssign.length;
+    temp_cacheAssign[length]=new Array(diff);
+    console.log(temp_cacheAssign);
+    for (let index = 0; index < diff; index++) {
+        string+=`<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0\"></td>`;
+        temp_cacheAssign[length][index]=0;
+        
+    }
     $('.table-des tbody')[x - 1].innerHTML += `<tr class="editMode-input">
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                            <td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0.00\"></td>
-                                        </tr>`;
+                                            `+string +`</tr>`;
+    console.log(temp_cacheAssign);
 
+}
+function resetActionListener(x){
+
+    assign=cache_assign[x];
+    console.log( "hi");
+    
+    $( '#project-row-' + x +' .editMode').each(function( index ) {
+        this.style.display="block";
+        $('.pencil-btn').eq(x-1).hide();
+    });
+    
+
+    //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
+    var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
+    //==ADDING EDITING FIELDS TO BLUE TABLE==//
+    
+    $dataTable.each(function(i){
+        for(var j=0;j<assign[0].length;j++)
+        {
+            if(j==0)
+                $(this).html("<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+            else
+                $(this).append("<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+        }
+    });
+
+
+    //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
+    var $dataTable2= $('.table-fix').eq(x-1).find('.editMode-input');
+    //==ADDING EDITING FIELDS TO ORANGE TABLE==//
+    $dataTable2.each(function(i){
+        $(this).children('td').each(function( index ){
+            //console.log(index);
+            if(index%2==0 && i!=0){
+                
+                var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
+                   for(var j=0;j<12;j++)
+                   {
+                     string+=`<option>${convertUser_IDToName(j)}</option>`;
+                   }
+                   string+=`</select>`;
+                   //$(this).html("<input type=\"number\" name=\"pro_member\" class=\"data-cell-fixed\" required=\"\" value=\"0\">");
+                   $(this).html(string);
+            }
+        });
+    });
+
+    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+
+   for (let index = 0; index < buttons.length; index++) {
+       
+       buttons[index].classList.remove("editMode");
+       
+   }
+
+
+}
+
+function trashActionListener(x){
+    editModeOn(x);
+    editModeOff(x);
 }
 
 
