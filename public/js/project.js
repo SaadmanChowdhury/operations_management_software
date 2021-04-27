@@ -680,12 +680,7 @@ function editModeOff(x) {
     k = 0;
 
     //=== STORING DETAILS OF ORANGE-FIXED TABLE===//
-    // user_details = $('.data-cell-fixed').map(function () {
-    //     return {
-    //         val: $(this).val(),
-    //     };
-    // }).get();
-    
+        
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
     
@@ -694,25 +689,15 @@ function editModeOff(x) {
 
     //===DISAPPEARING EDITING FIELDS OF ORANGE TABLE===//
     
-    // $dataTable2.each(function(i){
-    //     $(this).children('td').each(function( index ){
-    //         if (index % 2 == 0)
-    //             $(this).html('<img src="img/pro_icon.png">' + user_details[k].val);
-    //         else
-    //             $(this).html(user_details[k].val);    
-    //         k++;
-    //     });
-    // });
-    // k = 0;
+   
     var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
 
     for (let index = 0; index < buttons.length; index++) {
-        //const element = buttons[index];
- 
+         
         console.log(buttons[index])
         buttons[index].classList.add("editMode");
         buttons[index].style.display="none";
-        //$(buttons[index]).show();
+        
     }
     
  
