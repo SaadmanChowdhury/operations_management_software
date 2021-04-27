@@ -233,8 +233,11 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         
         for(var j=0;j<diff;j++)
         {
+            
+            
             assign[i][j]=0;
             assignObj[i][j]={};
+            assignObj[i][j]['projectID']=projectID;
             if(i==0){
                 date=new Date(orderMonth);
                 // orderMonth=date.toLocaleDateString();
@@ -244,23 +247,34 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                 orderMonth=date.toLocaleDateString();
                 assign[i][j]= date;
                 assignObj[i][j]['month']=date.getMonth()+1;
-                assignObj[i][j]['year']=date.getYear()-100;
+                assignObj[i][j]['year']=date.getFullYear();
                 //console.log(orderMonth);
             }
            
             else{
 
+                assignObj[i][j]['memberID']=members[i-1].memberID;
+
+                assignObj[i][j]['month']=assignObj[0][j]['month'];
+                assignObj[i][j]['year']=assignObj[0][j]['year'];
 
                 var flag=0;
-                members[i-1].assign.forEach((value)=>{
+                console.log(members[i-1].assign);
+                members[i-1].assign.forEach((value,index)=>{
+                    //console.log(members[i-1].memberID,value);
                     //console.log(value.month, assign[0][j].getMonth()+1);
                     if(assign[0][j].getMonth()+1==value.month){
                         assign[i][j]=value.value;
+                        assignObj[i][j]['assignID']=value.assignID;
+                        assignObj[i][j]['value']=value.value;
                         flag=1;
+                        
                     }        
                 });
                 if(!flag){
                     assign[i][j]=0;
+                    assignObj[i][j]['assignID']=null;
+                    assignObj[i][j]['value']=0;
                 }                
             }
             
@@ -328,7 +342,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                         class="fa fa-plus"></span></button>
                 
             </div>
-            <div class="table-right row">
+            <div class="table-right row" id="table-right-${projectID}">
                 <table class="table-fix" id="tableLeft-${projectID}">
                     <tr>
                         <th class="mishti-orange">メンバー</th>
@@ -401,8 +415,8 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                 <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span
                             style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
                 <div class="editMode">
-                    <li class="list"><button class="btn round-btn danger"><span class="fa fa-trash" onclick="trashActionListener(${projectID})"></span></button></li>
-                    <li class="list"><button class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
+                    <li class="list"><button id="trash-${projectID}" class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
+                    <li class="list"><button id="reset-${projectID}" class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
                     </li>
                     <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"
                                 onclick="editModeOff(${projectID})"></span></button></li>
@@ -413,6 +427,20 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     
     if($('#row'+projectID).html()=="")
         $('#row'+projectID).append(accordionHTML);
+    document.getElementById('reset-'+projectID).onclick=function(){
+
+        document.getElementById('row'+projectID).innerHTML="";        
+        renderEmptyAssignAccordion(projectID,diff,assign[0][0],leader,response02);
+        editModeOn(projectID);
+    }; 
+    
+    document.getElementById('trash-'+projectID).onclick=function(){
+
+        document.getElementById('row'+projectID).innerHTML="";        
+        renderEmptyAssignAccordion(projectID,diff,assign[0][0],leader,response02);
+        
+    };        
+    
     
 }
 
@@ -557,9 +585,9 @@ function editModeOn(x) {
         for(var j=0;j<assign[0].length;j++)
         {
             if(j==0)
-                $(this).html("<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+                $(this).html("<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
             else
-                $(this).append("<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+                $(this).append("<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
         }
     });
 
