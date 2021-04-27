@@ -658,28 +658,7 @@ function editModeOff(x) {
     });
 
     var details, user_details;
-    // //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
-    // details = $('.data-cell').map(function () {
-    //     return {
-    //         val: $(this).val(),
-    //     };
-    // }).get();
-
-    // //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
-
     
-    // var $dataTable = $('.table-des').eq(x - 1).find('.editMode-input ');
-
-    // let k = 0;
-    // //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    // $dataTable.each(function(i){
-    //     $(this).children('td').each(function( index ){
-    //         $(this).html(details[k].val);
-    //             k++;
-    //     });
-    // });
-    // k = 0;
-
     
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
     
