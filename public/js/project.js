@@ -215,6 +215,7 @@ var assignObj;
 
 var cache_assign=[];
 var temp_cacheAssign=[];
+var all_cacheAssign=[];
 function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02) {
     
     
@@ -282,8 +283,9 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         }
 
         cache_assign[projectID]=assign;
-        
+               
     }
+    all_cacheAssign[projectID]=assignObj;
     temp_cacheAssign=[...cache_assign];
     temp_cacheAssign=temp_cacheAssign[1];
     //console.log(cache_assign===temp_cacheAssign);
@@ -647,47 +649,44 @@ function deleteRowActionListener(x){
 function editModeOff(x) {
 
 
-    //===DISAPPEARING EDITING BUTTONS===//
+    //===DISAPPEARING EDITING PENCIL===//
     
     $('.editMode').each(function(index,element){
-        //$(element).hide("200");
-        // this.classList.add("editMode");
+        
         this.style.display="none";
         $('.pencil-btn').eq(x-1).show();
     });
 
     var details, user_details;
-    //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
-    details = $('.data-cell').map(function () {
-        return {
-            val: $(this).val(),
-        };
-    }).get();
+    // //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
+    // details = $('.data-cell').map(function () {
+    //     return {
+    //         val: $(this).val(),
+    //     };
+    // }).get();
 
-    //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
+    // //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
 
     
-    var $dataTable = $('.table-des').eq(x - 1).find('.editMode-input ');
+    // var $dataTable = $('.table-des').eq(x - 1).find('.editMode-input ');
 
-    let k = 0;
-    //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    $dataTable.each(function(i){
-        $(this).children('td').each(function( index ){
-            $(this).html(details[k].val);
-                k++;
-        });
-    });
-    k = 0;
+    // let k = 0;
+    // //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
+    // $dataTable.each(function(i){
+    //     $(this).children('td').each(function( index ){
+    //         $(this).html(details[k].val);
+    //             k++;
+    //     });
+    // });
+    // k = 0;
 
-    //=== STORING DETAILS OF ORANGE-FIXED TABLE===//
-        
-
+    
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
     
     var $dataTable2 = $('.table-fix').eq(x - 1).find('.editMode-input');
     
 
-    //===DISAPPEARING EDITING FIELDS OF ORANGE TABLE===//
+    //===DISAPPEARING EDITING BUTTONS===//
     
    
     var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
@@ -699,9 +698,63 @@ function editModeOff(x) {
         buttons[index].style.display="none";
         
     }
-    
- 
 
+    saveInput(x);
+ 
+}
+function saveInput(x){
+    console.log(all_cacheAssign[x]);
+    var rows=document.getElementById("tableRight-"+x).getElementsByTagName("tr");
+
+    var assigns=new Array(rows.length);
+    for (let index = 2; index < rows.length; index++) {
+        var inputs= rows[index].getElementsByTagName("input");
+        assigns[index]=new Array(inputs.length);
+        for (let j = 0; j < inputs.length; j++) {
+
+            assigns[index][j]=inputs[j].value;
+        }
+    }
+
+    for (let index = 1; index < all_cacheAssign[x].length; index++) {
+        
+        for (let j = 0; j < all_cacheAssign[x][index].length; j++) {
+            
+            all_cacheAssign[x][index][j].value=parseFloat(assigns[index+1][j]);
+            
+        }
+        
+    }
+
+    var assign_arr=[];
+    for (let index = 1; index < all_cacheAssign[x].length; index++) {
+      
+        
+        for (let j = 0; j < all_cacheAssign[x][index].length; j++) {
+       
+            assign_arr.push(
+
+                {
+                    assignID :all_cacheAssign[x][index][j].assignID,
+                    projectID:all_cacheAssign[x][index][j].projectID,
+                    memberID:all_cacheAssign[x][index][j].memberID,	
+                    year: all_cacheAssign[x][index][j].year,
+                    month:all_cacheAssign[x][index][j].month,
+                    value:all_cacheAssign[x][index][j].value
+
+                }
+
+            );
+
+            
+            
+    }
+    }
+
+    console.log(assign_arr);
+    updateAssignData_AJAX(assign_arr);
+
+    console.log(all_cacheAssign);
 
 }
 
@@ -795,7 +848,28 @@ function trashActionListener(x){
     editModeOn(x);
     editModeOff(x);
 }
+function updateAssignData_AJAX(assignData) {
+    $.ajax({
+        type: "post",
+        url: "/API/upsertAssign",
+        data: {
+            _token: $('#csrf-token')[0].content,
+            assignments:assignData
+        },
+        cache: false,
+        success: function (response01) {
+            console.log(response01);
+            if(response01["resultStatus"]["isSuccess"]) {
+               
 
+            } else
+                handleAJAXResponse(response01);
+        },
+        error: function (err) {
+            handleAJAXError(err);
+        }
+    });
+}
 
 
 
