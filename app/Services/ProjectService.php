@@ -201,7 +201,7 @@ class ProjectService
     public function getFormattedDataForUpsertAssign($data)
     {
         $formattedData = [];
-        foreach ($data as $key => $value) {
+        foreach ($data['assignments'] as $key => $value) {
             $formattedData[$key]['assign_id'] = $value['assignID'];
             $formattedData[$key]['project_id'] = $value['projectID'];
             $formattedData[$key]['user_id'] = $value['memberID'];
