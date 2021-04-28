@@ -24,7 +24,7 @@ $.ajax({
     },
     cache: false,
     success: function (response02) {
-        console.log(response02);
+        
         if(response02["resultStatus"]["isSuccess"]) {
             
             // response02 = project details of selected project             
@@ -38,7 +38,34 @@ $.ajax({
     }
 });
 }
+function updateDisplay(id,diff,order,leader) {
 
+        
+    $.ajax({
+        type: "post",
+        url: "/API/readProjectAssign",
+        data: {
+            _token: $('#csrf-token')[0].content,
+            projectID: id
+    
+        },
+        cache: false,
+        success: function (response02) {
+            
+            if(response02["resultStatus"]["isSuccess"]) {
+                
+                // response02 = project details of selected project   
+                    document.getElementById('row'+id).innerHTML="";          
+                    renderEmptyAssignAccordion(id,diff,order,leader,response02);
+            
+            } else
+                handleAJAXResponse(response02);
+        },
+        error: function (err) {
+            handleAJAXError(err);
+        }
+    });
+}
 
 
 
@@ -53,7 +80,7 @@ function fetchProjectList_AJAX() {
         },
         cache: false,
         success: function (response01) {
-            console.log(response01);
+            
             if(response01["resultStatus"]["isSuccess"]) {
                 projectRender();
 
@@ -128,7 +155,7 @@ function renderProjectHTML(response01) {
         
         // To calculate the no. of days between two dates
         var Difference_In_Month =Math.ceil( Difference_In_Time / (1000 * 3600 * 24*30));
-        //console.log(Difference_In_Month);
+        
         var leader= convertUser_IDToName(row.projectLeaderID);
         var profit = (row.salesTotal - row.budget) * 100 / row.salesTotal;
         projectHtml =
@@ -168,7 +195,7 @@ function renderProjectHTML(response01) {
 }
 
 function printHeader(x,orderMonth){
-    console.log(orderMonth);
+    
     var print='';
     for(i=0;i<x;i++){
         var date=new Date(orderMonth);
@@ -191,7 +218,7 @@ function printTotal(x,totalWorkMonth){
 
 
 function printBody(diff,assign,index){
-    console.log(assign);
+    
     var print='';
     
     for(var i=0;i<diff;i++){
@@ -249,7 +276,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                 assign[i][j]= date;
                 assignObj[i][j]['month']=date.getMonth()+1;
                 assignObj[i][j]['year']=date.getFullYear();
-                //console.log(orderMonth);
+                
             }
            
             else{
@@ -260,10 +287,9 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                 assignObj[i][j]['year']=assignObj[0][j]['year'];
 
                 var flag=0;
-                console.log(members[i-1].assign);
+                
                 members[i-1].assign.forEach((value,index)=>{
-                    //console.log(members[i-1].memberID,value);
-                    //console.log(value.month, assign[0][j].getMonth()+1);
+                    
                     if(assign[0][j].getMonth()+1==value.month){
                         assign[i][j]=value.value;
                         assignObj[i][j]['assignID']=value.assignID;
@@ -286,9 +312,10 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                
     }
     all_cacheAssign[projectID]=assignObj;
+    console.log(assignObj);
     temp_cacheAssign=[...cache_assign];
     temp_cacheAssign=temp_cacheAssign[1];
-    //console.log(cache_assign===temp_cacheAssign);
+    
 
     var totalWorkMonth=[];
     var sumWork=0;
@@ -302,9 +329,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         sumWork+=sum;
         totalWorkMonth.push(sum);
     }
-    console.log(totalWorkMonth);
-    console.log(assign);
-    console.log(assignObj);
+   
 
     accordionHTML =
 
@@ -356,24 +381,30 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                         <td>${sumWork}</td>
                     </tr>`;
            
-                    
+                   var leaderRow='';
+                   var nonLeadersRow="";
+
                     response02["resultData"]["project"]["member"].forEach((row) => {
                         Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
-                        console.log(row["assign"]);
+                        
                         var sum=0;
                         row["assign"].forEach((assign)=>{
                                 sum+=parseFloat(assign.value);
                         });
+                        console.log(convertUser_IDToName(row.memberID));
+                        console.log(leader);
+                        console.log(leader==convertUser_IDToName(row.memberID));
                         if(leader==convertUser_IDToName(row.memberID)){
-                            accordionHTML+=
+                            leaderRow=
                                 `<tr class="editMode-input">
                                     
                                     <td><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
                                     <td>${sum}</td>
                                 </tr>`
+                            
                         }
                         else{
-                            accordionHTML+=
+                            nonLeadersRow+=
                                     `<tr class="editMode-input">
                                         
                                         <td><button class="delete editMode">-</button><img src="img/pro_icon.png">${convertUser_IDToName(row.memberID)}</td>
@@ -381,6 +412,10 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                                     </tr>`
                         }
                     });
+
+
+                    accordionHTML= accordionHTML+leaderRow+nonLeadersRow;
+
                     accordionHTML+=
                     `</table>
                     <div class="table-des-container">`+
@@ -399,7 +434,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
 
                             Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
                             
-                                console.log(row);
+                                
                                 accordionHTML+=
                                 `<tr class="editMode-input">`+
                                     printBody(diff,assign,index)
@@ -414,14 +449,14 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         </div>
         <div class="action">
             <ul class="list-unstyled">
-                <li class="list show"><button class="btn round-btn pencil-btn" onclick="editModeOn(${projectID})"><span
+                <li class="list show"><button class="btn round-btn pencil-btn" id="edit-${projectID}"><span
                             style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
                 <div class="editMode">
                     <li class="list"><button id="trash-${projectID}" class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
                     <li class="list"><button id="reset-${projectID}" class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
                     </li>
                     <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"
-                                onclick="editModeOff(${projectID})"></span></button></li>
+                                id="save-${projectID}"></span></button></li>
                 </div>
             </ul>
         </div>
@@ -433,7 +468,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
 
         document.getElementById('row'+projectID).innerHTML="";        
         renderEmptyAssignAccordion(projectID,diff,assign[0][0],leader,response02);
-        editModeOn(projectID);
+        editModeOn(projectID,members);
     }; 
     
     document.getElementById('trash-'+projectID).onclick=function(){
@@ -441,8 +476,17 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         document.getElementById('row'+projectID).innerHTML="";        
         renderEmptyAssignAccordion(projectID,diff,assign[0][0],leader,response02);
         
+    }; 
+    document.getElementById('save-'+projectID).onclick=function(){
+
+        editModeOff(projectID,diff,assign[0][0],leader);
+                
+        //renderEmptyAssignAccordion(projectID,diff,assign[0][0],leader,response02);
+        
     };        
-    
+    document.getElementById("edit-"+projectID).onclick=function(){
+        editModeOn(projectID,members);
+    }
     
 }
 
@@ -456,7 +500,7 @@ pos.on("click", function () {
     event.preventDefault();
 
     clickedItem = $($(this)[0]).html();
-    // console.log(clickedItem);
+    
 
 
     switch (clickedItem) {
@@ -481,7 +525,7 @@ pos.on("click", function () {
         for (let i = 0; i < PROJECT_CARDS.length; i++) {
 
             text = $(PROJECT_CARDS[i]).find("." + domType).html();
-            console.log(text);
+            
 
             if (text == null) {
                 hideCard(PROJECT_CARDS[i])
@@ -503,7 +547,7 @@ pos.on("click", function () {
 
 function filterProject(e) {
     e.preventDefault();
-    console.log(e.target.innerText);
+    
     switch (e.target.innerText) {
         case "全て":
             {
@@ -553,7 +597,7 @@ function filterProject(e) {
                 for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PL") {
                         showCard(staffList[i])
-                        console.log(staffList[i]);
+                        //console.log(staffList[i]);
                     }
                     else {
                         hideCard(staffList[i])
@@ -567,14 +611,14 @@ function filterProject(e) {
 
 //===TURNING ON EDIT-MODE===//
 
-function editModeOn(x) {
+function editModeOn(x,members) {
     
     assign=cache_assign[x];
-    console.log( assign[0].length);
+    
     
     $( '#project-row-' + x +' .editMode').each(function( index ) {
         this.style.display="block";
-        $('.pencil-btn').eq(x-1).hide();
+        document.getElementById("edit-"+x).style.display="none";
     });
     
 
@@ -587,9 +631,9 @@ function editModeOn(x) {
         for(var j=0;j<assign[0].length;j++)
         {
             if(j==0)
-                $(this).html("<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+                $(this).html("<td><input type=\"number\" class=\"data-cell\"  min=\"0\" max=\"1\"  name=\"data-cell\"  value=\""+assign[i+1][j]+"\"></td>");
             else
-                $(this).append("<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
+                $(this).append("<td><input type=\"number\" class=\"data-cell\" min=\"0\" max=\"1\"  name=\"data-cell\" value=\""+assign[i+1][j]+"\"></td>");
         }
     });
 
@@ -599,13 +643,17 @@ function editModeOn(x) {
     //==ADDING EDITING FIELDS TO ORANGE TABLE==//
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
-            //console.log(index);
+            
             if(index%2==0 && i!=0){
                 
                 var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
-                   for(var j=0;j<12;j++)
+                
+                   for(var j=1;j<=12;j++)
                    {
-                     string+=`<option>${convertUser_IDToName(j)}</option>`;
+                     if(members[i].memberID==j)
+                        string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
+                     else
+                        string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
                    }
                    string+=`</select>`;
                    //$(this).html("<input type=\"number\" name=\"pro_member\" class=\"data-cell-fixed\" required=\"\" value=\"0\">");
@@ -646,7 +694,7 @@ function deleteRowActionListener(x){
 
 //===TURNING OFF EDIT-MODE===//
 
-function editModeOff(x) {
+function editModeOff(x,diff,assignMonth,leader) {
 
 
     //===DISAPPEARING EDITING PENCIL===//
@@ -654,32 +702,12 @@ function editModeOff(x) {
     $('.editMode').each(function(index,element){
         
         this.style.display="none";
-        $('.pencil-btn').eq(x-1).show();
+        //$('#edit-'+x).show();
+        document.getElementById('edit-'+x).style.display="block";
     });
 
     var details, user_details;
-    // //=== STORING DETAILS OF RIGHTMOST_BLUE TABLE===//
-    // details = $('.data-cell').map(function () {
-    //     return {
-    //         val: $(this).val(),
-    //     };
-    // }).get();
-
-    // //==FETCHING ALL EDITING EDITING FIELDS OF BLUE TABLE==//
-
     
-    // var $dataTable = $('.table-des').eq(x - 1).find('.editMode-input ');
-
-    // let k = 0;
-    // //===DISAPPEARING EDITING FIELDS OF BLUE TABLE===//
-    // $dataTable.each(function(i){
-    //     $(this).children('td').each(function( index ){
-    //         $(this).html(details[k].val);
-    //             k++;
-    //     });
-    // });
-    // k = 0;
-
     
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
     
@@ -693,34 +721,101 @@ function editModeOff(x) {
 
     for (let index = 0; index < buttons.length; index++) {
          
-        console.log(buttons[index])
+        
         buttons[index].classList.add("editMode");
         buttons[index].style.display="none";
         
     }
 
-    saveInput(x);
+    saveInput(x,diff,assignMonth,leader);
  
 }
-function saveInput(x){
-    console.log(all_cacheAssign[x]);
+function saveTableLeftInput(x,date,diff){
+
+    //document.querySelectorAll("#tableLeft-1 > tbody > tr:nth-child(5) > td:nth-child(1) > select")
+    var rows=document.querySelectorAll("#tableLeft-1 > tbody > tr > td:nth-child(1) > select");
+    
+    var start_date=new Date(date);
+
+    var added_row=new Array(0);
+
+    for (let index = 0; index < rows.length; index++) {
+        
+
+        date= start_date;
+        
+
+        added_row[index]= new Array(0);
+        for (let j = 0; j < diff; j++) {
+            //var date=assignMonth.getMonth()+j;
+            
+            added_row[index].push(
+                    {
+                        assignID : null,
+                        memberID: rows[index].value,
+                        month: date.getMonth()+1 ,
+                        projectID: x,
+                        value: 1,
+                        year: date.getFullYear()
+                }
+    
+            )
+            date.setMonth(date.getMonth()+1);
+        
+        }
+
+        
+    }
+
+    var userLength=all_cacheAssign[x].length;
+    var assignLength=all_cacheAssign[x][userLength-1].length;
+    
+    //all_cacheAssign[x][assignLength]=added_row[0];
+
+    //all_cacheAssign[x][index].push(added_row[index]);
+
+    for (let index = userLength-2; index < rows.length; index++) {
+       
+
+        all_cacheAssign[x].push(added_row[index]);
+        
+    }
+
+}
+function saveInput(x,diff,assignMonth,leader){
+    
     var rows=document.getElementById("tableRight-"+x).getElementsByTagName("tr");
+    saveTableLeftInput(x,assignMonth,diff);
 
     var assigns=new Array(rows.length);
     for (let index = 2; index < rows.length; index++) {
         var inputs= rows[index].getElementsByTagName("input");
         assigns[index]=new Array(inputs.length);
         for (let j = 0; j < inputs.length; j++) {
+            
+            
 
             assigns[index][j]=inputs[j].value;
+            //assign[index-1][j]=inputs[j].value;
+            cache_assign[x][index-1][j]=inputs[j].value;
         }
     }
+    
 
     for (let index = 1; index < all_cacheAssign[x].length; index++) {
         
         for (let j = 0; j < all_cacheAssign[x][index].length; j++) {
+
+            try{
             
             all_cacheAssign[x][index][j].value=parseFloat(assigns[index+1][j]);
+
+            }
+            catch(err){
+
+                all_cacheAssign[x][index][j].value=0;
+                console.log(err);
+            }
             
         }
         
@@ -751,10 +846,9 @@ function saveInput(x){
     }
     }
 
-    console.log(assign_arr);
-    updateAssignData_AJAX(assign_arr);
+    
+    updateAssignData_AJAX(assign_arr,x,diff,assignMonth,leader);
 
-    console.log(all_cacheAssign);
 
 }
 
@@ -763,9 +857,12 @@ function saveInput(x){
 function addRow(x,diff) {
     
     var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
-                   for(var j=0;j<12;j++)
+                   for(var j=1;j<=12;j++)
                    {
-                     string+=`<option>${convertUser_IDToName(j)}</option>`;
+                       if(j==1)
+                            string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
+                        else
+                            string+=`<option value=${j} >${convertUser_IDToName(j)}</option>`;
                    }
                    string+=`</select></td>`;
     $('.table-fix tbody')[x - 1].innerHTML += `<tr class="editMode-input">
@@ -773,24 +870,24 @@ function addRow(x,diff) {
                                                 <td>0</td>
                                             </tr>`;
     string=``;
-    console.log(temp_cacheAssign.length);
+    
     var length=temp_cacheAssign.length;
     temp_cacheAssign[length]=new Array(diff);
-    console.log(temp_cacheAssign);
+    
     for (let index = 0; index < diff; index++) {
-        string+=`<td><input type=\"text\" class=\"data-cell\" name=\"data-cell\" value=\"0\"></td>`;
+        string+=`<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" min=\"0\" max=\"1\" value=\"0\"></td>`;
         temp_cacheAssign[length][index]=0;
         
     }
     $('.table-des tbody')[x - 1].innerHTML += `<tr class="editMode-input">
                                             `+string +`</tr>`;
-    console.log(temp_cacheAssign);
+    
+    deleteRowActionListener(x);
 
 }
 function resetActionListener(x){
 
     assign=cache_assign[x];
-    console.log( "hi");
     
     $( '#project-row-' + x +' .editMode').each(function( index ) {
         this.style.display="block";
@@ -818,7 +915,7 @@ function resetActionListener(x){
     //==ADDING EDITING FIELDS TO ORANGE TABLE==//
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
-            //console.log(index);
+            
             if(index%2==0 && i!=0){
                 
                 var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
@@ -844,11 +941,11 @@ function resetActionListener(x){
 
 }
 
-function trashActionListener(x){
-    editModeOn(x);
-    editModeOff(x);
-}
-function updateAssignData_AJAX(assignData) {
+// function trashActionListener(x){
+//     editModeOn(x);
+//     editModeOff(x);
+// }
+function updateAssignData_AJAX(assignData,projectID,diff,orderMonth,leader) {
     $.ajax({
         type: "post",
         url: "/API/upsertAssign",
@@ -858,9 +955,11 @@ function updateAssignData_AJAX(assignData) {
         },
         cache: false,
         success: function (response01) {
-            console.log(response01);
+            
             if(response01["resultStatus"]["isSuccess"]) {
-               
+
+                
+                updateDisplay(projectID,diff,orderMonth,leader);               
 
             } else
                 handleAJAXResponse(response01);
