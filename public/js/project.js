@@ -621,7 +621,7 @@ function editModeOn(x,members) {
     
 
     //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
-    var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
+    var $dataTable= $('#tableRight-'+x).find('.editMode-input');
     //$dataTable.innerHTML=``;
     //==ADDING EDITING FIELDS TO BLUE TABLE==//
     
@@ -637,7 +637,7 @@ function editModeOn(x,members) {
 
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
-    var $dataTable2= $('.table-fix').eq(x-1).find('.editMode-input');
+    var $dataTable2= $('#tableLeft-'+x).find('.editMode-input');
     //==ADDING EDITING FIELDS TO ORANGE TABLE==//
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
@@ -863,7 +863,7 @@ function addRow(x,diff) {
                             string+=`<option value=${j} >${convertUser_IDToName(j)}</option>`;
                    }
                    string+=`</select></td>`;
-    $('.table-fix tbody')[x - 1].innerHTML += `<tr class="editMode-input">
+    $('#tableLeft-'+x+' tbody').innerHTML += `<tr class="editMode-input">
                                                 `+string+`
                                                 <td>0</td>
                                             </tr>`;
@@ -877,7 +877,7 @@ function addRow(x,diff) {
         temp_cacheAssign[length][index]=0;
         
     }
-    $('.table-des tbody')[x - 1].innerHTML += `<tr class="editMode-input">
+    $('#tableLeft-'+x+' tbody').innerHTML += `<tr class="editMode-input">
                                             `+string +`</tr>`;
     
     deleteRowActionListener(x);
