@@ -62,7 +62,6 @@ class Assign extends Model
             if (floatval($plan_man_month) == 0) {
                 continue;
             }
-            // dd($plan_man_month);
 
             // if ($assign_id == null) {
             $new_id = Assign::create([
