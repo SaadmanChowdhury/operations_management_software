@@ -391,9 +391,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                         row["assign"].forEach((assign)=>{
                                 sum+=parseFloat(assign.value);
                         });
-                        console.log(convertUser_IDToName(row.memberID));
-                        console.log(leader);
-                        console.log(leader==convertUser_IDToName(row.memberID));
+                        
                         if(leader==convertUser_IDToName(row.memberID)){
                             leaderRow=
                                 `<tr class="editMode-input">
