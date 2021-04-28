@@ -43,6 +43,10 @@ class Assign extends Model
 
     public function upsertAssign($data)
     {
+        //deleting all the existing data in the assign table 
+        $project_id_to_delete = intval($data[0]['project_id']);
+        DB::table('assign')->where('project_id', $project_id_to_delete)->delete();
+
         // //all the assign id which has been updated or created
         $assignIdArray = [];
 
@@ -54,26 +58,32 @@ class Assign extends Model
             $month = $value['month'];
             $plan_man_month = $value['plan_man_month'];
 
-            if ($assign_id == null) {
-                $new_id = Assign::create([
-                    'project_id' => $project_id,
-                    'user_id' => $user_id,
-                    'year' => $year,
-                    'month' => $month,
-                    'plan_man_month' => $plan_man_month,
-                ])->id;
-
-                array_push($assignIdArray, $new_id);
-            } else {
-                Assign::where('assign_id', $assign_id)->update([
-                    'project_id' => $project_id,
-                    'user_id' => $user_id,
-                    'year' => $year,
-                    'month' => $month,
-                    'plan_man_month' => $plan_man_month,
-                ]);
-                array_push($assignIdArray, $assign_id);
+            //not storing the row if the plan_man_month value is zero
+            if (floatval($plan_man_month) == 0) {
+                continue;
             }
+            // dd($plan_man_month);
+
+            // if ($assign_id == null) {
+            $new_id = Assign::create([
+                'project_id' => $project_id,
+                'user_id' => $user_id,
+                'year' => $year,
+                'month' => $month,
+                'plan_man_month' => $plan_man_month,
+            ])->id;
+
+            // array_push($assignIdArray, $new_id);
+            // } else {
+            //     Assign::where('assign_id', $assign_id)->update([
+            //         'project_id' => $project_id,
+            //         'user_id' => $user_id,
+            //         'year' => $year,
+            //         'month' => $month,
+            //         'plan_man_month' => $plan_man_month,
+            //     ]);
+            //     array_push($assignIdArray, $assign_id);
+            // }
         } //end of foreach loop
 
         //creating project object
