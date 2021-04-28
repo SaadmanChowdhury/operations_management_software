@@ -855,7 +855,7 @@ function saveInput(x,diff,assignMonth,leader){
 function addRow(x,diff) {
     
     var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
-                   for(var j=1;j<=12;j++)
+                   for(var j=1;j<=30;j++)
                    {
                        if(j==1)
                             string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
@@ -877,7 +877,7 @@ function addRow(x,diff) {
         temp_cacheAssign[length][index]=0;
         
     }
-    $('#tableLeft-'+x+' tbody').innerHTML += `<tr class="editMode-input">
+    $('#tableRight-'+x+' tbody').innerHTML += `<tr class="editMode-input">
                                             `+string +`</tr>`;
     
     deleteRowActionListener(x);
@@ -917,7 +917,7 @@ function resetActionListener(x){
             if(index%2==0 && i!=0){
                 
                 var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
-                   for(var j=0;j<12;j++)
+                   for(var j=0;j<30;j++)
                    {
                      string+=`<option>${convertUser_IDToName(j)}</option>`;
                    }
