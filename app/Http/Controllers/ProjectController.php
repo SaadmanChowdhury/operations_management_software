@@ -170,6 +170,7 @@ class ProjectController extends Controller
 
     public function upsertAssign(AssignUpsert $request)
     {
+
         if (!Auth::check())
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
 

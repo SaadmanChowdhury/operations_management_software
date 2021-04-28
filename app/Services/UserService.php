@@ -39,8 +39,9 @@ class UserService
 
         for ($i = 0; $i < count($array); $i++) {
             // If user is not project leader [General user]
-            if ($array[$i]->projectLeaderID != $loggedUser->user_id) {
-                unset($array[$i]->unitPrice);
+            if ($loggedUser->user_authority != 'システム管理者') {
+                // unset($array[$i]->unitPrice);
+                $array[$i]->unitPrice = '';
             }
         }
 

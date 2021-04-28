@@ -133,9 +133,12 @@ class ProjectService
         for ($i = 0; $i < count($array); $i++) {
             // If user is not project leader [General user]
             if ($array[$i]->projectLeaderID != $loggedUser->user_id) {
-                unset($array[$i]->salesTotal);
-                unset($array[$i]->transferredAmount);
-                unset($array[$i]->budget);
+                // unset($array[$i]->salesTotal);
+                // unset($array[$i]->transferredAmount);
+                // unset($array[$i]->budget);
+                $array[$i]->salesTotal = '';
+                $array[$i]->transferredAmount = '';
+                $array[$i]->budget = '';
             }
         }
 
@@ -198,7 +201,7 @@ class ProjectService
     public function getFormattedDataForUpsertAssign($data)
     {
         $formattedData = [];
-        foreach ($data as $key => $value) {
+        foreach ($data['assignments'] as $key => $value) {
             $formattedData[$key]['assign_id'] = $value['assignID'];
             $formattedData[$key]['project_id'] = $value['projectID'];
             $formattedData[$key]['user_id'] = $value['memberID'];

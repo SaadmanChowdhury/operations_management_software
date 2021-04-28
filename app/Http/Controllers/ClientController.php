@@ -16,9 +16,8 @@ class ClientController extends Controller
 
     public function index()
     {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
+        if (!Auth::check())
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
 
         $client = new Client();
         $list = $client->readClientList();
@@ -33,11 +32,11 @@ class ClientController extends Controller
 
     public function create()
     {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
+        if (!Auth::check())
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             return view('client.create');
         } else {
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
@@ -48,7 +47,7 @@ class ClientController extends Controller
     public function createClient(ClientUpsert $request)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $client = new Client();
             $client->createClient($request);
             // return 'Client is successfully created.';
@@ -73,8 +72,13 @@ class ClientController extends Controller
 
     public function readClient(Request $request)
     {
+        $id =  intval($request->clientID);
+
+        $client = DB::table('clients')->where('client_id', $id)->first();
+        $pointsOfContact = $client->user_id;
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $pointsOfContact) {
             $client = new Client();
             $info = $client->readClient($request->clientID);
             return JSONHandler::packagedJSONData($info);
@@ -90,7 +94,7 @@ class ClientController extends Controller
             return redirect('/login');
         }
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $client = Client::find($id);
             return view('client.edit', compact('client'));
         } else {
@@ -102,8 +106,11 @@ class ClientController extends Controller
     public function updateClient(ClientUpsert $request)
     {
         $id = $request->id;
+        $client = DB::table('clients')->where('client_id', $id)->first();
+        $pointsOfContact = $client->user_id;
+
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $pointsOfContact) {
             $client = new Client();
             $client->updateClient($request, $id);
             return JSONHandler::emptySuccessfulJSONPackage();
@@ -116,7 +123,7 @@ class ClientController extends Controller
     public function deleteClient(Request $request)
     {
         $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == config('User_authority.システム管理者')) {
+        if ($loggedUser->user_authority == 'システム管理者') {
             $client = new Client();
             $client->deleteClient($request->clientID);
             return JSONHandler::emptySuccessfulJSONPackage();
