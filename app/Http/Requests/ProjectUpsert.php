@@ -32,9 +32,9 @@ class ProjectUpsert extends FormRequest
             'orderStatus' => '',
             'businessSituation' => '',
             'developmentStage' => '',
-            'salesTotal' => '',
-            'transferredAmount' => '',
-            'budget' => 'required',
+            'salesTotal' => 'integer|min:1',
+            'transferredAmount' => 'integer|min:1',
+            'budget' => 'required|integer|min:1',
         ];
     }
 
@@ -50,6 +50,9 @@ class ProjectUpsert extends FormRequest
             'clientID.required' => 'Client is required',
             'projectLeaderID.required' => 'Project Leader is required',
             'budget.required' => 'Budget total is required',
+            'salesTotal.min:0' => 'salesTotal cannot be negative',
+            'transferredAmount.min:0' => 'salesTotal cannot be negative',
+            'budget.min:0' => 'budget cannot be negative',
         ];
     }
 }
