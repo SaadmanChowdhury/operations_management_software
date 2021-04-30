@@ -99,38 +99,14 @@ class ProjectService
         if ($loggedUser->user_authority == 'システム管理者') {
             $validatedData = $request->validated();
 
-            $orderMonth = $validatedData['orderMonth'];
-            $inspectionMonth = $validatedData['inspectionMonth'];
 
-            //checking the inspection_month is greater than order_month
-            if ($orderMonth != null && $inspectionMonth != null) {
-                $om = Carbon::createFromFormat('Y-m-d',  $orderMonth);
-                $im = Carbon::createFromFormat('Y-m-d',  $inspectionMonth);
-                if ($om > $im) {
-                    $errorMessage = 'Inspection Month cannot be greater than Oder Month';
-                    return JSONHandler::errorJSONPackage($errorMessage);
-                }
-            }
+            // if all the logic passed then project can be create of update
+            $result = $this->logicForUpSertProject($validatedData);
+            // dd($result);
 
-            $budget = $validatedData['budget'];
-            $salesTotal = $validatedData['salesTotal'];
-            $transferredAmount = $validatedData['transferredAmount'];
-
-            // the monitory values cannot be negative and
-            // sales_total and transferred_amount cannot be greater than budget
-            if ($salesTotal != null) {
-                if (intval($salesTotal) < 0) {
-                    return JSONHandler::errorJSONPackage('salesTotal cannot be negative');
-                } elseif (intval($salesTotal) > intval($budget)) {
-                    return JSONHandler::errorJSONPackage('salesTotal cannot be greater than budget');
-                }
-            }
-            if ($transferredAmount != null) {
-                if (intval($transferredAmount) < 0) {
-                    return JSONHandler::errorJSONPackage('transferredAmount cannot be negative');
-                } elseif (intval($transferredAmount) > intval($budget)) {
-                    return JSONHandler::errorJSONPackage('transferredAmount cannot be greater than budget');
-                }
+            // has some logical error
+            if ($result !== true) {
+                return JSONHandler::errorJSONPackage($result);
             }
 
             // creating a project
@@ -139,6 +115,43 @@ class ProjectService
             return JSONHandler::emptySuccessfulJSONPackage();
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+    }
+
+    private function logicForUpSertProject($validatedData)
+    {
+        $orderMonth = $validatedData['orderMonth'];
+        $inspectionMonth = $validatedData['inspectionMonth'];
+
+        //checking the inspection_month is greater than order_month
+        if ($orderMonth != null && $inspectionMonth != null) {
+            $om = Carbon::createFromFormat('Y-m-d',  $orderMonth);
+            $im = Carbon::createFromFormat('Y-m-d',  $inspectionMonth);
+            if ($om > $im) {
+                return 'Inspection Month cannot be greater than Oder Month';
+            }
+        }
+
+        $budget = $validatedData['budget'];
+        $salesTotal = $validatedData['salesTotal'];
+        $transferredAmount = $validatedData['transferredAmount'];
+
+        // the monitory values cannot be negative and
+        // sales_total and transferred_amount cannot be greater than budget
+        if ($salesTotal != null) {
+            if (intval($salesTotal) < 0) {
+                return 'salesTotal cannot be negative';
+            } elseif (intval($salesTotal) > intval($budget)) {
+                return 'salesTotal cannot be greater than budget';
+            }
+        }
+        if ($transferredAmount != null) {
+            if (intval($transferredAmount) < 0) {
+                return 'transferredAmount cannot be negative';
+            } elseif (intval($transferredAmount) > intval($budget)) {
+                return 'transferredAmount cannot be greater than budget';
+            }
+        }
+        return true;
     }
 
     public function upsertProjectDetails($request, $projectID)
@@ -158,16 +171,12 @@ class ProjectService
 
             $validatedData = $this->formatDataToCreateOrUpdate($request);
 
-            //checking the inspection_month is greater than order_month
-            $orderMonth = $validatedData['order_month'];
-            $inspectionMonth = $validatedData['inspection_month'];
-            if ($orderMonth != null && $inspectionMonth != null) {
-                $om = Carbon::createFromFormat('Y-m-d',  $orderMonth);
-                $im = Carbon::createFromFormat('Y-m-d',  $inspectionMonth);
-                if ($om > $im) {
-                    $errorMessage = 'Inspection Month cannot be greater than Oder Month';
-                    return JSONHandler::errorJSONPackage($errorMessage);
-                }
+            // if all the logic passed then project can be create of update
+            $result = $this->logicForUpSertProject($validatedData);
+
+            // has some logical error
+            if ($result !== true) {
+                return JSONHandler::errorJSONPackage($result);
             }
 
             return $projectModel->upsertProjectDetails($validatedData, $projectID);
