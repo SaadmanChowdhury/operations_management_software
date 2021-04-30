@@ -209,12 +209,22 @@ class ProjectService
         // $data = $this->getUpsertAssignData();
         $formattedData = $this->getFormattedDataForUpsertAssign($data);
 
-        return $assignModel->upsertAssign($formattedData);
+        // if the assign value does not contains any negative value
+        if ($formattedData['hasNoNegativeAssignValue']) {
+            // unset the non-required field to save the data 
+            unset($formattedData['hasNoNegativeAssignValue']);
+            // upSert the assign value
+            return $assignModel->upsertAssign($formattedData);
+        }
+        // upSert has negative value
+        $errorMessage = 'Assign contains negative assign value';
+        return JSONHandler::errorJSONPackage($errorMessage);
     }
 
     public function getFormattedDataForUpsertAssign($data)
     {
         $formattedData = [];
+        $formattedData['hasNoNegativeAssignValue'] = true;
         foreach ($data['assignments'] as $key => $value) {
             $formattedData[$key]['assign_id'] = $value['assignID'];
             $formattedData[$key]['project_id'] = $value['projectID'];
@@ -222,6 +232,9 @@ class ProjectService
             $formattedData[$key]['year'] = $value['year'];
             $formattedData[$key]['month'] = $value['month'];
             $formattedData[$key]['plan_man_month'] = $value['value'];
+            if (floatval($value['value']) < 0) {
+                $formattedData['hasNoNegativeAssignValue'] = false;
+            }
         }
         return $formattedData;
     }
