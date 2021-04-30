@@ -392,18 +392,19 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
            
                    var leaderRow='';
                    var nonLeadersRow="";
-                   var memberIndex=[];
-                    response02["resultData"]["project"]["member"].forEach((row) => {
+                   var LeaderIndex;
+                    response02["resultData"]["project"]["member"].forEach((row,index) => {
                         Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
                         
                         var sum=0;
-                        var index=1;
+                        
                         row["assign"].forEach((assign)=>{
                                 sum+=parseFloat(assign.value);
                         });
                         
                         if(leader==convertUser_IDToName(row.memberID)){
-                            memberIndex[0]=row.memberID;
+                            LeaderIndex=index;
+                            console.log(LeaderIndex);
                             leaderRow=
                                 `<tr class="editMode-input">
                                     
@@ -413,8 +414,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                             
                         }
                         else{
-                            memberIndex[index]=row.memberID;
-                            index++;
+                          
                             nonLeadersRow+=
                                     `<tr class="editMode-input">
                                         
@@ -444,6 +444,9 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                         +`</tr>`;
                         var index=1;
                         console.log(assign);
+                        var temp=assign[LeaderIndex+1];
+                        assign[LeaderIndex+1]=assign[1];
+                        assign[1]=temp;
                         response02["resultData"]["project"]["member"].forEach((row) => {
 
                             Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
