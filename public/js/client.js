@@ -73,6 +73,7 @@ function client_modal_close(e) {
 
 }
 
+
 $(function () {
 
     clientRender();
