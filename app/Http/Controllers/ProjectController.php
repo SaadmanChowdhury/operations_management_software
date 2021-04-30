@@ -91,14 +91,10 @@ class ProjectController extends Controller
 
     public function createProject(ProjectUpsert $request)
     {
-        \Illuminate\Support\Facades\Log::debug($request);
-        // $project = new Project();
-        // $project->createProject($request);
         $loggedUser = auth()->user();
 
         if ($loggedUser->user_authority == 'システム管理者') {
-            $project = new Project();
-            $project->createProject($request);
+            $this->projectService->createProject($request);
             return JSONHandler::emptySuccessfulJSONPackage();
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");

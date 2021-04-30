@@ -53,43 +53,23 @@ class Project extends Model
         return $project;
     }
 
-    public function createProject($request)
+    public function createProject($validatedData)
     {
-        $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == 'システム管理者') {
-            $validatedData = $request->validated();
-
-            $orderMonth = $validatedData['orderMonth'];
-            $inspectionMonth = $validatedData['inspectionMonth'];
-
-            //checking the inspection_month is greater than order_month
-            if ($orderMonth != null && $inspectionMonth != null) {
-                $om = Carbon::createFromFormat('Y-m-d',  $orderMonth);
-                $im = Carbon::createFromFormat('Y-m-d',  $inspectionMonth);
-                if ($om > $im) {
-                    $errorMessage = 'Inspection Month cannot be greater than Oder Month';
-                    return JSONHandler::errorJSONPackage($errorMessage);
-                }
-            }
-
-            //saving new record
-            DB::table('projects')->insert([
-                'project_name' => $validatedData['projectName'],
-                'client_id' => $validatedData['clientID'],
-                'manager_id' => $validatedData['projectLeaderID'],
-                'order_month' => $validatedData['orderMonth'],
-                'inspection_month' => $validatedData['inspectionMonth'],
-                'order_status' => $validatedData['orderStatus'],
-                'business_situation' => $validatedData['businessSituation'],
-                'development_stage' => $validatedData['developmentStage'],
-                'sales_total' => $validatedData['salesTotal'],
-                'transferred_amount' => $validatedData['transferredAmount'],
-                'budget' => $validatedData['budget'],
-            ]);
-
-            return JSONHandler::emptySuccessfulJSONPackage();
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        //saving new record
+        $project = DB::table('projects')->insert([
+            'project_name' => $validatedData['projectName'],
+            'client_id' => $validatedData['clientID'],
+            'manager_id' => $validatedData['projectLeaderID'],
+            'order_month' => $validatedData['orderMonth'],
+            'inspection_month' => $validatedData['inspectionMonth'],
+            'order_status' => $validatedData['orderStatus'],
+            'business_situation' => $validatedData['businessSituation'],
+            'development_stage' => $validatedData['developmentStage'],
+            'sales_total' => $validatedData['salesTotal'],
+            'transferred_amount' => $validatedData['transferredAmount'],
+            'budget' => $validatedData['budget'],
+        ]);
+        return $project;
     }
 
     public function convertOrderStatusToInt($sentStatus)

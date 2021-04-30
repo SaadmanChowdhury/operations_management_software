@@ -85,6 +85,35 @@ class ProjectService
         return $array;
     }
 
+    public function createProject($request)
+    {
+        $projectModel  = new Project;
+
+        $loggedUser = auth()->user();
+        if ($loggedUser->user_authority == 'システム管理者') {
+            $validatedData = $request->validated();
+
+            $orderMonth = $validatedData['orderMonth'];
+            $inspectionMonth = $validatedData['inspectionMonth'];
+
+            //checking the inspection_month is greater than order_month
+            if ($orderMonth != null && $inspectionMonth != null) {
+                $om = Carbon::createFromFormat('Y-m-d',  $orderMonth);
+                $im = Carbon::createFromFormat('Y-m-d',  $inspectionMonth);
+                if ($om > $im) {
+                    $errorMessage = 'Inspection Month cannot be greater than Oder Month';
+                    return JSONHandler::errorJSONPackage($errorMessage);
+                }
+            }
+
+            // creating a project
+            $projectModel->createProject($validatedData);
+
+            return JSONHandler::emptySuccessfulJSONPackage();
+        }
+        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+    }
+
     public function upsertProjectDetails($request, $projectID)
     {
         $projectModel  = new Project;
