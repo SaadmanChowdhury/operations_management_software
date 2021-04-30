@@ -248,6 +248,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     
     var x=response02["resultData"]["project"]["member"].length+1;
     var members=objectToArray(response02["resultData"]["project"]["member"]);
+   
     
     assign = new Array(x);
     assignObj=new Array(x);
@@ -261,11 +262,12 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         
         for(var j=0;j<diff;j++)
         {
-            
+                
             
             assign[i][j]=0;
             assignObj[i][j]={};
             assignObj[i][j]['projectID']=projectID;
+            
             if(i==0){
                 date=new Date(orderMonth);
                 // orderMonth=date.toLocaleDateString();
@@ -278,9 +280,10 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                 assignObj[i][j]['year']=date.getFullYear();
                 
             }
-           
+            
+            
             else{
-
+                
                 assignObj[i][j]['memberID']=members[i-1].memberID;
 
                 assignObj[i][j]['month']=assignObj[0][j]['month'];
@@ -311,6 +314,11 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         cache_assign[projectID]=assign;
                
     }
+
+    
+
+
+
     all_cacheAssign[projectID]=assignObj;
     console.log(assignObj);
     temp_cacheAssign=[...cache_assign];
@@ -330,7 +338,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         totalWorkMonth.push(sum);
     }
    
-
+    console.log(response02);
     accordionHTML =
 
         `<div class="card-body row _accordion">
@@ -384,16 +392,18 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
            
                    var leaderRow='';
                    var nonLeadersRow="";
-
+                   var memberIndex=[];
                     response02["resultData"]["project"]["member"].forEach((row) => {
                         Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
                         
                         var sum=0;
+                        var index=1;
                         row["assign"].forEach((assign)=>{
                                 sum+=parseFloat(assign.value);
                         });
                         
                         if(leader==convertUser_IDToName(row.memberID)){
+                            memberIndex[0]=row.memberID;
                             leaderRow=
                                 `<tr class="editMode-input">
                                     
@@ -403,6 +413,8 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                             
                         }
                         else{
+                            memberIndex[index]=row.memberID;
+                            index++;
                             nonLeadersRow+=
                                     `<tr class="editMode-input">
                                         
@@ -431,10 +443,11 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     
                         +`</tr>`;
                         var index=1;
+                        console.log(assign);
                         response02["resultData"]["project"]["member"].forEach((row) => {
 
                             Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
-                            
+                               
                                 
                                 accordionHTML+=
                                 `<tr class="editMode-input">`+
@@ -732,11 +745,13 @@ function editModeOff(x,diff,assignMonth,leader) {
     saveInput(x,diff,assignMonth,leader);
  
 }
+
 function saveTableLeftInput(x,date,diff){
 
     //document.querySelectorAll("#tableLeft-1 > tbody > tr:nth-child(5) > td:nth-child(1) > select")
-    var rows=document.querySelectorAll("#tableLeft-1 > tbody > tr > td:nth-child(1) > select");
-    
+    //var rows=document.querySelectorAll("#tableLeft-1 > tbody > tr > td:nth-child(1) > select");
+    var rows=document.querySelectorAll("#tableLeft-"+x+" tbody tr select");
+    console.log(rows,rows.length);
     var start_date=new Date(date);
 
     var added_row=new Array(0);
@@ -772,9 +787,7 @@ function saveTableLeftInput(x,date,diff){
     var userLength=all_cacheAssign[x].length;
     var assignLength=all_cacheAssign[x][userLength-1].length;
     
-    //all_cacheAssign[x][assignLength]=added_row[0];
-
-    //all_cacheAssign[x][index].push(added_row[index]);
+ 
 
     for (let index = userLength-2; index < rows.length; index++) {
        
@@ -782,6 +795,8 @@ function saveTableLeftInput(x,date,diff){
         all_cacheAssign[x].push(added_row[index]);
         
     }
+    console.log("added_row: "+added_row,added_row.length);
+    console.log("all_cacheAssign: "+all_cacheAssign,all_cacheAssign.length);
 
 }
 function saveInput(x,diff,assignMonth,leader){
@@ -792,14 +807,12 @@ function saveInput(x,diff,assignMonth,leader){
     var assigns=new Array(rows.length);
     for (let index = 2; index < rows.length; index++) {
         var inputs= rows[index].getElementsByTagName("input");
+        console.log("inputs: "+inputs.length);
         assigns[index]=new Array(inputs.length);
         for (let j = 0; j < inputs.length; j++) {
             
-            
-
             assigns[index][j]=inputs[j].value;
-            //assign[index-1][j]=inputs[j].value;
-            cache_assign[x][index-1][j]=inputs[j].value;
+            cache_assign[x][index-2][j]=inputs[j].value;
         }
     }
     
@@ -858,7 +871,8 @@ function saveInput(x,diff,assignMonth,leader){
 
 function addRow(x,diff) {
     
-    var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
+    var string=``;
+    string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
                    for(var j=1;j<=30;j++)
                    {
                        if(j==1)
@@ -874,12 +888,12 @@ function addRow(x,diff) {
                                             </tr>`;
     string=``;
     
-    var length=temp_cacheAssign.length;
-    temp_cacheAssign[length]=new Array(diff);
+    //var length=temp_cacheAssign.length;
+    //temp_cacheAssign[length]=new Array(diff);
     
     for (let index = 0; index < diff; index++) {
         string+=`<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" min=\"0\" max=\"1\" value=\"0\"></td>`;
-        temp_cacheAssign[length][index]=0;
+        //temp_cacheAssign[length][index]=0;
         
     }
     document.getElementById('tableRight-'+x).querySelector('tbody').innerHTML += `<tr class="editMode-input">
