@@ -104,9 +104,8 @@ class ProjectController extends Controller
     {
         if (!Auth::check())
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
-
-
-        $data = $this->projectService->readProjectDetails($request->projectID);
+        $projectID = $request->projectID;
+        $data = $this->projectService->readProjectDetails($projectID);
 
         /** if the returned data is a string, then probably an error happened in the Service or Modal layer */
         /** in that case package the error into JSON-error and return */
@@ -133,8 +132,8 @@ class ProjectController extends Controller
     public function deleteProject(Request $request)
     {
         $id = $request->id;
-        $project = new Project();
-        return $project->deleteProject($id);
+        $this->projectService->deleteProject($id);
+        return JSONHandler::emptySuccessfulJSONPackage();
     }
 
     public function getProjectProfit($project_id)

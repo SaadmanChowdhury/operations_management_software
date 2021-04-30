@@ -80,9 +80,15 @@ class ProjectService
     public function readProjectDetails($projectID)
     {
         $projectModel  = new Project;
-        $array = $projectModel->readProject($projectID);
+        // getting the project data
+        $project = $projectModel->readProject($projectID);
 
-        return $array;
+        $loggedUser = auth()->user();
+        //if admin or manager
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
+            return $project;
+        }
+        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
     public function createProject($request)
@@ -288,5 +294,20 @@ class ProjectService
                 'value' => 1,
             ],
         ];
+    }
+
+    public function deleteProject($id)
+    {
+        $projectModel  = new Project;
+        $loggedUser = auth()->user();
+        $project = $projectModel->readProject($id);
+
+        //if admin or manager
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->projectLeaderID) {
+            $projectModel->deleteProject($id);
+
+            return JSONHandler::emptySuccessfulJSONPackage();
+        }
+        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 }

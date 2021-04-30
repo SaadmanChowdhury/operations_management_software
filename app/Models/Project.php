@@ -104,7 +104,7 @@ class Project extends Model
 
     public function readProject($id)
     {
-        $loggedUser = auth()->user();
+
         $project = Project::select([
             'project_id as projectID',
             'project_name as projectName',
@@ -122,11 +122,8 @@ class Project extends Model
         ])->where('project_id', $id)
             ->whereNull("deleted_at")
             ->first();
-        //if admin or manager
-        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
-            return $project;
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
+        return $project;
     }
 
     public function upsertProjectDetails($validatedData, $projectID)
@@ -138,16 +135,9 @@ class Project extends Model
 
     public function deleteProject($id)
     {
-        $loggedUser = auth()->user();
         $project = Project::find($id);
-
-        //if admin or manager
-        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
-            //soft delete
-            $project->delete();
-            return JSONHandler::emptySuccessfulJSONPackage();
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        //soft delete
+        $project->delete();
     }
 
 
