@@ -1,11 +1,3 @@
-
-// function makeToast(message){
-
-//     M.toast({html: message ,
-//         timeRemaining: 4000 });
-// }
-
-
 function login_error_toaster(error){
 
 
@@ -32,9 +24,6 @@ function login_error_toaster(error){
         break;
         
     }
-
-
-    console.log("ki j ");
 
     makeToast([err_message]);
 
@@ -114,4 +103,11 @@ function handleAJAXError(err) {
     }
 
     makeToast(errors);
+}
+
+function isExisting( x){
+    if(typeof x !== 'undefined'){
+        true;
+    }
+    return false;
 }
