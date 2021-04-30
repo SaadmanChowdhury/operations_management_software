@@ -88,6 +88,16 @@ function renderHTML(response) {
             unitPrice = '';
         }
 
+        var editableButtonString =`<li><div class="edit" onclick="userEditModalHandler(${row.userID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>` ;
+
+        if(isUserModalEditable(row.userID)){
+
+        }
+        else{
+            editableButtonString =`<li ></li>` ;
+
+        }
+
         rowHtml = `<div class="card _user" id="user-row-${row.userID}">` +
             `<div class="card-header">` +
             `<div class="display list-unstyled">` +
@@ -98,7 +108,7 @@ function renderHTML(response) {
             `<li><div class="pos pos-${pos}">${pos}</div></li>` +
             `<li>${time_diff}${unit}</li>` +
             `<li>${unitPrice}</li>` +
-            `<li><div class="edit" onclick="userEditModalHandler(${row.userID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>` +
+            editableButtonString+
             `</div></div></div>`;
 
         staffs[0].innerHTML += rowHtml;
@@ -107,6 +117,26 @@ function renderHTML(response) {
     });
 
 }
+
+
+function isUserModalEditable(userId){
+
+    var currentUserId= document.getElementById("logged-in-id");
+    var currentUserAuthority=document.getElementById("user-authority");
+
+    if(currentUserAuthority.value=="システム管理者")
+        return true;
+    else if(currentUserAuthority.value=="一般ユーザー"){
+            if(userId==currentUserId.value){
+                return true;
+            }
+        }
+    else
+        return false
+
+}
+
+
 document.addEventListener("DOMContentLoaded", () => { fetchUserList_AJAX() });
 
 pos = document.querySelector('.userlist-nav');
