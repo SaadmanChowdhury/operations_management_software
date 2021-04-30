@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Utilities\JSONHandler;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -57,6 +58,18 @@ class Project extends Model
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == 'システム管理者') {
             $validatedData = $request->validated();
+
+            $orderMonth = $validatedData['orderMonth'];
+            $inspectionMonth = $validatedData['inspectionMonth'];
+
+            //checking the inspection_month is greater than order_month
+            if ($orderMonth != null && $inspectionMonth != null) {
+                $om = Carbon::createFromFormat('Y-m-d',  $orderMonth);
+                $im = Carbon::createFromFormat('Y-m-d',  $inspectionMonth);
+                if ($om > $im) {
+                    return JSONHandler::emptySuccessfulJSONPackage();
+                }
+            }
 
             //saving new record
             DB::table('projects')->insert([
