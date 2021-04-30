@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Http\Utilities\JSONHandler;
 use App\Models\Assign;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ProjectService
@@ -99,6 +101,18 @@ class ProjectService
         if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $managerID) {
 
             $validatedData = $this->formatDataToCreateOrUpdate($request);
+
+            //checking the inspection_month is greater than order_month
+            $orderMonth = $validatedData['order_month'];
+            $inspectionMonth = $validatedData['inspection_month'];
+            if ($orderMonth != null && $inspectionMonth != null) {
+                $om = Carbon::createFromFormat('Y-m-d',  $orderMonth);
+                $im = Carbon::createFromFormat('Y-m-d',  $inspectionMonth);
+                if ($om > $im) {
+                    $errorMessage = 'Inspection Month cannot be greater than Oder Month';
+                    return JSONHandler::errorJSONPackage($errorMessage);
+                }
+            }
 
             return $projectModel->upsertProjectDetails($validatedData, $projectID);
         }

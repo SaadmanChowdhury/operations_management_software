@@ -67,7 +67,8 @@ class Project extends Model
                 $om = Carbon::createFromFormat('Y-m-d',  $orderMonth);
                 $im = Carbon::createFromFormat('Y-m-d',  $inspectionMonth);
                 if ($om > $im) {
-                    return JSONHandler::emptySuccessfulJSONPackage();
+                    $errorMessage = 'Inspection Month cannot be greater than Oder Month';
+                    return JSONHandler::errorJSONPackage($errorMessage);
                 }
             }
 
