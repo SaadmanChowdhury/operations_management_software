@@ -112,6 +112,27 @@ class ProjectService
                 }
             }
 
+            $budget = $validatedData['budget'];
+            $salesTotal = $validatedData['salesTotal'];
+            $transferredAmount = $validatedData['transferredAmount'];
+
+            // the monitory values cannot be negative and
+            // sales_total and transferred_amount cannot be greater than budget
+            if ($salesTotal != null) {
+                if (intval($salesTotal) < 0) {
+                    return JSONHandler::errorJSONPackage('salesTotal cannot be negative');
+                } elseif (intval($salesTotal) > intval($budget)) {
+                    return JSONHandler::errorJSONPackage('salesTotal cannot be greater than budget');
+                }
+            }
+            if ($transferredAmount != null) {
+                if (intval($transferredAmount) < 0) {
+                    return JSONHandler::errorJSONPackage('transferredAmount cannot be negative');
+                } elseif (intval($transferredAmount) > intval($budget)) {
+                    return JSONHandler::errorJSONPackage('transferredAmount cannot be greater than budget');
+                }
+            }
+
             // creating a project
             $projectModel->createProject($validatedData);
 
