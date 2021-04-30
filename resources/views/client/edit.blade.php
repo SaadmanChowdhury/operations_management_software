@@ -53,6 +53,7 @@
                             <div><label>顧客に責任者</label></div>
                             <div><input type="number" id="client_edit_user_id" name="user_id"
                                     value="{{ $client->user_id }}"></div>
+                                    {{ $client->user_id }}
                         </div>
                     </div>
                 </div>

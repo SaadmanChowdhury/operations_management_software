@@ -29,7 +29,7 @@
                         <li class="fa fa-list"> </li>
                     </a>
 
-                    @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
+                    @if ($loggedInUser->user_authority == 'システム管理者'))
                         <a href="" onclick="clientRegisterModalHandler()">
                             <li> + 登録</li>
                         </a>
@@ -74,9 +74,12 @@
                                     {{-- <div class="user-name">中村</div>
                                     --}}
                                 </li>
+<!-- {{$loggedInAuthority }}
+{{$loggedInUser->user_id }}
+{{$loggedInUser->user_authority}} -->
 
-                                @if ($loggedInAuthority == config('constants.User_authority.システム管理者') || $loggedInUser->user_id == $client->user_id)
-                                    <li class="_money">{{ $client->total_sale }}</li>
+                                @if (($loggedInUser->user_authority == 'システム管理者') || $loggedInUser->user_id == $client->user_id)
+                                 <li class="_money">{{ $client->total_sale }}</li>
                                     <li class="_money">{{ $client->total_profit }}</li>
 
                                     <li>
@@ -84,7 +87,7 @@
                                             <span style="font-size: 11px; margin:6px;width:auto"
                                                 class="fa fa-pencil"></span>編集
                                         </div>
-                                    </li>
+                                    </li> 
                                 @else
                                     <li class="transparent">円</li>
                                     <li class="transparent">円</li>

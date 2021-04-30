@@ -129,9 +129,9 @@ function fetchClientList_AJAX() {
 }
 
 function renderClientHTML(response){
-
-
-
+    var currentUserId= document.getElementById("logged-in-id");
+    var currentUserAuthority=document.getElementById("user-authority");
+    console.log(currentUserId,currentUserAuthority);
 
     rowClientHTML=`<div class="card _client" id="client-row-${response.clientID}">`+
     `<div class="card-header">`+
