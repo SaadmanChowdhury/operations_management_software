@@ -371,6 +371,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
             </div>
             <div class="table-right row" id="table-right-${projectID}">
                 <table class="table-fix" id="tableLeft-${projectID}">
+                <tbody>
                     <tr>
                         <th class="mishti-orange">メンバー</th>
                         <th class="mishti-orange">工数合計</th>
@@ -415,9 +416,11 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                     accordionHTML= accordionHTML+leaderRow+nonLeadersRow;
 
                     accordionHTML+=
-                    `</table>
+                    `</tbody>
+                    </table>
                     <div class="table-des-container">`+
                     `<table class="table-des" id="tableRight-${projectID}">
+                        <tbody>
                         <tr>`+
                             
                             printHeader(diff,assign[0][0])+
@@ -441,7 +444,8 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
                         });
                         
                         accordionHTML+=
-                    `</table>
+                    `</tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -466,7 +470,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
 
         document.getElementById('row'+projectID).innerHTML="";        
         renderEmptyAssignAccordion(projectID,diff,assign[0][0],leader,response02);
-        editModeOn(projectID,members);
+        editModeOn(projectID,members,leader);
     }; 
     
     document.getElementById('trash-'+projectID).onclick=function(){
@@ -483,7 +487,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
         
     };        
     document.getElementById("edit-"+projectID).onclick=function(){
-        editModeOn(projectID,members);
+        editModeOn(projectID,members,leader);
     }
     
 }
@@ -609,7 +613,7 @@ function filterProject(e) {
 
 //===TURNING ON EDIT-MODE===//
 
-function editModeOn(x,members) {
+function editModeOn(x,members,leader) {
     
     assign=cache_assign[x];
     
@@ -621,7 +625,7 @@ function editModeOn(x,members) {
     
 
     //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
-    var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
+    var $dataTable= $('#tableRight-'+x).find('.editMode-input');
     //$dataTable.innerHTML=``;
     //==ADDING EDITING FIELDS TO BLUE TABLE==//
     
@@ -637,7 +641,7 @@ function editModeOn(x,members) {
 
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
-    var $dataTable2= $('.table-fix').eq(x-1).find('.editMode-input');
+    var $dataTable2= $('#tableLeft-'+x).find('.editMode-input');
     //==ADDING EDITING FIELDS TO ORANGE TABLE==//
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
@@ -646,9 +650,9 @@ function editModeOn(x,members) {
                 
                 var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
                 
-                   for(var j=1;j<=12;j++)
+                   for(var j=1;j<=30;j++)
                    {
-                     if(members[i].memberID==j)
+                     if(members[i].memberID==j && convertUser_IDToName(members[i].memberID)!=leader)
                         string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
                      else
                         string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
@@ -855,7 +859,7 @@ function saveInput(x,diff,assignMonth,leader){
 function addRow(x,diff) {
     
     var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
-                   for(var j=1;j<=12;j++)
+                   for(var j=1;j<=30;j++)
                    {
                        if(j==1)
                             string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
@@ -863,7 +867,8 @@ function addRow(x,diff) {
                             string+=`<option value=${j} >${convertUser_IDToName(j)}</option>`;
                    }
                    string+=`</select></td>`;
-    $('.table-fix tbody')[x - 1].innerHTML += `<tr class="editMode-input">
+    
+                   document.getElementById('tableLeft-'+x).querySelector('tbody').innerHTML += `<tr class="editMode-input">
                                                 `+string+`
                                                 <td>0</td>
                                             </tr>`;
@@ -877,7 +882,7 @@ function addRow(x,diff) {
         temp_cacheAssign[length][index]=0;
         
     }
-    $('.table-des tbody')[x - 1].innerHTML += `<tr class="editMode-input">
+    document.getElementById('tableRight-'+x).querySelector('tbody').innerHTML += `<tr class="editMode-input">
                                             `+string +`</tr>`;
     
     deleteRowActionListener(x);
