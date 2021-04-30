@@ -40,16 +40,16 @@
                     <li class="fa fa-list"> </li>
                 </a>
                 @if ($loggedUser->user_authority == 'システム管理者')
-                    <a href="" onclick="userRegisterModalHandler()">
-                        <li> + 登録</li>
-                    </a>
+                <a href="" onclick="userRegisterModalHandler()">
+                    <li> + 登録</li>
+                </a>
                 @endif
             </ul>
-        
 
-        <hr />
 
-    </div>
+            <hr />
+
+        </div>
 
 
 
@@ -72,11 +72,11 @@
                     <li>氏名</li>
                     <li>所属</li>
                     <li>ポジション</li>
+                    <li>経過月数</li>
 
                     @if ($loggedUser->user_authority == 'システム管理者')
-                    <li>経過月数</li>
-                    @endif
                     <li>単価(最新)</li>
+                    @endif
 
                     <li><span class="fa fa-filter fa-lg fa-color-mild-midori">Filter</span> </li>
                 </ul>
