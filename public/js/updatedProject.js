@@ -2,7 +2,8 @@
 
 
 //=== READING PROJECT DETAILS OF EACH PROJECT FROM API ===//
-function readProjectAssign_AJAX(assignData,projectID,diff,orderMonth,leader) {
+function readProjectAssign_AJAX(projectID) {
+    var response='';
     $.ajax({
         type: "post",
         url: "/API/readProjectAssign",
@@ -11,21 +12,23 @@ function readProjectAssign_AJAX(assignData,projectID,diff,orderMonth,leader) {
             projectID: id
     
         },
+        async:false,
         cache: false,
         success: function (response02) {
             
             if(response02["resultStatus"]["isSuccess"]) {
+                response=response02;
                 
-                // response02 = project details of selected project             
-                    renderEmptyAssignAccordion(id,diff,order,leader,response02);
             
             } else
-                handleAJAXResponse(response02);
+                handleAJAXResponse(response);
         },
         error: function (err) {
             handleAJAXError(err);
         }
     });
+
+    return response;
 }
 
 //=== SENDING PROJECT DETAILS TO ASSIGN API ===//
@@ -220,6 +223,267 @@ class ProjectSummaryListRenderer{
 function display(id,diff,order,leader) {
 
     $('#row' + id).toggle("3000");
-    //readProjectAssign_AJAX();    
+    //readProjectAssign_AJAX(); 
+    renderEmptyAssignAccordion(id);   
     
 }
+function getProjectDuration(project){
+
+    var duration = project.minYear+"年"+project.minMonth+"月‐"+project.maxYear+"年"+project.maxMonth+"月";
+
+
+}
+function renderProjectManagementSummary(response02){
+
+    var ProjectManagementSummaryTableHTML =
+
+    `<div class="card-body row _accordion">
+    
+        <div class="table-left">
+            <table>
+                <tr>
+                    <td>予算</td>
+                    <td>${response02["resultData"]["project"].budget}円</td>
+                </tr>
+                <tr>
+                    <td>原価</td>
+                    <td>${response02["resultData"]["project"].cost}円</td>
+                </tr>
+                <tr>
+                    <td>工数</td>
+                    <td>${response02["resultData"]["project"].member.length}</td>
+                </tr>
+                <tr>
+                    <td>粗利</td>
+                    <td>${response02["resultData"]["project"].profit}円</td>
+                </tr>
+                <tr>
+                    <td>率</td>
+                    <td>${response02["resultData"]["project"].profitPercentage}%</td>
+                </tr>
+                <tr>
+                    <td>期間</td>
+                    <td>${diff}月</td>
+                </tr>
+            </table>
+        </div>`;
+        return ProjectManagementSummaryTableHTML;
+}
+
+
+function generateDateString(){
+
+}
+
+function generateBodyString(){
+
+}
+
+//=== RENDERING PROJECT DETAILS TABLES ===//
+
+function renderEmptyAssignAccordion(projectID) {
+    var dates=assignData[0];
+    console.log(dates);
+    var response= readProjectAssign_AJAX(projectID);
+    console.log(response);
+    accordionHTML =
+
+        //renderProjectManagementSummary(response) +
+        `<div class="project-rhs">
+            <div class="add-minus-holder editMode">
+                <button class="btn round-btn primary _plus" onclick="addRow(${projectID},12)"><span
+                        class="fa fa-plus"></span></button>
+                
+            </div>
+            <div class="table-right row" id="table-right-${projectID}">
+                <table class="table-fix" id="tableLeft-${projectID}">
+                    <tr>
+                        <th class="mishti-orange">メンバー</th>
+                        <th class="mishti-orange">工数合計</th>
+    
+                    </tr>
+                    
+                    <tr class="row-total">
+                            <td>3</td>
+                            <td>54.0</td>
+                     </tr>
+                    <tr class="editMode-input">
+                                    
+                        <td><img src="img/pro_icon.png" class="leader">Leader</td>
+                        <td>18.0</td>
+                    </tr>
+                    <tr class="editMode-input">
+                        
+                        <td><button class="delete editMode">-</button><img src="img/pro_icon.png">社員</td>
+                        <td>18.0</td>
+                    </tr>
+                    <tr class="editMode-input">
+                        
+                        <td><button class="delete editMode">-</button><img src="img/pro_icon.png">社員</td>
+                        <td>18.0</td>
+                    </tr>
+                    <tr class="editMode-input">
+                        
+                        <td><button class="delete editMode">-</button><img src="img/pro_icon.png">社員</td>
+                        <td>18.0</td>
+                    </tr>
+                </table>
+                <div class="table-des-container">
+                    <table class="table-des" id="tableRight-${projectID}">
+                        <tr>
+                            
+                        <th>2020/01</th>
+                        <th>2020/02</th>
+                        <th>2020/03</th>
+                        <th>2020/04</th>
+                        <th>2020/05</th>
+                        <th>2020/06</th>
+                        <th>2020/07</th>
+                        <th>2020/08</th>
+                        <th>2020/09</th>
+                        <th>2020/10</th>
+                        <th>2020/11</th>
+                        <th style="background-color:#ffbf0b;color:black">2020/12</th>
+                        <th>2021/01</th>
+                        <th>2022/02</th>
+                        <th>2021/03</th>
+                        <th>2022/04</th>
+                        <th>2021/05</th>
+                        <th>2022/06</th>
+                    </tr>
+                    <tr class="row-total">
+                            <td>3.00</td>
+                            <td>3.00</td>
+                            <td>3.00</td>
+                            <td>3.00</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                        </tr>
+                        <tr class="editMode-input">
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+
+                        </tr>
+                        <tr class="editMode-input">
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+
+                        </tr>
+                        <tr class="editMode-input">
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+
+                        </tr>
+                        <tr class="editMode-input">
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+                                <td>1.00</td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="action">
+            <ul class="list-unstyled">
+                <li class="list show"><button class="btn round-btn pencil-btn" id="edit-${projectID}"><span
+                            style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
+                <div class="editMode">
+                    <li class="list"><button id="trash-${projectID}" class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
+                    <li class="list"><button id="reset-${projectID}" class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
+                    </li>
+                    <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"
+                                id="save-${projectID}"></span></button></li>
+                </div>
+            </ul>
+        </div>
+    </div>`;       
+                
+        var projects = document.getElementById('row'+projectID);
+        projects.innerHTML=accordionHTML;
+    
+}
+
+
+var assignData= [[0,0,'2020/10','2020/11','2020/12'],
+                 [3,54.0,3.0,3.0,3.0],
+                 ['leader',18.0,1,1,1],
+                 ['member',18.0,1,1,1],
+                 ['member',18.0,1,1,1],
+                 ['member',18.0,1,1,1]
+                ];
