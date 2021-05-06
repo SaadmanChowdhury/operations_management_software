@@ -124,6 +124,6 @@
     @include("project.edit")
     @include("project.create")
 
-    <script src="/js/project.js"></script>
+    <script src="/js/updatedProject.js"></script>
     <script src="/js/anamolyChecker.js"></script>
     @include("footer")
