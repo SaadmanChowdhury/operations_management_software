@@ -9,11 +9,11 @@ function readProjectAssign_AJAX(projectID) {
         url: "/API/readProjectAssign",
         data: {
             _token: $('#csrf-token')[0].content,
-            projectID: id
+            projectID: projectID
     
         },
         async:false,
-        cache: false,
+        cache: true,
         success: function (response02) {
             
             if(response02["resultStatus"]["isSuccess"]) {
@@ -63,11 +63,11 @@ function updateAssignData_AJAX(assignData,projectID,diff,orderMonth,leader) {
 
 document.addEventListener("DOMContentLoaded", () => { 
     
-    var obj= new ProjectSummaryListRenderer();
+    var obj= new ProjectListRenderer();
     obj.fetchProjectList_AJAX() 
 });
 
-class ProjectSummaryListRenderer{
+class ProjectListRenderer{
     constructor(){
 
     }
@@ -129,13 +129,13 @@ class ProjectSummaryListRenderer{
         }
     }
 
-    renderHTMLProjectSummary(project){
-        var monthDiff=this.calcMonthDiff(project.orderMonth,project.inspectionMonth);
-        var leader= convertUser_IDToName(project.projectLeaderID);
+    renderHTMLProjectList(project){
+        //var monthDiff=this.calcMonthDiff(project.orderMonth,project.inspectionMonth);
+        //var leader= convertUser_IDToName(project.projectLeaderID);
         var profit = this.calcProfit(project.salesTotal,project.budget);
         var projectHtml =
         `<div class="card _project" id="project-row-${project.projectID}">
-        <div class="card-header" id="row1head" onclick="display(${project.projectID},${monthDiff},'${project.orderMonth}','${leader}')">
+        <div class="card-header" id="row1head" onclick="display(${project.projectID})">
         <div class="display list-unstyled">
         <li>${project.projectName}</li>
         <li>${convertClient_IDToName(project.clientID)}</li>
@@ -147,8 +147,8 @@ class ProjectSummaryListRenderer{
         this.getDevelopmentStageHTML(project.developmentStage) +
         `<li>${project.orderMonth}</li>
         <li>${project.inspectionMonth}</li>
-        <li class="right-align">${numberWithCommas(project.salesTotal) + " 円"}</li>
-        <li class="right-align">${numberWithCommas(project.budget) + " 円"}</li>
+        <li class="right-align">${project.salesTotal + " 円"}</li>
+        <li class="right-align">${project.budget + " 円"}</li>
         <li>${profit}%</li>
         <li>
         <div class="edit" onclick="projectEditModalHandler(${project.projectID})">
@@ -164,7 +164,7 @@ class ProjectSummaryListRenderer{
         return projectHtml;
     }
     
-    renderProjectSummary(response01) {
+    renderProjectList(response01) {
 
         //var projects = document.getElementById('accordian');
 
@@ -172,7 +172,7 @@ class ProjectSummaryListRenderer{
 
             Object.keys(project).forEach(e => (project[e] == null) ? project[e] = "" : true);
         
-            var projectHtml = this.renderHTMLProjectSummary(project);
+            var projectHtml = this.renderHTMLProjectList(project);
             $('#accordian').append(projectHtml);
             
         });
@@ -201,7 +201,7 @@ class ProjectSummaryListRenderer{
                     function projectRender() {
                         setTimeout(function () {
                             if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
-                                renderClass.renderProjectSummary(response01);
+                                renderClass.renderProjectList(response01);
                             }
                             else projectRender();
                         }, 10)
@@ -220,12 +220,21 @@ class ProjectSummaryListRenderer{
 }
 
 
-function display(id,diff,order,leader) {
-
+function display(id) {
+    //numberWithCommas(project.salesTotal)
     $('#row' + id).toggle("3000");
-    var response= readProjectAssign_AJAX(id); 
-    var simmpleArray=processAssigninto2DArray(response);//-->2D Array
-    renderEmptyAssignAccordion(simpleArray, response[project]);   
+    
+    if($('#row' + id).is(':visible')){
+        var response= readProjectAssign_AJAX(id); 
+        var project=response["resultData"]["project"];
+        renderEmptyAssignAccordion(assignData,project);
+        //var simpleArray=processAssigninto2DArray(response);//-->2D Array
+           
+
+    }
+    else{
+
+    }
     
 }
 function getProjectDuration(project){
@@ -234,7 +243,7 @@ function getProjectDuration(project){
 
 
 }
-function renderProjectManagementSummary(response02){
+function renderProjectManagementSummary(project){
 
     var ProjectManagementSummaryTableHTML =
 
@@ -244,27 +253,27 @@ function renderProjectManagementSummary(response02){
             <table>
                 <tr>
                     <td>予算</td>
-                    <td>${response02["resultData"]["project"].budget}円</td>
+                    <td>${project.budget}円</td>
                 </tr>
                 <tr>
                     <td>原価</td>
-                    <td>${response02["resultData"]["project"].cost}円</td>
+                    <td>${project.cost}円</td>
                 </tr>
                 <tr>
                     <td>工数</td>
-                    <td>${response02["resultData"]["project"].member.length}</td>
+                    <td>${project.member.length}</td>
                 </tr>
                 <tr>
                     <td>粗利</td>
-                    <td>${response02["resultData"]["project"].profit}円</td>
+                    <td>${project.profit}円</td>
                 </tr>
                 <tr>
                     <td>率</td>
-                    <td>${response02["resultData"]["project"].profitPercentage}%</td>
+                    <td>${project.profitPercentage}%</td>
                 </tr>
                 <tr>
                     <td>期間</td>
-                    <td>${diff}月</td>
+                    <td>12月</td>
                 </tr>
             </table>
         </div>`;
@@ -272,24 +281,146 @@ function renderProjectManagementSummary(response02){
 }
 
 
-function generateDateString(){
+function generateProjectDetailsHeader_AssignedDates(dates){
+    var dateHTML=``;
+    for (let index = 2; index < dates.length; index++) {
+        dateHTML+=`<th>`+dates[index]+`</th>`;
+        
+    }
+    return `<tr>${dateHTML}</tr>`;
+}
+
+function generateProjectDetailsBody_AssignedValues(assignData){
+    var assignedValueHTML=``;
+    for (let i = 2; i < assignData.length; i++) {
+        assignedValueHTML+=`<tr class="editMode-input">`;
+        for (let j = 2; j < assignData[0].length; j++) {
+
+            assignedValueHTML+=`<td>${assignData[i][j]}</td>`;
+            
+        }
+        assignedValueHTML+=`</tr>`;
+    }
+    return assignedValueHTML;
+    
+}
+function generateProjectDetailsBody_colSum(assignData){
+    var assignedValueHTML=``;
+    assignedValueHTML+=`<tr class=row-total>`;
+    
+    for (let index = 2; index < assignData[0].length; index++) {
+
+        assignedValueHTML+=`<td>${assignData[1][index]}</td>`;
+        
+    }
+    assignedValueHTML+=`</tr>`;
+    return assignedValueHTML;
+}
+
+function generateAssignedMembersHtML(assignData){
+    var assignedMemberHTML=``;
+    
+    
+    for (let i = 1; i < assignData.length; i++) {
+        if(i==1){
+            assignedMemberHTML+=`<tr class="row-total">
+                                    <td>${assignData[i][0]}</td>
+                                    <td>${assignData[i][1]}</td>
+                                </tr>`;
+        }
+        else{
+            assignedMemberHTML+=`<tr class=editMode-input>`;
+            if(i==2){
+                assignedMemberHTML+=`<td><img src="img/pro_icon.png" class="leader">${assignData[i][0]}</td>
+                                        <td>${assignData[i][1]}</td>`;
+            }
+            else{
+                assignedMemberHTML+=`<td><button class="delete editMode">-</button><img src="img/pro_icon.png">${assignData[i][0]}</td>
+                                        <td>${assignData[i][1]}</td>`;
+            }
+            
+            assignedMemberHTML+=`</tr>`;
+        }
+    }
+    
+    return assignedMemberHTML;
+}
+
+
+function editModeOn(assignData,x){
+
+    $( '#project-row-' + x +' .editMode').each(function( index ) {
+        this.style.display="block";
+        document.getElementById("edit-"+x).style.display="none";
+    });
+    
+
+    //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
+    var $dataTable= $('#tableRight-'+x).find('.editMode-input');
+    
+    //==ADDING EDITING FIELDS TO BLUE TABLE==//
+    
+    $dataTable.each(function(i){
+        for(var j=2;j<assignData[0].length;j++)
+        {
+            if(j==2)
+                $(this).html("<td><input type=\"number\" class=\"data-cell\"  min=\"0\" max=\"1\"  name=\"data-cell\"  value=\""+assignData[i+1][j]+"\"></td>");
+            else
+                $(this).append("<td><input type=\"number\" class=\"data-cell\" min=\"0\" max=\"1\"  name=\"data-cell\" value=\""+assignData[i+1][j]+"\"></td>");
+        }
+    });
+
+
+    //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
+    var $dataTable2= $('#tableLeft-'+x).find('.editMode-input');
+    //==ADDING EDITING FIELDS TO ORANGE TABLE==//
+    $dataTable2.each(function(i){
+        $(this).children('td').each(function( index ){
+            
+            if(index%2==0 && i!=0){
+                
+                var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
+                
+                   for(var j=1;j<=12;j++)
+                   {
+                       string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
+                    //  if(members[i].memberID==j)
+                    //     string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
+                    //  else
+                    //     string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
+                   }
+                   string+=`</select>`;
+                   $(this).html(string);
+            }
+        });
+    });
+
+    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+
+   for (let index = 0; index < buttons.length; index++) {
+       
+       buttons[index].classList.remove("editMode");
+       
+   }
 
 }
 
-function generateBodyString(){
-
+function callActionListeners(projectID){
+    document.getElementById("edit-"+projectID).onclick=function(){
+        editModeOn(assignData,projectID);
+    }
 }
 
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
-function renderEmptyAssignAccordion(projectID) {
+function renderEmptyAssignAccordion(assignData,project) {
     var dates=assignData[0];
     console.log(dates);
-    var response= readProjectAssign_AJAX(projectID);
-    console.log(response);
+    console.log(project);
+    var projectID=project.projectID;
     accordionHTML =
 
-        //renderProjectManagementSummary(response) +
+        renderProjectManagementSummary(project) +
         `<div class="project-rhs">
             <div class="add-minus-holder editMode">
                 <button class="btn round-btn primary _plus" onclick="addRow(${projectID},12)"><span
@@ -304,159 +435,16 @@ function renderEmptyAssignAccordion(projectID) {
     
                     </tr>
                     
-                    <tr class="row-total">
-                            <td>3</td>
-                            <td>54.0</td>
-                     </tr>
-                    <tr class="editMode-input">
-                                    
-                        <td><img src="img/pro_icon.png" class="leader">Leader</td>
-                        <td>18.0</td>
-                    </tr>
-                    <tr class="editMode-input">
-                        
-                        <td><button class="delete editMode">-</button><img src="img/pro_icon.png">社員</td>
-                        <td>18.0</td>
-                    </tr>
-                    <tr class="editMode-input">
-                        
-                        <td><button class="delete editMode">-</button><img src="img/pro_icon.png">社員</td>
-                        <td>18.0</td>
-                    </tr>
-                    <tr class="editMode-input">
-                        
-                        <td><button class="delete editMode">-</button><img src="img/pro_icon.png">社員</td>
-                        <td>18.0</td>
-                    </tr>
+                    `+generateAssignedMembersHtML(assignData)+`
+                    
                 </table>
                 <div class="table-des-container">
                     <table class="table-des" id="tableRight-${projectID}">
-                        <tr>
-                            
-                        <th>2020/01</th>
-                        <th>2020/02</th>
-                        <th>2020/03</th>
-                        <th>2020/04</th>
-                        <th>2020/05</th>
-                        <th>2020/06</th>
-                        <th>2020/07</th>
-                        <th>2020/08</th>
-                        <th>2020/09</th>
-                        <th>2020/10</th>
-                        <th>2020/11</th>
-                        <th style="background-color:#ffbf0b;color:black">2020/12</th>
-                        <th>2021/01</th>
-                        <th>2022/02</th>
-                        <th>2021/03</th>
-                        <th>2022/04</th>
-                        <th>2021/05</th>
-                        <th>2022/06</th>
-                    </tr>
-                    <tr class="row-total">
-                            <td>3.00</td>
-                            <td>3.00</td>
-                            <td>3.00</td>
-                            <td>3.00</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                        </tr>
-                        <tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                        </tr>
-                        <tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                        </tr>
-                        <tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                        </tr>
-                        <tr class="editMode-input">
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-                                <td>1.00</td>
-
-                        </tr>
-                    </table>
+                        `+generateProjectDetailsHeader_AssignedDates(dates)
+                         +generateProjectDetailsBody_colSum(assignData)
+                         +generateProjectDetailsBody_AssignedValues(assignData)+
+                         
+                    `</table>
                 </div>
             </div>
         </div>
@@ -477,12 +465,13 @@ function renderEmptyAssignAccordion(projectID) {
                 
         var projects = document.getElementById('row'+projectID);
         projects.innerHTML=accordionHTML;
+        callActionListeners(projectID);
     
 }
 
 
 var assignData= [[0,0,'2020/10','2020/11','2020/12'],
-                 [3,54.0,3.0,3.0,3.0],
+                 [4,4.0,3.0,3.0,3.0],
                  ['leader',18.0,1,1,1],
                  ['member',18.0,1,1,1],
                  ['member',18.0,1,1,1],
