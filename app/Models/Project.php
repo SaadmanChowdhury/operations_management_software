@@ -57,16 +57,16 @@ class Project extends Model
     {
         //saving new record
         $project = DB::table('projects')->insert([
-            'project_name' => $validatedData['projectName'],
-            'client_id' => $validatedData['clientID'],
-            'manager_id' => $validatedData['projectLeaderID'],
-            'order_month' => $validatedData['orderMonth'],
-            'inspection_month' => $validatedData['inspectionMonth'],
-            'order_status' => $validatedData['orderStatus'],
-            'business_situation' => $validatedData['businessSituation'],
-            'development_stage' => $validatedData['developmentStage'],
-            'sales_total' => $validatedData['salesTotal'],
-            'transferred_amount' => $validatedData['transferredAmount'],
+            'project_name' => $validatedData['project_name'],
+            'client_id' => $validatedData['client_id'],
+            'manager_id' => $validatedData['manager_id'],
+            'order_month' => $validatedData['order_month'],
+            'inspection_month' => $validatedData['inspection_month'],
+            'order_status' => $validatedData['order_status'],
+            'business_situation' => $validatedData['business_situation'],
+            'development_stage' => $validatedData['development_stage'],
+            'sales_total' => $validatedData['sales_total'],
+            'transferred_amount' => $validatedData['transferred_amount'],
             'budget' => $validatedData['budget'],
         ]);
         return $project;
