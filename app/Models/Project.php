@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Utilities\JSONHandler;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -52,30 +53,23 @@ class Project extends Model
         return $project;
     }
 
-    public function createProject($request)
+    public function createProject($validatedData)
     {
-        $loggedUser = auth()->user();
-        if ($loggedUser->user_authority == 'システム管理者') {
-            $validatedData = $request->validated();
-
-            //saving new record
-            DB::table('projects')->insert([
-                'project_name' => $validatedData['projectName'],
-                'client_id' => $validatedData['clientID'],
-                'manager_id' => $validatedData['projectLeaderID'],
-                'order_month' => $validatedData['orderMonth'],
-                'inspection_month' => $validatedData['inspectionMonth'],
-                'order_status' => $validatedData['orderStatus'],
-                'business_situation' => $validatedData['businessSituation'],
-                'development_stage' => $validatedData['developmentStage'],
-                'sales_total' => $validatedData['salesTotal'],
-                'transferred_amount' => $validatedData['transferredAmount'],
-                'budget' => $validatedData['budget'],
-            ]);
-
-            return JSONHandler::emptySuccessfulJSONPackage();
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        //saving new record
+        $project = DB::table('projects')->insert([
+            'project_name' => $validatedData['projectName'],
+            'client_id' => $validatedData['clientID'],
+            'manager_id' => $validatedData['projectLeaderID'],
+            'order_month' => $validatedData['orderMonth'],
+            'inspection_month' => $validatedData['inspectionMonth'],
+            'order_status' => $validatedData['orderStatus'],
+            'business_situation' => $validatedData['businessSituation'],
+            'development_stage' => $validatedData['developmentStage'],
+            'sales_total' => $validatedData['salesTotal'],
+            'transferred_amount' => $validatedData['transferredAmount'],
+            'budget' => $validatedData['budget'],
+        ]);
+        return $project;
     }
 
     public function convertOrderStatusToInt($sentStatus)
@@ -110,7 +104,7 @@ class Project extends Model
 
     public function readProject($id)
     {
-        $loggedUser = auth()->user();
+
         $project = Project::select([
             'project_id as projectID',
             'project_name as projectName',
@@ -128,11 +122,8 @@ class Project extends Model
         ])->where('project_id', $id)
             ->whereNull("deleted_at")
             ->first();
-        //if admin or manager
-        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
-            return $project;
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
+        return $project;
     }
 
     public function upsertProjectDetails($validatedData, $projectID)
@@ -144,16 +135,9 @@ class Project extends Model
 
     public function deleteProject($id)
     {
-        $loggedUser = auth()->user();
         $project = Project::find($id);
-
-        //if admin or manager
-        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
-            //soft delete
-            $project->delete();
-            return JSONHandler::emptySuccessfulJSONPackage();
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        //soft delete
+        $project->delete();
     }
 
 
