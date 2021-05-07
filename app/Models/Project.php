@@ -253,8 +253,15 @@ class Project extends Model
     public function getProjectData($projectID)
     {
         return DB::table('projects')
-            ->select('project_id as projectID', 'manager_id as projectLeaderID', 'budget as budget')
-            ->where('projects.project_id', $projectID)->whereNull("deleted_at")->first();
+            ->select(
+                'project_id as projectID',
+                'manager_id as projectLeaderID',
+                'budget as budget',
+                'order_month as orderMonth',
+                'inspection_month as inspectionMonth',
+            )
+            ->where('projects.project_id', $projectID)
+            ->whereNull("deleted_at")->first();
     }
 
     /**
