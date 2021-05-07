@@ -412,7 +412,6 @@ function callActionListeners(projectID){
 
 function getPojectLeaderAssignArrayIndex(mainTableArray, projectLeaderID){
     for (let i = 2; i < mainTableArray.length; i++) {
-        console.log(mainTableArray[i][0],projectLeaderID);
         if(mainTableArray[i][0]==projectLeaderID){
             return i;
         }
@@ -422,14 +421,13 @@ function putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID){
     var ledaerIndex = getPojectLeaderAssignArrayIndex(mainTableArray,projectLeaderID);
 
     var tmpRow=mainTableArray[2];
-    
     mainTableArray[2]=mainTableArray[ledaerIndex];
     mainTableArray[ledaerIndex]=tmpRow;
     console.log(ledaerIndex);
     return mainTableArray;
 }
 function convertToArrayAssign(assign, memberID){
-    var assignArray= new Array(assign.length+2);
+    var assignArray= new Array(assign.length+2).fill(0);
     for (let i = 0; i < assign.length; i++) {
 
         if(i==0){
@@ -443,15 +441,22 @@ function convertToArrayAssign(assign, memberID){
 function convertToSimple2DArray(project){
     var members =project.member;
     var projectLeaderID= project.projectLeaderID;
-    console.log(members.length);
+
     var mainTableArray= new Array(members.length+2).fill(0);
-    console.log(mainTableArray);
+
     for (let i = 0; i < members.length; i++) {
+
         var assigns =members[i].assign;
+        if(i==0){
+            mainTableArray[0]= new Array( assigns.length+2).fill(0);
+            mainTableArray[1]= new Array( assigns.length+2).fill(0);
+        }
+
         mainTableArray[i+2]=convertToArrayAssign(assigns, members[i].memberID);
     }
     console.log(mainTableArray);
     mainTableArray= putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID);
+    return mainTableArray;
 }
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
