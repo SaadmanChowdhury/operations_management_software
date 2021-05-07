@@ -34,7 +34,7 @@ class UserUpsert extends FormRequest
             'location' => 'required',
             'admission_day' => 'required',
             'exit_day' => '',
-            'unit_price' => 'required',
+            'unit_price' => 'required|integer|min:1',
             'user_authority' => '',
             'resign_day' => '',
         ];
@@ -76,6 +76,7 @@ class UserUpsert extends FormRequest
             'location.required' => 'Location is required',
             'admission_day.required' => 'Admission day is required',
             'unit_price.required' => 'Unit price is required',
+            'unit_price.min:1' => 'Unit price must be at least 1',
             // 'user_authority.required' => 'User authority is required',
         ];
     }

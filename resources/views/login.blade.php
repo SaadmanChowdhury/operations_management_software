@@ -12,9 +12,7 @@
     {{-- FONT FAMILY --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
     <script src="/js/validator.js"></script>
     <script src="/js/toast.js"></script>
@@ -88,6 +86,24 @@
     </div>
     <!-- Template Main Javascript File -->
     <script src="/js/main.js"></script>
+
+    @php $myError = ''; @endphp
+
+    @if ($errors->any())
+
+    @foreach ($errors->all() as $error)
+    @php $myError = $error; @endphp
+    @endforeach
+
+    @endif
+    <script>
+        const myArray = []; // this array will be sent to make the toast.
+        var message = "<?php echo $myError ?>";
+        myArray.push(message);
+        if (message) {
+            makeToast(myArray); // calling makeToast function
+        }
+    </script>
 </body>
 
 </html>

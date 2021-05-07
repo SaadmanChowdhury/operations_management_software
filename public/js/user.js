@@ -88,6 +88,24 @@ function renderHTML(response) {
             unitPrice = '';
         }
 
+        var editableButtonString =`<li><div class="edit" onclick="userEditModalHandler(${row.userID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>` ;
+        var unitPriceString =  ``;
+
+        if(isUserModalEditable(row.userID)){}
+        else{
+            editableButtonString =`<li ></li>` ;
+        }
+
+        if(isSystemAdmin()){
+            unitPriceString =  `<li>${unitPrice}</li>`;
+        }
+        
+        if(isGeneralUser()){
+            unitPriceString =  ``;
+        }
+
+
+
         rowHtml = `<div class="card _user" id="user-row-${row.userID}">` +
             `<div class="card-header">` +
             `<div class="display list-unstyled">` +
@@ -97,16 +115,41 @@ function renderHTML(response) {
             `<li class="user-location">${loc}</li>` +
             `<li><div class="pos pos-${pos}">${pos}</div></li>` +
             `<li>${time_diff}${unit}</li>` +
-            `<li>${unitPrice}</li>` +
-            `<li><div class="edit" onclick="userEditModalHandler(${row.userID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>` +
+            unitPriceString +
+            editableButtonString+
             `</div></div></div>`;
 
         staffs[0].innerHTML += rowHtml;
         staffList = document.querySelectorAll('.staffs .card');
         item = document.querySelectorAll('.pos');
     });
-
 }
+
+function isGeneralUser(){
+    var currentUserAuthority=document.getElementById("user-authority");
+    return currentUserAuthority.value=="一般ユーザー"?true:false;
+}
+
+function isSystemAdmin(){
+    var currentUserAuthority=document.getElementById("user-authority");
+    return currentUserAuthority.value=="システム管理者"?true:false;
+}
+
+function isCurrentUser(userId){
+    var currentUserId= document.getElementById("logged-in-id");
+    return userId==currentUserId.value?true:false;
+}
+
+function isUserModalEditable(userId){
+    if(isSystemAdmin())
+        return true;
+    else if(isGeneralUser() && isCurrentUser(userId))
+        return true;
+    else
+        return false;
+}
+
+
 document.addEventListener("DOMContentLoaded", () => { fetchUserList_AJAX() });
 
 pos = document.querySelector('.userlist-nav');

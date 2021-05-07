@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Http\Utilities\JSONHandler;
 use App\Models\Assign;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ProjectService
@@ -78,9 +80,78 @@ class ProjectService
     public function readProjectDetails($projectID)
     {
         $projectModel  = new Project;
-        $array = $projectModel->readProject($projectID);
+        // getting the project data
+        $project = $projectModel->readProject($projectID);
 
-        return $array;
+        $loggedUser = auth()->user();
+        //if admin or manager
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
+            return $project;
+        }
+        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+    }
+
+    public function createProject($request)
+    {
+        $projectModel  = new Project;
+
+        $loggedUser = auth()->user();
+        if ($loggedUser->user_authority == 'システム管理者') {
+            $validatedData = $request->validated();
+
+
+            // if all the logic passed then project can be create of update
+            $result = $this->logicForUpSertProject($validatedData);
+            // dd($result);
+
+            // has some logical error
+            if ($result !== true) {
+                return JSONHandler::errorJSONPackage($result);
+            }
+
+            // creating a project
+            $projectModel->createProject($validatedData);
+
+            return JSONHandler::emptySuccessfulJSONPackage();
+        }
+        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+    }
+
+    private function logicForUpSertProject($validatedData)
+    {
+        $orderMonth = $validatedData['orderMonth'];
+        $inspectionMonth = $validatedData['inspectionMonth'];
+
+        //checking the inspection_month is greater than order_month
+        if ($orderMonth != null && $inspectionMonth != null) {
+            $om = Carbon::createFromFormat('Y-m-d',  $orderMonth);
+            $im = Carbon::createFromFormat('Y-m-d',  $inspectionMonth);
+            if ($om > $im) {
+                return 'Inspection Month cannot be greater than Oder Month';
+            }
+        }
+
+        $budget = $validatedData['budget'];
+        $salesTotal = $validatedData['salesTotal'];
+        $transferredAmount = $validatedData['transferredAmount'];
+
+        // the monitory values cannot be negative and
+        // sales_total and transferred_amount cannot be greater than budget
+        if ($salesTotal != null) {
+            if (intval($salesTotal) < 0) {
+                return 'salesTotal cannot be negative';
+            } elseif (intval($salesTotal) > intval($budget)) {
+                return 'salesTotal cannot be greater than budget';
+            }
+        }
+        if ($transferredAmount != null) {
+            if (intval($transferredAmount) < 0) {
+                return 'transferredAmount cannot be negative';
+            } elseif (intval($transferredAmount) > intval($budget)) {
+                return 'transferredAmount cannot be greater than budget';
+            }
+        }
+        return true;
     }
 
     public function upsertProjectDetails($request, $projectID)
@@ -99,6 +170,14 @@ class ProjectService
         if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $managerID) {
 
             $validatedData = $this->formatDataToCreateOrUpdate($request);
+
+            // if all the logic passed then project can be create of update
+            $result = $this->logicForUpSertProject($validatedData);
+
+            // has some logical error
+            if ($result !== true) {
+                return JSONHandler::errorJSONPackage($result);
+            }
 
             return $projectModel->upsertProjectDetails($validatedData, $projectID);
         }
@@ -195,12 +274,22 @@ class ProjectService
         // $data = $this->getUpsertAssignData();
         $formattedData = $this->getFormattedDataForUpsertAssign($data);
 
-        return $assignModel->upsertAssign($formattedData);
+        // if the assign value does not contains any negative value
+        if ($formattedData['hasNoNegativeAssignValue']) {
+            // unset the non-required field to save the data 
+            unset($formattedData['hasNoNegativeAssignValue']);
+            // upSert the assign value
+            return $assignModel->upsertAssign($formattedData);
+        }
+        // upSert has negative value
+        $errorMessage = 'Assign contains negative assign value';
+        return JSONHandler::errorJSONPackage($errorMessage);
     }
 
     public function getFormattedDataForUpsertAssign($data)
     {
         $formattedData = [];
+        $formattedData['hasNoNegativeAssignValue'] = true;
         foreach ($data['assignments'] as $key => $value) {
             $formattedData[$key]['assign_id'] = $value['assignID'];
             $formattedData[$key]['project_id'] = $value['projectID'];
@@ -208,6 +297,9 @@ class ProjectService
             $formattedData[$key]['year'] = $value['year'];
             $formattedData[$key]['month'] = $value['month'];
             $formattedData[$key]['plan_man_month'] = $value['value'];
+            if (floatval($value['value']) < 0) {
+                $formattedData['hasNoNegativeAssignValue'] = false;
+            }
         }
         return $formattedData;
     }
@@ -232,5 +324,20 @@ class ProjectService
                 'value' => 1,
             ],
         ];
+    }
+
+    public function deleteProject($id)
+    {
+        $projectModel  = new Project;
+        $loggedUser = auth()->user();
+        $project = $projectModel->readProject($id);
+
+        //if admin or manager
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->projectLeaderID) {
+            $projectModel->deleteProject($id);
+
+            return JSONHandler::emptySuccessfulJSONPackage();
+        }
+        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 }
