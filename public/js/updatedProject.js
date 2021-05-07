@@ -129,36 +129,36 @@ class ProjectSummaryListRenderer{
         }
     }
 
-    renderHTMLProjectSummary(row){
-        var monthDiff=this.calcMonthDiff(row.orderMonth,row.inspectionMonth);
-        var leader= convertUser_IDToName(row.projectLeaderID);
-        var profit = this.calcProfit(row.salesTotal,row.budget);
+    renderHTMLProjectSummary(project){
+        var monthDiff=this.calcMonthDiff(project.orderMonth,project.inspectionMonth);
+        var leader= convertUser_IDToName(project.projectLeaderID);
+        var profit = this.calcProfit(project.salesTotal,project.budget);
         var projectHtml =
-        `<div class="card _project" id="project-row-${row.projectID}">
-        <div class="card-header" id="row1head" onclick="display(${row.projectID},${monthDiff},'${row.orderMonth}','${leader}')">
+        `<div class="card _project" id="project-row-${project.projectID}">
+        <div class="card-header" id="row1head" onclick="display(${project.projectID},${monthDiff},'${project.orderMonth}','${leader}')">
         <div class="display list-unstyled">
-        <li>${row.projectName}</li>
-        <li>${convertClient_IDToName(row.clientID)}</li>
+        <li>${project.projectName}</li>
+        <li>${convertClient_IDToName(project.clientID)}</li>
         <li><img src="img/pro_icon.png" class="smallpic">
-        <div class="user-name">${convertUser_IDToName(row.projectLeaderID)}</div>
+        <div class="user-name">${convertUser_IDToName(project.projectLeaderID)}</div>
         </li>` +
-        this.getOrderStatusHTML(row.orderStatus) +
-        this.getBusinessSituationHTML(row.businessSituation) +
-        this.getDevelopmentStageHTML(row.developmentStage) +
-        `<li>${row.orderMonth}</li>
-        <li>${row.inspectionMonth}</li>
-        <li class="right-align">${numberWithCommas(row.salesTotal) + " 円"}</li>
-        <li class="right-align">${numberWithCommas(row.budget) + " 円"}</li>
+        this.getOrderStatusHTML(project.orderStatus) +
+        this.getBusinessSituationHTML(project.businessSituation) +
+        this.getDevelopmentStageHTML(project.developmentStage) +
+        `<li>${project.orderMonth}</li>
+        <li>${project.inspectionMonth}</li>
+        <li class="right-align">${numberWithCommas(project.salesTotal) + " 円"}</li>
+        <li class="right-align">${numberWithCommas(project.budget) + " 円"}</li>
         <li>${profit}%</li>
         <li>
-        <div class="edit" onclick="projectEditModalHandler(${row.projectID})">
+        <div class="edit" onclick="projectEditModalHandler(${project.projectID})">
         <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
         </div>
         </li>
         </div>
         </div>
 
-        <div class="collapse show" id="row${row.projectID}">` +
+        <div class="collapse show" id="row${project.projectID}">` +
         `</div>
         </div>`;
         return projectHtml;
@@ -168,11 +168,11 @@ class ProjectSummaryListRenderer{
 
         //var projects = document.getElementById('accordian');
 
-        response01["resultData"]["project"].forEach((row) => {
+        response01["resultData"]["project"].forEach((project) => {
 
-            Object.keys(row).forEach(e => (row[e] == null) ? row[e] = "" : true);
+            Object.keys(project).forEach(e => (project[e] == null) ? project[e] = "" : true);
         
-            var projectHtml = this.renderHTMLProjectSummary(row);
+            var projectHtml = this.renderHTMLProjectSummary(project);
             $('#accordian').append(projectHtml);
             
         });
@@ -223,8 +223,9 @@ class ProjectSummaryListRenderer{
 function display(id,diff,order,leader) {
 
     $('#row' + id).toggle("3000");
-    //readProjectAssign_AJAX(); 
-    renderEmptyAssignAccordion(id);   
+    var response= readProjectAssign_AJAX(id); 
+    var simmpleArray=processAssigninto2DArray(response);//-->2D Array
+    renderEmptyAssignAccordion(simpleArray, response[project]);   
     
 }
 function getProjectDuration(project){
