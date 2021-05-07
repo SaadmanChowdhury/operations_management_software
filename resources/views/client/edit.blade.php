@@ -51,8 +51,8 @@
                     <div class="modal-form-input-container">
                         <div class="_full">
                             <div><label>顧客に責任者</label></div>
-                            <div id="selectOptionDisabled" data-user="{{$loggedInUser->user_authority }}"><input type="number" id="client_edit_user_id" name="user_id"
-                                    value="{{ $client->user_id }}" ></div>
+
+                            <div><input type="number" id="client_edit_user_id" name="user_id" value="{{ $client->user_id }}"></div>
                                     
                         </div>
                         
@@ -69,6 +69,11 @@
 <script>
 $(function() {
     convertToSearchableDropDown("client_edit_user_id", "USER");
+
+    @if ($loggedInUser->user_authority != 'システム管理者')
+        document.getElementById("client_edit_user_id").disabled = true;
+    @endif
+
 })
 
 function clientEditModalHandler(clientID) {
