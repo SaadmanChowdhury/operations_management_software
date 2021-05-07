@@ -371,7 +371,7 @@ function editModeOn(assignData,x){
 
 
     //==CONVERTING ORANGE TABLE into INPUT FIELDS==//
-    
+
     var $dataTable2= $('#tableLeft-'+x).find('.editMode-input');
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
@@ -416,35 +416,35 @@ function renderEmptyAssignAccordion(assignData,project) {
     var dates=assignData[0];
     console.log(dates);
     console.log(project);
+    var diff=3;
     var projectID=project.projectID;
     accordionHTML =
 
         renderProjectManagementSummary(project) +
         `<div class="project-rhs">
             <div class="add-minus-holder editMode">
-                <button class="btn round-btn primary _plus" onclick="addRow(${projectID},12)"><span
+                <button class="btn round-btn primary _plus" onclick="addRow(${projectID},${diff})"><span
                         class="fa fa-plus"></span></button>
                 
             </div>
             <div class="table-right row" id="table-right-${projectID}">
                 <table class="table-fix" id="tableLeft-${projectID}">
-                    <tr>
-                        <th class="mishti-orange">メンバー</th>
-                        <th class="mishti-orange">工数合計</th>
-    
-                    </tr>
-                    
-                    `+generateAssignedMembersHtML(assignData)+`
-                    
+                    <tbody>
+                        <tr>
+                            <th class="mishti-orange">メンバー</th>
+                            <th class="mishti-orange">工数合計</th>
+                        </tr>`
+                        +generateAssignedMembersHtML(assignData)+
+                    `</tbody>
                 </table>
-                <div class="table-des-container">
-                    <table class="table-des" id="tableRight-${projectID}">
-                        `+generateProjectDetailsHeader_AssignedDates(dates)
-                         +generateProjectDetailsBody_colSum(assignData)
-                         +generateProjectDetailsBody_AssignedValues(assignData)+
-                         
-                    `</table>
-                </div>
+                    <div class="table-des-container">
+                        <table class="table-des" id="tableRight-${projectID}">
+                            `+generateProjectDetailsHeader_AssignedDates(dates)
+                            +generateProjectDetailsBody_colSum(assignData)
+                            +generateProjectDetailsBody_AssignedValues(assignData)+
+                            
+                        `</table>
+                    </div>
             </div>
         </div>
         <div class="action">
@@ -468,6 +468,42 @@ function renderEmptyAssignAccordion(assignData,project) {
     
 }
 
+
+//===ADDING ROWS on CLICKING ADD BUTTON===//
+
+function addRow(projectID,diff) {
+    
+    var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
+                   for(var j=1;j<=30;j++)
+                   {
+                       if(j==1)
+                            string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
+                        else
+                            string+=`<option value=${j} >${convertUser_IDToName(j)}</option>`;
+                   }
+                   string+=`</select></td>`;
+                   
+                   
+    document.querySelector("#tableLeft-"+projectID+" > tbody").innerHTML += `<tr class="editMode-input">
+                                                `+string+`
+                                                <td>0</td>
+                                            </tr>`;
+        string=``;
+    
+    // var length=temp_cacheAssign.length;
+    // temp_cacheAssign[length]=new Array(diff);
+    
+    for (let index = 0; index < diff; index++) {
+        string+=`<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" min=\"0\" max=\"1\" value=\"0\"></td>`;
+        //temp_cacheAssign[length][index]=0;
+        
+    }
+    document.querySelector("#tableRight-"+projectID+" > tbody").innerHTML += `<tr class="editMode-input">
+                                            `+string +`</tr>`;
+    
+    //deleteRowActionListener(x);
+
+}
 
 var assignData= [[0,0,'2020/10','2020/11','2020/12'],
                  [4,4.0,3.0,3.0,3.0],
