@@ -410,6 +410,48 @@ function callActionListeners(projectID){
     }
 }
 
+function getPojectLeaderAssignArrayIndex(mainTableArray, projectLeaderID){
+    for (let i = 0; i < mainTableArray.length; i++) {
+        if(mainTableArray[0]==projectLeaderID){
+            return i;
+        }
+    }
+}
+function putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID){
+    var ledaerIndex = getPojectLeaderAssignArrayIndex(mainTableArray,projectLeaderID);
+
+    var tmpRow=mainTableArray[0];
+    mainTableArray[0]=mainTableArray[ledaerIndex];
+    mainTableArray[ledaerIndex]=tmpRow;
+
+    return mainTableArray;
+}
+function convertToArrayAssign(assign, memberID){
+    var assignArray= new Array(assign.length+2);
+    for (let i = 0; i < assign.length; i++) {
+
+        if(i==0){
+            assignArray[i]=memberID;
+        }
+        assignArray[i+2]=assign[i].value;
+    }
+
+    return assignArray;
+}
+function convertToSimple2DArray(project){
+    var members =project.member;
+    var projectLeaderID= project.projectLeaderID;
+
+    var mainTableArray= new Array(members.length+2);
+    for (let i = 0; i < members.length; i++) {
+        var assigns =members[i].assign;
+        mainTableArray[i+2]=convertToArrayAssign(assigns, members[i].memberID);
+    }
+
+    mainTableArray= putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID);
+
+    console.log(mainTableArray);
+}
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
 function renderEmptyAssignAccordion(assignData,project) {
@@ -418,6 +460,7 @@ function renderEmptyAssignAccordion(assignData,project) {
     console.log(project);
     var diff=3;
     var projectID=project.projectID;
+    convertToSimple2DArray(project);
     accordionHTML =
 
         renderProjectManagementSummary(project) +
