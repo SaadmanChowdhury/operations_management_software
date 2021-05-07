@@ -411,8 +411,8 @@ function callActionListeners(projectID){
 }
 
 function getPojectLeaderAssignArrayIndex(mainTableArray, projectLeaderID){
-    for (let i = 0; i < mainTableArray.length; i++) {
-        if(mainTableArray[0]==projectLeaderID){
+    for (let i = 2; i < mainTableArray.length; i++) {
+        if(mainTableArray[i][0]==projectLeaderID){
             return i;
         }
     }
@@ -420,14 +420,14 @@ function getPojectLeaderAssignArrayIndex(mainTableArray, projectLeaderID){
 function putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID){
     var ledaerIndex = getPojectLeaderAssignArrayIndex(mainTableArray,projectLeaderID);
 
-    var tmpRow=mainTableArray[0];
-    mainTableArray[0]=mainTableArray[ledaerIndex];
+    var tmpRow=mainTableArray[2];
+    mainTableArray[2]=mainTableArray[ledaerIndex];
     mainTableArray[ledaerIndex]=tmpRow;
 
     return mainTableArray;
 }
 function convertToArrayAssign(assign, memberID){
-    var assignArray= new Array(assign.length+2);
+    var assignArray= new Array(assign.length+2).fill(0);
     for (let i = 0; i < assign.length; i++) {
 
         if(i==0){
@@ -442,15 +442,24 @@ function convertToSimple2DArray(project){
     var members =project.member;
     var projectLeaderID= project.projectLeaderID;
 
-    var mainTableArray= new Array(members.length+2);
+    var mainTableArray= new Array(members.length+2).fill(0);
+
     for (let i = 0; i < members.length; i++) {
+
         var assigns =members[i].assign;
+        if(i==0){
+            mainTableArray[0]= new Array( assigns.length+2).fill(0);
+            mainTableArray[1]= new Array( assigns.length+2).fill(0);
+        }
+
         mainTableArray[i+2]=convertToArrayAssign(assigns, members[i].memberID);
     }
 
     mainTableArray= putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID);
 
     console.log(mainTableArray);
+
+    return mainTableArray;
 }
 //=== RENDERING PROJECT DETAILS TABLES ===//
 
@@ -459,7 +468,7 @@ function renderEmptyAssignAccordion(assignData,project) {
     console.log(dates);
     
 
-    convertToSimple2DArray(project);
+    assignData =convertToSimple2DArray(project);
 
     var projectID=project.projectID;
     accordionHTML =
