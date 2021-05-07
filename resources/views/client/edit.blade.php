@@ -28,7 +28,7 @@
                         </button>
                     </div>
 
-                    @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
+                    @if ($loggedInUser->user_authority == 'システム管理者')
                     <div onclick="deleteClient()">
                         <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
                                 aria-hidden="true"></i>
@@ -51,9 +51,11 @@
                     <div class="modal-form-input-container">
                         <div class="_full">
                             <div><label>顧客に責任者</label></div>
-                            <div><input type="number" id="client_edit_user_id" name="user_id"
-                                    value="{{ $client->user_id }}"></div>
+
+                            <div><input type="number" id="client_edit_user_id" name="user_id" value="{{ $client->user_id }}"></div>
+                                    
                         </div>
+                        
                     </div>
                 </div>
 
@@ -67,6 +69,11 @@
 <script>
 $(function() {
     convertToSearchableDropDown("client_edit_user_id", "USER");
+
+    @if ($loggedInUser->user_authority != 'システム管理者')
+        document.getElementById("client_edit_user_id").disabled = true;
+    @endif
+
 })
 
 function clientEditModalHandler(clientID) {

@@ -94,7 +94,6 @@ function convertToSearchableDropDown(id, type) {
 
     $(dom).replaceWith(`<select id="${id}">${options}</select>`);
     $(dom).val(currentVal);
-
 }
 
 function userSelectGenerator() {

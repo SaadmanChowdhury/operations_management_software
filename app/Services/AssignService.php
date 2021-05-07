@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Models\Assign;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Project;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
@@ -66,11 +64,19 @@ class AssignService
         $carbon = new Carbon("first day of January $year");
         $first_day_of_year = $carbon->toDateTimeString();
 
-        $active_users  = DB::table('users')
+        $active_users1  = DB::table('users')
             ->select('user_id')
             ->whereYear('admission_day', '<=', $first_day_of_year)
-            ->whereYear('exit_day', '>=', $first_day_of_year)
+            ->WhereYear('exit_day', '>=', $first_day_of_year)
             ->get();
+
+        $active_users2  = DB::table('users')
+            ->select('user_id')
+            ->whereYear('admission_day', '<=', $first_day_of_year)
+            ->whereNull('exit_day')
+            ->get();
+
+        $active_users = $active_users2->merge($active_users1);
 
         return $active_users;
     }
@@ -123,14 +129,20 @@ class AssignService
                 ->select('admission_day', 'exit_day')
                 ->where('user_id', $user_id)->first();
 
-            // getting the carbon object for one month period
-            $result = CarbonPeriod::create($user->admission_day, '1 month', $user->exit_day);
+            if ($user->exit_day != null) { // exit_day is not null
+                // getting the carbon object for one month period
+                $result = CarbonPeriod::create($user->admission_day, '1 month', $user->exit_day);
+            } else { // exit_day is null
+                $carbon = new Carbon("last day of December $year");
+                $last_day_of_year = $carbon->format("Y-m-d");
+                $result = CarbonPeriod::create($user->admission_day, '1 month', $last_day_of_year);
+            }
 
             foreach ($result as $dt) {
                 $currentYear = intval($dt->format("Y"));
 
                 // if the month belongs to the same year the as provided then add month
-                if ($currentYear == $year) {
+                if ($currentYear == intval($year)) {
                     $month = intval($dt->format("m"));
                     // increasing the cell value
                     $userCount[$month - 1]++;

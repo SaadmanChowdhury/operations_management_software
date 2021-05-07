@@ -99,6 +99,8 @@ class ProjectService
         if ($loggedUser->user_authority == 'システム管理者') {
             $validatedData = $request->validated();
 
+            //formatting data for creating project
+            $validatedData = $this->formatDataToCreateOrUpdate($request);
 
             // if all the logic passed then project can be create of update
             $result = $this->logicForUpSertProject($validatedData);
@@ -119,8 +121,8 @@ class ProjectService
 
     private function logicForUpSertProject($validatedData)
     {
-        $orderMonth = $validatedData['orderMonth'];
-        $inspectionMonth = $validatedData['inspectionMonth'];
+        $orderMonth = $validatedData['order_month'];
+        $inspectionMonth = $validatedData['inspection_month'];
 
         //checking the inspection_month is greater than order_month
         if ($orderMonth != null && $inspectionMonth != null) {
@@ -132,8 +134,8 @@ class ProjectService
         }
 
         $budget = $validatedData['budget'];
-        $salesTotal = $validatedData['salesTotal'];
-        $transferredAmount = $validatedData['transferredAmount'];
+        $salesTotal = $validatedData['sales_total'];
+        $transferredAmount = $validatedData['transferred_amount'];
 
         // the monitory values cannot be negative and
         // sales_total and transferred_amount cannot be greater than budget
@@ -158,7 +160,7 @@ class ProjectService
     {
         $projectModel  = new Project;
 
-        // $validatedData = $request->validated();
+        $validatedData = $request->validated();
         $loggedUser = auth()->user();
         $project = $managerID = null;
 
