@@ -355,10 +355,9 @@ function editModeOn(assignData,x){
     });
     
 
-    //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
-    var $dataTable= $('#tableRight-'+x).find('.editMode-input');
+    //==CONVERTING BLUE TABLE into INPUT FIELDS==//
     
-    //==ADDING EDITING FIELDS TO BLUE TABLE==//
+    var $dataTable= $('#tableRight-'+x).find('.editMode-input');
     
     $dataTable.each(function(i){
         for(var j=2;j<assignData[0].length;j++)
@@ -371,9 +370,9 @@ function editModeOn(assignData,x){
     });
 
 
-    //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
+    //==CONVERTING ORANGE TABLE into INPUT FIELDS==//
+    
     var $dataTable2= $('#tableLeft-'+x).find('.editMode-input');
-    //==ADDING EDITING FIELDS TO ORANGE TABLE==//
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
             
