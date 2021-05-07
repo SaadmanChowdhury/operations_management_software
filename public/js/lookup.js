@@ -81,8 +81,6 @@ function fetchClientList() {
 }
 
 function convertToSearchableDropDown(id, type) {
-    var selectOptionDisabled = document.getElementById("selectOptionDisabled");
-    
     dom = $("#" + id);
     let options = "";
     currentVal = $(dom).val();
@@ -93,16 +91,9 @@ function convertToSearchableDropDown(id, type) {
     else if (type == "CLIENT") {
         options = clientSelectGenerator();
     }
-    if(selectOptionDisabled.dataset.user!="システム管理者") {
-      $(dom).replaceWith(`<select id="${id}">${options}</select>`);
-      $('select').prop('disabled', 'disabled');
-    }
-    else {
-      $(dom).replaceWith(`<select id="${id}">${options}</select>`);
-    }
-    $(dom).val(currentVal);  
-    
 
+    $(dom).replaceWith(`<select id="${id}">${options}</select>`);
+    $(dom).val(currentVal);
 }
 
 function userSelectGenerator() {
