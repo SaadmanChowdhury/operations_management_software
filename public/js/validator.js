@@ -95,19 +95,16 @@ function handleAJAXError(err) {
     var r = JSON.parse(err.responseText).errors;
 
 
-    var keys = Object.keys(r);
+    if (typeof variable !== 'undefined') {
+     
+        var keys = Object.keys(r);
 
-    var errors = [];
-    for (let index = 0; index < keys.length; index++) {
-        errors.push(r[keys[index]]);
+        var errors = [];
+        for (let index = 0; index < keys.length; index++) {
+            errors.push(r[keys[index]]);
+        }
+
+        makeToast(errors);
+
     }
-
-    makeToast(errors);
-}
-
-function isExisting( x){
-    if(typeof x !== 'undefined'){
-        true;
-    }
-    return false;
 }
