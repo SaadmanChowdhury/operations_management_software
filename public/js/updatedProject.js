@@ -340,17 +340,17 @@ function generateAssignedMembersHtML(assignData){
 }
 
 
-function editModeOn(assignData,x){
+function editModeOn(assignData,projectID){
 
-    $( '#project-row-' + x +' .editMode').each(function( index ) {
+    $( '#project-row-' + projectID +' .editMode').each(function( index ) {
         this.style.display="block";
-        document.getElementById("edit-"+x).style.display="none";
+        document.getElementById("edit-"+projectID).style.display="none";
     });
     
 
     //==CONVERTING BLUE TABLE into INPUT FIELDS==//
     
-    var $dataTable= $('#tableRight-'+x).find('.editMode-input');
+    var $dataTable= $('#tableRight-'+projectID).find('.editMode-input');
     
     $dataTable.each(function(i){
         for(var j=2;j<assignData[0].length;j++)
@@ -365,7 +365,7 @@ function editModeOn(assignData,x){
 
     //==CONVERTING ORANGE TABLE into INPUT FIELDS==//
 
-    var $dataTable2= $('#tableLeft-'+x).find('.editMode-input');
+    var $dataTable2= $('#tableLeft-'+projectID).find('.editMode-input');
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
             
@@ -387,7 +387,7 @@ function editModeOn(assignData,x){
         });
     });
 
-    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+    var buttons= document.getElementById("project-row-"+projectID).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
 
    for (let index = 0; index < buttons.length; index++) {
        
@@ -395,9 +395,11 @@ function editModeOn(assignData,x){
        
    }
 
+   deleteRowActionListener(projectID);
+
 }
 
-function callActionListeners(projectID){
+function callActionListeners(projectID,assignData){
     document.getElementById("edit-"+projectID).onclick=function(){
         editModeOn(assignData,projectID);
     }
@@ -544,7 +546,7 @@ function renderEmptyAssignAccordion(assignData,project) {
     var dates=assignData[0];
     console.log(dates);
     console.log(project);
-    var diff=3;
+    var diff=calcMonthDiff(project.orderMonth,project.inspectionMonth);
     var projectID=project.projectID;
     
     accordionHTML =
@@ -593,7 +595,7 @@ function renderEmptyAssignAccordion(assignData,project) {
                 
         var projects = document.getElementById('row'+projectID);
         projects.innerHTML=accordionHTML;
-        callActionListeners(projectID);
+        callActionListeners(projectID,assignData);
     
 }
 
@@ -630,8 +632,25 @@ function addRow(projectID,diff) {
     document.querySelector("#tableRight-"+projectID+" > tbody").innerHTML += `<tr class="editMode-input">
                                             `+string +`</tr>`;
     
-    //deleteRowActionListener(x);
+    deleteRowActionListener(projectID);
 
+}
+
+function deleteRowActionListener(projectID){
+
+    var i=0;  
+    document.getElementById("project-row-"+projectID).querySelectorAll(".delete").forEach(function(obj,index){ 
+        obj.addEventListener("click", function(event){
+            
+             if(i==0){
+                document.getElementById("tableLeft-"+projectID).deleteRow(index+3);
+                document.getElementById("tableRight-"+projectID).deleteRow(index+3);
+                 i++;
+
+                deleteRowActionListener(projectID);
+             } 
+        });
+    });
 }
 
 var assignData= [[0,0,'2020/10','2020/11','2020/12'],
