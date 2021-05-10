@@ -28,7 +28,7 @@
                         </button>
                     </div>
 
-                    @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
+                    @if ($loggedInUser->user_authority == ('システム管理者'))
                     <div onclick="deleteProject()">
                         <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
                                 aria-hidden="true"></i>
@@ -262,7 +262,6 @@ function updateProject() {
     event.preventDefault();
 
     modalData = getProjectEditFormData();
-
     $.ajax({
         type: "post",
         url: "/API/upsertProjectDetails",
@@ -277,6 +276,7 @@ function updateProject() {
         },
         error: function(err) {
             handleAJAXError(err);
+            updateProjectEditModalData(modalData);
         }
     });
 }
