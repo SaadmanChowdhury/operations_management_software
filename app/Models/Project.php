@@ -237,6 +237,11 @@ class Project extends Model
         $projectProfit = $this->getProjectProfit($project_id);
         $projectBudget = $this->getProjectBudget($project_id);
 
+        // if the budget is zero then it should return 0
+        if ($projectBudget == 0) {
+            return 0;
+        }
+
         $profitPercentage = $projectProfit * 100 / $projectBudget;
 
         $profitPercentage = number_format((float)$profitPercentage, 2, '.', '');
