@@ -214,7 +214,8 @@ function display(id) {
     if($('#row' + id).is(':visible')){
         var response= readProjectAssign_AJAX(id); 
         var project=response["resultData"]["project"];
-        renderEmptyAssignAccordion(assignData,project);
+        var data=convertToSimple2DArray(project);
+        renderEmptyAssignAccordion(data,project);
         //var simpleArray=processAssigninto2DArray(response);//-->2D Array
            
 
@@ -271,7 +272,7 @@ function renderProjectManagementSummary(project){
 function generateProjectDetailsHeader_AssignedDates(dates){
     var dateHTML=``;
     for (let index = 2; index < dates.length; index++) {
-        dateHTML+=`<th>`+dates[index]+`</th>`;
+        dateHTML+=`<th>`+dates[index].toLocaleDateString()+`</th>`;
         
     }
     return `<tr>${dateHTML}</tr>`;
@@ -413,14 +414,38 @@ function putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID){
     console.log(ledaerIndex);
     return mainTableArray;
 }
-function convertToArrayAssign(assign, memberID){
-    var assignArray= new Array(assign.length+2).fill(0);
-    for (let i = 0; i < assign.length; i++) {
+
+function getAssignedValueByYearMonth(assign,date){
+    date=new Date(date);
+    //console.log(date);
+    
+    for (let index = 0; index < assign.length; index++) {
+        
+        if(assign[index].year==date.getFullYear()&&assign[index].month==date.getMonth()+1){
+            //console.log(assign[index].year,assign[index].month,assign[index].value,date);
+            return assign[index].value;
+        }
+    }
+    return 0;
+}
+function convertToArrayAssign(assign, memberID,dateArray){
+    console.log(assign);
+    var assignArray= new Array(dateArray.length).fill(0);
+    for (let i = 0; i < dateArray.length; i++) {
 
         if(i==0){
             assignArray[i]=memberID;
         }
-        assignArray[i+2]=assign[i].value;
+        else if(i==1){
+            assignArray[i]=0;
+        }
+        else{
+
+            assignArray[i]=getAssignedValueByYearMonth(assign,dateArray[i]);
+
+        }
+        
+        
     }
 
     return assignArray;
@@ -429,15 +454,15 @@ function convertToArrayAssign(assign, memberID){
 function generateMonths(orderMonth,totalMonths){
     
     var dateArray=new Array(totalMonths+2).fill(0);
-    
+    var date=new Date(orderMonth);
     for(i=0;i<totalMonths;i++){
-        var date=new Date(orderMonth);
         //orderMonth=date.toLocaleDateString();
-        dateArray[i+2]=orderMonth;
+        dateArray[i+2]=new Date(date);
         date.setMonth(date.getMonth() + 1);
-        //orderMonth=date.toLocaleDateString();
+        //console.log(date);
+        date=new Date(date);
     }
-    console.log(dateArray);
+    //console.log(dateArray);
     return dateArray;
 }
 
@@ -455,12 +480,36 @@ function calcMonthDiff(orderMonth,inspectionMonth){
         var Difference_In_Month =Math.ceil( Difference_In_Time / (1000 * 3600 * 24*30));
         return Difference_In_Month;
 }
+
+function calcSubTotalManMonthRow(mainTableArray){
+    for (let i = 2; i < mainTableArray.length; i++) {
+        var sum=0;
+        for (let j = 2; j < mainTableArray[0].length; j++) {
+
+            sum+=mainTableArray[i][j];
+        }
+        mainTableArray[i][1]=sum;
+    }
+    return mainTableArray;
+}
+
+function calcSubTotalManMonthColumn(mainTableArray){
+    for (let i = 2; i < mainTableArray[0].length; i++) {
+        var sum=0;
+        for (let j = 2; j < mainTableArray.length; j++) {
+
+            sum+=mainTableArray[j][i];
+        }
+        mainTableArray[1][i]=sum;
+    }
+    return mainTableArray;
+}
 function convertToSimple2DArray(project){
     var members =project.member;
     console.log(project);
     var projectLeaderID= project.projectLeaderID;
     var totalMonths=calcMonthDiff(project.orderMonth,project.inspectionMonth);
-    console.log(totalMonths);
+    //console.log(totalMonths);
     var mainTableArray= new Array(members.length+2).fill(0);
     
     for (let i = 0; i < members.length; i++) {
@@ -472,10 +521,12 @@ function convertToSimple2DArray(project){
             mainTableArray[0]= generateMonths(project.orderMonth,totalMonths);
         }
         
-        mainTableArray[i+2]=convertToArrayAssign(assigns, members[i].memberID);
+        mainTableArray[i+2]=convertToArrayAssign(assigns, members[i].memberID,mainTableArray[0]);
     }
     console.log(mainTableArray);
     mainTableArray= putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID);
+    mainTableArray=calcSubTotalManMonthRow(mainTableArray);
+    mainTableArray=calcSubTotalManMonthColumn(mainTableArray);
     return mainTableArray;
 }
 //=== RENDERING PROJECT DETAILS TABLES ===//
@@ -486,7 +537,7 @@ function renderEmptyAssignAccordion(assignData,project) {
     console.log(project);
     var diff=3;
     var projectID=project.projectID;
-    convertToSimple2DArray(project);
+    
     accordionHTML =
 
         renderProjectManagementSummary(project) +
