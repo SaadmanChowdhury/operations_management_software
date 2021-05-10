@@ -72,20 +72,7 @@ class ProjectListRenderer{
 
     }
 
-        //=== CALCULATING PROJECT DURATION ===//
-
-    calcMonthDiff(orderMonth,inspectionMonth){
-        
-        var date1 = new Date(orderMonth);
-        var date2 = new Date(inspectionMonth);
-        
-        // To calculate the time difference of two dates
-        var Difference_In_Time = date2.getTime() - date1.getTime();
-        
-        // To calculate the no. of days between two dates
-        var Difference_In_Month =Math.ceil( Difference_In_Time / (1000 * 3600 * 24*30));
-        return Difference_In_Month;
-    }
+    
 
     //=== CALCULATING PROJECT PROFIT ===//
     calcProfit(salesTotal,budget){
@@ -438,20 +425,53 @@ function convertToArrayAssign(assign, memberID){
 
     return assignArray;
 }
+
+function generateMonths(orderMonth,totalMonths){
+    
+    var dateArray=new Array(totalMonths+2).fill(0);
+    
+    for(i=0;i<totalMonths;i++){
+        var date=new Date(orderMonth);
+        //orderMonth=date.toLocaleDateString();
+        dateArray[i+2]=orderMonth;
+        date.setMonth(date.getMonth() + 1);
+        //orderMonth=date.toLocaleDateString();
+    }
+    console.log(dateArray);
+    return dateArray;
+}
+
+    //=== CALCULATING PROJECT DURATION ===//
+
+function calcMonthDiff(orderMonth,inspectionMonth){
+        
+        var date1 = new Date(orderMonth);
+        var date2 = new Date(inspectionMonth);
+        
+        // To calculate the time difference of two dates
+        var Difference_In_Time = date2.getTime() - date1.getTime();
+        
+        // To calculate the no. of days between two dates
+        var Difference_In_Month =Math.ceil( Difference_In_Time / (1000 * 3600 * 24*30));
+        return Difference_In_Month;
+}
 function convertToSimple2DArray(project){
     var members =project.member;
+    console.log(project);
     var projectLeaderID= project.projectLeaderID;
-
+    var totalMonths=calcMonthDiff(project.orderMonth,project.inspectionMonth);
+    console.log(totalMonths);
     var mainTableArray= new Array(members.length+2).fill(0);
-
+    
     for (let i = 0; i < members.length; i++) {
 
         var assigns =members[i].assign;
         if(i==0){
-            mainTableArray[0]= new Array( assigns.length+2).fill(0);
-            mainTableArray[1]= new Array( assigns.length+2).fill(0);
+            //mainTableArray[0]= new Array( totalMonths+2).fill(0);
+            mainTableArray[1]= new Array( totalMonths+2).fill(0);
+            mainTableArray[0]= generateMonths(project.orderMonth,totalMonths);
         }
-
+        
         mainTableArray[i+2]=convertToArrayAssign(assigns, members[i].memberID);
     }
     console.log(mainTableArray);
