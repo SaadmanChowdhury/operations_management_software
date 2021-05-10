@@ -213,9 +213,14 @@ function display(id) {
     
     if($('#row' + id).is(':visible')){
         var response= readProjectAssign_AJAX(id); 
-        var project=response["resultData"]["project"];
-        var data=convertToSimple2DArray(project);
-        renderEmptyAssignAccordion(data,project);
+        try{
+            var project=response["resultData"]["project"];
+            var data=convertToSimple2DArray(project);
+            renderEmptyAssignAccordion(data,project);
+        }
+        catch(err){
+            console.log(err);
+        }
         //var simpleArray=processAssigninto2DArray(response);//-->2D Array
            
 
@@ -319,11 +324,11 @@ function generateAssignedMembersHtML(assignData){
         else{
             assignedMemberHTML+=`<tr class=editMode-input>`;
             if(i==2){
-                assignedMemberHTML+=`<td><img src="img/pro_icon.png" class="leader">${assignData[i][0]}</td>
+                assignedMemberHTML+=`<td><img src="img/pro_icon.png" class="leader">${convertUser_IDToName(assignData[i][0])}</td>
                                         <td>${assignData[i][1]}</td>`;
             }
             else{
-                assignedMemberHTML+=`<td><button class="delete editMode">-</button><img src="img/pro_icon.png">${assignData[i][0]}</td>
+                assignedMemberHTML+=`<td><button class="delete editMode">-</button><img src="img/pro_icon.png">${convertUser_IDToName(assignData[i][0])}</td>
                                         <td>${assignData[i][1]}</td>`;
             }
             
@@ -524,9 +529,13 @@ function convertToSimple2DArray(project){
         mainTableArray[i+2]=convertToArrayAssign(assigns, members[i].memberID,mainTableArray[0]);
     }
     console.log(mainTableArray);
+    
     mainTableArray= putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID);
     mainTableArray=calcSubTotalManMonthRow(mainTableArray);
     mainTableArray=calcSubTotalManMonthColumn(mainTableArray);
+    mainTableArray[1][0]=members.length;
+
+
     return mainTableArray;
 }
 //=== RENDERING PROJECT DETAILS TABLES ===//

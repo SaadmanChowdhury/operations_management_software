@@ -94,15 +94,19 @@ function validateForm() {
 function handleAJAXError(err) {
     var r = JSON.parse(err.responseText).errors;
 
+    try{
+        var keys = Object.keys(r);
 
-    var keys = Object.keys(r);
+        var errors = [];
+        for (let index = 0; index < keys.length; index++) {
+            errors.push(r[keys[index]]);
+        }
 
-    var errors = [];
-    for (let index = 0; index < keys.length; index++) {
-        errors.push(r[keys[index]]);
+        makeToast(errors);
     }
-
-    makeToast(errors);
+    catch (err){
+        console.log(err);
+    }
 }
 
 function isExisting( x){
