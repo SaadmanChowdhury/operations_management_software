@@ -20,6 +20,8 @@ class Assign extends Model
             ->select('assign_id as assignID', 'year', 'month', 'plan_man_month as value')
             ->where('assign.project_id', $projectID)
             ->where('assign.user_id', $memberID)
+            ->orderBy('month')
+            ->orderBy('year')
             ->get();
     }
 
@@ -29,6 +31,7 @@ class Assign extends Model
             ->select('user_id as memberID')
             ->where('assign.project_id', $projectID)
             ->groupBy('assign.user_id')
+            ->orderBy('user_id')
             ->get();
     }
 
