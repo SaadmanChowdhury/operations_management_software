@@ -32,7 +32,7 @@ function readProjectAssign_AJAX(projectID) {
 }
 
 //=== SENDING PROJECT DETAILS TO ASSIGN API ===//
-function updateAssignData_AJAX(assignData,projectID,diff,orderMonth,leader) {
+function updateAssignData_AJAX(assignData,projectID) {
     $.ajax({
         type: "post",
         url: "/API/upsertAssign",
@@ -46,7 +46,16 @@ function updateAssignData_AJAX(assignData,projectID,diff,orderMonth,leader) {
             if(response01["resultStatus"]["isSuccess"]) {
 
                 
-                updateDisplay(projectID,diff,orderMonth,leader);               
+                var response= readProjectAssign_AJAX(projectID); 
+                try{
+                    document.getElementById('row'+projectID).innerHTML="";
+                    var project=response["resultData"]["project"];
+                    var data=convertToSimple2DArray(project);
+                    renderEmptyAssignAccordion(data,project);
+                }
+                catch(err){
+                    console.log(err);
+                }              
 
             } else
                 handleAJAXResponse(response01);
@@ -339,7 +348,14 @@ function generateAssignedMembersHtML(assignData){
     return assignedMemberHTML;
 }
 
-
+function getMembersID(assignData){
+    var memberList=[];
+    for (let index = 2; index < assignData.length; index++) {
+        
+        memberList.push(assignData[index][0]);
+    }
+    return memberList;
+}
 function editModeOn(assignData,projectID){
 
     $( '#project-row-' + projectID +' .editMode').each(function( index ) {
@@ -356,15 +372,15 @@ function editModeOn(assignData,projectID){
         for(var j=2;j<assignData[0].length;j++)
         {
             if(j==2)
-                $(this).html("<td><input type=\"number\" class=\"data-cell\"  min=\"0\" max=\"1\"  name=\"data-cell\"  value=\""+assignData[i+1][j]+"\"></td>");
+                $(this).html("<td><input type=\"number\" class=\"data-cell\"  min=\"0\" max=\"1\"  name=\"data-cell\"  value=\""+assignData[i+2][j]+"\"></td>");
             else
-                $(this).append("<td><input type=\"number\" class=\"data-cell\" min=\"0\" max=\"1\"  name=\"data-cell\" value=\""+assignData[i+1][j]+"\"></td>");
+                $(this).append("<td><input type=\"number\" class=\"data-cell\" min=\"0\" max=\"1\"  name=\"data-cell\" value=\""+assignData[i+2][j]+"\"></td>");
         }
     });
 
 
     //==CONVERTING ORANGE TABLE into INPUT FIELDS==//
-
+    var membersID=getMembersID(assignData);
     var $dataTable2= $('#tableLeft-'+projectID).find('.editMode-input');
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
@@ -373,13 +389,13 @@ function editModeOn(assignData,projectID){
                 
                 var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
                 
-                   for(var j=1;j<=12;j++)
+                   for(var j=1;j<=15;j++)
                    {
-                       string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
-                    //  if(members[i].memberID==j)
-                    //     string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
-                    //  else
-                    //     string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
+                       //string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
+                     if(membersID[i]==j)
+                        string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
+                     else
+                        string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
                    }
                    string+=`</select>`;
                    $(this).html(string);
@@ -399,10 +415,153 @@ function editModeOn(assignData,projectID){
 
 }
 
+function saveTableLeftInput(projectID,newAssignArray){
+
+    //document.querySelectorAll("#tableLeft-1 > tbody > tr:nth-child(5) > td:nth-child(1) > select")
+    var rows=document.querySelectorAll("#tableLeft-"+projectID+" > tbody > tr > td > select");
+    console.log(newAssignArray[3][3]);
+    console.log(rows,rows.length);
+    
+    for (let index = 0; index < rows.length; index++) {
+         
+        newAssignArray[index+3][0]=rows[index].value;
+        console.log(newAssignArray[index+3][0]);
+                    
+    }
+    
+    return newAssignArray;
+
+}
+
+
+function saveInput(projectID,assignData){
+    
+    var rows=document.getElementById("tableRight-"+projectID).getElementsByTagName("tr");
+    
+
+    var newAssignArray=new Array(rows.length).fill(0);
+    console.log(newAssignArray);
+    
+    newAssignArray[0]=assignData[0]; // dates
+    newAssignArray[1]=assignData[1];
+    newAssignArray[2]=assignData[2];
+    
+    
+    for (let index = 3; index < rows.length; index++) {
+        var inputs= rows[index].getElementsByTagName("input");
+    　　newAssignArray[index]=new Array(inputs.length+2).fill(0);
+        for (let j = 0; j < inputs.length; j++) {
+
+            newAssignArray[index][j+2]=inputs[j].value;
+        }
+    }
+
+    console.log(newAssignArray);
+
+    newAssignArray= saveTableLeftInput(projectID,newAssignArray);
+
+
+    assign_arr=[];
+
+    for (let index = 2; index < newAssignArray.length; index++) {
+        for (let j = 2; j < newAssignArray[index].length; j++) {
+       
+            assign_arr.push(
+
+                {
+                    assignID :null,
+                    projectID:projectID,
+                    memberID: newAssignArray[index][0],	
+                    year: newAssignArray[0][j].getFullYear(),
+                    month:newAssignArray[0][j].getMonth()+1,
+                    value:newAssignArray[index][j]
+
+                }
+
+            );
+      
+      }
+    }
+
+    console.log(assign_arr);
+
+    
+    updateAssignData_AJAX(assign_arr,projectID);
+
+
+}
+
+function editModeOff(projectID,assignData) {
+
+
+    //===DISAPPEARING EDITING PENCIL===//
+    
+    $('.editMode').each(function(index,element){
+        
+        this.style.display="none";
+        document.getElementById('edit-'+projectID).style.display="block";
+    });
+
+    
+
+    //===DISAPPEARING EDITING BUTTONS===//
+    
+    var buttons= document.getElementById("project-row-"+projectID).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+
+    for (let index = 0; index < buttons.length; index++) {
+         
+        
+        buttons[index].classList.add("editMode");
+        buttons[index].style.display="none";
+        
+    }
+
+    saveInput(projectID,assignData);
+ 
+}
+
 function callActionListeners(projectID,assignData){
     document.getElementById("edit-"+projectID).onclick=function(){
         editModeOn(assignData,projectID);
     }
+    document.getElementById('save-'+projectID).onclick=function(){
+
+        editModeOff(projectID,assignData);
+        
+    };
+
+    document.getElementById('reset-'+projectID).onclick=function(){
+
+                
+        // resetActionCall(assignData,projectID);
+        var response= readProjectAssign_AJAX(projectID); 
+        try{
+            document.getElementById('row'+projectID).innerHTML="";
+            var project=response["resultData"]["project"];
+            var data=convertToSimple2DArray(project);
+            renderEmptyAssignAccordion(data,project);
+            editModeOn(assignData,projectID);
+        }
+        catch(err){
+            console.log(err);
+        }
+                
+    };
+    
+    document.getElementById('trash-'+projectID).onclick=function(){
+
+        var response= readProjectAssign_AJAX(projectID); 
+        try{
+            document.getElementById('row'+projectID).innerHTML="";
+            var project=response["resultData"]["project"];
+            var data=convertToSimple2DArray(project);
+            renderEmptyAssignAccordion(data,project);
+        }
+        catch(err){
+            console.log(err);
+        }
+        
+    };
 }
 
 function getPojectLeaderAssignArrayIndex(mainTableArray, projectLeaderID){
@@ -488,6 +647,17 @@ function calcMonthDiff(orderMonth,inspectionMonth){
         return Difference_In_Month;
 }
 
+function calcTotalManMonth(mainTableArray){
+    var sum=0;
+    for (let i = 2; i < mainTableArray.length; i++) {
+        
+        sum+=mainTableArray[i];
+        
+    }
+    mainTableArray[1]=sum;
+    return mainTableArray;
+}
+
 function calcSubTotalManMonthRow(mainTableArray){
     for (let i = 2; i < mainTableArray.length; i++) {
         var sum=0;
@@ -536,7 +706,7 @@ function convertToSimple2DArray(project){
     mainTableArray=calcSubTotalManMonthRow(mainTableArray);
     mainTableArray=calcSubTotalManMonthColumn(mainTableArray);
     mainTableArray[1][0]=members.length;
-
+    mainTableArray[1]=calcTotalManMonth(mainTableArray[1]);
 
     return mainTableArray;
 }

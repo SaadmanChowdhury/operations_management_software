@@ -194,10 +194,10 @@ function renderProjectHTML(response01) {
     
 }
 
-function printHeader(x,orderMonth){
+function printHeader(projectID,orderMonth){
     
     var print='';
-    for(i=0;i<x;i++){
+    for(i=0;i<projectID;i++){
         var date=new Date(orderMonth);
         orderMonth=date.toLocaleDateString();
         print+=`<th>`+orderMonth+`</th>`;
@@ -207,9 +207,9 @@ function printHeader(x,orderMonth){
     }
     return print;
 }
-function printTotal(x,totalWorkMonth){
+function printTotal(projectID,totalWorkMonth){
     var print='';
-    for(i=0;i<x;i++){
+    for(i=0;i<projectID;i++){
         print+=` <td>${totalWorkMonth[i]}</td>`;
     }
     return print;
@@ -246,17 +246,17 @@ var all_cacheAssign=[];
 function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02) {
     
     
-    var x=response02["resultData"]["project"]["member"].length+1;
+    var projectID=response02["resultData"]["project"]["member"].length+1;
     var members=objectToArray(response02["resultData"]["project"]["member"]);
     
-    assign = new Array(x);
-    assignObj=new Array(x);
+    assign = new Array(projectID);
+    assignObj=new Array(projectID);
     for (var i = 0; i < assign.length; i++) {
         assign[i] = new Array(diff);
         assignObj[i]=new Array(diff);
     }
    
-    for(var i=0;i<x;i++)
+    for(var i=0;i<projectID;i++)
     {
         
         for(var j=0;j<diff;j++)
@@ -322,7 +322,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     for(var i=0;i<diff;i++)
     {
         var sum=0;
-        for(var j=1;j<x;j++)
+        for(var j=1;j<projectID;j++)
         {
             sum+=assign[j][i];
         }
@@ -377,7 +377,7 @@ function renderEmptyAssignAccordion(projectID,diff,orderMonth,leader,response02)
     
                     </tr>
                     <tr class="row-total">
-                        <td>${x-1}</td>
+                        <td>${projectID-1}</td>
                         <td>${sumWork}</td>
                     </tr>`;
            
@@ -609,19 +609,19 @@ function filterProject(e) {
 
 //===TURNING ON EDIT-MODE===//
 
-function editModeOn(x,members) {
+function editModeOn(projectID,members) {
     
-    assign=cache_assign[x];
+    assign=cache_assign[projectID];
     
     
-    $( '#project-row-' + x +' .editMode').each(function( index ) {
+    $( '#project-row-' + projectID +' .editMode').each(function( index ) {
         this.style.display="block";
-        document.getElementById("edit-"+x).style.display="none";
+        document.getElementById("edit-"+projectID).style.display="none";
     });
     
 
     //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
-    var $dataTable= $('#tableRight-'+x).find('.editMode-input');
+    var $dataTable= $('#tableRight-'+projectID).find('.editMode-input');
     //$dataTable.innerHTML=``;
     //==ADDING EDITING FIELDS TO BLUE TABLE==//
     
@@ -637,7 +637,7 @@ function editModeOn(x,members) {
 
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
-    var $dataTable2= $('#tableLeft-'+x).find('.editMode-input');
+    var $dataTable2= $('#tableLeft-'+projectID).find('.editMode-input');
     //==ADDING EDITING FIELDS TO ORANGE TABLE==//
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
@@ -660,7 +660,7 @@ function editModeOn(x,members) {
         });
     });
 
-    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+    var buttons= document.getElementById("project-row-"+projectID).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
 
    for (let index = 0; index < buttons.length; index++) {
        
@@ -668,23 +668,23 @@ function editModeOn(x,members) {
        
    }
 
-   deleteRowActionListener(x);
+   deleteRowActionListener(projectID);
 
 }
 
 
-function deleteRowActionListener(x){
+function deleteRowActionListener(projectID){
 
     var i=0;  
-    document.getElementById("project-row-"+x).querySelectorAll(".delete").forEach(function(obj,index){ 
+    document.getElementById("project-row-"+projectID).querySelectorAll(".delete").forEach(function(obj,index){ 
         obj.addEventListener("click", function(event){
             
              if(i==0){
-                document.getElementById("tableLeft-"+x).deleteRow(index+3);
-                document.getElementById("tableRight-"+x).deleteRow(index+3);
+                document.getElementById("tableLeft-"+projectID).deleteRow(index+3);
+                document.getElementById("tableRight-"+projectID).deleteRow(index+3);
                  i++;
 
-                deleteRowActionListener(x);
+                deleteRowActionListener(projectID);
              } 
         });
     });
@@ -692,7 +692,7 @@ function deleteRowActionListener(x){
 
 //===TURNING OFF EDIT-MODE===//
 
-function editModeOff(x,diff,assignMonth,leader) {
+function editModeOff(projectID,diff,assignMonth,leader) {
 
 
     //===DISAPPEARING EDITING PENCIL===//
@@ -700,8 +700,8 @@ function editModeOff(x,diff,assignMonth,leader) {
     $('.editMode').each(function(index,element){
         
         this.style.display="none";
-        //$('#edit-'+x).show();
-        document.getElementById('edit-'+x).style.display="block";
+        //$('#edit-'+projectID).show();
+        document.getElementById('edit-'+projectID).style.display="block";
     });
 
     var details, user_details;
@@ -709,13 +709,13 @@ function editModeOff(x,diff,assignMonth,leader) {
     
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
     
-    var $dataTable2 = $('.table-fix').eq(x - 1).find('.editMode-input');
+    var $dataTable2 = $('.table-fix').eq(projectID - 1).find('.editMode-input');
     
 
     //===DISAPPEARING EDITING BUTTONS===//
     
    
-    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+    var buttons= document.getElementById("project-row-"+projectID).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
 
     for (let index = 0; index < buttons.length; index++) {
          
@@ -725,10 +725,10 @@ function editModeOff(x,diff,assignMonth,leader) {
         
     }
 
-    saveInput(x,diff,assignMonth,leader);
+    saveInput(projectID,diff,assignMonth,leader);
  
 }
-function saveTableLeftInput(x,date,diff){
+function saveTableLeftInput(projectID,date,diff){
 
     //document.querySelectorAll("#tableLeft-1 > tbody > tr:nth-child(5) > td:nth-child(1) > select")
     var rows=document.querySelectorAll("#tableLeft-1 > tbody > tr > td:nth-child(1) > select");
@@ -752,7 +752,7 @@ function saveTableLeftInput(x,date,diff){
                         assignID : null,
                         memberID: rows[index].value,
                         month: date.getMonth()+1 ,
-                        projectID: x,
+                        projectID: projectID,
                         value: 1,
                         year: date.getFullYear()
                 }
@@ -765,25 +765,79 @@ function saveTableLeftInput(x,date,diff){
         
     }
 
-    var userLength=all_cacheAssign[x].length;
-    var assignLength=all_cacheAssign[x][userLength-1].length;
+    var userLength=all_cacheAssign[projectID].length;
+    var assignLength=all_cacheAssign[projectID][userLength-1].length;
     
-    //all_cacheAssign[x][assignLength]=added_row[0];
+    //all_cacheAssign[projectID][assignLength]=added_row[0];
 
-    //all_cacheAssign[x][index].push(added_row[index]);
+    //all_cacheAssign[projectID][index].push(added_row[index]);
 
     for (let index = userLength-2; index < rows.length; index++) {
        
 
-        all_cacheAssign[x].push(added_row[index]);
+        all_cacheAssign[projectID].push(added_row[index]);
         
     }
 
 }
-function saveInput(x,diff,assignMonth,leader){
+
+function saveTableLeftInput(projectID,date,diff){
+
+    //document.querySelectorAll("#tableLeft-1 > tbody > tr:nth-child(5) > td:nth-child(1) > select")
+    var rows=document.querySelectorAll("#tableLeft-1 > tbody > tr > td:nth-child(1) > select");
     
-    var rows=document.getElementById("tableRight-"+x).getElementsByTagName("tr");
-    saveTableLeftInput(x,assignMonth,diff);
+    var start_date=new Date(date);
+
+    var added_row=new Array(0);
+
+    for (let index = 0; index < rows.length; index++) {
+        
+
+        date= start_date;
+        
+
+        added_row[index]= new Array(0);
+        for (let j = 0; j < diff; j++) {
+            //var date=assignMonth.getMonth()+j;
+            
+            added_row[index].push(
+                    {
+                        assignID : null,
+                        memberID: rows[index].value,
+                        month: date.getMonth()+1 ,
+                        projectID: projectID,
+                        value: 1,
+                        year: date.getFullYear()
+                }
+    
+            )
+            date.setMonth(date.getMonth()+1);
+        
+        }
+
+        
+    }
+
+    var userLength=all_cacheAssign[projectID].length;
+    var assignLength=all_cacheAssign[projectID][userLength-1].length;
+    
+    //all_cacheAssign[projectID][assignLength]=added_row[0];
+
+    //all_cacheAssign[projectID][index].push(added_row[index]);
+
+    for (let index = userLength-2; index < rows.length; index++) {
+       
+
+        all_cacheAssign[projectID].push(added_row[index]);
+        
+    }
+
+}
+
+function saveInput(projectID,diff,assignMonth,leader){
+    
+    var rows=document.getElementById("tableRight-"+projectID).getElementsByTagName("tr");
+    saveTableLeftInput(projectID,assignMonth,diff);
 
     var assigns=new Array(rows.length);
     for (let index = 2; index < rows.length; index++) {
@@ -795,23 +849,23 @@ function saveInput(x,diff,assignMonth,leader){
 
             assigns[index][j]=inputs[j].value;
             //assign[index-1][j]=inputs[j].value;
-            cache_assign[x][index-1][j]=inputs[j].value;
+            cache_assign[projectID][index-1][j]=inputs[j].value;
         }
     }
     
 
-    for (let index = 1; index < all_cacheAssign[x].length; index++) {
+    for (let index = 1; index < all_cacheAssign[projectID].length; index++) {
         
-        for (let j = 0; j < all_cacheAssign[x][index].length; j++) {
+        for (let j = 0; j < all_cacheAssign[projectID][index].length; j++) {
 
             try{
             
-            all_cacheAssign[x][index][j].value=parseFloat(assigns[index+1][j]);
+            all_cacheAssign[projectID][index][j].value=parseFloat(assigns[index+1][j]);
 
             }
             catch(err){
 
-                all_cacheAssign[x][index][j].value=0;
+                all_cacheAssign[projectID][index][j].value=0;
                 console.log(err);
             }
             
@@ -820,20 +874,20 @@ function saveInput(x,diff,assignMonth,leader){
     }
 
     var assign_arr=[];
-    for (let index = 1; index < all_cacheAssign[x].length; index++) {
+    for (let index = 1; index < all_cacheAssign[projectID].length; index++) {
       
         
-        for (let j = 0; j < all_cacheAssign[x][index].length; j++) {
+        for (let j = 0; j < all_cacheAssign[projectID][index].length; j++) {
        
             assign_arr.push(
 
                 {
-                    assignID :all_cacheAssign[x][index][j].assignID,
-                    projectID:all_cacheAssign[x][index][j].projectID,
-                    memberID:all_cacheAssign[x][index][j].memberID,	
-                    year: all_cacheAssign[x][index][j].year,
-                    month:all_cacheAssign[x][index][j].month,
-                    value:all_cacheAssign[x][index][j].value
+                    assignID :all_cacheAssign[projectID][index][j].assignID,
+                    projectID:all_cacheAssign[projectID][index][j].projectID,
+                    memberID:all_cacheAssign[projectID][index][j].memberID,	
+                    year: all_cacheAssign[projectID][index][j].year,
+                    month:all_cacheAssign[projectID][index][j].month,
+                    value:all_cacheAssign[projectID][index][j].value
 
                 }
 
@@ -845,14 +899,14 @@ function saveInput(x,diff,assignMonth,leader){
     }
 
     
-    updateAssignData_AJAX(assign_arr,x,diff,assignMonth,leader);
+    updateAssignData_AJAX(assign_arr,projectID,diff,assignMonth,leader);
 
 
 }
 
 //===ADDING ROWS on CLICKING ADD BUTTON===//
 
-function addRow(x,diff) {
+function addRow(projectID,diff) {
     
     var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
                    for(var j=1;j<=30;j++)
@@ -863,7 +917,7 @@ function addRow(x,diff) {
                             string+=`<option value=${j} >${convertUser_IDToName(j)}</option>`;
                    }
                    string+=`</select></td>`;
-    $('#tableLeft-'+x+' tbody').innerHTML += `<tr class="editMode-input">
+    $('#tableLeft-'+projectID+' tbody').innerHTML += `<tr class="editMode-input">
                                                 `+string+`
                                                 <td>0</td>
                                             </tr>`;
@@ -877,24 +931,24 @@ function addRow(x,diff) {
         temp_cacheAssign[length][index]=0;
         
     }
-    $('#tableRight-'+x+' tbody').innerHTML += `<tr class="editMode-input">
+    $('#tableRight-'+projectID+' tbody').innerHTML += `<tr class="editMode-input">
                                             `+string +`</tr>`;
     
-    deleteRowActionListener(x);
+    deleteRowActionListener(projectID);
 
 }
-function resetActionListener(x){
+function resetActionListener(projectID){
 
-    assign=cache_assign[x];
+    assign=cache_assign[projectID];
     
-    $( '#project-row-' + x +' .editMode').each(function( index ) {
+    $( '#project-row-' + projectID +' .editMode').each(function( index ) {
         this.style.display="block";
-        $('.pencil-btn').eq(x-1).hide();
+        $('.pencil-btn').eq(projectID-1).hide();
     });
     
 
     //==FETCHING ALL EDITING FIELDS OF BLUE TABLE==//
-    var $dataTable= $('.table-des').eq(x-1).find('.editMode-input');
+    var $dataTable= $('.table-des').eq(projectID-1).find('.editMode-input');
     //==ADDING EDITING FIELDS TO BLUE TABLE==//
     
     $dataTable.each(function(i){
@@ -909,7 +963,7 @@ function resetActionListener(x){
 
 
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
-    var $dataTable2= $('.table-fix').eq(x-1).find('.editMode-input');
+    var $dataTable2= $('.table-fix').eq(projectID-1).find('.editMode-input');
     //==ADDING EDITING FIELDS TO ORANGE TABLE==//
     $dataTable2.each(function(i){
         $(this).children('td').each(function( index ){
@@ -928,7 +982,7 @@ function resetActionListener(x){
         });
     });
 
-    var buttons= document.getElementById("project-row-"+x).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+    var buttons= document.getElementById("project-row-"+projectID).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
 
    for (let index = 0; index < buttons.length; index++) {
        
@@ -939,9 +993,9 @@ function resetActionListener(x){
 
 }
 
-// function trashActionListener(x){
-//     editModeOn(x);
-//     editModeOff(x);
+// function trashActionListener(projectID){
+//     editModeOn(projectID);
+//     editModeOff(projectID);
 // }
 function updateAssignData_AJAX(assignData,projectID,diff,orderMonth,leader) {
     $.ajax({
