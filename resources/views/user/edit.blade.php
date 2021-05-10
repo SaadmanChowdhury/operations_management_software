@@ -272,7 +272,27 @@ function updateUser() {
 function deleteUser() {
     event.preventDefault();
     userId = $('#id').val();
+    Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085D6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteUserComfirmation( userId );
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        }) 
+}
 
+ function deleteUserComfirmation( userId ){
     $.ajax({
         type: "post",
         url: "/API/deleteUser",
@@ -292,5 +312,5 @@ function deleteUser() {
             handleAJAXError(err);
         }
     });
-}
+ }
 </script>
