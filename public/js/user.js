@@ -63,13 +63,7 @@ function renderHTML(response) {
         // DATE
         let today = new Date();
         let date = new Date(row.admissionDay);
-        var unit = '年';
-        var time_diff = Math.floor((today.getTime() - date.getTime()) / 1000 / 3600 / 24 / 365);
-        if (time_diff == 0) {
-            time_diff = Math.floor((today.getTime() - date.getTime()) / 1000 / 3600 / 24 / 30);
-            unit = '月';
-
-        }
+        var time_diff = dateDifference(today,date)
 
         //GENDER
         var gender;
@@ -114,9 +108,9 @@ function renderHTML(response) {
                 <div class="user-name">${row.username}</div></li>` +
             `<li class="user-location">${loc}</li>` +
             `<li><div class="pos pos-${pos}">${pos}</div></li>` +
-            `<li>${time_diff}${unit}</li>` +
-            unitPriceString +
-            editableButtonString+
+            `<li>${time_diff}</li>` +
+            `<li>${unitPrice}</li>` +
+            `<li><div class="edit" onclick="userEditModalHandler(${row.userID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>` +
             `</div></div></div>`;
 
         staffs[0].innerHTML += rowHtml;

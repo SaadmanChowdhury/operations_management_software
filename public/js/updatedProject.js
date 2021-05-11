@@ -242,7 +242,7 @@ function display(id) {
 function getProjectDuration(project){
 
     var duration = project.minYear+"年"+project.minMonth+"月‐"+project.maxYear+"年"+project.maxMonth+"月";
-
+    return duration;
 
 }
 function renderProjectManagementSummary(project){
@@ -298,7 +298,13 @@ function generateProjectDetailsBody_AssignedValues(assignData){
         assignedValueHTML+=`<tr class="editMode-input">`;
         for (let j = 2; j < assignData[0].length; j++) {
 
-            assignedValueHTML+=`<td>${assignData[i][j]}</td>`;
+            if(assignData[i][j]>0){
+                assignedValueHTML+=`<td class="faded-yellow">${assignData[i][j]}</td>`; 
+            }
+            else{
+                assignedValueHTML+=`<td>${assignData[i][j]}</td>`;
+            }
+            
             
         }
         assignedValueHTML+=`</tr>`;
