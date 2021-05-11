@@ -1,5 +1,25 @@
 
-
+////====USER-LIST====////
+var users;
+function fetchUserList_AJAX() {
+    $.ajax({
+        type: "post",
+        url: "/API/fetchUserList",
+        data: {
+            _token: $('#csrf-token')[0].content,
+        },
+        cache: false,
+        success: function (response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                users=response["resultData"]["user"];
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function (err) {
+            handleAJAXError(err);
+        }
+    });
+}
 
 //=== READING PROJECT DETAILS OF EACH PROJECT FROM API ===//
 function readProjectAssign_AJAX(projectID) {
@@ -72,8 +92,10 @@ function updateAssignData_AJAX(assignData,projectID) {
 
 document.addEventListener("DOMContentLoaded", () => { 
     
+    fetchUserList_AJAX();
     var obj= new ProjectListRenderer();
-    obj.fetchProjectList_AJAX() 
+    obj.fetchProjectList_AJAX()
+
 });
 
 class ProjectListRenderer{
@@ -275,7 +297,7 @@ function renderProjectManagementSummary(project){
                 </tr>
                 <tr>
                     <td>期間</td>
-                    <td>12月</td>
+                    <td>${dateDifference(new Date(project.inspectionMonth) , new Date(project.orderMonth))}</td>
                 </tr>
             </table>
         </div>`;
@@ -395,13 +417,14 @@ function editModeOn(assignData,projectID){
                 
                 var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
                 
-                   for(var j=1;j<=15;j++)
+                   for(var j=0;j<users.length;j++)
                    {
                        //string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
-                     if(membersID[i]==j)
-                        string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
+                       //console.log(users[j]);
+                     if(membersID[i]==users[j].userID)
+                        string+=`<option value=${users[j].userID} selected>${convertUser_IDToName(users[j].userID)}</option>`;
                      else
-                        string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
+                        string+=`<option value=${users[j].userID}>${convertUser_IDToName(users[j].userID)}</option>`;
                    }
                    string+=`</select>`;
                    $(this).html(string);
@@ -783,12 +806,12 @@ function renderEmptyAssignAccordion(assignData,project) {
 function addRow(projectID,diff) {
     
     var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
-                   for(var j=1;j<=30;j++)
+                   for(var j=0;j<users.length;j++)
                    {
-                       if(j==1)
-                            string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
+                       if(j==0)
+                            string+=`<option value=${users[j].userID} selected>${convertUser_IDToName(users[j].userID)}</option>`;
                         else
-                            string+=`<option value=${j} >${convertUser_IDToName(j)}</option>`;
+                            string+=`<option value=${users[j].userID} >${convertUser_IDToName(users[j].userID)}</option>`;
                    }
                    string+=`</select></td>`;
                    
