@@ -148,10 +148,7 @@ class ProjectListRenderer{
     }
 
     renderHTMLProjectList(project){
-        console.log(project);
-        //var monthDiff=this.calcMonthDiff(project.orderMonth,project.inspectionMonth);
-        //var leader= convertUser_IDToName(project.projectLeaderID);
-        //var profit = this.calcProfit(project.salesTotal,project.budget);
+        
         var projectHtml =
         `<div class="card _project" id="project-row-${project.projectID}">
         <div class="card-header" id="row1head" onclick="display(${project.projectID})">
@@ -253,8 +250,6 @@ function display(id) {
         catch(err){
             console.log(err);
         }
-        //var simpleArray=processAssigninto2DArray(response);//-->2D Array
-           
 
     }
     else{
@@ -269,7 +264,7 @@ function getProjectDuration(project){
 
 }
 function renderProjectManagementSummary(project){
-    console.log(project);
+    
     var ProjectManagementSummaryTableHTML =
 
     `<div class="card-body row _accordion">
@@ -420,9 +415,7 @@ function editModeOn(assignData,projectID){
                 
                    for(var j=0;j<users.length;j++)
                    {
-                       //string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
-                       //console.log(users[j]);
-                       
+                                              
                      if(membersID[i]==users[j].userID)
                         string+=`<option value=${users[j].userID} selected>${convertUser_IDToName(users[j].userID)}</option>`;
                      else
@@ -448,15 +441,12 @@ function editModeOn(assignData,projectID){
 
 function saveTableLeftInput(projectID,newAssignArray){
 
-    //document.querySelectorAll("#tableLeft-1 > tbody > tr:nth-child(5) > td:nth-child(1) > select")
     var rows=document.querySelectorAll("#tableLeft-"+projectID+" > tbody > tr > td > select");
-    //console.log(newAssignArray[3][3]);
-    //console.log(rows,rows.length);
+    
     
     for (let index = 0; index < rows.length; index++) {
          
         newAssignArray[index+3][0]=rows[index].value;
-        console.log(newAssignArray[index+3][0]);
                     
     }
     
@@ -471,7 +461,7 @@ function saveInput(projectID,assignData){
     
 
     var newAssignArray=new Array(rows.length).fill(0);
-    console.log(newAssignArray);
+    
     
     newAssignArray[0]=assignData[0]; // dates
     newAssignArray[1]=assignData[1];
@@ -489,7 +479,6 @@ function saveInput(projectID,assignData){
 
     newAssignArray[2][0]=assignData[2][0];
 
-    console.log(newAssignArray);
 
     newAssignArray= saveTableLeftInput(projectID,newAssignArray);
 
@@ -516,9 +505,7 @@ function saveInput(projectID,assignData){
       }
     }
 
-    console.log(assign_arr);
-
-    
+      
     updateAssignData_AJAX(assign_arr,projectID);
 
 
@@ -605,30 +592,29 @@ function getPojectLeaderAssignArrayIndex(mainTableArray, projectLeaderID){
     }
 }
 function putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID){
-    var ledaerIndex = getPojectLeaderAssignArrayIndex(mainTableArray,projectLeaderID);
+    var leaderIndex = getPojectLeaderAssignArrayIndex(mainTableArray,projectLeaderID);
 
     var tmpRow=mainTableArray[2];
-    mainTableArray[2]=mainTableArray[ledaerIndex];
-    mainTableArray[ledaerIndex]=tmpRow;
-    console.log(ledaerIndex);
+    mainTableArray[2]=mainTableArray[leaderIndex];
+    mainTableArray[leaderIndex]=tmpRow;
+    
     return mainTableArray;
 }
 
 function getAssignedValueByYearMonth(assign,date){
     date=new Date(date);
-    //console.log(date);
-    
+        
     for (let index = 0; index < assign.length; index++) {
         
         if(assign[index].year==date.getFullYear()&&assign[index].month==date.getMonth()+1){
-            //console.log(assign[index].year,assign[index].month,assign[index].value,date);
+            
             return assign[index].value;
         }
     }
     return 0;
 }
 function convertToArrayAssign(assign, memberID,dateArray){
-    console.log(assign);
+    
     var assignArray= new Array(dateArray.length).fill(0);
     for (let i = 0; i < dateArray.length; i++) {
 
@@ -655,13 +641,12 @@ function generateMonths(orderMonth,totalMonths){
     var dateArray=new Array(totalMonths+2).fill(0);
     var date=new Date(orderMonth);
     for(i=0;i<totalMonths;i++){
-        //orderMonth=date.toLocaleDateString();
+        
         dateArray[i+2]=new Date(date);
         date.setMonth(date.getMonth() + 1);
-        //console.log(date);
         date=new Date(date);
     }
-    //console.log(dateArray);
+    
     return dateArray;
 }
 
@@ -716,10 +701,9 @@ function calcSubTotalManMonthColumn(mainTableArray){
 }
 function convertToSimple2DArray(project){
     var members =project.member;
-    console.log(project);
     var projectLeaderID= project.projectLeaderID;
     var totalMonths=calcMonthDiff(project.orderMonth,project.inspectionMonth);
-    //console.log(totalMonths);
+    
     var mainTableArray= new Array(members.length+2).fill(0);
     
     for (let i = 0; i < members.length; i++) {
@@ -733,7 +717,7 @@ function convertToSimple2DArray(project){
         
         mainTableArray[i+2]=convertToArrayAssign(assigns, members[i].memberID,mainTableArray[0]);
     }
-    console.log(mainTableArray);
+    
     
     mainTableArray= putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID);
     mainTableArray=calcSubTotalManMonthRow(mainTableArray);
@@ -747,8 +731,7 @@ function convertToSimple2DArray(project){
 
 function renderEmptyAssignAccordion(assignData,project) {
     var dates=assignData[0];
-    console.log(dates);
-    console.log(project);
+    
     var diff=calcMonthDiff(project.orderMonth,project.inspectionMonth);
     var projectID=project.projectID;
     
@@ -837,12 +820,10 @@ function addRow(projectID,diff) {
 
         string=``;
     
-    // var length=temp_cacheAssign.length;
-    // temp_cacheAssign[length]=new Array(diff);
-    
+        
     for (let index = 0; index < diff; index++) {
         string+=`<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" min=\"0\" max=\"1\" value=\"0\"></td>`;
-        //temp_cacheAssign[length][index]=0;
+        
         
     }
     document.querySelector("#tableRight-"+projectID+" > tbody").innerHTML += `<tr class="editMode-input">
@@ -878,10 +859,10 @@ function deleteRowActionListener(projectID){
     });
 }
 
-var assignData= [[0,0,'2020/10','2020/11','2020/12'],
-                 [4,4.0,3.0,3.0,3.0],
-                 ['leader',18.0,1,1,1],
-                 ['member',18.0,1,1,1],
-                 ['member',18.0,1,1,1],
-                 ['member',18.0,1,1,1]
-                ];
+// var assignData= [[0,0,'2020/10','2020/11','2020/12'],
+//                  [4,4.0,3.0,3.0,3.0],
+//                  ['leader',18.0,1,1,1],
+//                  ['member',18.0,1,1,1],
+//                  ['member',18.0,1,1,1],
+//                  ['member',18.0,1,1,1]
+//                 ];
