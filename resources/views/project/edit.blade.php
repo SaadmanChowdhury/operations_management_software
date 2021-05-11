@@ -145,38 +145,7 @@ $(function() {
     convertToSearchableDropDown("project_edit_managerID_Input", "USER");
     convertToSearchableDropDown("project_edit_clientID_Input", "CLIENT");
 })
-function clearModalData(id) {
-    $("#" + id).find("input").val("");
-}
-function showModal(id) {
-    event.preventDefault();
 
-    $(".row.row-content").css("transition", "0.5s ease-in");
-    $(".row.row-content").css("transform", "translateY(30px)");
-    $(".row.row-content").css("opacity", "0");
-
-    $("#" + id).css('display', "block");
-    setTimeout(function () {
-        $("#" + id).addClass("modal-show");
-    }, 500)
-}
-
-function closeModal(id) {
-    event.preventDefault();
-    $("#" + id).removeClass("modal-show");
-    $(".row.row-content").css("transition", "transform 0.5s cubic-bezier(0.7, .5, .5, 0.9), opacity 0.5s cubic-bezier(0.8, .1, .9, 1)");
-    setTimeout(function () {
-        $(".row.row-content").css("transform", "translateY(0px)");
-        $(".row.row-content").css("opacity", "1");
-
-        setTimeout(function () {
-            $("#" + id).css('display', "none");
-        }, 300)
-        // $(".row.row-content").css("transition", "unset");
-    }, 300)
-
-
-}
 function projectEditModalHandler(projectID) {
     event.preventDefault();
     event.stopPropagation();

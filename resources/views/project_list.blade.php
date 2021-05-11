@@ -120,7 +120,8 @@
     </div>
 </div>
 
-
+    <script src="/js/main.js"></script>
+    <script src="/js/assign.js"></script>
     @include("project.edit")
     @include("project.create")
 
