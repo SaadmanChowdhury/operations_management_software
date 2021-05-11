@@ -851,7 +851,7 @@ function addRow(projectID,diff) {
 
     var ips= document.querySelector("#tableRight-"+projectID+" > tbody").getElementsByTagName("input");
     for (let i = 0; i < ips.length; i++) {
-        ips[i].onkeyup=function(){
+        ips[i].onchange=function(){
             ips[i].setAttribute("value", ips[i].value);
 
         }
