@@ -163,8 +163,8 @@ class ProjectListRenderer{
         this.getDevelopmentStageHTML(project.developmentStage) +
         `<li>${project.orderMonth}</li>
         <li>${project.inspectionMonth}</li>
-        <li class="right-align">${project.salesTotal + " 円"}</li>
-        <li class="right-align">${project.budget + " 円"}</li>
+        <li class="right-align">${numberWithCommas(project.salesTotal) + " 円"}</li>
+        <li class="right-align">${numberWithCommas(project.budget) + " 円"}</li>
         <li>${project.profitPercentage}%</li>
         <li>
         <div class="edit" onclick="projectEditModalHandler(${project.projectID})">
@@ -273,11 +273,11 @@ function renderProjectManagementSummary(project){
             <table>
                 <tr>
                     <td>予算</td>
-                    <td>${project.budget}円</td>
+                    <td>${numberWithCommas(project.budget)}円</td>
                 </tr>
                 <tr>
                     <td>原価</td>
-                    <td>${project.cost}円</td>
+                    <td>${numberWithCommas(project.cost)}円</td>
                 </tr>
                 <tr>
                     <td>工数</td>
@@ -285,7 +285,7 @@ function renderProjectManagementSummary(project){
                 </tr>
                 <tr>
                     <td>粗利</td>
-                    <td>${project.profit}円</td>
+                    <td>${numberWithCommas(project.profit)}円</td>
                 </tr>
                 <tr>
                     <td>率</td>
@@ -526,7 +526,7 @@ function editModeOff(projectID,assignData) {
 
     //===DISAPPEARING EDITING BUTTONS===//
     
-    var buttons= document.getElementById("project-row-"+projectID).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+    var buttons= document.getElementById("project-row-"+projectID).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td> button");
 
     for (let index = 0; index < buttons.length; index++) {
          
@@ -813,13 +813,10 @@ function addRow(projectID,diff) {
     for (let i = 0; i < selects.length; i++) {
 
         selects[i].onchange= function(){
-        selects[i].options[selects[i].selectedIndex].setAttribute("selected" , "selected");
+            selects[i].options[selects[i].selectedIndex].setAttribute("selected" , "selected");
         }
     }
-                                          
-
         string=``;
-    
         
     for (let index = 0; index < diff; index++) {
         string+=`<td><input type=\"number\" class=\"data-cell\" name=\"data-cell\" min=\"0\" max=\"1\" value=\"0\"></td>`;
@@ -829,12 +826,10 @@ function addRow(projectID,diff) {
     document.querySelector("#tableRight-"+projectID+" > tbody").innerHTML += `<tr class="editMode-input">
                                             `+string +`</tr>`;
 
-
     var ips= document.querySelector("#tableRight-"+projectID+" > tbody").getElementsByTagName("input");
     for (let i = 0; i < ips.length; i++) {
         ips[i].onchange=function(){
             ips[i].setAttribute("value", ips[i].value);
-
         }
     }
     

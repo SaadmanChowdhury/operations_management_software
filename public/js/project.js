@@ -709,13 +709,13 @@ function editModeOff(projectID,diff,assignMonth,leader) {
     
     //==FETCHING ALL EDITING EDITING FIELDS OF ORANGE TABLE==//
     
-    var $dataTable2 = $('.table-fix').eq(projectID - 1).find('.editMode-input');
+    //var $dataTable2 = $('.table-fix').eq(projectID - 1).find('.editMode-input');
     
 
     //===DISAPPEARING EDITING BUTTONS===//
     
    
-    var buttons= document.getElementById("project-row-"+projectID).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child(1) > button");
+    var buttons= document.getElementById("project-row-"+projectID).querySelectorAll("div > div.project-rhs > div.table-right.row > table > tbody > tr > td:nth-child > button");
 
     for (let index = 0; index < buttons.length; index++) {
          
