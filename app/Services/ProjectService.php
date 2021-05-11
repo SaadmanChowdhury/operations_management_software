@@ -78,7 +78,6 @@ class ProjectService
 
         // Step 3
         $array = $this->helper_fetchProjectList($newArray);
-        dd($array);
 
         // Step 4 and 5
         return $this->arrayFormatting_fetchProjectList($array);
