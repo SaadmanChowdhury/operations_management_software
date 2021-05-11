@@ -1,5 +1,25 @@
 
-
+////====USER-LIST====////
+var users;
+function fetchUserList_AJAX() {
+    $.ajax({
+        type: "post",
+        url: "/API/fetchUserList",
+        data: {
+            _token: $('#csrf-token')[0].content,
+        },
+        cache: false,
+        success: function (response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                users=response["resultData"]["user"];
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function (err) {
+            handleAJAXError(err);
+        }
+    });
+}
 
 //=== READING PROJECT DETAILS OF EACH PROJECT FROM API ===//
 function readProjectAssign_AJAX(projectID) {
@@ -72,8 +92,10 @@ function updateAssignData_AJAX(assignData,projectID) {
 
 document.addEventListener("DOMContentLoaded", () => { 
     
+    fetchUserList_AJAX();
     var obj= new ProjectListRenderer();
-    obj.fetchProjectList_AJAX() 
+    obj.fetchProjectList_AJAX()
+
 });
 
 class ProjectListRenderer{
@@ -126,9 +148,10 @@ class ProjectListRenderer{
     }
 
     renderHTMLProjectList(project){
+        console.log(project);
         //var monthDiff=this.calcMonthDiff(project.orderMonth,project.inspectionMonth);
         //var leader= convertUser_IDToName(project.projectLeaderID);
-        var profit = this.calcProfit(project.salesTotal,project.budget);
+        //var profit = this.calcProfit(project.salesTotal,project.budget);
         var projectHtml =
         `<div class="card _project" id="project-row-${project.projectID}">
         <div class="card-header" id="row1head" onclick="display(${project.projectID})">
@@ -145,7 +168,7 @@ class ProjectListRenderer{
         <li>${project.inspectionMonth}</li>
         <li class="right-align">${project.salesTotal + " 円"}</li>
         <li class="right-align">${project.budget + " 円"}</li>
-        <li>${profit}%</li>
+        <li>${project.profitPercentage}%</li>
         <li>
         <div class="edit" onclick="projectEditModalHandler(${project.projectID})">
         <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
@@ -246,7 +269,7 @@ function getProjectDuration(project){
 
 }
 function renderProjectManagementSummary(project){
-
+    console.log(project);
     var ProjectManagementSummaryTableHTML =
 
     `<div class="card-body row _accordion">
@@ -275,7 +298,7 @@ function renderProjectManagementSummary(project){
                 </tr>
                 <tr>
                     <td>期間</td>
-                    <td>12月</td>
+                    <td>${dateDifference(new Date(project.inspectionMonth) , new Date(project.orderMonth))}</td>
                 </tr>
             </table>
         </div>`;
@@ -395,13 +418,15 @@ function editModeOn(assignData,projectID){
                 
                 var string=`<button class="delete editMode">-</button> <select class=\"data-cell-fixed\" required>`;
                 
-                   for(var j=1;j<=15;j++)
+                   for(var j=0;j<users.length;j++)
                    {
                        //string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
-                     if(membersID[i]==j)
-                        string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
+                       //console.log(users[j]);
+                       
+                     if(membersID[i]==users[j].userID)
+                        string+=`<option value=${users[j].userID} selected>${convertUser_IDToName(users[j].userID)}</option>`;
                      else
-                        string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
+                        string+=`<option value=${users[j].userID}>${convertUser_IDToName(users[j].userID)}</option>`;
                    }
                    string+=`</select>`;
                    $(this).html(string);
@@ -425,8 +450,8 @@ function saveTableLeftInput(projectID,newAssignArray){
 
     //document.querySelectorAll("#tableLeft-1 > tbody > tr:nth-child(5) > td:nth-child(1) > select")
     var rows=document.querySelectorAll("#tableLeft-"+projectID+" > tbody > tr > td > select");
-    console.log(newAssignArray[3][3]);
-    console.log(rows,rows.length);
+    //console.log(newAssignArray[3][3]);
+    //console.log(rows,rows.length);
     
     for (let index = 0; index < rows.length; index++) {
          
@@ -783,12 +808,12 @@ function renderEmptyAssignAccordion(assignData,project) {
 function addRow(projectID,diff) {
     
     var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
-                   for(var j=1;j<=30;j++)
+                   for(var j=0;j<users.length;j++)
                    {
-                       if(j==1)
-                            string+=`<option value=${j} selected>${convertUser_IDToName(j)}</option>`;
-                        else
-                            string+=`<option value=${j} >${convertUser_IDToName(j)}</option>`;
+                    //    if(j==0)
+                    //         string+=`<option value=${users[j].userID} selected>${convertUser_IDToName(users[j].userID)}</option>`;
+                    //     else
+                            string+=`<option value=${users[j].userID} >${convertUser_IDToName(users[j].userID)}</option>`;
                    }
                    string+=`</select></td>`;
                    
