@@ -148,9 +148,10 @@ class ProjectListRenderer{
     }
 
     renderHTMLProjectList(project){
+        console.log(project);
         //var monthDiff=this.calcMonthDiff(project.orderMonth,project.inspectionMonth);
         //var leader= convertUser_IDToName(project.projectLeaderID);
-        var profit = this.calcProfit(project.salesTotal,project.budget);
+        //var profit = this.calcProfit(project.salesTotal,project.budget);
         var projectHtml =
         `<div class="card _project" id="project-row-${project.projectID}">
         <div class="card-header" id="row1head" onclick="display(${project.projectID})">
@@ -167,7 +168,7 @@ class ProjectListRenderer{
         <li>${project.inspectionMonth}</li>
         <li class="right-align">${project.salesTotal + " 円"}</li>
         <li class="right-align">${project.budget + " 円"}</li>
-        <li>${profit}%</li>
+        <li>${project.profitPercentage}%</li>
         <li>
         <div class="edit" onclick="projectEditModalHandler(${project.projectID})">
         <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
@@ -268,7 +269,7 @@ function getProjectDuration(project){
 
 }
 function renderProjectManagementSummary(project){
-
+    console.log(project);
     var ProjectManagementSummaryTableHTML =
 
     `<div class="card-body row _accordion">
@@ -421,6 +422,7 @@ function editModeOn(assignData,projectID){
                    {
                        //string+=`<option value=${j}>${convertUser_IDToName(j)}</option>`;
                        //console.log(users[j]);
+                       
                      if(membersID[i]==users[j].userID)
                         string+=`<option value=${users[j].userID} selected>${convertUser_IDToName(users[j].userID)}</option>`;
                      else
@@ -448,8 +450,8 @@ function saveTableLeftInput(projectID,newAssignArray){
 
     //document.querySelectorAll("#tableLeft-1 > tbody > tr:nth-child(5) > td:nth-child(1) > select")
     var rows=document.querySelectorAll("#tableLeft-"+projectID+" > tbody > tr > td > select");
-    console.log(newAssignArray[3][3]);
-    console.log(rows,rows.length);
+    //console.log(newAssignArray[3][3]);
+    //console.log(rows,rows.length);
     
     for (let index = 0; index < rows.length; index++) {
          
@@ -808,9 +810,9 @@ function addRow(projectID,diff) {
     var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
                    for(var j=0;j<users.length;j++)
                    {
-                       if(j==0)
-                            string+=`<option value=${users[j].userID} selected>${convertUser_IDToName(users[j].userID)}</option>`;
-                        else
+                    //    if(j==0)
+                    //         string+=`<option value=${users[j].userID} selected>${convertUser_IDToName(users[j].userID)}</option>`;
+                    //     else
                             string+=`<option value=${users[j].userID} >${convertUser_IDToName(users[j].userID)}</option>`;
                    }
                    string+=`</select></td>`;
