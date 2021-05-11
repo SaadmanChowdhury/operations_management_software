@@ -797,6 +797,17 @@ function addRow(projectID,diff) {
                                                 `+string+`
                                                 <td>0</td>
                                             </tr>`;
+
+               
+
+                                            var selects = document.querySelector("#tableLeft-"+projectID+" > tbody").getElementsByTagName("select");
+
+                                            console.log(selects)
+                                            for (let i = 0; i < selects.length; i++) {
+                                                selects[i].options[selects[i].selectedIndex].setAttribute("selected" , "selected");
+                                            }
+                                          
+
         string=``;
     
     // var length=temp_cacheAssign.length;
@@ -809,6 +820,15 @@ function addRow(projectID,diff) {
     }
     document.querySelector("#tableRight-"+projectID+" > tbody").innerHTML += `<tr class="editMode-input">
                                             `+string +`</tr>`;
+
+
+                                            var ips= document.querySelector("#tableRight-"+projectID+" > tbody").getElementsByTagName("input");
+                                            for (let i = 0; i < ips.length; i++) {
+                                               ips[i].onkeyup=function(){
+                                                   ips[i].setAttribute("value", ips[i].value);
+
+                                               }
+                                            }
     
     deleteRowActionListener(projectID);
 
