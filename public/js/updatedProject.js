@@ -447,7 +447,7 @@ function saveInput(projectID,assignData){
     newAssignArray[2]=assignData[2];
     
     
-    for (let index = 3; index < rows.length; index++) {
+    for (let index = 2; index < rows.length; index++) {
         var inputs= rows[index].getElementsByTagName("input");
     　　newAssignArray[index]=new Array(inputs.length+2).fill(0);
         for (let j = 0; j < inputs.length; j++) {
@@ -455,6 +455,8 @@ function saveInput(projectID,assignData){
             newAssignArray[index][j+2]=inputs[j].value;
         }
     }
+
+    newAssignArray[2][0]=assignData[2][0];
 
     console.log(newAssignArray);
 
