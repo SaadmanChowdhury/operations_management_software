@@ -32,19 +32,19 @@
 
                     <div class="modal-form-input-container">
                         <div class="_full">
-                            <div><label for="name">案件名</label></div>
+                            <div><label for="name">案件名<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="text" id="project_create_name_Input" name="name" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container _dark">
                         <div class="_half">
-                            <div><label for="client_id">顧客</label></div>
+                            <div><label for="client_id">顧客<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_create_clientID_Input" name="client_id" required>
                             </div>
                         </div>
                         <div class="_half">
-                            <div><label for="manager_id">担当</label></div>
+                            <div><label for="manager_id">担当<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_create_managerID_Input" name="manager_id" required>
                             </div>
                         </div>
@@ -88,26 +88,26 @@
                     <div class="modal-form-input-container _dark">
 
                         <div class="_third">
-                            <div><label for="sales_total">売上高</label></div>
+                            <div><label for="sales_total">売上高<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_create_sales_total_Input" name="sales_total" required>
                             </div>
                         </div>
 
                         <div class="_third">
-                            <div><label for="transferred_amount">振込金額</label></div>
+                            <div><label for="transferred_amount">振込金額<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_create_transferred_amount_Input"
                                     name="transferred_amount" required></div>
                         </div>
 
                         <div class="_third">
-                            <div><label for="budget">予算</label></div>
+                            <div><label for="budget">予算<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_create_budget_Input" name="budget" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="order_month">受注月</label></div>
+                            <div><label for="order_month">受注月<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="date" id="project_create_order_month_Input" name="inspection_month"
                                     required></div>
                         </div>
@@ -188,6 +188,7 @@ function createProject() {
         },
         error: function(err) {
             handleAJAXError(err);
+            
         }
     });
 }
