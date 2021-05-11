@@ -65,13 +65,20 @@ class ProjectService
      */
     public function fetchProjectList()
     {
-
+        $newArray = [];
         $projectModel  = new Project;
         // Step 2
         $array = $projectModel->readProjectList();
 
+        // getting the profit percentage for each project
+        foreach ($array as $key => $value) {
+            $value->profitPercentage = $projectModel->getProjectProfitPercentage($value->projectID);
+            array_push($newArray, $value);
+        }
+
         // Step 3
-        $array = $this->helper_fetchProjectList($array);
+        $array = $this->helper_fetchProjectList($newArray);
+        dd($array);
 
         // Step 4 and 5
         return $this->arrayFormatting_fetchProjectList($array);
