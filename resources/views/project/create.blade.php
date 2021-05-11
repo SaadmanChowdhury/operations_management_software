@@ -17,14 +17,12 @@
                     </div>
 
                     <div>
-                        <button type="submit" onclick="createProject()"><i class="fa fa-floppy-o"
-                                aria-hidden="true"></i>
+                        <button type="submit" onclick="createProject()"><i class="fa fa-floppy-o" aria-hidden="true"></i>
                             登録</button>
                     </div>
 
                     <div>
-                        <button type="submit" class="cancel" onclick="closeModal('project-create-modal')"><i
-                                class="fa fa-times" aria-hidden="true"></i> 戻る</button>
+                        <button type="submit" class="cancel" onclick="closeModal('project-create-modal')"><i class="fa fa-times" aria-hidden="true"></i> 戻る</button>
                     </div>
                 </div>
 
@@ -114,8 +112,7 @@
 
                         <div class="_half">
                             <div><label for="inspection_month">検収月</label></div>
-                            <div><input type="date" id="project_create_inspection_month_Input" name="inspection_month"
-                                    required></div>
+                            <div><input type="date" id="project_create_inspection_month_Input" name="inspection_month" required></div>
                         </div>
                     </div>
 
