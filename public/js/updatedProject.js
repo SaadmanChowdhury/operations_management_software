@@ -515,8 +515,8 @@ function editModeOff(projectID,assignData) {
 
 
     //===DISAPPEARING EDITING PENCIL===//
-    
-    $('.editMode').each(function(index,element){
+    //#row1 > div > div.project-rhs > div.add-minus-holder.editMode
+    $('#row'+projectID+' > div > div.project-rhs > .editMode').each(function(index,element){
         
         this.style.display="none";
         document.getElementById('edit-'+projectID).style.display="block";
@@ -789,6 +789,8 @@ function renderEmptyAssignAccordion(assignData,project) {
 //===ADDING ROWS on CLICKING ADD BUTTON===//
 
 function addRow(projectID,diff) {
+
+    addActionListenerForInputs(projectID);
     
     var string=`<td><button class="delete">-</button> <select class=\"data-cell-fixed\" required>`;
                    for(var j=0;j<users.length;j++)
@@ -826,15 +828,31 @@ function addRow(projectID,diff) {
     document.querySelector("#tableRight-"+projectID+" > tbody").innerHTML += `<tr class="editMode-input">
                                             `+string +`</tr>`;
 
+
+   
+    
+    deleteRowActionListener(projectID);
+    addActionListenerForInputs(projectID);
+
+}
+
+function addActionListenerForInputs(projectID){
+
+    var selects = document.querySelector("#tableLeft-"+projectID+" > tbody").getElementsByTagName("select");
+
+    for (let i = 0; i < selects.length; i++) {
+
+        selects[i].onchange= function(){
+        selects[i].options[selects[i].selectedIndex].setAttribute("selected" , "selected");
+        }
+    }
+
     var ips= document.querySelector("#tableRight-"+projectID+" > tbody").getElementsByTagName("input");
     for (let i = 0; i < ips.length; i++) {
         ips[i].onchange=function(){
             ips[i].setAttribute("value", ips[i].value);
         }
     }
-    
-    deleteRowActionListener(projectID);
-
 }
 
 function deleteRowActionListener(projectID){
