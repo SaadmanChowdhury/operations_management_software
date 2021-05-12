@@ -270,7 +270,8 @@ function renderProjectManagementSummary(project){
     
     var ProjectManagementSummaryTableHTML =
 
-    `<div class="card-body row _accordion">
+    `<div class="card-body row _accordion" onload="loadSpinner()">
+       <div id="loader"></div>
     
         <div class="table-left">
             <table>
@@ -896,6 +897,21 @@ function deleteRowActionListener(projectID){
         });
     });
 }
+
+function showPage() {
+    console.log('called');
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("row1").style.display = "block";
+}
+
+function loadSpinner() {
+    
+    setTimeout(showPage, 1000);
+}
+  
+
+
+
 
 // var assignData= [[0,0,'2020/10','2020/11','2020/12'],
 //                  [4,4.0,3.0,3.0,3.0],
