@@ -299,27 +299,67 @@ function renderProjectManagementSummary(project){
           <!--<div id="loader"></div>-->
               
         <div class="table-left">
-            <table>
-                <tr>
-                    <td>予算</td>
-                    <td>${numberWithCommas(project.budget)}円</td>
-                </tr>
-                <tr>
-                    <td>原価</td>
-                    <td>${numberWithCommas(project.cost)}円</td>
-                </tr>
-                <tr>
+            <table>`;
+                    if(isProjectEditable(project.projectLeaderID))
+                    {
+                        ProjectManagementSummaryTableHTML+=`
+                        <tr><td>予算</td><td>${numberWithCommas(project.budget)}円</td></tr>`;
+
+                    }
+                    else{
+
+                        ProjectManagementSummaryTableHTML+=``;
+
+                    }
+        
+                    if(isProjectEditable(project.projectLeaderID))
+                    {
+                        ProjectManagementSummaryTableHTML+=`<tr>
+                        <td>原価</td><td>${numberWithCommas(project.cost)}円</td></tr>`;
+
+                    }
+                    else{
+
+                        ProjectManagementSummaryTableHTML+=``;
+
+                    }
+        ProjectManagementSummaryTableHTML+=    
+  
+        `        <tr>
                     <td>工数</td>
                     <td>${project.member.length}</td>
-                </tr>
-                <tr>
-                    <td>粗利</td>
-                    <td>${numberWithCommas(project.profit)}円</td>
-                </tr>
-                <tr>
-                    <td>率</td>
-                    <td>${project.profitPercentage}%</td>
-                </tr>
+                </tr>`;
+                    if(isProjectEditable(project.projectLeaderID))
+                    {
+                        ProjectManagementSummaryTableHTML+=`
+                        <tr>
+                            <td>粗利</td><td>${numberWithCommas(project.profit)}円</td>
+                        </tr>`;
+
+                    }
+                    else{
+
+                        ProjectManagementSummaryTableHTML+=``;
+
+                    }
+        
+                    if(isProjectEditable(project.projectLeaderID))
+                    {
+                        ProjectManagementSummaryTableHTML+=`
+                        <tr>
+                            <td>率</td>
+                            <td>${numberWithCommas(project.profitPercentage)}%</td>
+                        </tr>`;
+
+                    }
+                    else{
+
+                        ProjectManagementSummaryTableHTML+=``;
+
+                    }
+        ProjectManagementSummaryTableHTML+=    
+  
+          `
                 <tr>
                     <td>期間</td>
                     <td>${dateDifference(new Date(project.inspectionMonth) , new Date(project.orderMonth))}</td>
