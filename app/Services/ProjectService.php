@@ -241,12 +241,33 @@ class ProjectService
 
     public function readProjectAssign($projectID)
     {
+        $loggedUser = auth()->user();
         $projectModel  = new Project;
         $assignModel  = new Assign;
+
         $data['project'] = $projectModel->getProjectData($projectID);
-        $data['project']->cost = $projectModel->getProjectCost($projectID);
-        $data['project']->profit = $projectModel->getProjectProfit($projectID);
-        $data['project']->profitPercentage = $projectModel->getProjectProfitPercentage($projectID);
+
+        // non-admin and non-leader are not allowed to see budget, cost, profit of the project
+        if (
+            $loggedUser->user_authority !=  'システム管理者' &&
+            $loggedUser->user_id != $data['project']->projectLeaderID
+        ) {
+            $data['project']->budget = null;
+            $data['project']->cost = null;
+            $data['project']->profit = null;
+            $data['project']->profitPercentage = null;
+        }
+
+        // only admin and leader will get these information
+        if (
+            $loggedUser->user_authority ==  'システム管理者' ||
+            $loggedUser->user_id == $data['project']->projectLeaderID
+        ) {
+            $data['project']->cost = $projectModel->getProjectCost($projectID);
+            $data['project']->profit = $projectModel->getProjectProfit($projectID);
+            $data['project']->profitPercentage = $projectModel->getProjectProfitPercentage($projectID);
+        }
+
         $data['project']->totalManMonth = $projectModel->getTotalManMonth($projectID);
 
         $data['project']->member = $assignModel->getMemberId($projectID);
