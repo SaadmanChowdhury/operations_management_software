@@ -30,9 +30,9 @@
                     </a>
 
                     @if ($loggedInUser->user_authority == 'システム管理者')
-                        <a href="" onclick="clientRegisterModalHandler()">
-                            <li> + 登録</li>
-                        </a>
+                    <a href="" onclick="clientRegisterModalHandler()">
+                        <li> + 登録</li>
+                    </a>
                     @endif
                 </ul>
 
@@ -61,48 +61,47 @@
             <div class="client table-body">
 
                 @foreach ($list as $client)
-                    <div class="card _client" id="client-row-{{ $client->client_id }}">
-                        <div class="card-header">
-                            <div class="display list-unstyled">
-                                <li>{{ $client->client_id }}</li>
-                                <li>{{ $client->client_name }}</li>
-                                <li>
-                                    <img src="img/pro_icon.png" class="smallpic">
-                                    <div class="user-name">
-                                        {{ $client->user_id }}
-                                    </div>
-                                    {{-- <div class="user-name">中村</div>
+                <div class="card _client" id="client-row-{{ $client->client_id }}">
+                    <div class="card-header">
+                        <div class="display list-unstyled">
+                            <li>{{ $client->client_id }}</li>
+                            <li>{{ $client->client_name }}</li>
+                            <li>
+                                <img src="img/pro_icon.png" class="smallpic">
+                                <div class="user-name">
+                                    {{ $client->user_id }}
+                                </div>
+                                {{-- <div class="user-name">中村</div>
                                     --}}
-                                </li>
-<!-- {{$loggedInAuthority }}
+                            </li>
+                            <!-- {{$loggedInAuthority }}
 {{$loggedInUser->user_id }}
 {{$loggedInUser->user_authority}} -->
 
-                                @if (($loggedInUser->user_authority == 'システム管理者') || $loggedInUser->user_id == $client->user_id)
-                                 <li class="_money">{{ $client->total_sale }}</li>
-                                    <li class="_money">{{ $client->total_profit }}</li>
+                            @if (($loggedInUser->user_authority == 'システム管理者') || $loggedInUser->user_id ==
+                            $client->user_id)
+                            <li class="_money">{{ $client->total_sale }}</li>
+                            <li class="_money">{{ $client->total_profit }}</li>
 
-                                    <li>
-                                        <div class="edit" onclick="clientEditModalHandler({{ $client->client_id }})">
-                                            <span style="font-size: 11px; margin:6px;width:auto"
-                                                class="fa fa-pencil"></span>編集
-                                        </div>
-                                    </li> 
-                                @else
-                                    <li class="transparent">円</li>
-                                    <li class="transparent">円</li>
+                            <li>
+                                <div class="edit" onclick="clientEditModalHandler({{ $client->client_id }})">
+                                    <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
+                                </div>
+                            </li>
+                            @else
+                            <li class="transparent">円</li>
+                            <li class="transparent">円</li>
 
-                                    <li>
-                                        <div class="edit transparent">
-                                            <span style="font-size: 11px; margin:6px;width:auto"
-                                                class="fa fa-pencil"></span>編集
-                                        </div>
-                                    </li>
-                                @endif
+                            <li>
+                                <div class="edit transparent">
+                                    <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
+                                </div>
+                            </li>
+                            @endif
 
-                            </div>
                         </div>
                     </div>
+                </div>
                 @endforeach
             </div>
         </div>
