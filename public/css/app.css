@@ -1489,7 +1489,7 @@ button.cancel:hover {
     background-color: white;
     margin: 0;
     border-radius: 0 0 10px 10px;
-    min-height: 100px;
+    min-height: 200px;
 }
 
 .project .btn {
