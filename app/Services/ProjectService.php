@@ -105,6 +105,8 @@ class ProjectService
         if ($loggedUser->user_authority == 'システム管理者') {
             $validatedData = $request->validated();
 
+            //formatting data for creating project
+            $validatedData = $this->formatDataToCreateOrUpdate($request);
 
             // if all the logic passed then project can be create of update
             $result = $this->logicForUpSertProject($validatedData);
@@ -125,8 +127,8 @@ class ProjectService
 
     private function logicForUpSertProject($validatedData)
     {
-        $orderMonth = $validatedData['orderMonth'];
-        $inspectionMonth = $validatedData['inspectionMonth'];
+        $orderMonth = $validatedData['order_month'];
+        $inspectionMonth = $validatedData['inspection_month'];
 
         //checking the inspection_month is greater than order_month
         if ($orderMonth != null && $inspectionMonth != null) {
@@ -138,8 +140,8 @@ class ProjectService
         }
 
         $budget = $validatedData['budget'];
-        $salesTotal = $validatedData['salesTotal'];
-        $transferredAmount = $validatedData['transferredAmount'];
+        $salesTotal = $validatedData['sales_total'];
+        $transferredAmount = $validatedData['transferred_amount'];
 
         // the monitory values cannot be negative and
         // sales_total and transferred_amount cannot be greater than budget
@@ -164,7 +166,7 @@ class ProjectService
     {
         $projectModel  = new Project;
 
-        // $validatedData = $request->validated();
+        $validatedData = $request->validated();
         $loggedUser = auth()->user();
         $project = $managerID = null;
 
@@ -281,6 +283,7 @@ class ProjectService
         $formattedData = $this->getFormattedDataForUpsertAssign($data);
 
         // if the assign value does not contains any negative value
+        // or the assign value is not greater than 1
         if ($formattedData['hasNoNegativeAssignValue']) {
             // unset the non-required field to save the data 
             unset($formattedData['hasNoNegativeAssignValue']);
@@ -303,7 +306,7 @@ class ProjectService
             $formattedData[$key]['year'] = $value['year'];
             $formattedData[$key]['month'] = $value['month'];
             $formattedData[$key]['plan_man_month'] = $value['value'];
-            if (floatval($value['value']) < 0) {
+            if (floatval($value['value']) < 0 || floatval($value['value']) > 1) {
                 $formattedData['hasNoNegativeAssignValue'] = false;
             }
         }

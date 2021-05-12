@@ -31,25 +31,25 @@
 
                     <div class="modal-form-input-container">
                         <div class="_full">
-                            <div><label for="name">名前</label></div>
+                            <div><label for="name">名前<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="text" id="user_create_nameInput" name="name" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="email">メールアドレス</label></div>
+                            <div><label for="email">メールアドレス<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="email" id="user_create_emailInput" name="email" required></div>
                         </div>
                         <div class="_half">
-                            <div><label for="password">パスワード</label></div>
+                            <div><label for="password">パスワード<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="password" id="user_create_passwordInput" name="password" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="tel">電話番号</label></div>
+                            <div><label for="tel">電話番号<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="text" id="user_create_telInput" name="tel" required></div>
                         </div>
 
@@ -67,7 +67,7 @@
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="salary">原価</label></div>
+                            <div><label for="salary">原価<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="user_create_salaryInput" name="salary" required></div>
                         </div>
 
@@ -85,13 +85,14 @@
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="admission_day">入場日</label></div>
+                            <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label>
+                            </div>
                             <div><input type="date" id="user_create_admission_dayInput" name="admission_day" required>
                             </div>
                         </div>
 
                         <div class="_half">
-                            <div><label>ユーザー権限</label></div>
+                            <div><label>ユーザー権限<span class="reruired-field-marker">*</span></label></div>
                             <div class="custom-select">
                                 <select id="user_create_authorityInput" required>
                                     @foreach (config('constants.User_authority') as $authority => $value)

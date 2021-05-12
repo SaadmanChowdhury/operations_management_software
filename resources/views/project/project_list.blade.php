@@ -42,7 +42,7 @@
                             <li>{{ $project->client_id }}</li>
                             <li>{{ $project->manager_id }}</li>
 
-                            @if ($loggedInAuthority == config('constants.User_authority.システム管理者') ||
+                            @if ($loggedInAuthority == ('システム管理者') ||
                             $loggedInUser->user_id == $project->manager_id)
                             <li>{{ $project->sales_total }}</li>
                             @else

@@ -108,10 +108,3 @@ function handleAJAXError(err) {
         console.log(err);
     }
 }
-
-function isExisting( x){
-    if(typeof x !== 'undefined'){
-        true;
-    }
-    return false;
-}

@@ -139,3 +139,7 @@ Route::post('/API/activeUserCount', [AssignController::class, 'activeUserCount']
 Route::get('/test-view', function () {
     return view('project.test');
 });
+
+Route::get('/', function () {
+    return redirect('/login');
+});
