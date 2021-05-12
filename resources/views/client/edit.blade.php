@@ -52,10 +52,11 @@
                         <div class="_full">
                             <div><label>顧客に責任者<span class="reruired-field-marker">*</span></label></div>
 
-                            <div><input type="number" id="client_edit_user_id" name="user_id" value="{{ $client->user_id }}"></div>
-                                    
+                            <div><input type="number" id="client_edit_user_id" name="user_id"
+                                    value="{{ $client->user_id }}"></div>
+
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -70,8 +71,8 @@
 $(function() {
     convertToSearchableDropDown("client_edit_user_id", "USER");
 
-    @if ($loggedInUser->user_authority != 'システム管理者')
-        document.getElementById("client_edit_user_id").disabled = true;
+    @if($loggedInUser - > user_authority != 'システム管理者')
+    document.getElementById("client_edit_user_id").disabled = true;
     @endif
 
 })
@@ -184,26 +185,26 @@ function deleteClient() {
     event.preventDefault();
     clientId = $('#id').val();
     Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085D6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                deleteClientComfirmation( clientId );
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
-            }
-        })   
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085D6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteClientComfirmation(clientId);
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        }
+    })
 }
 
-function  deleteClientComfirmation( clientId ){
+function deleteClientComfirmation(clientId) {
     $.ajax({
         type: "post",
         url: "/API/deleteClient",
