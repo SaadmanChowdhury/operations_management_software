@@ -277,6 +277,7 @@ class ProjectService
         $formattedData = $this->getFormattedDataForUpsertAssign($data);
 
         // if the assign value does not contains any negative value
+        // or the assign value is not greater than 1
         if ($formattedData['hasNoNegativeAssignValue']) {
             // unset the non-required field to save the data 
             unset($formattedData['hasNoNegativeAssignValue']);
@@ -299,7 +300,7 @@ class ProjectService
             $formattedData[$key]['year'] = $value['year'];
             $formattedData[$key]['month'] = $value['month'];
             $formattedData[$key]['plan_man_month'] = $value['value'];
-            if (floatval($value['value']) < 0) {
+            if (floatval($value['value']) < 0 || floatval($value['value']) > 1) {
                 $formattedData['hasNoNegativeAssignValue'] = false;
             }
         }

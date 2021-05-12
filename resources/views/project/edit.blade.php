@@ -28,7 +28,7 @@
                         </button>
                     </div>
 
-                    @if ($loggedInUser->user_authority == config('constants.User_authority.システム管理者'))
+                    @if ($loggedInUser->user_authority == ('システム管理者'))
                     <div onclick="deleteProject()">
                         <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
                                 aria-hidden="true"></i>
@@ -44,19 +44,19 @@
 
                     <div class="modal-form-input-container">
                         <div class="_full">
-                            <div><label for="name">案件名</label></div>
+                            <div><label for="name">案件名<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="text" id="project_edit_name_Input" name="name" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container _dark">
                         <div class="_half">
-                            <div><label for="client_id">顧客</label></div>
+                            <div><label for="client_id">顧客<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_edit_clientID_Input" name="client_id" required>
                             </div>
                         </div>
                         <div class="_half">
-                            <div><label for="manager_id">担当</label></div>
+                            <div><label for="manager_id">担当<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_edit_managerID_Input" name="manager_id" required>
                             </div>
                         </div>
@@ -100,27 +100,27 @@
                     <div class="modal-form-input-container _dark">
 
                         <div class="_third">
-                            <div><label for="sales_total">売上高</label></div>
+                            <div><label for="sales_total">売上高<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_edit_sales_total_Input" name="sales_total" required>
                             </div>
                         </div>
 
                         <div class="_third">
-                            <div><label for="transferred_amount">振込金額</label></div>
+                            <div><label for="transferred_amount">振込金額<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_edit_transferred_amount_Input"
                                     name="transferred_amount" required></div>
                         </div>
 
                         <div class="_third">
-                            <div><label for="budget">予算</label></div>
+                            <div><label for="budget">予算<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_edit_budget_Input" name="budget" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="order_month">受注月</label></div>
-                            <div><input type="date" id="project_edit_order_month_Input" name="inspection_month"
+                            <div><label for="order_month">受注月<span class="reruired-field-marker">*</span></label></div>
+                            <div><input type="date" id="project_edit_order_month_Input" name="order_month"
                                     required></div>
                         </div>
 
@@ -262,7 +262,6 @@ function updateProject() {
     event.preventDefault();
 
     modalData = getProjectEditFormData();
-
     $.ajax({
         type: "post",
         url: "/API/upsertProjectDetails",
@@ -277,6 +276,7 @@ function updateProject() {
         },
         error: function(err) {
             handleAJAXError(err);
+            updateProjectEditModalData(modalData);
         }
     });
 }
@@ -286,7 +286,27 @@ function updateProject() {
 function deleteProject() {
     event.preventDefault();
     projectId = $('#id').val();
+    Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085D6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteComfirmed( projectId );
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+}
 
+function  deleteComfirmed( projectId ){
     $.ajax({
         type: "post",
         url: "/API/deleteProject",

@@ -30,13 +30,13 @@
                 <div class="column right _client">
                     <div class="modal-form-input-container">
                         <div class="_full">
-                            <div><label for="name">顧客名</label></div>
+                            <div><label for="name">顧客名<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="text" id="client_create_name_Input" name="name" required></div>
                         </div>
                     </div>
 
                     <div class="_full">
-                        <div><label for="user_id">顧客に責任者</label></div>
+                        <div><label for="user_id">顧客に責任者<span class="reruired-field-marker">*</span></label></div>
                         <div><input type="number" id="client_create_userID_Input" name="user_id" required></div>
                     </div>
                 </div>
