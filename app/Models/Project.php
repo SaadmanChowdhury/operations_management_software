@@ -269,19 +269,10 @@ class Project extends Model
             ->whereNull("deleted_at")->first();
     }
 
-    /**
-     * The users that belong to the project.
-     */
-    public function users()
+    public function getProjectLeaderID($projectID)
     {
-        return $this->belongsToMany('App\Models\User', 'assign', 'project_id', 'user_id');
-    }
-
-    /**
-     * Get the client of the project.
-     */
-    public function client()
-    {
-        return $this->belongsTo('App\Models\Client', 'client_id', 'client_id');
+        // returning project leader id
+        $project = Project::where('project_id', $projectID)->first();
+        return $project->manager_id;
     }
 }
