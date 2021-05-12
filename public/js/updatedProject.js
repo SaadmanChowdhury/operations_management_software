@@ -37,8 +37,8 @@ function readProjectAssign_AJAX(projectID) {
         success: function (response02) {
             
             if(response02["resultStatus"]["isSuccess"]) {
-                setTimeout(function(){
-                    hideLoader(projectID)}, 1000);
+                // setTimeout(function(){
+                //     hideLoader(projectID)}, 1000);
                 response=response02;
                 
             
@@ -54,12 +54,14 @@ function readProjectAssign_AJAX(projectID) {
 }
 
 function readAndRenderProjectAssignByProjectID(projectID){
+    document.getElementById('row'+projectID).innerHTML=`<div class="loader" id="loader-${projectID}"></div>`;
     var response= readProjectAssign_AJAX(projectID); 
                 try{
                     document.getElementById('row'+projectID).innerHTML="";
                     var project=response["resultData"]["project"];
                     var data=convertToSimple2DArray(project);
                     renderEmptyAssignAccordion(data,project);
+
                 }
                 catch(err){
                     console.log(err);
@@ -197,7 +199,8 @@ class ProjectListRenderer{
         </div>
         </div>
 
-        <div class="collapse show" id="row${project.projectID}">` +
+        <div class="collapse show" id="row${project.projectID}">
+        　` +
         `</div>
         </div>`;
         return projectHtml;
@@ -236,7 +239,7 @@ class ProjectListRenderer{
                 
                 if(response01["resultStatus"]["isSuccess"]) {
                     setTimeout(function(){
-                        hideMainLoader()}, 1000);
+                        hideMainLoader()}, 500);
                     projectRender();
 
                     function projectRender() {
@@ -266,17 +269,19 @@ function display(id) {
     $('#row' + id).toggle("3000");
     
     if($('#row' + id).is(':visible')){
+
+        document.getElementById('row'+id).innerHTML=`<div class="loader" id="loader-${id}"></div>`;
+        console.log(document.getElementById('row'+id).innerHTML);
         
         var response= readProjectAssign_AJAX(id); 
-       // try{
+       
+        setTimeout(function(){
             var project=response["resultData"]["project"];
-            var data=convertToSimple2DArray(project);
-            
-            renderEmptyAssignAccordion(data,project);
-        // }
-        // catch(err){
-        //     console.log(err);
-        // }
+        var data=convertToSimple2DArray(project);
+        
+        renderEmptyAssignAccordion(data,project);
+        },1000);
+        
 
     }
     else{
@@ -296,8 +301,7 @@ function renderProjectManagementSummary(project){
 
     `<div class="card-body row _accordion">
           <!--<div id="loader"></div>-->
-          <div class="loader" id="loader-${project.projectID}"></div>
-    
+              
         <div class="table-left">
             <table>
                 <tr>
@@ -583,6 +587,7 @@ function callActionListeners(projectID,assignData){
 
                 
         // resetActionCall(assignData,projectID);
+        document.getElementById('row'+projectID).innerHTML=`<div class="loader" id="loader-${projectID}"></div>`;
         var response= readProjectAssign_AJAX(projectID); 
         try{
             document.getElementById('row'+projectID).innerHTML="";
@@ -598,7 +603,8 @@ function callActionListeners(projectID,assignData){
     };
     
     document.getElementById('trash-'+projectID).onclick=function(){
-
+        
+        document.getElementById('row'+projectID).innerHTML=`<div class="loader" id="loader-${projectID}"></div>`;
         var response= readProjectAssign_AJAX(projectID); 
         try{
             document.getElementById('row'+projectID).innerHTML="";
@@ -837,6 +843,7 @@ function renderEmptyAssignAccordion(assignData,project) {
         accordionHTML+=`</div>`;       
                 
         var projects = document.getElementById('row'+projectID);
+        //hideLoader(projectID);
         projects.innerHTML=accordionHTML;
         if(isProjectEditable(project.projectLeaderID))
         {
