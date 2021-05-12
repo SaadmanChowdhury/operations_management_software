@@ -51,6 +51,18 @@ function readProjectAssign_AJAX(projectID) {
     return response;
 }
 
+function readAndRenderProjectAssignByProjectID(projectID){
+    var response= readProjectAssign_AJAX(projectID); 
+                try{
+                    document.getElementById('row'+projectID).innerHTML="";
+                    var project=response["resultData"]["project"];
+                    var data=convertToSimple2DArray(project);
+                    renderEmptyAssignAccordion(data,project);
+                }
+                catch(err){
+                    console.log(err);
+                }
+}
 //=== SENDING PROJECT DETAILS TO ASSIGN API ===//
 function updateAssignData_AJAX(assignData,projectID) {
     $.ajax({
@@ -65,23 +77,14 @@ function updateAssignData_AJAX(assignData,projectID) {
             
             if(response01["resultStatus"]["isSuccess"]) {
 
-                
-                var response= readProjectAssign_AJAX(projectID); 
-                try{
-                    document.getElementById('row'+projectID).innerHTML="";
-                    var project=response["resultData"]["project"];
-                    var data=convertToSimple2DArray(project);
-                    renderEmptyAssignAccordion(data,project);
-                }
-                catch(err){
-                    console.log(err);
-                }              
+                readAndRenderProjectAssignByProjectID(projectID)    
 
             } else
                 handleAJAXResponse(response01);
         },
         error: function (err) {
             handleAJAXError(err);
+            readAndRenderProjectAssignByProjectID(projectID)
         }
     });
 }
@@ -505,8 +508,7 @@ function saveInput(projectID,assignData){
       
       }
     }
-
-      
+    
     updateAssignData_AJAX(assign_arr,projectID);
 
 
