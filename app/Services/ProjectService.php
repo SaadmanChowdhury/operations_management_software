@@ -295,9 +295,24 @@ class ProjectService
 
     public function upsertAssign($request)
     {
+        $loggedUser = auth()->user();
         $assignModel  = new Assign;
+        $projectModel  = new Project;
 
         $data = $request->all();
+        $firstCell = $data['assignments'][0];
+        $projectID = $firstCell['projectID'];
+
+        //getting project leader ID
+        $projectLeaderID = $projectModel->getProjectLeaderID($projectID);
+
+        // if the user is nether admin nor the leader of the project
+        if (
+            $loggedUser->user_authority !=  'システム管理者' &&
+            $loggedUser->user_id != $projectLeaderID
+        ) {
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        }
 
         //for testing getting the dummy data
         // $data = $this->getUpsertAssignData();
