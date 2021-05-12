@@ -71,7 +71,7 @@
 $(function() {
     convertToSearchableDropDown("client_edit_user_id", "USER");
 
-    @if($loggedInUser - > user_authority != 'システム管理者')
+    @if($loggedInUser->user_authority != 'システム管理者')
     document.getElementById("client_edit_user_id").disabled = true;
     @endif
 
