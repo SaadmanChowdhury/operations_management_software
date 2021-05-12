@@ -37,6 +37,8 @@ function readProjectAssign_AJAX(projectID) {
         success: function (response02) {
             
             if(response02["resultStatus"]["isSuccess"]) {
+                setTimeout(function(){
+                    hideLoader(projectID)}, 1000);
                 response=response02;
                 
             
@@ -165,15 +167,33 @@ class ProjectListRenderer{
         this.getBusinessSituationHTML(project.businessSituation) +
         this.getDevelopmentStageHTML(project.developmentStage) +
         `<li>${project.orderMonth}</li>
-        <li>${project.inspectionMonth}</li>
-        <li class="right-align">${numberWithCommas(project.salesTotal) + " 円"}</li>
-        <li class="right-align">${numberWithCommas(project.budget) + " 円"}</li>
-        <li>${project.profitPercentage}%</li>
-        <li>
-        <div class="edit" onclick="projectEditModalHandler(${project.projectID})">
-        <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
-        </div>
-        </li>
+        <li>${project.inspectionMonth}</li>`;
+        if(isProjectEditable(project.projectLeaderID))
+        {
+            projectHtml+=`<li class="right-align">${numberWithCommas(project.salesTotal) + " 円"}</li>
+            <li class="right-align">${numberWithCommas(project.budget) + " 円"}</li>
+            <li>${project.profitPercentage}%</li>`;
+
+        }
+        else{
+            projectHtml+=`<li class="right-align"></li>
+            <li class="right-align"></li>
+            <li></li>`;
+        }
+        
+        projectHtml+=`<li>`;
+        if(isProjectEditable(project.projectLeaderID))
+        {
+            projectHtml+=`<div class="edit" onclick="projectEditModalHandler(${project.projectID})">
+            <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
+            </div>`
+
+        }
+        else{
+
+        }
+        
+        projectHtml+=`</li>
         </div>
         </div>
 
@@ -215,6 +235,8 @@ class ProjectListRenderer{
             success: function (response01) {
                 
                 if(response01["resultStatus"]["isSuccess"]) {
+                    setTimeout(function(){
+                        hideMainLoader()}, 1000);
                     projectRender();
 
                     function projectRender() {
@@ -244,10 +266,12 @@ function display(id) {
     $('#row' + id).toggle("3000");
     
     if($('#row' + id).is(':visible')){
+        
         var response= readProjectAssign_AJAX(id); 
        // try{
             var project=response["resultData"]["project"];
             var data=convertToSimple2DArray(project);
+            
             renderEmptyAssignAccordion(data,project);
         // }
         // catch(err){
@@ -270,8 +294,9 @@ function renderProjectManagementSummary(project){
     
     var ProjectManagementSummaryTableHTML =
 
-    `<div class="card-body row _accordion" onload="loadSpinner()">
-       <div id="loader"></div>
+    `<div class="card-body row _accordion">
+          <!--<div id="loader"></div>-->
+          <div class="loader" id="loader-${project.projectID}"></div>
     
         <div class="table-left">
             <table>
@@ -789,25 +814,37 @@ function renderEmptyAssignAccordion(assignData,project) {
                         `</table>
                     </div>
             </div>
-        </div>
-        <div class="action">
-            <ul class="list-unstyled">
-                <li class="list show"><button class="btn round-btn pencil-btn" id="edit-${projectID}"><span
-                            style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
-                <div class="editMode">
-                    <li class="list"><button id="trash-${projectID}" class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
-                    <li class="list"><button id="reset-${projectID}" class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
-                    </li>
-                    <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"
-                                id="save-${projectID}"></span></button></li>
-                </div>
-            </ul>
-        </div>
-    </div>`;       
+        </div>`;
+        if(isProjectEditable(project.projectLeaderID))
+        {
+            accordionHTML+=`<div class="action">
+                <ul class="list-unstyled">
+                    <li class="list show"><button class="btn round-btn pencil-btn" id="edit-${projectID}"><span
+                                style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span></button></li>
+                    <div class="editMode">
+                        <li class="list"><button id="trash-${projectID}" class="btn round-btn danger"><span class="fa fa-trash"></span></button></li>
+                        <li class="list"><button id="reset-${projectID}" class="btn round-btn success midori"><span class="fa fa-undo"></span></button>
+                        </li>
+                        <li class="list"><button class="btn round-btn primary"><span class="fa fa-save"
+                                    id="save-${projectID}"></span></button></li>
+                    </div>
+                </ul>
+            </div>`
+        }
+        else{
+
+        }
+        accordionHTML+=`</div>`;       
                 
         var projects = document.getElementById('row'+projectID);
         projects.innerHTML=accordionHTML;
-        callActionListeners(projectID,assignData);
+        if(isProjectEditable(project.projectLeaderID))
+        {
+            callActionListeners(projectID,assignData);
+        }
+        else{
+
+        }
     
 }
 
@@ -898,17 +935,26 @@ function deleteRowActionListener(projectID){
     });
 }
 
-function showPage() {
-    console.log('called');
-    document.getElementById("loader").style.display = "none";
-    document.getElementById("row1").style.display = "block";
+
+function isProjectEditable(userId) {
+    if (isSystemAdmin())
+        return true;
+    else if (isGeneralUser() && isCurrentUser(userId))
+        return true;
+    else
+        return false;
 }
 
-function loadSpinner() {
-    
-    setTimeout(showPage, 1000);
+function hideLoader(projectID) {
+    console.log('called');
+    document.getElementById("loader-"+projectID).style.display = "none";
+    // document.getElementById("row1").style.display = "block";
 }
-  
+
+function hideMainLoader() {
+    console.log('called');
+    document.getElementById("main-loader").style.display = "none";
+}  
 
 
 

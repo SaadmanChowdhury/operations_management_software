@@ -113,6 +113,7 @@
             {{-- ///====PROJECT-TABLE DETAILS====/// --}}
 
             <div id="accordian" class="project table-body">
+                <div class="loader" id="main-loader"></div>
 
 
             </div>

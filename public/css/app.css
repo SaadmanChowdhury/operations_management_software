@@ -2343,7 +2343,7 @@ td img {
     color: #e82929;
 }
 
-#loader {
+.loader {
     position: absolute;
     left: 50%;
     top: 70%;
