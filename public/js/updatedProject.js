@@ -56,16 +56,13 @@ function readProjectAssign_AJAX(projectID) {
 function readAndRenderProjectAssignByProjectID(projectID){
     document.getElementById('row'+projectID).innerHTML=`<div class="loader" id="loader-${projectID}"></div>`;
     var response= readProjectAssign_AJAX(projectID); 
-                try{
-                    document.getElementById('row'+projectID).innerHTML="";
-                    var project=response["resultData"]["project"];
-                    var data=convertToSimple2DArray(project);
-                    renderEmptyAssignAccordion(data,project);
-
-                }
-                catch(err){
-                    console.log(err);
-                }
+    setTimeout(function(){
+        document.getElementById('row'+projectID).innerHTML="";
+        var project=response["resultData"]["project"];
+        var data=convertToSimple2DArray(project);    
+        renderEmptyAssignAccordion(data,project);
+    },500);
+                
 }
 //=== SENDING PROJECT DETAILS TO ASSIGN API ===//
 function updateAssignData_AJAX(assignData,projectID) {
@@ -267,8 +264,8 @@ class ProjectListRenderer{
 function display(id) {
     //numberWithCommas(project.salesTotal)
     $('#row' + id).toggle("3000");
-    
-    if($('#row' + id).is(':visible')){
+    console.log(Math.round($('#row' + id).css("opacity")));    
+    if(Math.round($('#row' + id).css("opacity"))==0){
 
         document.getElementById('row'+id).innerHTML=`<div class="loader" id="loader-${id}"></div>`;
         console.log(document.getElementById('row'+id).innerHTML);
@@ -277,10 +274,9 @@ function display(id) {
        
         setTimeout(function(){
             var project=response["resultData"]["project"];
-        var data=convertToSimple2DArray(project);
-        
-        renderEmptyAssignAccordion(data,project);
-        },1000);
+            var data=convertToSimple2DArray(project);    
+            renderEmptyAssignAccordion(data,project);
+        },500);
         
 
     }
