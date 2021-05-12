@@ -879,7 +879,7 @@ function renderEmptyAssignAccordion(assignData,project) {
         accordionHTML+=`</div>`;       
                 
         var projects = document.getElementById('row'+projectID);
-        hideLoader(projectID);
+        //hideLoader(projectID);
         projects.innerHTML=accordionHTML;
         if(isProjectEditable(project.projectLeaderID))
         {
