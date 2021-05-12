@@ -85,7 +85,8 @@
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label></div>
+                            <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label>
+                            </div>
                             <div><input type="date" id="user_create_admission_dayInput" name="admission_day" required>
                             </div>
                         </div>
