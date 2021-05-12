@@ -43,14 +43,14 @@
 
                     <div class="modal-form-input-container">
                         <div class="_full">
-                            <div><label for="name">名前</label></div>
+                            <div><label for="name">名前<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="text" id="user_edit_nameInput" name="name" value="" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="email">メールアドレス</label></div>
+                            <div><label for="email">メールアドレス<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="email" id="user_edit_emailInput" name="email" value=""></div>
                         </div>
 
@@ -62,7 +62,7 @@
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="tel">電話番号</label></div>
+                            <div><label for="tel">電話番号<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="text" id="user_edit_telInput" name="tel" value=""></div>
                         </div>
 
@@ -81,7 +81,7 @@
                     <div class="modal-form-input-container">
 
                         <div class="_half">
-                            <div><label for="salary">原価</label></div>
+                            <div><label for="salary">原価<span class="reruired-field-marker">*</span></label></div>
                             @if ($loggedUser->user_authority == 'システム管理者')
                             <div>
                                 <input type="number" id="user_edit_salaryInput" name="salary" value="" required>
@@ -107,7 +107,7 @@
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="admission_day">入場日</label></div>
+                            <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label></div>
                             @if ($loggedUser->user_authority == 'システム管理者')
                             <div>
                                 <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
@@ -272,7 +272,27 @@ function updateUser() {
 function deleteUser() {
     event.preventDefault();
     userId = $('#id').val();
+    Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085D6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteUserComfirmation( userId );
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        }) 
+}
 
+ function deleteUserComfirmation( userId ){
     $.ajax({
         type: "post",
         url: "/API/deleteUser",
@@ -292,5 +312,5 @@ function deleteUser() {
             handleAJAXError(err);
         }
     });
-}
+ }
 </script>

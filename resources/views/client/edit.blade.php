@@ -42,7 +42,7 @@
 
                     <div class="modal-form-input-container">
                         <div class="_full">
-                            <div><label for="name">顧客名</label></div>
+                            <div><label for="name">顧客名<span class="reruired-field-marker">*</span></label></div>
                             <div><input type="text" id="client_edit_nameInput" name="name"
                                     value="{{ $client->client_name }}" required></div>
                         </div>
@@ -50,7 +50,7 @@
 
                     <div class="modal-form-input-container">
                         <div class="_full">
-                            <div><label>顧客に責任者</label></div>
+                            <div><label>顧客に責任者<span class="reruired-field-marker">*</span></label></div>
 
                             <div><input type="number" id="client_edit_user_id" name="user_id" value="{{ $client->user_id }}"></div>
                                     
@@ -183,7 +183,27 @@ function updateClient() {
 function deleteClient() {
     event.preventDefault();
     clientId = $('#id').val();
+    Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085D6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteClientComfirmation( clientId );
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })   
+}
 
+function  deleteClientComfirmation( clientId ){
     $.ajax({
         type: "post",
         url: "/API/deleteClient",

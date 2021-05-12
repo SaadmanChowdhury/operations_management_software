@@ -158,6 +158,17 @@ function renderProjectHTML(response01) {
         
         var leader= convertUser_IDToName(row.projectLeaderID);
         var profit = (row.salesTotal - row.budget) * 100 / row.salesTotal;
+        var salesProfitlist; 
+        if(!profit) {
+         salesProfitlist = `<li class="right-align"> </li>
+                                <li class="right-align"> </li>
+                                <li> </li>`;
+        }
+        else {
+            salesProfitlist = `<li class="right-align">${numberWithCommas(row.salesTotal) + " 円"}</li>
+                                <li class="right-align">${numberWithCommas(row.budget) + " 円"}</li>
+                                <li>${profit}%</li>`;
+        }
         projectHtml =
             `<div class="card _project" id="project-row-${row.projectID}">
              <div class="card-header" id="row1head" onclick="display(${row.projectID},${Difference_In_Month},'${row.orderMonth}','${leader}')">
@@ -171,11 +182,8 @@ function renderProjectHTML(response01) {
             getBusinessSituationHTML(row.businessSituation) +
             getDevelopmentStageHTML(row.developmentStage) +
             `<li>${row.orderMonth}</li>
-             <li>${row.inspectionMonth}</li>
-             <li class="right-align">${numberWithCommas(row.salesTotal) + " 円"}</li>
-             <li class="right-align">${numberWithCommas(row.budget) + " 円"}</li>
-             <li>${profit}%</li>
-             <li>
+             <li>${row.inspectionMonth}</li>`+salesProfitlist+
+             `<li>
              <div class="edit" onclick="projectEditModalHandler(${row.projectID})">
              <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
              </div>

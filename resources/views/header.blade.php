@@ -11,6 +11,7 @@
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/sweetalert2.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -19,6 +20,7 @@
         crossorigin="anonymous"></script>
 
     <script src="/js/lookup.js"></script>
+    <script src="/js/sweetalert2.min.js"></script>
     <script src="/js/validator.js"></script>
     <script src="/js/toast.js"></script>
 
