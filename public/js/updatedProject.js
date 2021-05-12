@@ -242,14 +242,14 @@ function display(id) {
     
     if($('#row' + id).is(':visible')){
         var response= readProjectAssign_AJAX(id); 
-        try{
+       // try{
             var project=response["resultData"]["project"];
             var data=convertToSimple2DArray(project);
             renderEmptyAssignAccordion(data,project);
-        }
-        catch(err){
-            console.log(err);
-        }
+        // }
+        // catch(err){
+        //     console.log(err);
+        // }
 
     }
     else{
@@ -436,6 +436,7 @@ function editModeOn(assignData,projectID){
    }
 
    deleteRowActionListener(projectID);
+   addActionListenerForInputs(projectID);
 
 }
 
@@ -685,6 +686,8 @@ function calcSubTotalManMonthRow(mainTableArray){
         }
         mainTableArray[i][1]=sum;
     }
+
+    console.log(mainTableArray);
     return mainTableArray;
 }
 
@@ -703,28 +706,48 @@ function convertToSimple2DArray(project){
     var members =project.member;
     var projectLeaderID= project.projectLeaderID;
     var totalMonths=calcMonthDiff(project.orderMonth,project.inspectionMonth);
+    console.log(totalMonths)
+    console.log(project)
     
-    var mainTableArray= new Array(members.length+2).fill(0);
+    var memberLength=1;
+
+    if(members.length>0){
+        memberLength=members.length;
+    }
+
+    var mainTableArray= new Array(memberLength+2).fill(0);
     
+    if(members.length>0){
     for (let i = 0; i < members.length; i++) {
 
         var assigns =members[i].assign;
         if(i==0){
-            //mainTableArray[0]= new Array( totalMonths+2).fill(0);
             mainTableArray[1]= new Array( totalMonths+2).fill(0);
             mainTableArray[0]= generateMonths(project.orderMonth,totalMonths);
         }
         
         mainTableArray[i+2]=convertToArrayAssign(assigns, members[i].memberID,mainTableArray[0]);
     }
-    
-    
-    mainTableArray= putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID);
-    mainTableArray=calcSubTotalManMonthRow(mainTableArray);
-    mainTableArray=calcSubTotalManMonthColumn(mainTableArray);
-    mainTableArray[1][0]=members.length;
-    mainTableArray[1]=calcTotalManMonth(mainTableArray[1]);
+        mainTableArray= putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID);
+        mainTableArray=calcSubTotalManMonthRow(mainTableArray);
+        mainTableArray=calcSubTotalManMonthColumn(mainTableArray);
+        mainTableArray[1][0]=members.length;
+        mainTableArray[1]=calcTotalManMonth(mainTableArray[1]);
 
+    }
+
+    else{
+        mainTableArray[0]= generateMonths(project.orderMonth,totalMonths);
+        mainTableArray[1]= new Array( totalMonths+2).fill(0);
+        mainTableArray[2]= new Array( totalMonths+2).fill(0);
+        mainTableArray[2][0]=projectLeaderID;
+        
+    }
+    
+    
+    
+
+    console.log(mainTableArray);
     return mainTableArray;
 }
 //=== RENDERING PROJECT DETAILS TABLES ===//
