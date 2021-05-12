@@ -88,20 +88,20 @@ function renderHTML(response) {
             unitPrice = '';
         }
 
-        var editableButtonString =`<li><div class="edit" onclick="userEditModalHandler(${row.userID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>` ;
-        var unitPriceString =  ``;
+        var editableButtonString = `<li><div class="edit" onclick="userEditModalHandler(${row.userID})"><span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集</div></li>`;
+        var unitPriceString = ``;
 
-        if(isUserModalEditable(row.userID)){}
-        else{
-            editableButtonString =`<li ></li>` ;
+        if (isUserModalEditable(row.userID)) { }
+        else {
+            editableButtonString = `<li ></li>`;
         }
 
-        if(isSystemAdmin()){
-            unitPriceString =  `<li>${unitPrice}</li>`;
+        if (isSystemAdmin()) {
+            unitPriceString = `<li>${unitPrice}</li>`;
         }
-        
-        if(isGeneralUser()){
-            unitPriceString =  ``;
+
+        if (isGeneralUser()) {
+            unitPriceString = ``;
         }
 
 
@@ -116,7 +116,7 @@ function renderHTML(response) {
             `<li><div class="pos pos-${pos}">${pos}</div></li>` +
             `<li>${time_diff}${unit}</li>` +
             unitPriceString +
-            editableButtonString+
+            editableButtonString +
             `</div></div></div>`;
 
         staffs[0].innerHTML += rowHtml;
@@ -125,25 +125,11 @@ function renderHTML(response) {
     });
 }
 
-function isGeneralUser(){
-    var currentUserAuthority=document.getElementById("user-authority");
-    return currentUserAuthority.value=="一般ユーザー"?true:false;
-}
 
-function isSystemAdmin(){
-    var currentUserAuthority=document.getElementById("user-authority");
-    return currentUserAuthority.value=="システム管理者"?true:false;
-}
-
-function isCurrentUser(userId){
-    var currentUserId= document.getElementById("logged-in-id");
-    return userId==currentUserId.value?true:false;
-}
-
-function isUserModalEditable(userId){
-    if(isSystemAdmin())
+function isUserModalEditable(userId) {
+    if (isSystemAdmin())
         return true;
-    else if(isGeneralUser() && isCurrentUser(userId))
+    else if (isGeneralUser() && isCurrentUser(userId))
         return true;
     else
         return false;
