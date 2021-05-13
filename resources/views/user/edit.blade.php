@@ -256,7 +256,7 @@ function updateUser() {
             if (response["resultStatus"]["isSuccess"]) {
                 updateUserTable(modalData);
                 closeModal('user-edit-modal');
-            } else{}
+            } else
                 handleAJAXResponse(response);
         },
         error: function(err) {
