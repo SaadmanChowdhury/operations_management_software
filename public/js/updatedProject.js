@@ -667,13 +667,13 @@ function putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID){
     if(leaderIndex==mainTableArray.length){
         
         var length=mainTableArray.length;
-        console.log(length);
+        //console.log(length);
         mainTableArray.push([]);
         for (let index = 0; index < mainTableArray[0].length; index++) {
             mainTableArray[length].push(0);
-            console.log(mainTableArray[length][index]);
+            //console.log(mainTableArray[length][index]);
         }
-        console.log(mainTableArray);
+        //console.log(mainTableArray);
         mainTableArray[length][0]=projectLeaderID;
         leaderIndex=length;
     }
