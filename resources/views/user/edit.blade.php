@@ -183,10 +183,6 @@ function handleAJAXResponse(response) {
         $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
 }
 
-function handleAJAXError(err) {
-    console.log(err.responseText);
-}
-
 function updateUserTable(updatedData) {
     console.log(updatedData);
 
@@ -260,10 +256,11 @@ function updateUser() {
             if (response["resultStatus"]["isSuccess"]) {
                 updateUserTable(modalData);
                 closeModal('user-edit-modal');
-            } else
+            } else{}
                 handleAJAXResponse(response);
         },
         error: function(err) {
+            //console.log(err);
             handleAJAXError(err);
         }
     });
