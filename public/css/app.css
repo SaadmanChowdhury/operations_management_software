@@ -1489,6 +1489,7 @@ button.cancel:hover {
     background-color: white;
     margin: 0;
     border-radius: 0 0 10px 10px;
+    min-height: 200px;
 }
 
 .project .btn {
@@ -2346,6 +2347,21 @@ td img {
 .loader {
     position: absolute;
     left: 50%;
+    top: 60%;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    margin: 0px 0 0 -50px;
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #3498db;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+  
+  .mainLoader {
+    position: absolute;
+    left: 50%;
     top: 70%;
     z-index: 1;
     width: 50px;
@@ -2357,7 +2373,6 @@ td img {
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
   }
-  
   @-webkit-keyframes spin {
     0% { -webkit-transform: rotate(0deg); }
     100% { -webkit-transform: rotate(360deg); }

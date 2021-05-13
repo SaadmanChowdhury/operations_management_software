@@ -1,5 +1,7 @@
+PROJECT_CARDS = [];
 
-////====USER-LIST====////
+
+////====USER-LIST AJAX====////
 var users;
 function fetchUserList_AJAX() {
     $.ajax({
@@ -21,7 +23,7 @@ function fetchUserList_AJAX() {
     });
 }
 
-//=== READING PROJECT DETAILS OF EACH PROJECT FROM API ===//
+//=== READING PROJECT DETAILS OF EACH PROJECT FROM API AJAX===//
 function readProjectAssign_AJAX(projectID) {
     var response='';
     $.ajax({
@@ -37,8 +39,8 @@ function readProjectAssign_AJAX(projectID) {
         success: function (response02) {
             
             if(response02["resultStatus"]["isSuccess"]) {
-                setTimeout(function(){
-                    hideLoader(projectID)}, 1000);
+                // setTimeout(function(){
+                //     hideLoader(projectID)}, 1000);
                 response=response02;
                 
             
@@ -53,19 +55,7 @@ function readProjectAssign_AJAX(projectID) {
     return response;
 }
 
-function readAndRenderProjectAssignByProjectID(projectID){
-    var response= readProjectAssign_AJAX(projectID); 
-                try{
-                    document.getElementById('row'+projectID).innerHTML="";
-                    var project=response["resultData"]["project"];
-                    var data=convertToSimple2DArray(project);
-                    renderEmptyAssignAccordion(data,project);
-                }
-                catch(err){
-                    console.log(err);
-                }
-}
-//=== SENDING PROJECT DETAILS TO ASSIGN API ===//
+//=== SENDING PROJECT DETAILS TO ASSIGN API AJAX===//
 function updateAssignData_AJAX(assignData,projectID) {
     $.ajax({
         type: "post",
@@ -92,7 +82,17 @@ function updateAssignData_AJAX(assignData,projectID) {
 }
 
 
-
+function readAndRenderProjectAssignByProjectID(projectID){
+    document.getElementById('row'+projectID).innerHTML=`<div class="loader" id="loader-${projectID}"></div>`;
+    var response= readProjectAssign_AJAX(projectID); 
+    setTimeout(function(){
+        document.getElementById('row'+projectID).innerHTML="";
+        var project=response["resultData"]["project"];
+        var data=convertToSimple2DArray(project);    
+        renderEmptyAssignAccordion(data,project);
+    },500);
+                
+}
 
 
 document.addEventListener("DOMContentLoaded", () => { 
@@ -109,12 +109,11 @@ class ProjectListRenderer{
     }
 
     
-
     //=== CALCULATING PROJECT PROFIT ===//
-    calcProfit(salesTotal,budget){
-        var profit = (salesTotal - budget) * 100 / salesTotal;
-        return profit;
-    }
+    // calcProfit(salesTotal,budget){
+    //     var profit = (salesTotal - budget) * 100 / salesTotal;
+    //     return profit;
+    // }
 
 
     getOrderStatusHTML(data) {
@@ -197,15 +196,16 @@ class ProjectListRenderer{
         </div>
         </div>
 
-        <div class="collapse show" id="row${project.projectID}">` +
+        <div class="collapse show" id="row${project.projectID}">
+        　` +
         `</div>
         </div>`;
+        
         return projectHtml;
     }
     
     renderProjectList(response01) {
 
-        //var projects = document.getElementById('accordian');
 
         response01["resultData"]["project"].forEach((project) => {
 
@@ -213,13 +213,14 @@ class ProjectListRenderer{
         
             var projectHtml = this.renderHTMLProjectList(project);
             $('#accordian').append(projectHtml);
+            PROJECT_CARDS = document.querySelectorAll('._project.card');
             
         });
-
-        //PROJECT_CARDS = document.querySelectorAll('._project.card');
         
     }
-    //=== FETCHING PROJECT DETAILS FROM PROJECT API ===//
+
+
+    //=== FETCHING PROJECT DETAILS FROM PROJECT API AJAX===//
 
     fetchProjectList_AJAX() {
 
@@ -236,7 +237,7 @@ class ProjectListRenderer{
                 
                 if(response01["resultStatus"]["isSuccess"]) {
                     setTimeout(function(){
-                        hideMainLoader()}, 1000);
+                        hideMainLoader()}, 500);
                     projectRender();
 
                     function projectRender() {
@@ -262,21 +263,20 @@ class ProjectListRenderer{
 
 
 function display(id) {
-    //numberWithCommas(project.salesTotal)
+    
     $('#row' + id).toggle("3000");
     
-    if($('#row' + id).is(':visible')){
-        
+    if(Math.round($('#row' + id).css("opacity"))==0){
+
+        document.getElementById('row'+id).innerHTML=`<div class="loader" id="loader-${id}"></div>`;        
         var response= readProjectAssign_AJAX(id); 
-       // try{
+       
+        setTimeout(function(){
             var project=response["resultData"]["project"];
-            var data=convertToSimple2DArray(project);
-            
+            var data=convertToSimple2DArray(project);    
             renderEmptyAssignAccordion(data,project);
-        // }
-        // catch(err){
-        //     console.log(err);
-        // }
+        },500);
+        
 
     }
     else{
@@ -296,30 +296,69 @@ function renderProjectManagementSummary(project){
 
     `<div class="card-body row _accordion">
           <!--<div id="loader"></div>-->
-          <div class="loader" id="loader-${project.projectID}"></div>
-    
+              
         <div class="table-left">
-            <table>
-                <tr>
-                    <td>予算</td>
-                    <td>${numberWithCommas(project.budget)}円</td>
-                </tr>
-                <tr>
-                    <td>原価</td>
-                    <td>${numberWithCommas(project.cost)}円</td>
-                </tr>
-                <tr>
+            <table>`;
+                    if(isProjectEditable(project.projectLeaderID))
+                    {
+                        ProjectManagementSummaryTableHTML+=`
+                        <tr><td>予算</td><td>${numberWithCommas(project.budget)}円</td></tr>`;
+
+                    }
+                    else{
+
+                        ProjectManagementSummaryTableHTML+=``;
+
+                    }
+        
+                    if(isProjectEditable(project.projectLeaderID))
+                    {
+                        ProjectManagementSummaryTableHTML+=`<tr>
+                        <td>原価</td><td>${numberWithCommas(project.cost)}円</td></tr>`;
+
+                    }
+                    else{
+
+                        ProjectManagementSummaryTableHTML+=``;
+
+                    }
+        ProjectManagementSummaryTableHTML+=    
+  
+        `        <tr>
                     <td>工数</td>
                     <td>${project.member.length}</td>
-                </tr>
-                <tr>
-                    <td>粗利</td>
-                    <td>${numberWithCommas(project.profit)}円</td>
-                </tr>
-                <tr>
-                    <td>率</td>
-                    <td>${project.profitPercentage}%</td>
-                </tr>
+                </tr>`;
+                    if(isProjectEditable(project.projectLeaderID))
+                    {
+                        ProjectManagementSummaryTableHTML+=`
+                        <tr>
+                            <td>粗利</td><td>${numberWithCommas(project.profit)}円</td>
+                        </tr>`;
+
+                    }
+                    else{
+
+                        ProjectManagementSummaryTableHTML+=``;
+
+                    }
+        
+                    if(isProjectEditable(project.projectLeaderID))
+                    {
+                        ProjectManagementSummaryTableHTML+=`
+                        <tr>
+                            <td>率</td>
+                            <td>${numberWithCommas(project.profitPercentage)}%</td>
+                        </tr>`;
+
+                    }
+                    else{
+
+                        ProjectManagementSummaryTableHTML+=``;
+
+                    }
+        ProjectManagementSummaryTableHTML+=    
+  
+          `
                 <tr>
                     <td>期間</td>
                     <td>${dateDifference(new Date(project.inspectionMonth) , new Date(project.orderMonth))}</td>
@@ -583,6 +622,7 @@ function callActionListeners(projectID,assignData){
 
                 
         // resetActionCall(assignData,projectID);
+        document.getElementById('row'+projectID).innerHTML=`<div class="loader" id="loader-${projectID}"></div>`;
         var response= readProjectAssign_AJAX(projectID); 
         try{
             document.getElementById('row'+projectID).innerHTML="";
@@ -598,7 +638,8 @@ function callActionListeners(projectID,assignData){
     };
     
     document.getElementById('trash-'+projectID).onclick=function(){
-
+        
+        document.getElementById('row'+projectID).innerHTML=`<div class="loader" id="loader-${projectID}"></div>`;
         var response= readProjectAssign_AJAX(projectID); 
         try{
             document.getElementById('row'+projectID).innerHTML="";
@@ -619,10 +660,26 @@ function getPojectLeaderAssignArrayIndex(mainTableArray, projectLeaderID){
             return i;
         }
     }
+    return mainTableArray.length;
 }
 function putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID){
     var leaderIndex = getPojectLeaderAssignArrayIndex(mainTableArray,projectLeaderID);
-
+    if(leaderIndex==mainTableArray.length){
+        
+        var length=mainTableArray.length;
+        //console.log(length);
+        mainTableArray.push([]);
+        for (let index = 0; index < mainTableArray[0].length; index++) {
+            mainTableArray[length].push(0);
+            //console.log(mainTableArray[length][index]);
+        }
+        //console.log(mainTableArray);
+        mainTableArray[length][0]=projectLeaderID;
+        leaderIndex=length;
+    }
+    else{
+        
+    }
     var tmpRow=mainTableArray[2];
     mainTableArray[2]=mainTableArray[leaderIndex];
     mainTableArray[leaderIndex]=tmpRow;
@@ -837,6 +894,7 @@ function renderEmptyAssignAccordion(assignData,project) {
         accordionHTML+=`</div>`;       
                 
         var projects = document.getElementById('row'+projectID);
+        //hideLoader(projectID);
         projects.innerHTML=accordionHTML;
         if(isProjectEditable(project.projectLeaderID))
         {
@@ -956,7 +1014,123 @@ function hideMainLoader() {
     document.getElementById("main-loader").style.display = "none";
 }  
 
+////====SORTING====////
 
+pos = $('.userlist-nav a li');
+
+pos.off("click");
+pos.on("click", function () {
+    event.preventDefault();
+
+    clickedItem = $($(this)[0]).html();
+    console.log(clickedItem);
+
+
+    switch (clickedItem) {
+        case "全て":
+            for (let i = 0; i < PROJECT_CARDS.length; i++) {
+                showCard(PROJECT_CARDS[i])
+            }
+            return;
+        case "A": case "B": case "C": case "○": case "Z":
+            showHideProjectHandler("order-tag", clickedItem);
+            return;
+        case "見積": case "受注": case "検収": case "完了":
+            showHideProjectHandler("business-tag", clickedItem);
+            return;
+        case "要件": case "設計": case "実装": case "テスト": case "開発完了":
+            showHideProjectHandler("development-tag", clickedItem);
+            return;
+    }
+
+
+    function showHideProjectHandler(domType, itemName) {
+        console.log(PROJECT_CARDS);
+        for (let i = 0; i < PROJECT_CARDS.length; i++) {
+
+            text = $(PROJECT_CARDS[i]).find("." + domType).html();
+            console.log(text);
+
+            if (text == null) {
+                hideCard(PROJECT_CARDS[i])
+                continue;
+            }
+
+            if (text.includes(itemName)) {
+                showCard(PROJECT_CARDS[i])
+            }
+            else {
+                hideCard(PROJECT_CARDS[i])
+            }
+
+        }
+    }
+
+});
+
+
+function filterProject(e) {
+    e.preventDefault();
+    
+    switch (e.target.innerText) {
+        case "全て":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    showCard(staffList[i])
+                }
+                break;
+            }
+        case "PM":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PM") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+        case "SE":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "SE") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+        case "PG":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PG") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+        case "PL":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PL") {
+                        showCard(staffList[i])
+                        console.log(staffList[i]);
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+    }
+}
 
 
 // var assignData= [[0,0,'2020/10','2020/11','2020/12'],
