@@ -660,10 +660,26 @@ function getPojectLeaderAssignArrayIndex(mainTableArray, projectLeaderID){
             return i;
         }
     }
+    return mainTableArray.length;
 }
 function putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID){
     var leaderIndex = getPojectLeaderAssignArrayIndex(mainTableArray,projectLeaderID);
-
+    if(leaderIndex==mainTableArray.length){
+        
+        var length=mainTableArray.length;
+        console.log(length);
+        mainTableArray.push([]);
+        for (let index = 0; index < mainTableArray[0].length; index++) {
+            mainTableArray[length].push(0);
+            console.log(mainTableArray[length][index]);
+        }
+        console.log(mainTableArray);
+        mainTableArray[length][0]=projectLeaderID;
+        leaderIndex=length;
+    }
+    else{
+        
+    }
     var tmpRow=mainTableArray[2];
     mainTableArray[2]=mainTableArray[leaderIndex];
     mainTableArray[leaderIndex]=tmpRow;
