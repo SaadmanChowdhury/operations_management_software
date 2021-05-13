@@ -441,12 +441,150 @@ var users = [
 
 
 
+var categoryViewMode="all";
+//az atleast one ois zero
+//ago atleast one is greater than one
+//alo atleast one is less than one
 
 
 
 
+function atleastOneAssignIsZero(htmlDomRowListContainer){
+  
+  var lists = htmlDomRowListContainer.getElementsByTagName("li");
+
+  for (let i = 0; i < lists.length; i++) {
+      if(!isNaN(lists[i].innerText))
+      if(lists[i].innerText==0)
+          return true;
+  }
+
+  return false;
+
+}
 
 
+
+function calcCumSumOnInstantaneousRows(instantaneousLiveRows){
+
+    var sumRow=["","",
+        0,0,0,0,0,0,
+        0,0,0,0,0,0];
+
+    for (let i = 0; i < instantaneousLiveRows.length; i++) {
+          var lists=instantaneousLiveRows[i].getElementsByTagName("li");
+            for (let j = 2; j < lists.length; j++) {
+                sumRow[j]=  parseFloat(sumRow[j])+ parseFloat(lists[j].innerText);
+                sumRow[j]= sumRow[j].toFixed(2);
+                
+            }
+    }
+
+    console.log(sumRow);
+
+    return sumRow;
+}
+function showAssignsWhereAssignHasAtleastOneZero(){
+
+    var instantaneousLiveRows =[]; 
+
+    var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
+    
+   
+    for (let i = 0; i < rows.length; i++) {
+       if(atleastOneAssignIsZero(rows[i])){
+        showCard(rows[i]);
+        instantaneousLiveRows.push(rows[i]);
+       }
+       else{
+        hideCard(rows[i]);
+       }
+    }
+
+    var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
+    r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
+    r.inflatePopupForManMonths();
+
+}
+  
+function atleastOneAssignIsGreaterThanOne(htmlDomRowListContainer){
+  
+  var lists = htmlDomRowListContainer.getElementsByTagName("li");
+
+  for (let i = 0; i < lists.length; i++) {
+      if(!isNaN(lists[i].innerText))
+      if(lists[i].innerText>1)
+          return true;
+  }
+
+  return false;
+
+}
+
+function showAssignsWhereAssignHasAtleastOneIsGreaterThanOne(){
+    var year = document.getElementById('assign_year').innerHTML;
+
+    var r = new AssignSummrayRenderer(null,getManMonthByYear());
+    var instantaneousLiveRows =[]; 
+
+var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
+
+for (let i = 0; i < rows.length; i++) {
+   if(atleastOneAssignIsGreaterThanOne(rows[i])){
+    showCard(rows[i]);
+    instantaneousLiveRows.push(rows[i]);
+   }
+   else{
+    
+    hideCard(rows[i]);
+   }
+}
+
+    var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
+    r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
+    r.inflatePopupForManMonths();
+
+}
+
+function atleastOneAssignIsLessThanOne(htmlDomRowListContainer){
+  
+  var lists = htmlDomRowListContainer.getElementsByTagName("li");
+
+  for (let i = 0; i < lists.length; i++) {
+      if(!isNaN(lists[i].innerText))
+      if(lists[i].innerText>0 && lists[i].innerText<1)
+          return true;
+  }
+
+  return false;
+
+}
+
+function showAssignsWhereAssignHasAtleastOneIsLessThanOne(){
+
+    var year = document.getElementById('assign_year').innerHTML;
+
+    var r = new AssignSummrayRenderer(null,getManMonthByYear());
+    var instantaneousLiveRows =[]; 
+
+    var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
+
+    for (let i = 0; i < rows.length; i++) {
+    if(atleastOneAssignIsLessThanOne(rows[i])){
+        showCard(rows[i]);
+        instantaneousLiveRows.push(rows[i]);
+        
+    }
+    else{
+        hideCard(rows[i]);
+    }
+    }
+
+    var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
+    r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
+    r.inflatePopupForManMonths();
+
+}
 
 class AssignSummrayRenderer {
 
@@ -652,29 +790,47 @@ class AssignSummrayRenderer {
         else if (index > 1) {
 
 
-            var colorWeight = 0;
-            
-            if( this.checkValidNumber(cumCell)  &&  this.checkValidNumber( this.man_mon[(index-2)]) )
-             colorWeight =cumCell / this.man_mon[(index-2)];
-           // console.log(cumCell, index ,this.man_mon[(index-2)], colorWeight);
-
-
-            if (cumCell > 0) {
-
-                if (colorWeight < 0) {
-                    sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
-                } else if (colorWeight > 0 && colorWeight < 1)
-                    sinCellList = `<li class="blue tooltip">${cumCell}</li>`;
-
-                else if (colorWeight == 1)
-                    sinCellList = `<li class="green tooltip">${cumCell}</li>`;
-                else if (colorWeight > 1)
-                    sinCellList = `<li class="face-color tooltip">${cumCell}</li>`;
-
-            } else {
-
+            if(this.man_mon[(index-2)]==0.00){
                 sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
+
             }
+            else if ( cumCell<this.man_mon[(index-2)]){
+
+                sinCellList = `<li class="blue tooltip">${cumCell}</li>`;
+            }
+
+            else if ( cumCell==this.man_mon[(index-2)]){
+
+                sinCellList = `<li class="green tooltip">${cumCell}</li>`;
+            }
+
+            else if ( cumCell>this.man_mon[(index-2)]){
+
+                sinCellList = `<li class="face-color tooltip">${cumCell}</li>`;
+            }
+        //     var colorWeight = 0;
+            
+        //     if( this.checkValidNumber(cumCell)  &&  this.checkValidNumber( this.man_mon[(index-2)]) )
+        //      colorWeight =cumCell / this.man_mon[(index-2)];
+        //    // console.log(cumCell, index ,this.man_mon[(index-2)], colorWeight);
+
+
+        //     if (cumCell > 0) {
+
+        //         if (colorWeight < 0) {
+        //             sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
+        //         } else if (colorWeight > 0 && colorWeight < 1)
+        //             sinCellList = `<li class="blue tooltip">${cumCell}</li>`;
+
+        //         else if (colorWeight == 1)
+        //             sinCellList = `<li class="green tooltip">${cumCell}</li>`;
+        //         else if (colorWeight > 1)
+        //             sinCellList = `<li class="face-color tooltip">${cumCell}</li>`;
+
+        //     } else {
+
+        //         sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
+        //     }
 
 
         } 
@@ -817,6 +973,8 @@ function getUserData(aYear) {
                 );
                 x.render();
 
+                
+
             } else
                 handleAJAXResponse(response);
         },
@@ -824,6 +982,41 @@ function getUserData(aYear) {
             handleAJAXError(err);
         }
     });
+}
+
+
+
+function addAssignCategoryListeners(){
+
+    var categories = document.querySelectorAll("body > div.page-container > div.d-flex > div > div > div:nth-child(1) > ul:nth-child(2) > a ");
+    console.log(categories);
+    if(categories.length==3){
+            categories[0].addEventListener("click",function eventsForCategories(e){
+
+                       e.preventDefault();
+                       showAssignsWhereAssignHasAtleastOneZero();
+                       
+
+                } );
+
+
+                categories[1].addEventListener("click",function eventsForCategories(e){
+
+                            e.preventDefault();
+                            showAssignsWhereAssignHasAtleastOneIsGreaterThanOne();
+                            
+
+                } );
+
+                categories[2].addEventListener("click",function eventsForCategories(e){
+
+                            e.preventDefault();
+                            showAssignsWhereAssignHasAtleastOneIsLessThanOne();
+
+                } );
+
+       
+    }
 }
 
 function onYearChanged(year) {
@@ -837,6 +1030,8 @@ function onYearChanged(year) {
 
 var year = document.getElementById('assign_year').innerHTML;
 onYearChanged(year);
+addAssignCategoryListeners();
+
 </script>
 
 @include("footer")
