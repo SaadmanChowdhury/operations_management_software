@@ -1,5 +1,123 @@
+////====SORTING====////
+PROJECT_CARDS = [];
+pos = $('.userlist-nav a li');
 
-////====USER-LIST====////
+pos.off("click");
+pos.on("click", function () {
+    event.preventDefault();
+
+    clickedItem = $($(this)[0]).html();
+    
+
+
+    switch (clickedItem) {
+        case "全て":
+            for (let i = 0; i < PROJECT_CARDS.length; i++) {
+                showCard(PROJECT_CARDS[i])
+            }
+            return;
+        case "A": case "B": case "C": case "○": case "Z":
+            showHideProjectHandler("order-tag", clickedItem);
+            return;
+        case "見積": case "受注": case "検収": case "完了":
+            showHideProjectHandler("business-tag", clickedItem);
+            return;
+        case "要件": case "設計": case "実装": case "テスト": case "開発完了":
+            showHideProjectHandler("development-tag", clickedItem);
+            return;
+    }
+
+
+    function showHideProjectHandler(domType, itemName) {
+        for (let i = 0; i < PROJECT_CARDS.length; i++) {
+
+            text = $(PROJECT_CARDS[i]).find("." + domType).html();
+            
+
+            if (text == null) {
+                hideCard(PROJECT_CARDS[i])
+                continue;
+            }
+
+            if (text.includes(itemName)) {
+                showCard(PROJECT_CARDS[i])
+            }
+            else {
+                hideCard(PROJECT_CARDS[i])
+            }
+
+        }
+    }
+
+});
+
+
+function filterProject(e) {
+    e.preventDefault();
+    
+    switch (e.target.innerText) {
+        case "全て":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    showCard(staffList[i])
+                }
+                break;
+            }
+        case "PM":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PM") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+        case "SE":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "SE") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+        case "PG":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PG") {
+                        showCard(staffList[i])
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+        case "PL":
+            {
+                for (let i = 0; i < item.length; i++) {
+                    if (item[i].innerText == "PL") {
+                        showCard(staffList[i])
+                        //console.log(staffList[i]);
+                    }
+                    else {
+                        hideCard(staffList[i])
+                    }
+                }
+                break;
+            }
+    }
+}
+
+
+
+////====USER-LIST AJAX====////
 var users;
 function fetchUserList_AJAX() {
     $.ajax({
@@ -21,7 +139,7 @@ function fetchUserList_AJAX() {
     });
 }
 
-//=== READING PROJECT DETAILS OF EACH PROJECT FROM API ===//
+//=== READING PROJECT DETAILS OF EACH PROJECT FROM API AJAX===//
 function readProjectAssign_AJAX(projectID) {
     var response='';
     $.ajax({
@@ -53,18 +171,7 @@ function readProjectAssign_AJAX(projectID) {
     return response;
 }
 
-function readAndRenderProjectAssignByProjectID(projectID){
-    document.getElementById('row'+projectID).innerHTML=`<div class="loader" id="loader-${projectID}"></div>`;
-    var response= readProjectAssign_AJAX(projectID); 
-    setTimeout(function(){
-        document.getElementById('row'+projectID).innerHTML="";
-        var project=response["resultData"]["project"];
-        var data=convertToSimple2DArray(project);    
-        renderEmptyAssignAccordion(data,project);
-    },500);
-                
-}
-//=== SENDING PROJECT DETAILS TO ASSIGN API ===//
+//=== SENDING PROJECT DETAILS TO ASSIGN API AJAX===//
 function updateAssignData_AJAX(assignData,projectID) {
     $.ajax({
         type: "post",
@@ -91,7 +198,17 @@ function updateAssignData_AJAX(assignData,projectID) {
 }
 
 
-
+function readAndRenderProjectAssignByProjectID(projectID){
+    document.getElementById('row'+projectID).innerHTML=`<div class="loader" id="loader-${projectID}"></div>`;
+    var response= readProjectAssign_AJAX(projectID); 
+    setTimeout(function(){
+        document.getElementById('row'+projectID).innerHTML="";
+        var project=response["resultData"]["project"];
+        var data=convertToSimple2DArray(project);    
+        renderEmptyAssignAccordion(data,project);
+    },500);
+                
+}
 
 
 document.addEventListener("DOMContentLoaded", () => { 
@@ -108,12 +225,11 @@ class ProjectListRenderer{
     }
 
     
-
     //=== CALCULATING PROJECT PROFIT ===//
-    calcProfit(salesTotal,budget){
-        var profit = (salesTotal - budget) * 100 / salesTotal;
-        return profit;
-    }
+    // calcProfit(salesTotal,budget){
+    //     var profit = (salesTotal - budget) * 100 / salesTotal;
+    //     return profit;
+    // }
 
 
     getOrderStatusHTML(data) {
@@ -205,7 +321,6 @@ class ProjectListRenderer{
     
     renderProjectList(response01) {
 
-        //var projects = document.getElementById('accordian');
 
         response01["resultData"]["project"].forEach((project) => {
 
@@ -215,11 +330,11 @@ class ProjectListRenderer{
             $('#accordian').append(projectHtml);
             
         });
-
-        //PROJECT_CARDS = document.querySelectorAll('._project.card');
         
     }
-    //=== FETCHING PROJECT DETAILS FROM PROJECT API ===//
+
+
+    //=== FETCHING PROJECT DETAILS FROM PROJECT API AJAX===//
 
     fetchProjectList_AJAX() {
 
@@ -262,14 +377,12 @@ class ProjectListRenderer{
 
 
 function display(id) {
-    //numberWithCommas(project.salesTotal)
+    
     $('#row' + id).toggle("3000");
-    console.log(Math.round($('#row' + id).css("opacity")));    
+    
     if(Math.round($('#row' + id).css("opacity"))==0){
 
-        document.getElementById('row'+id).innerHTML=`<div class="loader" id="loader-${id}"></div>`;
-        console.log(document.getElementById('row'+id).innerHTML);
-        
+        document.getElementById('row'+id).innerHTML=`<div class="loader" id="loader-${id}"></div>`;        
         var response= readProjectAssign_AJAX(id); 
        
         setTimeout(function(){
