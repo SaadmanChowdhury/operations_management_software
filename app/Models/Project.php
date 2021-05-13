@@ -237,6 +237,11 @@ class Project extends Model
         $projectProfit = $this->getProjectProfit($project_id);
         $projectBudget = $this->getProjectBudget($project_id);
 
+        // if the budget is zero then it should return 0
+        if ($projectBudget == 0) {
+            return 0;
+        }
+
         $profitPercentage = $projectProfit * 100 / $projectBudget;
 
         $profitPercentage = number_format((float)$profitPercentage, 2, '.', '');
@@ -253,8 +258,15 @@ class Project extends Model
     public function getProjectData($projectID)
     {
         return DB::table('projects')
-            ->select('project_id as projectID', 'manager_id as projectLeaderID', 'budget as budget')
-            ->where('projects.project_id', $projectID)->whereNull("deleted_at")->first();
+            ->select(
+                'project_id as projectID',
+                'manager_id as projectLeaderID',
+                'budget as budget',
+                'order_month as orderMonth',
+                'inspection_month as inspectionMonth',
+            )
+            ->where('projects.project_id', $projectID)
+            ->whereNull("deleted_at")->first();
     }
 
     /**

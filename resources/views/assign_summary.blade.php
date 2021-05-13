@@ -662,12 +662,21 @@ class AssignSummrayRenderer {
         return fullRow;
     }
 
+    round(n) {
+      var h = (n * 100) % 10;
+      return h >= 7
+             ? n + (10 - h) * .01
+             : n;
+    }
 
     makeSummaryRowList(val) {
 
 
 
         //console.log(val)
+
+        
+        val=this.round(val).toFixed(2);
 
         var list = `<li class="faded-green">エラー</li>`;
 

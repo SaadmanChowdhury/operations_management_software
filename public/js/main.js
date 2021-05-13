@@ -242,3 +242,40 @@ function numberWithCommas(x) {
     var z = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return z;
 }
+
+function dateDifference(endDate, startDate) {
+    var diffInMilliseconds = endDate.getTime() - startDate.getTime();
+    var diffYear = diffInMilliseconds / 1000 / 3600 / 24 / 365;
+    var monthDiff = Math.floor(((diffYear % 1) * 365) / 30);
+
+    if (Math.floor(diffYear) == 0) {
+        diffYear = ""
+    }
+    else {
+        diffYear = Math.floor(diffYear) + "年"
+    }
+
+    if (Math.floor(monthDiff) == 0) {
+        monthDiff = "";
+    }
+    else {
+        monthDiff = Math.floor(monthDiff) + "月"
+    }
+
+    return diffYear + monthDiff;
+}
+
+function isGeneralUser() {
+    var currentUserAuthority = document.getElementById("user-authority");
+    return currentUserAuthority.value == "一般ユーザー" ? true : false;
+}
+
+function isSystemAdmin() {
+    var currentUserAuthority = document.getElementById("user-authority");
+    return currentUserAuthority.value == "システム管理者" ? true : false;
+}
+
+function isCurrentUser(userId) {
+    var currentUserId = document.getElementById("logged-in-id");
+    return userId == currentUserId.value ? true : false;
+}

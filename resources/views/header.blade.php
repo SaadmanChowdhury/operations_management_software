@@ -40,7 +40,16 @@
 
 <body>
 
+    @php 
+
+    $user = auth()->user();
+    @endphp
+
     <input type="hidden" id="CSRF-TOKEN" value="{{ csrf_token() }}">
+    <input type="hidden" id="logged-in-id" value="{{ $user->user_id }}">
+    <input type="hidden" id="user-authority" value="{{ $user->user_authority }}">
+    <input type="hidden" id="page-name" value="user_list">
+    <input type="hidden" id="initial-preference" value="{{ $initialPreference }}">
     {{--
 
     <body style="opacity: 0;" onload="showBody()"> --}}
