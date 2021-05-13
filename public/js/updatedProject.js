@@ -327,6 +327,7 @@ class ProjectListRenderer{
             Object.keys(project).forEach(e => (project[e] == null) ? project[e] = "" : true);
         
             var projectHtml = this.renderHTMLProjectList(project);
+            PROJECT_CARDS = document.querySelectorAll('._project.card');
             $('#accordian').append(projectHtml);
             
         });
