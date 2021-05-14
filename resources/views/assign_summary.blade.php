@@ -480,7 +480,7 @@ function calcCumSumOnInstantaneousRows(instantaneousLiveRows){
             }
     }
 
-    console.log(sumRow);
+   // console.log(sumRow);
 
     return sumRow;
 }
@@ -830,8 +830,7 @@ class AssignSummrayRenderer {
 
         else if (index > 1) {
 
-
-            if(this.man_mon[(index-2)]==0.00){
+            if(this.man_mon[(index-2)]==0){
                 sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
 
             }
@@ -1030,7 +1029,7 @@ function getUserData(aYear) {
 function addAssignCategoryListeners(){
 
     var categories = document.querySelectorAll("body > div.page-container > div.d-flex > div > div > div:nth-child(1) > ul:nth-child(2) > a ");
-    console.log(categories);
+    //console.log(categories);
     if(categories.length==3){
             categories[0].addEventListener("click",function eventsForCategories(e){
 

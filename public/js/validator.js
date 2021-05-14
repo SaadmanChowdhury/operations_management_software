@@ -101,7 +101,4 @@ function handleAJAXError(err) {
         }
         makeToast(errors);
     }
-    catch (err){
-        console.log(err);
-    }
 }
