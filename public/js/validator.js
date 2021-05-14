@@ -1,28 +1,28 @@
-function login_error_toaster(error){
+function login_error_toaster(error) {
 
 
-    var err_message="";
-    switch(error){
+    var err_message = "";
+    switch (error) {
 
         case 1:
-            err_message="ID and password are required!";
-        break;
-             
+            err_message = "ID and password are required!";
+            break;
+
         case 2:
-            err_message="ID is required!";
-             
-        break;
+            err_message = "ID is required!";
+
+            break;
         case 3:
-            err_message="Password is required!";
-        break;
+            err_message = "Password is required!";
+            break;
         case 4:
-            err_message="Password is required!";
-        break;
+            err_message = "Password is required!";
+            break;
 
         case 5:
-            err_message="Valid email is required!";
-        break;
-        
+            err_message = "Valid email is required!";
+            break;
+
     }
 
     makeToast([err_message]);
@@ -92,19 +92,13 @@ function validateForm() {
 }
 
 function handleAJAXError(err) {
-    var r = JSON.parse(err.responseText).errors;
-
-    try{
-        var keys = Object.keys(r);
-
+    var jsonError = JSON.parse(err.responseText).errors;
+    if (typeof jsonError !== 'undefined') {
+        var keys = Object.keys(jsonError);
         var errors = [];
         for (let index = 0; index < keys.length; index++) {
-            errors.push(r[keys[index]]);
+            errors.push(jsonError[keys[index]]);
         }
-
         makeToast(errors);
-    }
-    catch (err){
-        console.log(err);
     }
 }
