@@ -484,6 +484,36 @@ function calcCumSumOnInstantaneousRows(instantaneousLiveRows){
 
     return sumRow;
 }
+
+
+function showAssignedUserByPosition(position){
+
+var instantaneousLiveRows =[]; 
+
+var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
+
+var all=false;
+if(position=="ALL"){
+   all=true;
+}
+
+for (let i = 0; i < rows.length; i++) {
+   if(all || (rows[i].getAttribute("data-position")==position) ){
+    showCard(rows[i]);
+    instantaneousLiveRows.push(rows[i]);
+   }
+   else{
+    hideCard(rows[i]);
+   }
+}
+
+var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
+r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
+r.inflatePopupForManMonths();
+
+}
+
+
 function showAssignsWhereAssignHasAtleastOneZero(){
 
     var instantaneousLiveRows =[]; 
@@ -701,7 +731,7 @@ class AssignSummrayRenderer {
 
     }
 
-    makeUserSummaryRow(name, rowId, arr, subsRows) {
+    makeUserSummaryRow(name, rowId, position,  arr, subsRows) {
 
         var all_work_weights = "";
         var arrl = arr.length;
@@ -711,7 +741,7 @@ class AssignSummrayRenderer {
         }
 
         var c = `<div class="assign-user-tab">
-                    <div class="d-flex assign-user-sub-row _header list-unstyled text-center" onclick="assignDisplay(${rowId})">
+                    <div data-position="${position}" class="d-flex assign-user-sub-row _header list-unstyled text-center" onclick="assignDisplay(${rowId})">
                         <div class="wrapper d-flex text-center">
                             <li class="d-flex text-medium align-items-center">${name}</li>
                             <li class=" text-medium">合計 </li>
@@ -757,7 +787,9 @@ class AssignSummrayRenderer {
 
     calcUserProject(user, id) {
         var name = user.userName;
+        var position = user.position;
         var array_all = [];
+
 
         for (let index = 0; index < user.projects.length; index++) {
             array_all.push(this.parseUserPro(user.projects[index]));
@@ -766,7 +798,7 @@ class AssignSummrayRenderer {
         var cumSum = this.calcCumSumPerUser(array_all);
 
         document.getElementById("assign_summary_table").innerHTML +=
-            this.makeUserSummaryRow(name, id, cumSum, array_all);
+            this.makeUserSummaryRow(name, id, position, cumSum, array_all);
 
         this.calcCumulitiveValueForAllUser(cumSum);
     }
@@ -1028,6 +1060,20 @@ function addAssignCategoryListeners(){
     }
 }
 
+function addAssignCategoryListenersByPosition(){
+    var posBtns = document.querySelectorAll("body > div.page-container > div.d-flex > div > div > div:nth-child(1) > ul:nth-child(1) > a");
+    
+    var options = ["ALL" , "PM" , "PL" , "SE" , "PG"]
+
+    for (let i = 0; i < posBtns.length; i++) {
+        posBtns[i].addEventListener("click",function eventsForCategories(e){
+                e.preventDefault();
+                showAssignedUserByPosition(options[i]);
+            } );
+        }
+
+}
+
 function onYearChanged(year) {
 
 
@@ -1040,6 +1086,7 @@ function onYearChanged(year) {
 var year = document.getElementById('assign_year').innerHTML;
 onYearChanged(year);
 addAssignCategoryListeners();
+addAssignCategoryListenersByPosition();
 
 </script>
 
