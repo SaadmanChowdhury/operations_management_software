@@ -36,6 +36,53 @@
     fetchUserList();
     fetchClientList();
     </script>
+    <style>
+    #snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #0b1841;
+  color: #fff;
+  text-align: left;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 9999999;
+  right: 1rem;
+  top: 1rem;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  
+}
+
+#snackbar.hide {
+  visibility: hidden;
+  
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+    </style>
 </head>
 
 <body>
@@ -80,3 +127,4 @@
     <div id="background-shade"></div>
     <div id="background-shade-for-design-anomaly" class="bg-shade"></div>
     <div class="page-container">
+    <div id="snackbar">Some text some message..</div>
