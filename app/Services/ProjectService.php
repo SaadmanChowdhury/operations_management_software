@@ -91,7 +91,7 @@ class ProjectService
 
         $loggedUser = auth()->user();
         //if admin or manager
-        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->manager_id) {
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->projectLeaderID) {
             return $project;
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");

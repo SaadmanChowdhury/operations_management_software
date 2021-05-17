@@ -499,11 +499,11 @@ if(position=="ALL"){
 
 for (let i = 0; i < rows.length; i++) {
    if(all || (rows[i].getAttribute("data-position")==position) ){
-    showCard(rows[i]);
+    showCard(rows[i].parentElement);
     instantaneousLiveRows.push(rows[i]);
    }
    else{
-    hideCard(rows[i]);
+    hideCard(rows[i].parentElement);
    }
 }
 
@@ -523,11 +523,11 @@ function showAssignsWhereAssignHasAtleastOneZero(){
    
     for (let i = 0; i < rows.length; i++) {
        if(atleastOneAssignIsZero(rows[i])){
-        showCard(rows[i]);
+        showCard(rows[i].parentElement);
         instantaneousLiveRows.push(rows[i]);
        }
        else{
-        hideCard(rows[i]);
+        hideCard(rows[i].parentElement);
        }
     }
 
@@ -561,12 +561,12 @@ var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.as
 
 for (let i = 0; i < rows.length; i++) {
    if(atleastOneAssignIsGreaterThanOne(rows[i])){
-    showCard(rows[i]);
+    showCard(rows[i].parentElement);
     instantaneousLiveRows.push(rows[i]);
    }
    else{
     
-    hideCard(rows[i]);
+    hideCard(rows[i].parentElement);
    }
 }
 
@@ -601,12 +601,12 @@ function showAssignsWhereAssignHasAtleastOneIsLessThanOne(){
 
     for (let i = 0; i < rows.length; i++) {
     if(atleastOneAssignIsLessThanOne(rows[i])){
-        showCard(rows[i]);
+        showCard(rows[i].parentElement);
         instantaneousLiveRows.push(rows[i]);
         
     }
     else{
-        hideCard(rows[i]);
+        hideCard(rows[i].parentElement);
     }
     }
 
