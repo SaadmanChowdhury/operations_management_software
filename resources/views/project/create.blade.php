@@ -187,6 +187,7 @@ function createProject() {
                 handleAJAXResponse(response);
         },
         error: function(err) {
+            
             handleAJAXError(err);
             
         }
