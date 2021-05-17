@@ -43,7 +43,7 @@
                     <div class="modal-form-input-container">
                         <div class="_full">
                             <div><label for="name">顧客名<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="text" id="client_edit_nameInput" name="name"
+                            <div><input class="modal_input" type="text" id="client_edit_nameInput" name="name"
                                     value="{{ $client->client_name }}" required></div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         <div class="_full">
                             <div><label>顧客に責任者<span class="reruired-field-marker">*</span></label></div>
 
-                            <div><input type="number" id="client_edit_user_id" name="user_id"
+                            <div><input class="modal_input" type="number" id="client_edit_user_id" name="user_id"
                                     value="{{ $client->user_id }}"></div>
 
                         </div>

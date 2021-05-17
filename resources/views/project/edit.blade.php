@@ -45,19 +45,19 @@
                     <div class="modal-form-input-container">
                         <div class="_full">
                             <div><label for="name">案件名<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="text" id="project_edit_name_Input" name="name" required></div>
+                            <div><input class="modal_input" type="text" id="project_edit_name_Input" name="name" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container _dark">
                         <div class="_half">
                             <div><label for="client_id">顧客<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="number" id="project_edit_clientID_Input" name="client_id" required>
+                            <div><input class="modal_input" type="number" id="project_edit_clientID_Input" name="client_id" required>
                             </div>
                         </div>
                         <div class="_half">
                             <div><label for="manager_id">担当<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="number" id="project_edit_managerID_Input" name="manager_id" required>
+                            <div><input class="modal_input" type="number" id="project_edit_managerID_Input" name="manager_id" required>
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                         <div class="_third">
                             <div><label>見込</label></div>
                             <div class="custom-select">
-                                <select id="project_edit_order_status_Input" required>
+                                <select class="modal_input" id="project_edit_order_status_Input" required>
                                     @foreach (config('constants.Order_Status') as $status => $value)
                                     <option>{{ $status }}</option>
                                     @endforeach
@@ -77,7 +77,7 @@
                         <div class="_third">
                             <div><label>営業状況</label></div>
                             <div class="custom-select">
-                                <select id="project_edit_business_situation_Input" required>
+                                <select class="modal_input" id="project_edit_business_situation_Input" required>
                                     @foreach (config('constants.Business_situation') as $situation => $value)
                                     <option>{{ $situation }}</option>
                                     @endforeach
@@ -88,7 +88,7 @@
                         <div class="_third">
                             <div><label for="development_stage">作業工程</label></div>
                             <div class="custom-select">
-                                <select id="project_edit_development_stage_Input" required>
+                                <select class="modal_input" id="project_edit_development_stage_Input" required>
                                     @foreach (config('constants.Development_stage') as $stage => $value)
                                     <option>{{ $stage }}</option>
                                     @endforeach
@@ -101,33 +101,83 @@
 
                         <div class="_third">
                             <div><label for="sales_total">売上高<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="number" id="project_edit_sales_total_Input" name="sales_total" required>
+                            <div><input class="modal_input" type="number" id="project_edit_sales_total_Input" name="sales_total" required>
                             </div>
                         </div>
 
                         <div class="_third">
                             <div><label for="transferred_amount">振込金額<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="number" id="project_edit_transferred_amount_Input"
+                            <div><input class="modal_input" type="number" id="project_edit_transferred_amount_Input"
                                     name="transferred_amount" required></div>
                         </div>
 
                         <div class="_third">
                             <div><label for="budget">予算<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="number" id="project_edit_budget_Input" name="budget" required></div>
+                            <div><input class="modal_input" type="number" id="project_edit_budget_Input" name="budget" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="order_month">受注月<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="date" id="project_edit_order_month_Input" name="order_month"
+                            <div><input class="modal_input" type="date" id="project_edit_order_month_Input" name="order_month"
                                     required></div>
                         </div>
 
                         <div class="_half">
                             <div><label for="inspection_month">検収月</label></div>
-                            <div><input type="date" id="project_edit_inspection_month_Input" name="inspection_month"
+                            <div><input class="modal_input" type="date" id="project_edit_inspection_month_Input" name="inspection_month"
                                     required></div>
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container">
+
+                        <div class="_half">
+                            <div><label for="condition">Condition1<span class="reruired-field-marker">*</span></label></div>
+                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            <div>
+                                <input class="modal_input" type="text" id="user_edit_condition1" name="condition" value="" required>
+                            </div>
+                            
+                        </div>
+
+                        <div class="_half">
+                            <div><label>Condition2</label></div>
+                            <div>
+                                <input class="modal_input" type="text" id="user_edit_condition2" name="condition" value="" required>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container">
+
+                        <div class="_half">
+                            <div><label for="condition">Employee Classification<span class="reruired-field-marker">*</span></label></div>
+                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            <div class="custom-select">
+                                <select class="modal_input" id="user_edit_employeeType">
+                                    
+                                        <option value="1">SES</option>
+                                        <option value="2">Full-Time</option>
+                                        <option value="3">Part-Time</option>  
+                                    
+                                </select>
+                            </div>
+                            
+                        </div>
+
+                        <div class="_half">
+                            <div><label>Locker</label></div>
+                            <div>
+                                <input class="modal_input" type="text" id="user_edit_locker" name="locker" value="" required>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container">
+                        <div class="_full">
+                            <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
+                            <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
                         </div>
                     </div>
 

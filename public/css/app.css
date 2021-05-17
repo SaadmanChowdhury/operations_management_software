@@ -620,7 +620,7 @@ footer {
 
 .modal-form-container._user {
     max-height: 1200px;
-    top: 25em;
+    top: 40em;
 }
 
 .modal-form-container._client {
@@ -630,7 +630,7 @@ footer {
 
 .modal-form-container._project {
     max-height: 1200px;
-    top: 25em;
+    top: 40em;
 }
 
 .modal-show .modal-form-container {
@@ -1113,7 +1113,7 @@ img.cross {
     height: 45px;
 }
 
-input[type=text], input[type=email], input[type=password], input[type=date], input[type=number], select {
+.modal_input {
     width: calc(100% - 40px);
     padding: 10px 20px;
     margin: 8px 20px 8px;
@@ -2162,6 +2162,18 @@ td img {
 }
 
 /* ////====PROJECT EDIT-MODE STYLING ENDS====//// */
+
+.project_textarea{
+    height: 150px;
+    width: calc(100% - 40px);
+    padding: 10px 20px;
+    margin: 8px 20px 8px;
+    display: inline-block;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.58);
+    box-sizing: border-box;
+    border-radius: 4px;
+}
 
 /* ////====Design anomaly modal css started ====//// */
 

@@ -44,32 +44,32 @@
                     <div class="modal-form-input-container">
                         <div class="_full">
                             <div><label for="name">名前<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="text" id="user_edit_nameInput" name="name" value="" required></div>
+                            <div><input class="modal_input" type="text" id="user_edit_nameInput" name="name" value="" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="email">メールアドレス<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="email" id="user_edit_emailInput" name="email" value=""></div>
+                            <div><input class="modal_input" type="email" id="user_edit_emailInput" name="email" value=""></div>
                         </div>
 
                         <div class="_half">
                             <div><label for="password">パスワード</label></div>
-                            <div><input type="password" id="user_edit_passwordInput" name="password"></div>
+                            <div><input class="modal_input" type="password" id="user_edit_passwordInput" name="password"></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="tel">電話番号<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="text" id="user_edit_telInput" name="tel" value=""></div>
+                            <div><input class="modal_input" type="text" id="user_edit_telInput" name="tel" value=""></div>
                         </div>
 
                         <div class="_half">
                             <div><label>職場</label></div>
                             <div class="custom-select">
-                                <select id="user_edit_locationInput">
+                                <select class="modal_input" id="user_edit_locationInput">
                                     @foreach (config('constants.Location') as $location => $value)
                                     <option>{{ $location }}</option>
                                     @endforeach
@@ -84,11 +84,11 @@
                             <div><label for="salary">原価<span class="reruired-field-marker">*</span></label></div>
                             @if ($loggedUser->user_authority == 'システム管理者')
                             <div>
-                                <input type="number" id="user_edit_salaryInput" name="salary" value="" required>
+                                <input class="modal_input" type="number" id="user_edit_salaryInput" name="salary" value="" required>
                             </div>
                             @else
                             <div>
-                                <input type="number" id="user_edit_salaryInput" name="salary" value="" readonly>
+                                <input class="modal_input" type="number" id="user_edit_salaryInput" name="salary" value="" readonly>
                             </div>
                             @endif
                         </div>
@@ -96,7 +96,7 @@
                         <div class="_half">
                             <div><label>ポジション</label></div>
                             <div class="custom-select">
-                                <select id="user_edit_positionInput">
+                                <select class="modal_input" id="user_edit_positionInput">
                                     @foreach (config('constants.Position') as $position => $value)
                                         <option>{{ $position }}</option>
                                     @endforeach
@@ -111,11 +111,11 @@
                             </div>
                             @if ($loggedUser->user_authority == 'システム管理者')
                                 <div>
-                                    <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
+                                    <input class="modal_input" type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
                                 </div>
                             @else
                                 <div>
-                                    <input type="date" id="user_edit_admission_dayInput" name="admission_day" value=""
+                                    <input class="modal_input" type="date" id="user_edit_admission_dayInput" name="admission_day" value=""
                                         readonly>
                                 </div>
                             @endif
@@ -125,12 +125,12 @@
                             <div><label for="resignation_year">退職日</label></div>
                             @if ($loggedUser->user_authority == 'システム管理者')
                             <div>
-                                <input type="date" id="user_edit_resignation_yearInput" name="resignation_year"
+                                <input class="modal_input" type="date" id="user_edit_resignation_yearInput" name="resignation_year"
                                     value="">
                             </div>
                             @else
                             <div>
-                                <input type="date" id="user_edit_resignation_yearInput" name="resignation_year" value=""
+                                <input class="modal_input" type="date" id="user_edit_resignation_yearInput" name="resignation_year" value=""
                                     readonly>
                             </div>
                             @endif
@@ -142,7 +142,7 @@
                             <div><label for="condition">Condition1<span class="reruired-field-marker">*</span></label></div>
                             {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
                             <div>
-                                <input type="text" id="user_edit_condition1" name="condition" value="" required>
+                                <input class="modal_input" type="text" id="user_edit_condition1" name="condition" value="" required>
                             </div>
                             
                         </div>
@@ -150,7 +150,7 @@
                         <div class="_half">
                             <div><label>Condition2</label></div>
                             <div>
-                                <input type="text" id="user_edit_condition2" name="condition" value="" required>
+                                <input class="modal_input" type="text" id="user_edit_condition2" name="condition" value="" required>
                             </div>
                             
                         </div>
@@ -161,9 +161,9 @@
                             <div><label for="condition">Employee Classification<span class="reruired-field-marker">*</span></label></div>
                             {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
                             <div class="custom-select">
-                                <select id="user_edit_employeeType">
+                                <select class="modal_input" id="user_edit_employeeType">
                                     
-                                        <option value="1">SE</option>
+                                        <option value="1">SES</option>
                                         <option value="2">Full-Time</option>
                                         <option value="3">Part-Time</option>  
                                     
@@ -175,9 +175,15 @@
                         <div class="_half">
                             <div><label>Locker</label></div>
                             <div>
-                                <input type="text" id="user_edit_locker" name="locker" value="" required>
+                                <input class="modal_input" type="text" id="user_edit_locker" name="locker" value="" required>
                             </div>
                             
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container">
+                        <div class="_full">
+                            <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
+                            <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
                         </div>
                     </div>
 

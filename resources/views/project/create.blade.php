@@ -31,19 +31,19 @@
                     <div class="modal-form-input-container">
                         <div class="_full">
                             <div><label for="name">案件名<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="text" id="project_create_name_Input" name="name" required></div>
+                            <div><input class="modal_input" type="text" id="project_create_name_Input" name="name" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container _dark">
                         <div class="_half">
                             <div><label for="client_id">顧客<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="number" id="project_create_clientID_Input" name="client_id" required>
+                            <div><input class="modal_input" type="number" id="project_create_clientID_Input" name="client_id" required>
                             </div>
                         </div>
                         <div class="_half">
                             <div><label for="manager_id">担当<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="number" id="project_create_managerID_Input" name="manager_id" required>
+                            <div><input class="modal_input" type="number" id="project_create_managerID_Input" name="manager_id" required>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         <div class="_third">
                             <div><label>見込</label></div>
                             <div class="custom-select">
-                                <select id="project_create_order_status_Input" required>
+                                <select class="modal_input" id="project_create_order_status_Input" required>
                                     @foreach (config('constants.Order_Status') as $status => $value)
                                     <option>{{ $status }}</option>
                                     @endforeach
@@ -63,7 +63,7 @@
                         <div class="_third">
                             <div><label>営業状況</label></div>
                             <div class="custom-select">
-                                <select id="project_create_business_situation_Input" required>
+                                <select class="modal_input" id="project_create_business_situation_Input" required>
                                     @foreach (config('constants.Business_situation') as $situation => $value)
                                     <option>{{ $situation }}</option>
                                     @endforeach
@@ -74,7 +74,7 @@
                         <div class="_third">
                             <div><label for="development_stage">作業工程</label></div>
                             <div class="custom-select">
-                                <select id="project_create_development_stage_Input" required>
+                                <select class="modal_input" id="project_create_development_stage_Input" required>
                                     @foreach (config('constants.Development_stage') as $stage => $value)
                                     <option>{{ $stage }}</option>
                                     @endforeach
@@ -87,32 +87,32 @@
 
                         <div class="_third">
                             <div><label for="sales_total">売上高<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="number" id="project_create_sales_total_Input" name="sales_total" required>
+                            <div><input class="modal_input" type="number" id="project_create_sales_total_Input" name="sales_total" required>
                             </div>
                         </div>
 
                         <div class="_third">
                             <div><label for="transferred_amount">振込金額<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="number" id="project_create_transferred_amount_Input"
+                            <div><input class="modal_input" type="number" id="project_create_transferred_amount_Input"
                                     name="transferred_amount" required></div>
                         </div>
 
                         <div class="_third">
                             <div><label for="budget">予算<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="number" id="project_create_budget_Input" name="budget" required></div>
+                            <div><input class="modal_input" type="number" id="project_create_budget_Input" name="budget" required></div>
                         </div>
                     </div>
 
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="order_month">受注月<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="date" id="project_create_order_month_Input" name="inspection_month"
+                            <div><input class="modal_input" type="date" id="project_create_order_month_Input" name="inspection_month"
                                     required></div>
                         </div>
 
                         <div class="_half">
                             <div><label for="inspection_month">検収月</label></div>
-                            <div><input type="date" id="project_create_inspection_month_Input" name="inspection_month" required></div>
+                            <div><input class="modal_input" type="date" id="project_create_inspection_month_Input" name="inspection_month" required></div>
                         </div>
                     </div>
 

@@ -92,7 +92,7 @@ function convertToSearchableDropDown(id, type) {
         options = clientSelectGenerator();
     }
 
-    $(dom).replaceWith(`<select id="${id}">${options}</select>`);
+    $(dom).replaceWith(`<select class="modal_input" id="${id}">${options}</select>`);
     $(dom).val(currentVal);
 }
 
