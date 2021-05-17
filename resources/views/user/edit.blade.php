@@ -98,7 +98,7 @@
                             <div class="custom-select">
                                 <select id="user_edit_positionInput">
                                     @foreach (config('constants.Position') as $position => $value)
-                                    <option>{{ $position }}</option>
+                                        <option>{{ $position }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -110,14 +110,14 @@
                             <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label>
                             </div>
                             @if ($loggedUser->user_authority == 'システム管理者')
-                            <div>
-                                <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
-                            </div>
+                                <div>
+                                    <input type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
+                                </div>
                             @else
-                            <div>
-                                <input type="date" id="user_edit_admission_dayInput" name="admission_day" value=""
-                                    readonly>
-                            </div>
+                                <div>
+                                    <input type="date" id="user_edit_admission_dayInput" name="admission_day" value=""
+                                        readonly>
+                                </div>
                             @endif
                         </div>
 
@@ -134,6 +134,50 @@
                                     readonly>
                             </div>
                             @endif
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container">
+
+                        <div class="_half">
+                            <div><label for="condition">Condition1<span class="reruired-field-marker">*</span></label></div>
+                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            <div>
+                                <input type="text" id="user_edit_condition1" name="condition" value="" required>
+                            </div>
+                            
+                        </div>
+
+                        <div class="_half">
+                            <div><label>Condition2</label></div>
+                            <div>
+                                <input type="text" id="user_edit_condition2" name="condition" value="" required>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container">
+
+                        <div class="_half">
+                            <div><label for="condition">Employee Classification<span class="reruired-field-marker">*</span></label></div>
+                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            <div class="custom-select">
+                                <select id="user_edit_employeeType">
+                                    
+                                        <option value="1">SE</option>
+                                        <option value="2">Full-Time</option>
+                                        <option value="3">Part-Time</option>  
+                                    
+                                </select>
+                            </div>
+                            
+                        </div>
+
+                        <div class="_half">
+                            <div><label>Locker</label></div>
+                            <div>
+                                <input type="text" id="user_edit_locker" name="locker" value="" required>
+                            </div>
+                            
                         </div>
                     </div>
 
@@ -182,6 +226,10 @@ function handleAJAXResponse(response) {
 
     else
         $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
+}
+
+function handleAJAXError(err) {
+    console.log(err.responseText);
 }
 
 function updateUserTable(updatedData) {
@@ -261,7 +309,6 @@ function updateUser() {
                 handleAJAXResponse(response);
         },
         error: function(err) {
-            //console.log(err);
             handleAJAXError(err);
         }
     });
