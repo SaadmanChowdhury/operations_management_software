@@ -179,6 +179,9 @@ function createProject() {
         success: function(response) {
             if (response["resultStatus"]["isSuccess"]) {
                 // updateProjectTable(modalData);
+
+                let row = $("#accordian");
+                row.prepend( new ProjectListRenderer().renderHTMLProjectList(modalData));
                 closeModal('project-create-modal');
             } else
                 handleAJAXResponse(response);

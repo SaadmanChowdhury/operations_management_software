@@ -175,10 +175,11 @@ function getProjectEditFormData() {
 
 function handleAJAXResponse(response) {
 
-    if (response["resultStatus"]["isSuccess"])
-        updateProjectTable();
+    // if (response["resultStatus"]["isSuccess"])
+    //     updateProjectTable();
 
-    else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
+    //else
+     if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
         $('#message').html("You are not authorized to make this change");
 
     else
@@ -186,33 +187,27 @@ function handleAJAXResponse(response) {
 }
 
 
-
 function updateProjectTable(updatedData) {
-    // console.log(updatedData);
-
-    // console.log("UDPATE Project TABLE")
-
-    let row = $("#project-row-" + updatedData.id);
-
-    row.find(".project-name").html(updatedData.project_name);
-    row.find(".project-clientID").html(updatedData.client_id);
-    row.find(".project-managerID").html(updatedData.manager_id);
-    row.find(".project-orderMonth").html(updatedData.order_month);
-    row.find(".project-inspectionMonth").html(updatedData.inspection_month);
-    row.find(".project-orderStatus").html(updatedData.order_status);
-    row.find(".project-businessSituation").html(updatedData.business_situation);
-    row.find(".project-developmentStage").html(updatedData.development_stage);
-    row.find(".project-salesTotal").html(updatedData.sales_total);
-    row.find(".project-transferredAmount").html(updatedData.transferred_amount);
-
-    /*row.find(".user-location").html(updatedData.locationText);
-
-    positionDom = row.find(".pos");
-    positionDom.html(updatedData.positionText);
-    positionDom.removeClass();
-    positionDom.addClass("pos");
-    positionDom.addClass("pos-" + updatedData.positionText); */
-
+    $.ajax({
+        type: "post",
+        url: "/API/readProjectDetails",
+        data: {
+            projectID: updatedData.projectID,
+            _token: $('input[name=_token]').val()
+        },
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"]) {
+                
+                let row = $("#project-row-" + updatedData.projectID);
+                row.html( new ProjectListRenderer().renderHTMLProjectList(response["resultData"]));
+            } else
+                handleAJAXResponse(response);
+        },
+        error: function(err) {
+            handleAJAXError(err);
+        }
+    }); 
 }
 
 function updateProjectEditModalData(data) {
@@ -247,7 +242,7 @@ function getProjectData(projectID) {
         cache: false,
         success: function(response) {
             if (response["resultStatus"]["isSuccess"]) {
-                // console.log(response)
+                 console.log(response)
                 updateProjectEditModalData(response["resultData"]);
             } else
                 handleAJAXResponse(response);
