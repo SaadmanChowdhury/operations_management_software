@@ -20,6 +20,11 @@
                         <button type="submit" onclick="createUser()"><i class="fa fa-floppy-o" aria-hidden="true"></i>
                             登録</button>
                     </div>
+                    <div>
+                        <button type="submit" class="heart">
+                            <i class="fa fa-heart" aria-hidden="true"></i> お気に入り
+                        </button>
+                    </div>
 
                     <div>
                         <button type="submit" class="cancel" onclick="closeModal('user-create-modal')"><i
@@ -72,22 +77,43 @@
                     </div>
 
                     <div class="modal-form-input-container">
-                        <div class="_half">
+
+                        {{-- <div class="_half">
                             <div><label for="salary">原価<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="number" id="user_create_salaryInput" name="salary" required></div>
+                            @if ($loggedUser->user_authority == 'システム管理者')
+                            <div>
+                                <input class="modal_input" type="number" id="user_edit_salaryInput" name="salary" value="" required>
+                            </div>
+                            @else
+                            <div>
+                                <input class="modal_input" type="number" id="user_edit_salaryInput" name="salary" value="" readonly>
+                            </div>
+                            @endif
+                        </div> --}}
+                        <div class="_half">
+                            <div><label for="authority">Authority</label><span class="reruired-field-marker">*</span></div>
+                            <div class="custom-select">
+                                <select class="modal_input" id="user_edit_positionInput">
+                                    @foreach (config('constants.Position') as $position => $value)
+                                        <option>{{ $position }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
                         </div>
 
                         <div class="_half">
                             <div><label>ポジション</label></div>
                             <div class="custom-select">
-                                <select class="modal_input" id="user_create_positionInput" required>
+                                <select class="modal_input" id="user_edit_positionInput">
                                     @foreach (config('constants.Position') as $position => $value)
-                                    <option>{{ $position }}</option>
+                                        <option>{{ $position }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
+
 
                     <div class="modal-form-input-container">
                         <div class="_half">
