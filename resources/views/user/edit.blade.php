@@ -42,7 +42,11 @@
 
 
                     <div class="modal-form-input-container">
-                        <div class="_full">
+                        <div class="_half">
+                            <div><label for="userid">User ID<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="text" id="user_edit_userID" name="userid" value=""></div>
+                        </div>
+                        <div class="_half">
                             <div><label for="name">名前<span class="reruired-field-marker">*</span></label></div>
                             <div><input class="modal_input" type="text" id="user_edit_nameInput" name="name" value="" required></div>
                         </div>
@@ -158,7 +162,7 @@
                     <div class="modal-form-input-container">
 
                         <div class="_half">
-                            <div><label for="condition">Employee Classification<span class="reruired-field-marker">*</span></label></div>
+                            <div><label for="condition">従業員の分類<span class="reruired-field-marker">*</span></label></div>
                             {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
                             <div class="custom-select">
                                 <select class="modal_input" id="user_edit_employeeType">
@@ -178,6 +182,25 @@
                                 <input class="modal_input" type="text" id="user_edit_locker" name="locker" value="" required>
                             </div>
                             
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container _dark">
+
+                        <div class="_third">
+                            <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="number" id="user_edit_salary" name="sales_total" required>
+                            </div>
+                        </div>
+
+                        <div class="_third">
+                            <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="date" id="user_edit_salary_startDate"
+                                    name="transferred_amount" required></div>
+                        </div>
+
+                        <div class="_third">
+                            <div><label for="budget">終了日</label></div>
+                            <div><input class="modal_input" type="date" id="user_edit_salary_endDate" name="budget" required></div>
                         </div>
                     </div>
                     <div class="modal-form-input-container">

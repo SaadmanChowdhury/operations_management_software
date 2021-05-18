@@ -31,7 +31,7 @@
                     <div class="modal-form-input-container">
                         <div class="_full">
                             <div><label for="name">案件名<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="text" id="project_create_name_Input" name="name" required></div>
+                            <div><input class="modal_input" class="modal_input" type="text" id="project_create_name_Input" name="name" required></div>
                         </div>
                     </div>
 

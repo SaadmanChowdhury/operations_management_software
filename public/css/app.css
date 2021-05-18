@@ -618,10 +618,13 @@ footer {
     z-index: 999;
 }
 
-.modal-form-container._user {
+
+.modal-form-container._user{
     max-height: 1200px;
-    top: 40em;
+    top: 45em;
 }
+
+
 
 .modal-form-container._client {
     max-height: 1200px;
