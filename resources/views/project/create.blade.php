@@ -22,6 +22,12 @@
                     </div>
 
                     <div>
+                        <button type="submit" class="heart">
+                            <i class="fa fa-heart" aria-hidden="true"></i> お気に入り
+                        </button>
+                    </div>
+
+                    <div>
                         <button type="submit" class="cancel" onclick="closeModal('project-create-modal')"><i class="fa fa-times" aria-hidden="true"></i> 戻る</button>
                     </div>
                 </div>

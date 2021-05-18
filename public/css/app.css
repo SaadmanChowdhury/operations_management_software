@@ -1180,12 +1180,12 @@ button.cancel:hover {
     color: white;
 }
 button.heart {
-    color: #a488dd;
-    border: 2px solid #a488dd;
+    color: #C7B6DC;
+    border: 2px solid #C7B6DC;
 
 }
 button.heart:hover {
-    background-color: #a488dd;
+    background-color: #C7B6DC;
     color: white;
 }
 

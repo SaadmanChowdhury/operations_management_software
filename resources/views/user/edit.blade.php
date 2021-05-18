@@ -21,6 +21,11 @@
                             更新
                         </button>
                     </div>
+                    <div>
+                        <button type="submit" class="heart">
+                            <i class="fa fa-heart" aria-hidden="true"></i> お気に入り
+                        </button>
+                    </div>
 
                     <div>
                         <button type="submit" class="cancel" onclick="closeModal('user-edit-modal')">

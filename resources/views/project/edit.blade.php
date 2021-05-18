@@ -23,15 +23,17 @@
                     </div>
 
                     <div>
-                        <button type="submit" class="cancel" onclick="closeModal('project-edit-modal')">
-                            <i class="fa fa-times" aria-hidden="true"></i> 戻る
-                        </button>
-                    </div>
-                    <div>
                         <button type="submit" class="heart">
                             <i class="fa fa-heart" aria-hidden="true"></i> お気に入り
                         </button>
                     </div>
+
+                    <div>
+                        <button type="submit" class="cancel" onclick="closeModal('project-edit-modal')">
+                            <i class="fa fa-times" aria-hidden="true"></i> 戻る
+                        </button>
+                    </div>
+                    
 
                     @if ($loggedInUser->user_authority == ('システム管理者'))
                     <div onclick="deleteProject()">
