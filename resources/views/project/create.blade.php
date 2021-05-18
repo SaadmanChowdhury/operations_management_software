@@ -142,24 +142,18 @@
                     <div class="modal-form-input-container">
 
                         <div class="_half">
-                            <div><label for="condition">Department Sales<span class="reruired-field-marker">*</span></label></div>
+                            <div><label for="salesDept">Department Sales<span class="reruired-field-marker">*</span></label></div>
                             {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
-                            <div class="custom-select">
-                                <select class="modal_input" id="user_edit_employeeType">
-                                    
-                                        <option value="1">SES</option>
-                                        <option value="2">Full-Time</option>
-                                        <option value="3">Part-Time</option>  
-                                    
-                                </select>
+                            <div>
+                                <input class="modal_input" type="text" id="project_create_salesDept" name="salesDept" value="" required>
                             </div>
                             
                         </div>
 
                         <div class="_half">
-                            <div><label>Cost of Sales</label></div>
+                            <div><label for="salesCost">Cost of Sales</label></div>
                             <div>
-                                <input class="modal_input" type="text" id="user_edit_locker" name="locker" value="" required>
+                                <input class="modal_input" type="text" id="project_create_salesCost" name="salesCost" value="" required>
                             </div>
                             
                         </div>

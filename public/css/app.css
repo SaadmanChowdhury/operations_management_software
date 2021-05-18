@@ -1179,6 +1179,15 @@ button.cancel:hover {
     background-color: gray;
     color: white;
 }
+button.heart {
+    color: #a488dd;
+    border: 2px solid #a488dd;
+
+}
+button.heart:hover {
+    background-color: #a488dd;
+    color: white;
+}
 
 .submit-button, button {
     color: #43A1F8;
