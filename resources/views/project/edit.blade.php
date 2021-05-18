@@ -42,8 +42,13 @@
 
                     <input type="hidden" id="id" value="">
 
+                   
                     <div class="modal-form-input-container">
-                        <div class="_full">
+                        <div class="_half">
+                            <div><label for="projectID">Project ID<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="text" id="project_edit_projectID" name="projectID" required></div>
+                        </div>
+                        <div class="_half">
                             <div><label for="name">案件名<span class="reruired-field-marker">*</span></label></div>
                             <div><input class="modal_input" type="text" id="project_edit_name_Input" name="name" required></div>
                         </div>

@@ -29,9 +29,13 @@
                 <div class="column right _project">
 
                     <div class="modal-form-input-container">
-                        <div class="_full">
+                        <div class="_half">
+                            <div><label for="projectID">Project ID<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="text" id="project_create_projectID" name="projectID" required></div>
+                        </div>
+                        <div class="_half">
                             <div><label for="name">案件名<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" class="modal_input" type="text" id="project_create_name_Input" name="name" required></div>
+                            <div><input class="modal_input" type="text" id="project_create_name_Input" name="name" required></div>
                         </div>
                     </div>
 
@@ -113,6 +117,57 @@
                         <div class="_half">
                             <div><label for="inspection_month">検収月</label></div>
                             <div><input class="modal_input" type="date" id="project_create_inspection_month_Input" name="inspection_month" required></div>
+                        </div>
+                    </div>
+
+                    <div class="modal-form-input-container">
+
+                        <div class="_half">
+                            <div><label for="condition">Estimate ID<span class="reruired-field-marker">*</span></label></div>
+                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            <div>
+                                <input class="modal_input" type="text" id="user_edit_condition1" name="condition" value="" required>
+                            </div>
+                            
+                        </div>
+
+                        <div class="_half">
+                            <div><label>Working Process</label></div>
+                            <div>
+                                <input class="modal_input" type="text" id="user_edit_condition2" name="condition" value="" required>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container">
+
+                        <div class="_half">
+                            <div><label for="condition">Department Sales<span class="reruired-field-marker">*</span></label></div>
+                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            <div class="custom-select">
+                                <select class="modal_input" id="user_edit_employeeType">
+                                    
+                                        <option value="1">SES</option>
+                                        <option value="2">Full-Time</option>
+                                        <option value="3">Part-Time</option>  
+                                    
+                                </select>
+                            </div>
+                            
+                        </div>
+
+                        <div class="_half">
+                            <div><label>Cost of Sales</label></div>
+                            <div>
+                                <input class="modal_input" type="text" id="user_edit_locker" name="locker" value="" required>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container">
+                        <div class="_full">
+                            <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
+                            <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
                         </div>
                     </div>
 
