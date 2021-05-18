@@ -51,9 +51,25 @@
                             <div><label for="userid">User ID<span class="reruired-field-marker">*</span></label></div>
                             <div><input class="modal_input" type="text" id="user_edit_userID" name="userid" value=""></div>
                         </div>
+                        
+                    </div>
+                    <div class="modal-form-input-container">
+                        
                         <div class="_half">
                             <div><label for="name">名前<span class="reruired-field-marker">*</span></label></div>
                             <div><input class="modal_input" type="text" id="user_edit_nameInput" name="name" value="" required></div>
+                        </div>
+                        <div class="_half">
+                            <div><label for="userGender">Gender</label></div>
+                            <div class="custom-select">
+                                <select class="modal_input" id="user_edit_employeeType">
+                                    
+                                        <option value="1">女性</option>
+                                        <option value="2">男性</option>
+                                         
+                                    
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -89,7 +105,7 @@
 
                     <div class="modal-form-input-container">
 
-                        <div class="_half">
+                        {{-- <div class="_half">
                             <div><label for="salary">原価<span class="reruired-field-marker">*</span></label></div>
                             @if ($loggedUser->user_authority == 'システム管理者')
                             <div>
@@ -100,6 +116,17 @@
                                 <input class="modal_input" type="number" id="user_edit_salaryInput" name="salary" value="" readonly>
                             </div>
                             @endif
+                        </div> --}}
+                        <div class="_half">
+                            <div><label for="authority">Authority</label></div>
+                            <div class="custom-select">
+                                <select class="modal_input" id="user_edit_positionInput">
+                                    @foreach (config('constants.Position') as $position => $value)
+                                        <option>{{ $position }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
                         </div>
 
                         <div class="_half">
@@ -148,7 +175,18 @@
                     <div class="modal-form-input-container">
 
                         <div class="_half">
-                            <div><label for="condition">Condition1<span class="reruired-field-marker">*</span></label></div>
+                            <div><label for="emergency">Emergency Contact</label></div>
+                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            <div>
+                                <input class="modal_input" type="text" id="user_edit_emergency" name="emergency" value="" required>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container">
+
+                        <div class="_half">
+                            <div><label for="condition">Condition1</label></div>
                             {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
                             <div>
                                 <input class="modal_input" type="text" id="user_edit_condition1" name="condition" value="" required>
