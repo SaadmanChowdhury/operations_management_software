@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
-class CreateClientsTable extends Migration
+class CreateFavoritesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,11 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
-            $table->increments('client_id')->unsigned();
-            $table->string('client_code', 100);
-
-            $table->string('client_name', 50);
-            $table->unsignedInteger('user_id')->length(10);
+        Schema::create('favorites', function (Blueprint $table) {
+            $table->increments('favorite_id')->unsigned();
+            $table->unsignedInteger('user_id')->length(10); // who will assign favorite
+            $table->enum('item_type', ['user', 'project', 'maintenance'])->nullable();
+            $table->unsignedInteger('item_id')->length(10); // the the favorite 
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();
@@ -37,6 +36,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('favorites');
     }
 }

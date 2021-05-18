@@ -16,9 +16,9 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('project_id')->unsigned();
-
-            $table->string('project_name', 100);
+            $table->string('project_code', 100);
             $table->unsignedInteger('client_id')->length(10);
+            $table->string('project_name', 100);
             $table->unsignedInteger('manager_id')->length(10);
 
             $table->date('order_month')->nullable();
@@ -29,6 +29,12 @@ class CreateProjectsTable extends Migration
             $table->bigInteger('sales_total')->nullable();
             $table->bigInteger('transferred_amount')->nullable();
             $table->bigInteger('budget')->nullable();
+
+            $table->unsignedInteger('estimate_id')->nullable();
+            // $table->string('working_process', 100)->nullable();
+            $table->unsignedInteger('department_sales')->nullable();
+            $table->unsignedInteger('cost_of_sales')->nullable();
+            $table->text('remarks')->nullable();
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();
