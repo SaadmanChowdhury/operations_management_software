@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Salary;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,7 +18,10 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             ClientsTableSeeder::class,
             ProjectsTableSeeder::class,
-            AssignTableSeeder::class
+            AssignTableSeeder::class,
+            FavoriteTableSeeder::class,
+            EmploymentTableSeeder::class,
+            SalaryTableSeeder::class,
         ]);
     }
 }
