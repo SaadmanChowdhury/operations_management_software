@@ -133,7 +133,7 @@
                     <div class="modal-form-input-container">
 
                         <div class="_half">
-                            <div><label for="condition">Condition1<span class="reruired-field-marker">*</span></label></div>
+                            <div><label for="condition">Estimate ID<span class="reruired-field-marker">*</span></label></div>
                             {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
                             <div>
                                 <input class="modal_input" type="text" id="user_edit_condition1" name="condition" value="" required>
@@ -142,7 +142,7 @@
                         </div>
 
                         <div class="_half">
-                            <div><label>Condition2</label></div>
+                            <div><label>Working Process</label></div>
                             <div>
                                 <input class="modal_input" type="text" id="user_edit_condition2" name="condition" value="" required>
                             </div>
@@ -152,7 +152,7 @@
                     <div class="modal-form-input-container">
 
                         <div class="_half">
-                            <div><label for="condition">Employee Classification<span class="reruired-field-marker">*</span></label></div>
+                            <div><label for="condition">Department Sales<span class="reruired-field-marker">*</span></label></div>
                             {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
                             <div class="custom-select">
                                 <select class="modal_input" id="user_edit_employeeType">
@@ -167,7 +167,7 @@
                         </div>
 
                         <div class="_half">
-                            <div><label>Locker</label></div>
+                            <div><label>Cost of Sales</label></div>
                             <div>
                                 <input class="modal_input" type="text" id="user_edit_locker" name="locker" value="" required>
                             </div>

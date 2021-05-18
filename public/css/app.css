@@ -832,7 +832,7 @@ footer {
     min-width: 1200px;
     overflow: scroll;
     height: calc(100vh - 230px);
-    padding-bottom: 10px;
+    /* padding-bottom: 10px; */
 }
 
 #table-nav .fa {
@@ -1700,7 +1700,7 @@ button.cancel:hover {
     display: none;
 } */
 
-::-webkit-scrollbar {
+._project ::-webkit-scrollbar {
     height: 5px;
     width: 0;
     margin-top: -10px;
@@ -1708,9 +1708,37 @@ button.cancel:hover {
 
 /* Track */
 
-::-webkit-scrollbar-track {
+._project ::-webkit-scrollbar-track {
     height: 0;
     width: 10%;
+}
+
+/* Handle */
+
+._project ::-webkit-scrollbar-thumb {
+    background: #0026a3;
+    border-radius: 10px;
+    height: 3px;
+}
+
+/* Handle on hover */
+
+._project ::-webkit-scrollbar-thumb:hover {
+    background: #011b72;
+}
+
+
+::-webkit-scrollbar {
+    height: 5px;
+    width: 0;
+    margin-top: 0px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    height: 0;
+    width: 5%;
 }
 
 /* Handle */
