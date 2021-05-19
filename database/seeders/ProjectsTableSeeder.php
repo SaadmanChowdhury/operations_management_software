@@ -122,6 +122,129 @@ class ProjectsTableSeeder extends Seeder
                 'project_code' => 'ピープル LP',
                 'transferred_amount' => 40000,
             ],
+
+            //4 newly added projects in 2020 from 8
+
+            [
+                'project_name' => 'Airline Ticket Management System',
+                'client_id' => 6, //client
+                'manager_id' => 6,
+                'sales_total' => 7000000,
+                'budget' => 5000000,
+                'order_month' => "2020-1-1",
+                'inspection_month' => "2020-12-31",
+                'order_status' => 'A',
+                'business_situation' => '完了',
+                'development_stage' => '設計',
+
+                'project_code' => 'atms',
+                'transferred_amount' => 4000000,
+            ],
+
+            //9
+
+            [
+                'project_name' => 'Japan Decentralized Server',
+                'client_id' => 6, //client
+                'manager_id' => 6,
+                'sales_total' => 9000000,
+                'budget' => 7000000,
+                'order_month' => "2020-1-1",
+                'inspection_month' => "2020-12-31",
+                'order_status' => 'A',
+                'business_situation' => '完了',
+                'development_stage' => '設計',
+
+                'project_code' => 'jds',
+                'transferred_amount' => 3000000,
+            ],
+
+
+            //10
+
+
+            [
+                'project_name' => 'Ayuki Natural Voice Synthesizer',
+                'client_id' => 3, //client
+                'manager_id' => 7,
+                'sales_total' => 9000000,
+                'budget' => 7000000,
+                'order_month' => "2020-1-1",
+                'inspection_month' => "2020-12-31",
+                'order_status' => 'A',
+                'business_situation' => '完了',
+                'development_stage' => '設計',
+
+                'project_code' => 'anvs',
+                'transferred_amount' => 3000000,
+            ],
+
+
+            //11
+            [
+                'project_name' => 'Presentation Maker',
+                'client_id' => 3, //client
+                'manager_id' => 7,
+                'sales_total' => 8000000,
+                'budget' => 5000000,
+                'order_month' => "2020-1-1",
+                'inspection_month' => "2020-12-31",
+                'order_status' => 'A',
+                'business_situation' => '完了',
+                'development_stage' => '設計',
+
+                'project_code' => 'pm',
+                'transferred_amount' => 4000000,
+            ],
+
+
+             //12
+             [
+                'project_name' => 'Credit Profiler Loan profile generatior',
+                'client_id' => 3, //client
+                'manager_id' => 7,
+                'sales_total' => 8000000,
+                'budget' => 5000000,
+                'order_month' => "2021-1-1",
+                'inspection_month' => "2021-9-18",
+                'order_status' => 'A',
+                'business_situation' => '完了',
+                'development_stage' => '設計',
+
+                'project_code' => 'cplg',
+                'transferred_amount' => 4000000,
+            ],
+
+
+            //13
+
+        
+             [
+                'project_name' => 'Finanace Manager',
+                'client_id' => 3, //client
+                'manager_id' => 1,
+                'sales_total' => 8000000,
+                'budget' => 5000000,
+                'order_month' => "2021-1-1",
+                'inspection_month' => "2021-9-18",
+                'order_status' => 'A',
+                'business_situation' => '完了',
+                'development_stage' => '設計',
+
+                'project_code' => 'fm',
+                'transferred_amount' => 4000000,
+            ],
+
+
+
+
+
+
+
+
+
+
+
         ];
 
         Project::insert($data);
