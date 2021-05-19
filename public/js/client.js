@@ -96,6 +96,7 @@ $(function () {
 
             let preference = document.getElementById("initial-preference");
             adjustRowHeightByState(preference, false);
+            document.getElementById("client_table").style.display = "block";
 
         }, 0);
     }
@@ -132,49 +133,49 @@ function fetchClientList_AJAX() {
     });
 }
 
-function renderClientHTML(response) {
-    var currentUserId = document.getElementById("logged-in-id");
-    var currentUserAuthority = document.getElementById("user-authority");
-    console.log(currentUserId, currentUserAuthority);
+// function renderClientHTML(response) {
+//     var currentUserId = document.getElementById("logged-in-id");
+//     var currentUserAuthority = document.getElementById("user-authority");
+//     console.log(currentUserId, currentUserAuthority);
 
-    rowClientHTML = `<div class="card _client" id="client-row-${response.clientID}">` +
-        `<div class="card-header">` +
-        `<div class="display list-unstyled">` +
-        `<li>${response.clientID}</li>` +
-        `<li>${response.clientName}</li>` +
-        `<li>
-                <img src="img/pro_icon.png" class="smallpic">
-                <div class="user-name">
-                    ${response.clientID}
-                </div>
-                
-            </li>`+
+//     rowClientHTML = `<div class="card _client" id="client-row-${response.clientID}">` +
+//         `<div class="card-header">` +
+//         `<div class="display list-unstyled">` +
+//         `<li>${response.clientID}</li>` +
+//         `<li>${response.clientName}</li>` +
+//         `<li>
+//                 <img src="img/pro_icon.png" class="smallpic">
+//                 <div class="user-name">
+//                     ${response.clientID}
+//                 </div>
 
-
-        `<li>${response.totalSales} 円</li>` +
-        `<li>${response.totalProfit} 円</li>` +
-
-        `<li>
-                    <div class="edit" onclick="clientEditModalHandler(${response.clientID})">
-                        <span style="font-size: 11px; margin:6px;width:auto"
-                            class="fa fa-pencil"></span>編集
-                    </div>
-                </li>`+
-
-        `<li class="transparent">円</li>
-                <li class="transparent">円</li>`+
-
-        `<li>
-                    <div class="edit transparent">
-                        <span style="font-size: 11px; margin:6px;width:auto"
-                            class="fa fa-pencil"></span>編集
-                    </div>
-                </li>`+
+//             </li>`+
 
 
-        `</div>
-    </div>
-</div>`;
+//         `<li>${response.totalSales} 円</li>` +
+//         `<li>${response.totalProfit} 円</li>` +
+
+//         `<li>
+//                     <div class="edit" onclick="clientEditModalHandler(${response.clientID})">
+//                         <span style="font-size: 11px; margin:6px;width:auto"
+//                             class="fa fa-pencil"></span>編集
+//                     </div>
+//                 </li>`+
+
+//         `<li class="transparent">円</li>
+//                 <li class="transparent">円</li>`+
+
+//         `<li>
+//                     <div class="edit transparent">
+//                         <span style="font-size: 11px; margin:6px;width:auto"
+//                             class="fa fa-pencil"></span>編集
+//                     </div>
+//                 </li>`+
 
 
-}
+//         `</div>
+//     </div>
+// </div>`;
+
+
+// }
