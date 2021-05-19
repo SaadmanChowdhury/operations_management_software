@@ -25,7 +25,7 @@
                     </a>
                 </ul>
                 <ul class="userlist-nav center list-unstyled" style="float: right;">
-                    <a href="" onclick="adjustRowHeight()">
+                    <a id="toogler" href="">
                         <li class="fa fa-list"> </li>
                     </a>
 
@@ -58,7 +58,7 @@
 
             {{-- ///====CLIENT-TABLE DETAILS====/// --}}
 
-            <div class="client table-body">
+            <div id="client_table" class="client table-body" style="display:none;">
 
                 @foreach ($list as $client)
                 <div class="card _client" id="client-row-{{ $client->client_id }}">
@@ -112,5 +112,7 @@
 @include("client.edit")
 @include("client.create")
 
+
 <script src="/js/client.js"></script>
+
 @include("footer")

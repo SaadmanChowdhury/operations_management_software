@@ -123,6 +123,10 @@ function renderHTML(response) {
         staffList = document.querySelectorAll('.staffs .card');
         item = document.querySelectorAll('.pos');
     });
+
+
+    let preference = document.getElementById("initial-preference");
+    adjustRowHeightByState(preference, false);
 }
 
 
