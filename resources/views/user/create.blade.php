@@ -82,21 +82,24 @@
                             <div><label for="salary">原価<span class="reruired-field-marker">*</span></label></div>
                             @if ($loggedUser->user_authority == 'システム管理者')
                             <div>
-                                <input class="modal_input" type="number" id="user_edit_salaryInput" name="salary" value="" required>
+                                <input class="modal_input" type="number" id="user_create_salaryInput" name="salary" value="" required>
                             </div>
                             @else
                             <div>
-                                <input class="modal_input" type="number" id="user_edit_salaryInput" name="salary" value="" readonly>
+                                <input class="modal_input" type="number" id="user_create_salaryInput" name="salary" value="" readonly>
                             </div>
                             @endif
                         </div> --}}
                         <div class="_half">
-                            <div><label for="authority">Authority</label><span class="reruired-field-marker">*</span></div>
-                            <div class="custom-select">
-                                <select class="modal_input" id="user_edit_positionInput">
-                                    @foreach (config('constants.Position') as $position => $value)
+                            <div><label for="authority">権限</label><span class="reruired-field-marker">*</span></div>
+                            <<div class="custom-select">
+                                <select class="modal_input" id="user_create_Auth">
+                                    {{-- @foreach (config('constants.Position') as $position => $value)
                                         <option>{{ $position }}</option>
-                                    @endforeach
+                                    @endforeach --}}
+                                    <option value="1" selected>一般ユーザー </option>
+                                    <option value="2">一般管理者</option>
+                                    <option value="3">システム管理者</option>
                                 </select>
                             </div>
                             
@@ -105,7 +108,7 @@
                         <div class="_half">
                             <div><label>ポジション</label></div>
                             <div class="custom-select">
-                                <select class="modal_input" id="user_edit_positionInput">
+                                <select class="modal_input" id="user_create_positionInput">
                                     @foreach (config('constants.Position') as $position => $value)
                                         <option>{{ $position }}</option>
                                     @endforeach

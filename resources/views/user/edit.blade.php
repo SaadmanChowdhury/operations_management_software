@@ -72,7 +72,7 @@
                         <div class="_half">
                             <div><label for="userGender">性</label></div>
                             <div class="custom-select">
-                                <select class="modal_input" id="user_edit_employeeType">
+                                <select class="modal_input" id="user_edit_Gender">
                                     
                                         <option value="1">女性</option>
                                         <option value="2">男性</option>
@@ -130,7 +130,7 @@
                         <div class="_half">
                             <div><label for="authority">権限</label></div>
                             <div class="custom-select">
-                                <select class="modal_input" id="user_edit_positionInput">
+                                <select class="modal_input" id="user_edit_Auth">
                                     {{-- @foreach (config('constants.Position') as $position => $value)
                                         <option>{{ $position }}</option>
                                     @endforeach --}}
@@ -243,7 +243,7 @@
                     <div class="modal-form-input-container _dark flex-col">
 
                         
-                        <span><div style="font-size:20px; margin-left:12px">給料<div><button class="modal_addBtn">+</button>
+                        <span><div style="font-size:20px; margin-left:12px">給料情報<div><button class="modal_addBtn">+</button>
                         <div class="row center">
                             
                             <div>
@@ -257,13 +257,13 @@
 
                             <div>
                                 <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
-                                <div><input class="modal_input" type="date" id="user_edit_salary_startDate"
+                                <div><input class="modal_input" type="date"
                                         name="transferred_amount" required></div>
                             </div>
 
                             <div>
                                 <div><label for="budget">終了日</label></div>
-                                <div><input class="modal_input" type="date" id="user_edit_salary_endDate" name="budget" required></div>
+                                <div><input class="modal_input" type="date" name="budget" required></div>
                             </div>
                         </div>
                         </span>
@@ -285,7 +285,7 @@
 
                             <div>
                                 <div><label for="budget">終了日</label></div>
-                                <div><input class="modal_input" type="date" id="user_edit_salary_endDate" name="budget" required></div>
+                                <div><input class="modal_input" type="date" name="budget" required></div>
                             </div>
                         </div>
                         
