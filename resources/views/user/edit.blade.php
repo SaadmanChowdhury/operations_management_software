@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     <div style="font-size:20px; margin-left:12px">入社情報</div>
-                    <div class="modal-form-input-containerc _dark">
+                    <div class="modal-form-input-container _dark">
                         
                         <div class="_half">
                             <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label></div>
