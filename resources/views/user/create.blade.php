@@ -30,10 +30,8 @@
                     </div>
 
                     <div>
-                        <button type="submit" onclick="updateUser()">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                            更新
-                        </button>
+                        <button type="submit" onclick="createUser()"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            登録</button>
                     </div>
                     
 
@@ -43,13 +41,7 @@
                         </button>
                     </div>
 
-                    @if ($loggedUser->user_authority == 'システム管理者')
-                    <div onclick="deleteUser()">
-                        <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
-                                aria-hidden="true"></i>
-                            削除</a>
-                    </div>
-                    @endif
+                    
                 </div>
 
                 <div class="column right _user">
