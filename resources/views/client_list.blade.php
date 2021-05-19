@@ -25,7 +25,7 @@
                     </a>
                 </ul>
                 <ul class="userlist-nav center list-unstyled" style="float: right;">
-                    <a href="" onclick="adjustRowHeight()">
+                    <a id="toogler" href="">
                         <li class="fa fa-list"> </li>
                     </a>
 
