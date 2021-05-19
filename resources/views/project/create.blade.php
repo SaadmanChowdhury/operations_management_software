@@ -36,7 +36,7 @@
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="projectID">Project ID<span class="reruired-field-marker">*</span></label></div>
+                            <div><label for="projectID">案件コード<span class="reruired-field-marker">*</span></label></div>
                             <div><input class="modal_input" type="text" id="project_create_projectID" name="projectID" required></div>
                         </div>
                         <div class="_half">
@@ -52,8 +52,8 @@
                             </div>
                         </div>
                         <div class="_half">
-                            <div><label for="manager_id">担当<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="number" id="project_create_managerID_Input" name="manager_id" required>
+                            <div><label for="manager_id">担当</label></div>
+                            <div><input class="modal_input" type="number" id="project_create_managerID_Input" name="manager_id">
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                         <div class="_third">
                             <div><label>見込</label></div>
                             <div class="custom-select">
-                                <select class="modal_input" id="project_create_order_status_Input" required>
+                                <select class="modal_input" id="project_create_order_status_Input">
                                     @foreach (config('constants.Order_Status') as $status => $value)
                                     <option>{{ $status }}</option>
                                     @endforeach
@@ -73,7 +73,7 @@
                         <div class="_third">
                             <div><label>営業状況</label></div>
                             <div class="custom-select">
-                                <select class="modal_input" id="project_create_business_situation_Input" required>
+                                <select class="modal_input" id="project_create_business_situation_Input">
                                     @foreach (config('constants.Business_situation') as $situation => $value)
                                     <option>{{ $situation }}</option>
                                     @endforeach
@@ -84,7 +84,7 @@
                         <div class="_third">
                             <div><label for="development_stage">作業工程</label></div>
                             <div class="custom-select">
-                                <select class="modal_input" id="project_create_development_stage_Input" required>
+                                <select class="modal_input" id="project_create_development_stage_Input">
                                     @foreach (config('constants.Development_stage') as $stage => $value)
                                     <option>{{ $stage }}</option>
                                     @endforeach
@@ -115,43 +115,22 @@
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="order_month">受注月<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="date" id="project_create_order_month_Input" name="inspection_month"
-                                    required></div>
+                            <div><label for="order_month">受注月</label></div>
+                            <div><input class="modal_input" type="date" id="project_create_order_month_Input" name="inspection_month"></div>
                         </div>
 
                         <div class="_half">
                             <div><label for="inspection_month">検収月</label></div>
-                            <div><input class="modal_input" type="date" id="project_create_inspection_month_Input" name="inspection_month" required></div>
-                        </div>
-                    </div>
-
-                    <div class="modal-form-input-container">
-
-                        <div class="_half">
-                            <div><label for="condition">Estimate ID<span class="reruired-field-marker">*</span></label></div>
-                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
-                            <div>
-                                <input class="modal_input" type="text" id="user_edit_condition1" name="condition" value="" required>
-                            </div>
-                            
-                        </div>
-
-                        <div class="_half">
-                            <div><label>Working Process</label></div>
-                            <div>
-                                <input class="modal_input" type="text" id="user_edit_condition2" name="condition" value="" required>
-                            </div>
-                            
+                            <div><input class="modal_input" type="date" id="project_create_inspection_month_Input" name="inspection_month"></div>
                         </div>
                     </div>
                     <div class="modal-form-input-container">
 
                         <div class="_half">
-                            <div><label for="salesDept">Department Sales<span class="reruired-field-marker">*</span></label></div>
+                            <div><label for="salesDept">Department Sales</label></div>
                             {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
                             <div>
-                                <input class="modal_input" type="text" id="project_create_salesDept" name="salesDept" value="" required>
+                                <input class="modal_input" type="text" id="project_create_salesDept" name="salesDept" value="">
                             </div>
                             
                         </div>
@@ -159,7 +138,18 @@
                         <div class="_half">
                             <div><label for="salesCost">Cost of Sales</label></div>
                             <div>
-                                <input class="modal_input" type="text" id="project_create_salesCost" name="salesCost" value="" required>
+                                <input class="modal_input" type="text" id="project_create_salesCost" name="salesCost" value="">
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-form-input-container">
+
+                        <div class="_half">
+                            <div><label for="condition">Estimate ID</label></div>
+                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            <div>
+                                <input class="modal_input" type="text" id="user_edit_condition1" name="condition" value="">
                             </div>
                             
                         </div>
