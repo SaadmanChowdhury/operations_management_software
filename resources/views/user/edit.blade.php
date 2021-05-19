@@ -14,6 +14,20 @@
                     <div>
                         <img src="{{ asset('img/user_dp.png') }}" class="dp _user" alt="display photo">
                     </div>
+                    <div>
+                        <span>アクティブ</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="fav">
+                        <span>お気に入り</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
 
                     <div>
                         <button type="submit" onclick="updateUser()">
@@ -21,11 +35,7 @@
                             更新
                         </button>
                     </div>
-                    <div>
-                        <button type="submit" class="heart">
-                            <i class="fa fa-heart" aria-hidden="true"></i> お気に入り
-                        </button>
-                    </div>
+                    
 
                     <div>
                         <button type="submit" class="cancel" onclick="closeModal('user-edit-modal')">
@@ -48,7 +58,7 @@
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="userid">User ID<span class="reruired-field-marker">*</span></label></div>
+                            <div><label for="userid">ユーザーコード<span class="reruired-field-marker">*</span></label></div>
                             <div><input class="modal_input" type="text" id="user_edit_userID" name="userid" value=""></div>
                         </div>
                         
@@ -60,7 +70,7 @@
                             <div><input class="modal_input" type="text" id="user_edit_nameInput" name="name" value="" required></div>
                         </div>
                         <div class="_half">
-                            <div><label for="userGender">Gender</label></div>
+                            <div><label for="userGender">性</label></div>
                             <div class="custom-select">
                                 <select class="modal_input" id="user_edit_employeeType">
                                     
@@ -118,12 +128,15 @@
                             @endif
                         </div> --}}
                         <div class="_half">
-                            <div><label for="authority">Authority</label></div>
+                            <div><label for="authority">権限</label></div>
                             <div class="custom-select">
                                 <select class="modal_input" id="user_edit_positionInput">
-                                    @foreach (config('constants.Position') as $position => $value)
+                                    {{-- @foreach (config('constants.Position') as $position => $value)
                                         <option>{{ $position }}</option>
-                                    @endforeach
+                                    @endforeach --}}
+                                    <option value="1" selected>一般ユーザー </option>
+                                    <option value="2">一般管理者</option>
+                                    <option value="3">システム管理者</option>
                                 </select>
                             </div>
                             
@@ -175,7 +188,7 @@
                     <div class="modal-form-input-container">
 
                         <div class="_half">
-                            <div><label for="emergency">Emergency Contact</label></div>
+                            <div><label for="emergency">緊急連絡</label></div>
                             {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
                             <div>
                                 <input class="modal_input" type="text" id="user_edit_emergency" name="emergency" value="" required>
@@ -210,9 +223,9 @@
                             <div class="custom-select">
                                 <select class="modal_input" id="user_edit_employeeType">
                                     
-                                        <option value="1">SES</option>
                                         <option value="2">Full-Time</option>
-                                        <option value="3">Part-Time</option>  
+                                        <option value="3">Part-Time</option>
+                                        <option value="1">SES</option>  
                                     
                                 </select>
                             </div>
@@ -227,24 +240,56 @@
                             
                         </div>
                     </div>
-                    <div class="modal-form-input-container _dark">
+                    <div class="modal-form-input-container _dark flex-col">
 
-                        <div class="_third">
-                            <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="number" id="user_edit_salary" name="sales_total" required>
+                        
+                        <span><div style="font-size:20px; margin-left:12px">給料<div><button class="modal_addBtn">+</button>
+                        <div class="row center">
+                            
+                            <div>
+                                <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
+                                <div class="row">
+                                    <button class="delete">-</button>
+                                    <input class="modal_input" type="number" name="salary" required>
+                                </div>
+                            </div>
+                            
+
+                            <div>
+                                <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
+                                <div><input class="modal_input" type="date" id="user_edit_salary_startDate"
+                                        name="transferred_amount" required></div>
+                            </div>
+
+                            <div>
+                                <div><label for="budget">終了日</label></div>
+                                <div><input class="modal_input" type="date" id="user_edit_salary_endDate" name="budget" required></div>
                             </div>
                         </div>
+                        </span>
+                        <div class="row center">
+                            <div>
+                                <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
+                                <div class="row">
+                                    <button class="delete">-</button>
+                                    <input class="modal_input" type="number" name="salary" required>
+                                </div>
 
-                        <div class="_third">
-                            <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="date" id="user_edit_salary_startDate"
-                                    name="transferred_amount" required></div>
-                        </div>
+                            </div>
 
-                        <div class="_third">
-                            <div><label for="budget">終了日</label></div>
-                            <div><input class="modal_input" type="date" id="user_edit_salary_endDate" name="budget" required></div>
+                            <div>
+                                <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
+                                <div><input class="modal_input" type="date" id="user_edit_salary_startDate"
+                                        name="transferred_amount" required></div>
+                            </div>
+
+                            <div>
+                                <div><label for="budget">終了日</label></div>
+                                <div><input class="modal_input" type="date" id="user_edit_salary_endDate" name="budget" required></div>
+                            </div>
                         </div>
+                        
+                        
                     </div>
                     <div class="modal-form-input-container">
                         <div class="_full">
