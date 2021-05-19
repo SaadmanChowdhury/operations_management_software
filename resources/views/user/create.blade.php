@@ -5,8 +5,8 @@
         <span class="fa fa-chevron-up close" onclick="closeModal('user-create-modal')"></span>
     </div>
 
-    <div class="modal-form-container _user">
-        <form id="create_form" action="" method="">
+    <div class="create_modal modal-form-container _user">
+        <form id="reg_form" action="" method="">
             @csrf
 
             <div class="row">
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="column right _user">
-                    <input type="hidden" id="id" value="">
+                    {{-- <input type="hidden" id="id" value=""> --}}
 
 
                     <div class="modal-form-input-container">
@@ -82,8 +82,8 @@
                         </div>
 
                         <div class="_half">
-                            <div><label for="password">パスワード</label></div>
-                            <div><input class="modal_input" type="password" id="user_create_passwordInput" name="password"></div>
+                            <div><label for="password">パスワード<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="password" id="user_create_passwordInput" name="password" required></div>
                         </div>
                     </div>
 
@@ -120,12 +120,9 @@
                             @endif
                         </div> --}}
                         <div class="_half">
-                            <div><label for="authority">権限</label></div>
+                            <div><label for="authority">権限<span class="reruired-field-marker">*</span></label></div>
                             <div class="custom-select">
-                                <select class="modal_input" id="user_create_Auth">
-                                    {{-- @foreach (config('constants.Position') as $position => $value)
-                                        <option>{{ $position }}</option>
-                                    @endforeach --}}
+                                <select class="modal_input" id="user_create_Auth" required>
                                     <option value="1" selected>一般ユーザー </option>
                                     <option value="2">一般管理者</option>
                                     <option value="3">システム管理者</option>
@@ -145,8 +142,10 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="modal-form-input-container">
+                        
+                    <div style="font-size:20px; margin-left:12px">入社情報</div>    
+                    <div class="modal-form-input-container _dark">
+                        
                         <div class="_half">
                             <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label>
                             </div>
@@ -235,7 +234,7 @@
                     <div class="modal-form-input-container _dark flex-col">
 
                         
-                        <span><div style="font-size:20px; margin-left:12px">給料情報<div><button class="modal_addBtn">+</button>
+                        <span><div style="font-size:20px; margin-left:12px">給料情報</div><button class="modal_addBtn">+</button>
                         <div class="row center">
                             
                             <div>

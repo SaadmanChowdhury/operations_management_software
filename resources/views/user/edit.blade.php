@@ -156,8 +156,7 @@
 
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label>
-                            </div>
+                            <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label></div>
                             @if ($loggedUser->user_authority == 'システム管理者')
                                 <div>
                                     <input class="modal_input" type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
@@ -243,29 +242,33 @@
                     <div class="modal-form-input-container _dark flex-col">
 
                         
-                        <span><div style="font-size:20px; margin-left:12px">給料情報<div><button class="modal_addBtn">+</button>
-                        <div class="row center">
-                            
-                            <div>
-                                <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
-                                <div class="row">
-                                    <button class="delete">-</button>
-                                    <input class="modal_input" type="number" name="salary" required>
+                        <span>
+                            <div style="font-size:20px; margin-left:12px">
+                                給料情報
+                            </div>
+                            <button class="modal_addBtn">+</button>
+                            <div class="row center">
+                                
+                                <div>
+                                    <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <input class="modal_input" type="number" name="salary" required>
+                                    </div>
+                                </div>
+                                
+
+                                <div>
+                                    <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div><input class="modal_input" type="date"
+                                            name="transferred_amount" required></div>
+                                </div>
+
+                                <div>
+                                    <div><label for="budget">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="budget" required></div>
                                 </div>
                             </div>
-                            
-
-                            <div>
-                                <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
-                                <div><input class="modal_input" type="date"
-                                        name="transferred_amount" required></div>
-                            </div>
-
-                            <div>
-                                <div><label for="budget">終了日</label></div>
-                                <div><input class="modal_input" type="date" name="budget" required></div>
-                            </div>
-                        </div>
                         </span>
                         <div class="row center">
                             <div>

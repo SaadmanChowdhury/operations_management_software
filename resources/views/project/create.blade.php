@@ -15,17 +15,30 @@
                     <div>
                         <img src="{{ asset('img/project_dp.png') }}" class="dp _project" alt="display photo">
                     </div>
-
+                    <div>
+                        <span>アクティブ</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="fav">
+                        <span>お気に入り</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
                     <div>
                         <button type="submit" onclick="createProject()"><i class="fa fa-floppy-o" aria-hidden="true"></i>
                             登録</button>
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <button type="submit" class="heart">
                             <i class="fa fa-heart" aria-hidden="true"></i> お気に入り
                         </button>
-                    </div>
+                    </div> --}}
 
                     <div>
                         <button type="submit" class="cancel" onclick="closeModal('project-create-modal')"><i class="fa fa-times" aria-hidden="true"></i> 戻る</button>
@@ -149,7 +162,7 @@
                             <div><label for="condition">Estimate ID</label></div>
                             {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
                             <div>
-                                <input class="modal_input" type="text" id="user_edit_condition1" name="condition" value="">
+                                <input class="modal_input" type="text" id="project_create_estimateID" name="condition" value="">
                             </div>
                             
                         </div>
@@ -157,7 +170,7 @@
                     <div class="modal-form-input-container">
                         <div class="_full">
                             <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
-                            <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
+                            <div><input type="textarea" id="project_create_remarks" class="project_textarea" name="remarks" value=""></div>
                         </div>
                     </div>
 

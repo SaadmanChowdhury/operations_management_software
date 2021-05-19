@@ -14,6 +14,20 @@
                     <div>
                         <img src="{{ asset('img/project_dp.png') }}" class="dp _project" alt="display photo">
                     </div>
+                    <div>
+                        <span>アクティブ</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="fav">
+                        <span>お気に入り</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
 
                     <div>
                         <button type="submit" onclick="updateProject()">
@@ -22,11 +36,11 @@
                         </button>
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <button type="submit" class="heart">
                             <i class="fa fa-heart" aria-hidden="true"></i> お気に入り
                         </button>
-                    </div>
+                    </div> --}}
 
                     <div>
                         <button type="submit" class="cancel" onclick="closeModal('project-edit-modal')">
