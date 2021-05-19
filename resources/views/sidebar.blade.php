@@ -31,28 +31,28 @@
 
                     <li>
                         <a href="/assign">
-                            <span class="fa fa-home fa-2x" id="sidebar-assign"></span>
+                            <img src="img/svghome.svg" alt=""id="sidebar-svg" >
                             <span class="label-text sidebar hide">アサインサマリー</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="/project">
-                            <span class="fa fa-newspaper-o fa-2x" id="sidebar-project"></span>
+                            <img src="img/projectsvg.svg" alt=""id="sidebar-svg" >
                             <span class="label-text sidebar hide">案件一覧</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="/user">
-                            <span class="fa fa-user fa-2x" id="sidebar-user"></span>
+                            <img src="img/usersvg.svg" alt=""id="sidebar-svg" >
                             <span class="label-text sidebar hide">ユーザー一覧</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="/client">
-                            <span class="fa fa-users fa-2x" id="sidebar-client"></span>
+                            <img src="img/clientsvg.svg" alt=""id="sidebar-svg" >
                             <span class="label-text sidebar hide">顧客一覧</span>
                         </a>
                     </li>
@@ -60,7 +60,7 @@
                     <li id="sidebar-logout-link-li">
                         <a href="{{ route('logout') }}" id="sidebar-logout-link"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <span class="fa fa-sign-out fa-2x" id="sidebar-logout"></span>
+                            <img src="img/logout-svg.svg" alt=""id="sidebar-svg" >
                             <span class="label-text sidebar hide">ログアウト</span>
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -70,7 +70,7 @@
 
                     {{-- <li>
                         <a href="">
-                            <span class="fa fa-sign-out fa-2x" id="sidebar-logout"></span>
+                            <span class="fa fa-sign-out " id="sidebar-logout"></span>
                             <span class="label-text hide">ログアウト</span>
                         </a>
                     </li> --}}
