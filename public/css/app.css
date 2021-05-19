@@ -40,6 +40,7 @@ body {
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
+    
 }
 
 .row {
@@ -53,7 +54,8 @@ body {
 .row-content {
     position: relative;
     top: 72px;
-    padding: 15px 30px 10px 30px;
+    /* padding: 15px 30px 10px 30px; */
+    padding: 2vw 3vw 3vw 3vw;
     width: 100%;
     height: fit-content;
     background-color: #F8F8F8;
@@ -584,6 +586,7 @@ footer {
     position: relative;
     left: 4.2vw;
     /* width: calc(100% - 60px); */
+    width: 95.8vw;
     height: 100vh;
     color: black;
     z-index: 1;
@@ -711,7 +714,7 @@ footer {
 }
 
 .content-width {
-    width: 93vw;
+    width: 90vw;
     overflow-x: scroll;
 }
 
@@ -816,7 +819,7 @@ footer {
 
 #table-nav {
     font-size: 80%;
-    min-width: 1200px;
+    /* min-width: 1200px; */
     padding: 1px;
     border-radius: 4px;
     margin-bottom: 5px;
@@ -824,8 +827,8 @@ footer {
 }
 
 #table-nav .flex-col {
-    padding-left: 14vw;
-    padding-right: 15vw;
+    padding-left: 2vw;
+    padding-right: 3vw;
 }
 
 #table-nav .row {
@@ -834,7 +837,7 @@ footer {
 }
 
 .table-body {
-    min-width: 1200px;
+    /* min-width: 1200px; */
     overflow: scroll;
     height: calc(100vh - 230px);
     padding-bottom: 10px;
@@ -892,7 +895,7 @@ footer {
 
 .card-header {
     font-size: 80%;
-    padding: 1.2rem 15vw 1.1rem 14vw;
+    padding: 1.2rem 3vw 1.1rem 2vw;
     display: block;
     transition: 0.3s ease;
 }
@@ -916,16 +919,37 @@ footer {
     font-size: 100%;
     justify-content: center;
     margin: auto;
+    text-align: center;
+}
+.responsive-scroll{
+    width: 90vw;
 }
 
+/* @media only screen and (max-width: 640px) {
+    .display li  {
+        font-size: .56rem;
+    }
+  } */
+  @media only screen and (max-width: 720px) {
+    .responsive-scroll{
+        width: 1200px;
+    }
+    #table-nav{
+        width: 1200px;
+    }
+    .table-body{
+        width: 1200px;  
+    }
+  }
+
 .display li:nth-child(2) {
-    min-width: 20%;
-    margin-left: 5%;
+    /* min-width: 20%; */
+    /* margin-left: 5%; */
 }
 
 #table-nav .display li:nth-child(2) {
     justify-content: space-around;
-    min-width: 20%;
+    /* min-width: 20%; */
 }
 
 .display li .user-name {
@@ -2409,3 +2433,18 @@ td img {
   .fa-2x {
     font-size: 2.2vw;
   }
+.display li:nth-child(1) {
+   
+    min-width: 1%;
+    /* margin-left: 5%; */
+}
+.display li:nth-child(3) {
+   
+    min-width: 20%;
+    /* margin-left: 5%; */
+}
+
+.display li{
+font-size: ;
+}
+  

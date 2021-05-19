@@ -13,7 +13,7 @@
     <div class="content-width">
 
         {{-- ///====FILTER NAVIGATION====/// --}}
-        <div style="min-width: 1200px">
+        <div class="responsive-scroll">
             <ul class="userlist-nav center list-unstyled">
                 <a href="">
                     <li> 全て</li>
