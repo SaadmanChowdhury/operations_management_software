@@ -168,6 +168,7 @@ class ProjectService
     public function upsertProjectDetails($request, $projectID)
     {
         $projectModel  = new Project;
+        $assignModel  = new Assign();
 
         $validatedData = $request->validated();
         $loggedUser = auth()->user();
@@ -189,6 +190,23 @@ class ProjectService
             if ($result !== true) {
                 return $result;
             }
+
+            // need to hard delete any assign which are outside the new inspect/order date range
+            // delete all the assign values before the order date if inspection date is null
+
+            $orderDate = $validatedData['order_month'];
+            $orderYear = Carbon::parse($orderDate)->format('Y');
+            $orderMonth = Carbon::parse($orderDate)->format('m');
+
+            $inspectionMonth = $validatedData['inspection_month'];
+            if ($inspectionMonth != null) {
+                $inspectionYear = Carbon::parse($inspectionMonth)->format('Y');
+                $inspectionMonth = Carbon::parse($inspectionMonth)->format('m');
+            } else {
+                $inspectionYear = $inspectionMonth = $inspectionDay =  null;
+            }
+
+            $assignModel->deleteAllAssignValuesOutsideProjectTimeline($orderYear, $orderMonth, $inspectionYear, $inspectionMonth, $projectID);
 
             return $projectModel->upsertProjectDetails($validatedData, $projectID);
         }
