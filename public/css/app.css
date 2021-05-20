@@ -662,6 +662,10 @@ footer {
     text-align: center;
     background-color: white;
     margin-left: -21px;
+    box-shadow: none;
+}
+.modal-form-input-container .delete:hover{
+    color: white;
 }
 
 .modal_addBtn{
@@ -670,6 +674,7 @@ footer {
     height: 28px;
     padding: 0;
     margin-right: 12px;
+    box-shadow: none;
 }
 
 .modal-form-input-container:nth-child(even) {

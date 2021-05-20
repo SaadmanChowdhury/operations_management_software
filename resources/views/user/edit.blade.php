@@ -1,5 +1,5 @@
 <div class="modal-container" id="user-edit-modal">
-
+    
     <div class="modal-title mild-midori">
         <span class="form-ht">ユーザー編集</span>
         <span class="fa fa-chevron-up close" onclick="closeModal('user-edit-modal')"></span>
@@ -15,6 +15,7 @@
                         <img src="{{ asset('img/user_dp.png') }}" class="dp _user" alt="display photo">
                     </div>
                     <div>
+
                         <span>アクティブ</span>
                         <label class="switch">
                             <input type="checkbox" checked>
@@ -52,7 +53,7 @@
                     @endif
                 </div>
 
-                <div class="column right _user">
+                <div class="column right _user" id="column-right-user">
                     <input type="hidden" id="id" value="">
 
 
@@ -115,32 +116,25 @@
 
                     <div class="modal-form-input-container">
 
-                        {{-- <div class="_half">
-                            <div><label for="salary">原価<span class="reruired-field-marker">*</span></label></div>
-                            @if ($loggedUser->user_authority == 'システム管理者')
-                            <div>
-                                <input class="modal_input" type="number" id="user_edit_salaryInput" name="salary" value="" required>
+                        @if($loggedUser->user_authority!='一般ユーザー')
+                            <div class="_half">
+                                <div><label for="authority">権限</label></div>
+                                <div class="custom-select">
+                                    <select class="modal_input" id="user_edit_authorityInput">
+                                        @if ($loggedUser->user_authority == 'システム管理者')
+                                            <option value="1" selected>一般ユーザー </option>
+                                            <option value="2">一般管理者</option>
+                                            <option value="3">システム管理者</option>
+                                        @elseif ($loggedUser->user_authority == '一般管理者')
+                                            <option value="1" selected>一般ユーザー </option>
+                                            <option value="2">一般管理者</option>
+                                        
+                                        @endif
+                                    </select>
+                                </div>
+                                
                             </div>
-                            @else
-                            <div>
-                                <input class="modal_input" type="number" id="user_edit_salaryInput" name="salary" value="" readonly>
-                            </div>
-                            @endif
-                        </div> --}}
-                        <div class="_half">
-                            <div><label for="authority">権限</label></div>
-                            <div class="custom-select">
-                                <select class="modal_input" id="user_edit_Auth">
-                                    {{-- @foreach (config('constants.Position') as $position => $value)
-                                        <option>{{ $position }}</option>
-                                    @endforeach --}}
-                                    <option value="1" selected>一般ユーザー </option>
-                                    <option value="2">一般管理者</option>
-                                    <option value="3">システム管理者</option>
-                                </select>
-                            </div>
-                            
-                        </div>
+                        @endif
 
                         <div class="_half">
                             <div><label>ポジション</label></div>
@@ -240,15 +234,51 @@
                             
                         </div>
                     </div>
-                    <div class="modal-form-input-container _dark flex-col">
+                    
+                    {{-- <div class="modal-form-input-container" id='user-edit-remark'>
+                        <div class="_full">
+                            <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
+                            <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
+                        </div>
+                    </div> --}}
 
-                        
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+var count=1;
+function deleteRowActionListener(userID) {
+
+    // var i = 0;
+    document.getElementById("user-edit-Salary-"+userID).querySelectorAll(".delete").forEach(function (obj, index) {
+        obj.addEventListener("click", function (event) {
+
+            
+                document.getElementById("salary-row-"+(index+1)).remove();
+                // i++;
+                count--;
+                console.log(index);
+                deleteRowActionListener(userID);
+            
+        });
+    });
+}
+
+function renderSalarySection(userID){
+
+    var salarySectionHTML=`<div class="modal-form-input-container _dark flex-col" id="user-edit-Salary-${userID}">
                         <span>
                             <div style="font-size:20px; margin-left:12px">
                                 給料情報
                             </div>
-                            <button class="modal_addBtn">+</button>
-                            <div class="row center">
+                            <button class="modal_addBtn" id="modal_Add">+</button>
+                            <div class="row center" id="salary-row-1">
                                 
                                 <div>
                                     <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
@@ -271,50 +301,63 @@
                                 </div>
                             </div>
                         </span>
-                        <div class="row center">
-                            <div>
-                                <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
-                                <div class="row">
-                                    <button class="delete">-</button>
-                                    <input class="modal_input" type="number" name="salary" required>
-                                </div>
-
-                            </div>
-
-                            <div>
-                                <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
-                                <div><input class="modal_input" type="date" id="user_edit_salary_startDate"
-                                        name="transferred_amount" required></div>
-                            </div>
-
-                            <div>
-                                <div><label for="budget">終了日</label></div>
-                                <div><input class="modal_input" type="date" name="budget" required></div>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                    <div class="modal-form-input-container">
+                    </div>`;
+    var remarkHTMLString= `<div class="modal-form-input-container" id='user-edit-remark'>
                         <div class="_full">
                             <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
                             <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
                         </div>
-                    </div>
+                    </div>`;
+    string=salarySectionHTML+remarkHTMLString;
+    //console.log(string2);
+    document.getElementById('column-right-user-'+userID).innerHTML+=string;
+    deleteRowActionListener(userID);
+}
 
-                </div>
-            </div>
+function addSalarayRowListener(userID)
+{
+    document.getElementById('modal_Add').onclick=function(){
+        count++;
+        document.getElementById('user-edit-Salary-'+userID).innerHTML+=`<div class="row center" id='salary-row-${count}'>
+                                <div>
+                                    <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <input class="modal_input" type="number" name="salary" required>
+                                    </div>
 
-        </form>
-    </div>
-</div>
+                                </div>
 
+                                <div>
+                                    <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div><input class="modal_input" type="date" name="transferred_amount" required></div>
+                                </div>
 
-<script>
+                                <div>
+                                    <div><label for="budget">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="budget" required></div>
+                                </div>
+                            </div>`;
+                            addSalarayRowListener(userID);
+                            deleteRowActionListener(userID);
+        }
+        
+}
+
+//addSalarayRowListener();
+
 function userEditModalHandler(userID) {
     event.preventDefault();
+
+    var modalId=userID;
+    var modalName= document.getElementById('user-edit-modal');
+    //modalName.setAttribute("data-id",userID);
+    // modalName.id='user-edit-modal'
+    document.getElementById('column-right-user').id="column-right-user-"+userID;
     clearModalData('user-edit-modal');
-    showModal('user-edit-modal');
+    showModal('user-edit-modal',userID);
+    renderSalarySection(userID);
+    addSalarayRowListener(userID);
 
     getUserData(userID);
 }

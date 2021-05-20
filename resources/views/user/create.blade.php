@@ -107,29 +107,26 @@
 
                     <div class="modal-form-input-container">
 
-                        {{-- <div class="_half">
-                            <div><label for="salary">原価<span class="reruired-field-marker">*</span></label></div>
-                            @if ($loggedUser->user_authority == 'システム管理者')
-                            <div>
-                                <input class="modal_input" type="number" id="user_create_salaryInput" name="salary" value="" required>
+                        
+                        @if($loggedUser->user_authority!='一般ユーザー')
+                            <div class="_half">
+                                <div><label for="authority">権限<span class="reruired-field-marker">*</span></label></div>
+                                <div class="custom-select">
+                                    <select class="modal_input" id="user_create_authorityInput" required>
+                                        @if ($loggedUser->user_authority == 'システム管理者')
+                                            <option value="1" selected>一般ユーザー </option>
+                                            <option value="2">一般管理者</option>
+                                            <option value="3">システム管理者</option>
+                                        @elseif ($loggedUser->user_authority == '一般管理者')
+                                            <option value="1" selected>一般ユーザー </option>
+                                            <option value="2">一般管理者</option>
+                                        
+                                        @endif
+                                    </select>
+                                </div>
+                                
                             </div>
-                            @else
-                            <div>
-                                <input class="modal_input" type="number" id="user_create_salaryInput" name="salary" value="" readonly>
-                            </div>
-                            @endif
-                        </div> --}}
-                        <div class="_half">
-                            <div><label for="authority">権限<span class="reruired-field-marker">*</span></label></div>
-                            <div class="custom-select">
-                                <select class="modal_input" id="user_create_Auth" required>
-                                    <option value="1" selected>一般ユーザー </option>
-                                    <option value="2">一般管理者</option>
-                                    <option value="3">システム管理者</option>
-                                </select>
-                            </div>
-                            
-                        </div>
+                        @endif
 
                         <div class="_half">
                             <div><label>ポジション</label></div>
