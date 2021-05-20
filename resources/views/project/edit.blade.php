@@ -200,7 +200,7 @@ function updateProjectTable(updatedData) {
             if (response["resultStatus"]["isSuccess"]) {
                 
                 let row = $("#project-row-" + updatedData.projectID);
-                row.html( new ProjectListRenderer().renderHTMLProjectList(response["resultData"]));
+                row.replaceWith( new ProjectListRenderer().renderHTMLProjectList(response["resultData"]));
             } else
                 handleAJAXResponse(response);
         },
@@ -312,7 +312,7 @@ function  deleteComfirmed( projectId ){
         cache: false,
         success: function(response) {
             if (response["resultStatus"]["isSuccess"])
-                $("#user-row-" + projectId).remove();
+                $("#project-row-" + projectId).remove();
             else
                 handleAJAXResponse(response);
             closeModal('project-edit-modal');
