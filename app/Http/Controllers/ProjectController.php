@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Utilities\JSONHandler;
 
+
 class ProjectController extends Controller
 {
 
@@ -124,7 +125,12 @@ class ProjectController extends Controller
 
         $projectID = $request->projectID;
 
-        $this->projectService->upsertProjectDetails($request, $projectID);
+        $data = $this->projectService->upsertProjectDetails($request, $projectID);
+
+        if (gettype($data) == "string") {
+
+            return JSONHandler::customErrorJSONPackage($data);
+        }
 
         return JSONHandler::emptySuccessfulJSONPackage();
     }

@@ -143,21 +143,20 @@ class ProjectService
         $salesTotal = $validatedData['sales_total'];
         $transferredAmount = $validatedData['transferred_amount'];
 
-        // the monitory values cannot be negative and
-        // sales_total and transferred_amount cannot be greater than budget
-        if ($salesTotal != null) {
-            if (intval($salesTotal) < 0) {
-                return 'salesTotal cannot be negative';
-            } elseif (intval($salesTotal) > intval($budget)) {
-                return 'salesTotal cannot be greater than budget';
-            }
+        // the monitory values cannot be negative
+        if (intval($budget) < 0) {
+            return 'Budget cannot be negative';
         }
-        if ($transferredAmount != null) {
-            if (intval($transferredAmount) < 0) {
-                return 'transferredAmount cannot be negative';
-            } elseif (intval($transferredAmount) > intval($budget)) {
-                return 'transferredAmount cannot be greater than budget';
-            }
+        if (intval($salesTotal) < 0) {
+            return 'salesTotal cannot be negative';
+        }
+        if (intval($transferredAmount) < 0) {
+            return 'transferredAmount cannot be negative';
+        }
+
+        // transferredAmount cannot be greater than salesTotal
+        if (intval($transferredAmount) > intval($salesTotal)) {
+            return 'Transferred Amount cannot be greater than Sales Total';
         }
         return true;
     }
@@ -184,7 +183,7 @@ class ProjectService
 
             // has some logical error
             if ($result !== true) {
-                return JSONHandler::errorJSONPackage($result);
+                return $result;
             }
 
             return $projectModel->upsertProjectDetails($validatedData, $projectID);
