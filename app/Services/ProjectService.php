@@ -88,6 +88,10 @@ class ProjectService
         $projectModel  = new Project;
         // getting the project data
         $project = $projectModel->readProject($projectID);
+        // get the project ID
+        $projectId = ($project->projectID);
+        // get the project profit
+        $project->profit = $projectModel->getProjectProfit($projectId);
 
         $loggedUser = auth()->user();
         //if admin or manager
