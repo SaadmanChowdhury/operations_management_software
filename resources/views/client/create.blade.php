@@ -15,6 +15,20 @@
                     <div>
                         <img src="{{ asset('img/client_dp.png') }}" class="dp _client" alt="display photo">
                     </div>
+                    <div>
+                        <span>アクティブ</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="fav">
+                        <span>お気に入り</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
 
                     <div>
                         <button type="submit" onclick="createClient()"><i class="fa fa-floppy-o" aria-hidden="true"></i>

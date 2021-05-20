@@ -149,34 +149,37 @@
                     </div>
                     <div style="font-size:20px; margin-left:12px">入社情報</div>
                     <div class="modal-form-input-container _dark">
-                        
-                        <div class="_half">
-                            <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label></div>
-                            @if ($loggedUser->user_authority == 'システム管理者')
+                        <div class="row center">
+                            
+                            <div class="_half">
+                                <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label></div>
+                                @if ($loggedUser->user_authority == 'システム管理者')
+                                    <div class="row">
+                                        <button class="delete" style="margin-left: 0">-</button>
+                                        <input class="modal_input" type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
+                                    </div>
+                                @else
+                                    <div>
+                                        <input class="modal_input" type="date" id="user_edit_admission_dayInput" name="admission_day" value=""
+                                            readonly>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="_half">
+                                <div><label for="resignation_year">退職日</label></div>
+                                @if ($loggedUser->user_authority == 'システム管理者')
                                 <div>
-                                    <input class="modal_input" type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
+                                    <input class="modal_input" type="date" id="user_edit_resignation_yearInput" name="resignation_year"
+                                        value="">
                                 </div>
-                            @else
+                                @else
                                 <div>
-                                    <input class="modal_input" type="date" id="user_edit_admission_dayInput" name="admission_day" value=""
+                                    <input class="modal_input" type="date" id="user_edit_resignation_yearInput" name="resignation_year" value=""
                                         readonly>
                                 </div>
-                            @endif
-                        </div>
-
-                        <div class="_half">
-                            <div><label for="resignation_year">退職日</label></div>
-                            @if ($loggedUser->user_authority == 'システム管理者')
-                            <div>
-                                <input class="modal_input" type="date" id="user_edit_resignation_yearInput" name="resignation_year"
-                                    value="">
+                                @endif
                             </div>
-                            @else
-                            <div>
-                                <input class="modal_input" type="date" id="user_edit_resignation_yearInput" name="resignation_year" value=""
-                                    readonly>
-                            </div>
-                            @endif
                         </div>
                     </div>
                     <div class="modal-form-input-container">
