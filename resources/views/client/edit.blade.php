@@ -14,6 +14,20 @@
                     <div>
                         <img src="{{ asset('img/client_dp.png') }}" class="dp _client" alt="display photo">
                     </div>
+                    <div>
+                        <span>アクティブ</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="fav">
+                        <span>お気に入り</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
 
                     <div>
                         <button type="submit" onclick="updateClient()">
@@ -41,7 +55,12 @@
                     <input type="hidden" id="id" value="{{ $client->client_id }}">
 
                     <div class="modal-form-input-container">
-                        <div class="_full">
+                        <div class="_half">
+                            <div><label for="clientID">顧客コード<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="text" id="client_edit_clientID" name="clientID"
+                                     required></div>
+                        </div>
+                        <div class="_half">
                             <div><label for="name">顧客名<span class="reruired-field-marker">*</span></label></div>
                             <div><input class="modal_input" type="text" id="client_edit_nameInput" name="name"
                                     value="{{ $client->client_name }}" required></div>

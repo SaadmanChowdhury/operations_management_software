@@ -29,9 +29,13 @@
 
                 <div class="column right _client">
                     <div class="modal-form-input-container">
-                        <div class="_full">
+                        <div class="_half">
+                            <div><label for="clientID">顧客コード<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="text" id="client_create_clientID" name="clientID" required></div>
+                        </div>
+                        <div class="_half">
                             <div><label for="name">顧客名<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="text" id="client_create_name_Input" name="name" required></div>
+                            <div><input class="modal_input" type="text" id="client_create_name_Input" name="name" required></div>
                         </div>
                     </div>
 

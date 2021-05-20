@@ -1,7 +1,7 @@
 <div class="modal-container" id="user-create-modal">
 
     <div class="modal-title mild-midori">
-        <span class="form-ht">ユーザー編集</span>
+        <span class="form-ht">ユーザー登録</span>
         <span class="fa fa-chevron-up close" onclick="closeModal('user-create-modal')"></span>
     </div>
 
