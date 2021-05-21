@@ -50,7 +50,7 @@
                 </ul>
 
                 <ul class="userlist-nav center list-unstyled" style="float: right; ">
-                    <a href="" onclick="alert('Adjust font size');">
+                    <a id="toogler" href="" >
                         <li class="fa fa-arrows-alt"> </li>
                     </a>
                 </ul>
@@ -954,6 +954,9 @@ class AssignSummrayRenderer {
         this.inflateAllUserWithProjects();
         this.showCumulitiveValueForAllUsers();
         this.inflatePopupForManMonths();
+
+        let preference = document.getElementById("initial-preference");
+            adjustRowHeightByState(preference, false);
     }
 
 

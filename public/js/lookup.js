@@ -73,6 +73,7 @@ function fetchClientList() {
 
             CLIENT_LIST = response;
 
+
         },
         error: function (err) {
             console.log(err)

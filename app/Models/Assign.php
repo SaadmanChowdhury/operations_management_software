@@ -103,4 +103,29 @@ class Assign extends Model
         $returnArray['profitPercentage'] = $profitPercentage;
         return $returnArray;
     }
+
+    public function deleteAllAssignValuesOutsideProjectTimeline($orderYear, $orderMonth,  $inspectionYear, $inspectionMonth, $projectID)
+    {
+
+        if ($inspectionYear == null) {
+            $inspectionYear = 9999;
+            $inspectionMonth = 12;
+        }
+
+        $data = DB::table('assign')
+            // ->select('*')
+            ->orWhereNotIn('year', [$orderYear, $inspectionYear])
+            ->orWhereNotIn('month', [$orderMonth, $inspectionMonth])
+            ->where('project_id', $projectID)
+            ->delete();
+
+        // $data = DB::table('assign')
+
+        //     ->select('*')
+        //     ->WhereIn('year', [$orderYear, $inspectionYear])
+        //     ->WhereIn('month', [$orderMonth, $inspectionMonth])
+        //     ->where('project_id', $projectID)
+        //     ->get();
+
+    }
 }
