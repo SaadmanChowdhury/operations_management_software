@@ -81,7 +81,6 @@ function adjustRowHeightByState(preference, toggle) {
 
     }
 
-    console.log(state)
 
     preference.value = state;;
 
@@ -338,4 +337,14 @@ function isSystemAdmin() {
 function isCurrentUser(userId) {
     var currentUserId = document.getElementById("logged-in-id");
     return userId == currentUserId.value ? true : false;
+}
+
+function showEmptyListInfromation(targetDomId) {
+
+    $(targetDomId).html(`
+    
+       <div style='text-align:center; line-height:100px; font-size: 2vw; color: red;  '>  表示できる項目が存在していません </div>
+    
+    `);
+
 }

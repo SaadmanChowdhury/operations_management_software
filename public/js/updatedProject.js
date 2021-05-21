@@ -204,7 +204,6 @@ class ProjectListRenderer {
 
     renderProjectList(response01) {
 
-
         response01["resultData"]["project"].forEach((project) => {
 
             Object.keys(project).forEach(e => (project[e] == null) ? project[e] = "" : true);
@@ -234,21 +233,32 @@ class ProjectListRenderer {
             success: function (response01) {
 
                 if (response01["resultStatus"]["isSuccess"]) {
-                    setTimeout(function () {
-                        hideMainLoader()
-                    }, 500);
-                    projectRender();
 
-                    function projectRender() {
+                    if (response01["resultData"]["project"].length > 0) {
                         setTimeout(function () {
-                            if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
-                                renderClass.renderProjectList(response01);
-                            }
-                            else projectRender();
+                            hideMainLoader()
+                        }, 500);
+                        projectRender();
 
-                            let preference = document.getElementById("initial-preference");
-                            adjustRowHeightByState(preference, false);
-                        }, 10)
+                        function projectRender() {
+
+
+                            setTimeout(function () {
+                                if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
+                                    renderClass.renderProjectList(response01);
+                                }
+                                else projectRender();
+
+                                let preference = document.getElementById("initial-preference");
+                                adjustRowHeightByState(preference, false);
+                            }, 10)
+                        }
+
+                    }
+
+                    else {
+
+                        showEmptyListInfromation("#accordian");
                     }
 
                 } else

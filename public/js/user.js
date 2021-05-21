@@ -10,7 +10,14 @@ function fetchUserList_AJAX() {
         cache: false,
         success: function (response) {
             if (response["resultStatus"]["isSuccess"]) {
-                renderHTML(response);
+
+                if (response["resultData"]["user"].length > 0)
+                    renderHTML(response);
+                else {
+
+                    showEmptyListInfromation(".staffs");
+
+                }
             } else
                 handleAJAXResponse(response);
         },

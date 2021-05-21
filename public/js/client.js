@@ -114,6 +114,8 @@ $(function () {
 });
 
 function fetchClientList_AJAX() {
+
+
     $.ajax({
         type: "post",
         url: "/API/fetchClientList",
@@ -123,7 +125,17 @@ function fetchClientList_AJAX() {
         cache: false,
         success: function (response) {
             if (response["resultStatus"]["isSuccess"]) {
-                renderClientHTML(response);
+
+                console.log(response);
+                if (response["resultData"]["client"].length > 0)
+                    renderClientHTML(response);
+                else {
+
+                    showEmptyListInfromation(".staffs");
+
+                }
+
+
             } else
                 handleAJAXResponse(response);
         },

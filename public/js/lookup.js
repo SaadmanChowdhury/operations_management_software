@@ -74,6 +74,21 @@ function fetchClientList() {
             CLIENT_LIST = response;
 
 
+            //console.log(response);
+
+            if (response.length > 0) {
+
+                //  console.log(response);
+            }
+            else {
+
+
+                if (typeof showEmptyListInfromation !== "undefined")
+                    showEmptyListInfromation(".client");
+
+            }
+
+
         },
         error: function (err) {
             console.log(err)
