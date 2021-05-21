@@ -249,9 +249,10 @@ body {
     display: block;
     outline: none;
     font-size: 11px;
-    width: 100%;
+    width: 95%;
     height: 25px;
     border-radius: 6px;
+    padding: 2px 11px;
 }
 
 /*BUTTONS*/

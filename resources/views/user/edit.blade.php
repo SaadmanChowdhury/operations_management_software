@@ -256,26 +256,26 @@
 <script>
 
 var count=1;
-function deleteRowActionListener(userID) {
+function deleteRowActionListener() {
 
     // var i = 0;
-    document.getElementById("user-edit-Salary-"+userID).querySelectorAll(".delete").forEach(function (obj, index) {
+    document.getElementById("user-edit-Salary").querySelectorAll(".delete").forEach(function (obj, index) {
         obj.addEventListener("click", function (event) {
 
             
-                document.getElementById("salary-row-"+(index+1)).remove();
+                this.parentNode.parentNode.parentNode.remove();
                 // i++;
                 count--;
-                console.log(index);
-                deleteRowActionListener(userID);
+                //console.log(index);
+                deleteRowActionListener();
             
         });
     });
 }
 
-function renderSalarySection(userID){
+function renderSalarySection(){
 
-    var salarySectionHTML=`<div class="modal-form-input-container _dark flex-col" id="user-edit-Salary-${userID}">
+    var salarySectionHTML=`<div class="modal-form-input-container _dark flex-col" id="user-edit-Salary">
                         <span>
                             <div style="font-size:20px; margin-left:12px">
                                 給料情報
@@ -313,15 +313,15 @@ function renderSalarySection(userID){
                     </div>`;
     string=salarySectionHTML+remarkHTMLString;
     //console.log(string2);
-    document.getElementById('column-right-user-'+userID).innerHTML+=string;
-    deleteRowActionListener(userID);
+    document.getElementById('column-right-user').innerHTML+=string;
+    deleteRowActionListener();
 }
 
-function addSalarayRowListener(userID)
+function addSalaryRowListener()
 {
     document.getElementById('modal_Add').onclick=function(){
         count++;
-        document.getElementById('user-edit-Salary-'+userID).innerHTML+=`<div class="row center" id='salary-row-${count}'>
+        document.getElementById('user-edit-Salary').innerHTML+=`<div class="row center" id='salary-row-${count}'>
                                 <div>
                                     <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
                                     <div class="row">
@@ -341,26 +341,31 @@ function addSalarayRowListener(userID)
                                     <div><input class="modal_input" type="date" name="budget" required></div>
                                 </div>
                             </div>`;
-                            addSalarayRowListener(userID);
-                            deleteRowActionListener(userID);
+                            addSalaryRowListener();
+                            deleteRowActionListener();
         }
         
 }
 
-//addSalarayRowListener();
+//addSalaryRowListener();
+var resetHTML=document.getElementById('user-edit-modal').innerHTML;
 
 function userEditModalHandler(userID) {
     event.preventDefault();
-
-    var modalId=userID;
-    var modalName= document.getElementById('user-edit-modal');
+    //var modalId=userID;
+    //var modalName= document.getElementById('user-edit-modal');
     //modalName.setAttribute("data-id",userID);
     // modalName.id='user-edit-modal'
-    document.getElementById('column-right-user').id="column-right-user-"+userID;
-    clearModalData('user-edit-modal');
-    showModal('user-edit-modal',userID);
-    renderSalarySection(userID);
-    addSalarayRowListener(userID);
+    
+    // clearModalData('user-edit-modal');
+
+    
+    document.getElementById('user-edit-modal').innerHTML=resetHTML;
+    showModal('user-edit-modal');
+    //document.getElementById('column-right-user').id="column-right-user-"+userID;
+    renderSalarySection();
+    addSalaryRowListener();
+    deleteRowActionListener();
 
     getUserData(userID);
 }
