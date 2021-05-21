@@ -140,38 +140,31 @@
                         </div>
                     </div>
                         
-                    <div style="font-size:20px; margin-left:12px">入社情報</div>    
-                    <div class="modal-form-input-container _dark">
                         
-                        <div class="_half">
-                            <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label>
+                    <div class="modal-form-input-container _dark flex-col" id="user-create-entryInfo">
+                        <span>
+                            <div style="font-size:20px; margin-left:12px">
+                                入社情報
                             </div>
-                            @if ($loggedUser->user_authority == 'システム管理者')
+                            <button class="modal_addBtn" id="user-create-entryInfo_Add">+</button>
+                            <div class="row center">
+                                
                                 <div>
-                                    <input class="modal_input" type="date" id="user_create_admission_dayInput" name="admission_day" value="">
+                                    <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <div><input class="modal_input" type="date" name="user_admissionDay" required></div>
+                                    </div>
                                 </div>
-                            @else
-                                <div>
-                                    <input class="modal_input" type="date" id="user_create_admission_dayInput" name="admission_day" value=""
-                                        readonly>
-                                </div>
-                            @endif
-                        </div>
 
-                        <div class="_half">
-                            <div><label for="resignation_year">退職日</label></div>
-                            @if ($loggedUser->user_authority == 'システム管理者')
-                            <div>
-                                <input class="modal_input" type="date" id="user_create_resignation_yearInput" name="resignation_year"
-                                    value="">
+                                <div>
+                                    <div><label for="user_resignationDay">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="user_resignationDay" required></div>
+                                </div>
                             </div>
-                            @else
-                            <div>
-                                <input class="modal_input" type="date" id="user_create_resignation_yearInput" name="resignation_year" value=""
-                                    readonly>
-                            </div>
-                            @endif
-                        </div>
+                        </span>
+                        
+                        
                     </div>
                     <div class="modal-form-input-container">
 
@@ -228,10 +221,11 @@
                             
                         </div>
                     </div>
-                    <div class="modal-form-input-container _dark flex-col">
+                    <div class="modal-form-input-container _dark flex-col" id="user-create-Salary">
 
                         
-                        <span><div style="font-size:20px; margin-left:12px">給料情報</div><button class="modal_addBtn">+</button>
+                        <span><div style="font-size:20px; margin-left:12px">給料情報</div>
+                            <button class="modal_addBtn" id="user-create-salary_Add">+</button>
                         <div class="row center">
                             
                             <div>
@@ -255,28 +249,7 @@
                             </div>
                         </div>
                         </span>
-                        <div class="row center">
-                            <div>
-                                <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
-                                <div class="row">
-                                    <button class="delete">-</button>
-                                    <input class="modal_input" type="number" name="salary" required>
-                                </div>
-
-                            </div>
-
-                            <div>
-                                <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
-                                <div><input class="modal_input" type="date" id="user_create_salary_startDate"
-                                        name="transferred_amount" required></div>
-                            </div>
-
-                            <div>
-                                <div><label for="budget">終了日</label></div>
-                                <div><input class="modal_input" type="date" name="budget" required></div>
-                            </div>
-                        </div>
-                        
+                                              
                         
                     </div>
                     <div class="modal-form-input-container">
@@ -295,10 +268,92 @@
 
 
 <script>
+
+function createUser_deleteRowActionListener() {
+
+// var i = 0;
+document.getElementById("user-create-Salary").querySelectorAll(".delete").forEach(function (obj, index) {
+    obj.addEventListener("click", function (event) {
+
+            this.parentNode.parentNode.parentNode.remove();
+            createUser_deleteRowActionListener();
+        
+    });
+});
+}
+function createUser_addSalaryRowListener()
+{
+    document.getElementById('user-create-salary_Add').onclick=function(){
+        
+        document.getElementById('user-create-Salary').innerHTML+=`<div class="row center">
+                                <div>
+                                    <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <input class="modal_input" type="number" name="salary" required>
+                                    </div>
+
+                                </div>
+
+                                <div>
+                                    <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div><input class="modal_input" type="date" name="salary_startDate" required></div>
+                                </div>
+
+                                <div>
+                                    <div><label for="salary_endDate">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="salary_endDate" required></div>
+                                </div>
+                            </div>`;
+                            createUser_addSalaryRowListener();
+                            createUser_deleteRowActionListener();
+        }
+        
+}
+function createUser_addEntryInfoRowListener(){
+    document.getElementById('user-create-entryInfo_Add').onclick=function(){
+        
+        document.getElementById('user-create-entryInfo').innerHTML+=`<div class="row center">
+                                <div>
+                                    <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <div><input class="modal_input" type="date" name="user_admissionDay" required></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div><label for="user_resignationDay">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="user_resignationDay" required></div>
+                                </div>
+                            </div>`;
+                            createUser_addEntryInfoRowListener();
+                            createUser_entryInfoDeleteRowActionListener();
+        }
+}
+
+function createUser_entryInfoDeleteRowActionListener() {
+
+
+    document.getElementById("user-create-entryInfo").querySelectorAll(".delete").forEach(function (obj, index) {
+        obj.addEventListener("click", function (event) {
+
+                this.parentNode.parentNode.parentNode.remove();
+                createUser_entryInfoDeleteRowActionListener();
+            
+            });
+        });
+}
+
+var resetCreateHTML=document.getElementById('user-create-modal').innerHTML;
 function userRegisterModalHandler() {
     event.preventDefault();
-
+    document.getElementById('user-create-modal').innerHTML=resetCreateHTML;
     showModal('user-create-modal');
+    createUser_addSalaryRowListener();
+    createUser_deleteRowActionListener();
+    createUser_addEntryInfoRowListener();
+    createUser_entryInfoDeleteRowActionListener();
 }
 
 function getRegFormData() {

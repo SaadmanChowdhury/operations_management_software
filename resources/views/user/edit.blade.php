@@ -147,46 +147,16 @@
                             </div>
                         </div>
                     </div>
-                    <div style="font-size:20px; margin-left:12px">入社情報</div>
-                    <div class="modal-form-input-container _dark">
-                        <div class="row center">
-                            
-                            <div class="_half">
-                                <div><label for="admission_day">入場日<span class="reruired-field-marker">*</span></label></div>
-                                @if ($loggedUser->user_authority == 'システム管理者')
-                                    <div class="row">
-                                        <button class="delete" style="margin-left: 0">-</button>
-                                        <input class="modal_input" type="date" id="user_edit_admission_dayInput" name="admission_day" value="">
-                                    </div>
-                                @else
-                                    <div>
-                                        <input class="modal_input" type="date" id="user_edit_admission_dayInput" name="admission_day" value=""
-                                            readonly>
-                                    </div>
-                                @endif
-                            </div>
-
-                            <div class="_half">
-                                <div><label for="resignation_year">退職日</label></div>
-                                @if ($loggedUser->user_authority == 'システム管理者')
-                                <div>
-                                    <input class="modal_input" type="date" id="user_edit_resignation_yearInput" name="resignation_year"
-                                        value="">
-                                </div>
-                                @else
-                                <div>
-                                    <input class="modal_input" type="date" id="user_edit_resignation_yearInput" name="resignation_year" value=""
-                                        readonly>
-                                </div>
-                                @endif
-                            </div>
-                        </div>
+                    
+                    <div class="modal-form-input-container _dark flex-col" id="entryInfo">
+                        
+                        
                     </div>
                     <div class="modal-form-input-container">
 
                         <div class="_half">
                             <div><label for="emergency">緊急連絡</label></div>
-                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            
                             <div>
                                 <input class="modal_input" type="text" id="user_edit_emergency" name="emergency" value="" required>
                             </div>
@@ -238,12 +208,7 @@
                         </div>
                     </div>
                     
-                    {{-- <div class="modal-form-input-container" id='user-edit-remark'>
-                        <div class="_full">
-                            <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
-                            <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
-                        </div>
-                    </div> --}}
+                    
 
                 </div>
             </div>
@@ -255,33 +220,43 @@
 
 <script>
 
-var count=1;
+//var count=1;
 function deleteRowActionListener() {
 
     // var i = 0;
     document.getElementById("user-edit-Salary").querySelectorAll(".delete").forEach(function (obj, index) {
         obj.addEventListener("click", function (event) {
 
-            
                 this.parentNode.parentNode.parentNode.remove();
-                // i++;
-                count--;
-                //console.log(index);
                 deleteRowActionListener();
             
         });
     });
 }
 
-function renderSalarySection(){
+function entryInfoDeleteRowActionListener() {
+
+
+document.getElementById("entryInfo").querySelectorAll(".delete").forEach(function (obj, index) {
+        obj.addEventListener("click", function (event) {
+
+                this.parentNode.parentNode.parentNode.remove();
+                entryInfoDeleteRowActionListener();
+            
+            });
+        });
+}
+
+function renderSalarySection(salaryLength){
 
     var salarySectionHTML=`<div class="modal-form-input-container _dark flex-col" id="user-edit-Salary">
                         <span>
                             <div style="font-size:20px; margin-left:12px">
                                 給料情報
                             </div>
-                            <button class="modal_addBtn" id="modal_Add">+</button>
-                            <div class="row center" id="salary-row-1">
+                            <button class="modal_addBtn" id="salary_Add">+</button>`;
+                            for (let index = 0; index < salaryLength; index++) {
+                                salarySectionHTML+=`<div class="row center" id="salary-row-1">
                                 
                                 <div>
                                     <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
@@ -293,17 +268,19 @@ function renderSalarySection(){
                                 
 
                                 <div>
-                                    <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
                                     <div><input class="modal_input" type="date"
-                                            name="transferred_amount" required></div>
+                                            name="salary_startDate" required></div>
                                 </div>
 
                                 <div>
-                                    <div><label for="budget">終了日</label></div>
-                                    <div><input class="modal_input" type="date" name="budget" required></div>
+                                    <div><label for="salary_endDate">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="salary_endDate" required></div>
                                 </div>
-                            </div>
-                        </span>
+                            </div>`;
+                                
+                            }
+                    salarySectionHTML+=`</span>
                     </div>`;
     var remarkHTMLString= `<div class="modal-form-input-container" id='user-edit-remark'>
                         <div class="_full">
@@ -319,9 +296,9 @@ function renderSalarySection(){
 
 function addSalaryRowListener()
 {
-    document.getElementById('modal_Add').onclick=function(){
-        count++;
-        document.getElementById('user-edit-Salary').innerHTML+=`<div class="row center" id='salary-row-${count}'>
+    document.getElementById('salary_Add').onclick=function(){
+        
+        document.getElementById('user-edit-Salary').innerHTML+=`<div class="row center">
                                 <div>
                                     <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
                                     <div class="row">
@@ -332,13 +309,13 @@ function addSalaryRowListener()
                                 </div>
 
                                 <div>
-                                    <div><label for="transferred_amount">開始日<span class="reruired-field-marker">*</span></label></div>
-                                    <div><input class="modal_input" type="date" name="transferred_amount" required></div>
+                                    <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div><input class="modal_input" type="date" name="salary_startDate" required></div>
                                 </div>
 
                                 <div>
-                                    <div><label for="budget">終了日</label></div>
-                                    <div><input class="modal_input" type="date" name="budget" required></div>
+                                    <div><label for="salary_endDate">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="salary_endDate" required></div>
                                 </div>
                             </div>`;
                             addSalaryRowListener();
@@ -347,27 +324,70 @@ function addSalaryRowListener()
         
 }
 
-//addSalaryRowListener();
-var resetHTML=document.getElementById('user-edit-modal').innerHTML;
+function addEntryInfoRowListener(){
+    document.getElementById('entryInfo_Add').onclick=function(){
+        
+        document.getElementById('entryInfo').innerHTML+=`<div class="row center">
+                                <div>
+                                    <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <div><input class="modal_input" type="date" name="user_admissionDay" required></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div><label for="user_resignationDay">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="user_resignationDay" required></div>
+                                </div>
+                            </div>`;
+                            addEntryInfoRowListener();
+                            entryInfoDeleteRowActionListener();
+        }
+}
+
+function renderEntryInfoSection(entryInfoLength){
+
+    var entryInfoHTML=` <span>
+                            <div style="font-size:20px; margin-left:12px">
+                                入社情報
+                            </div>
+                            <button class="modal_addBtn" id="entryInfo_Add">+</button>`;
+                        for (let index = 0; index < entryInfoLength; index++) {
+                            
+                            entryInfoHTML+=`<div class="row center">
+                                
+                                <div>
+                                    <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <div><input class="modal_input" type="date" name="user_admissionDay" required></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div><label for="user_resignationDay">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="user_resignationDay" required></div>
+                                </div>
+                            </div>`;
+                            
+                        }    
+                            
+                        entryInfoHTML+=`</span>`;
+    
+    jQuery('#entryInfo').append(entryInfoHTML);
+    
+}
+
+
+var resetEditHTML=document.getElementById('user-edit-modal').innerHTML;
 
 function userEditModalHandler(userID) {
     event.preventDefault();
-    //var modalId=userID;
-    //var modalName= document.getElementById('user-edit-modal');
-    //modalName.setAttribute("data-id",userID);
-    // modalName.id='user-edit-modal'
     
-    // clearModalData('user-edit-modal');
-
-    
-    document.getElementById('user-edit-modal').innerHTML=resetHTML;
+    document.getElementById('user-edit-modal').innerHTML=resetEditHTML;
     showModal('user-edit-modal');
-    //document.getElementById('column-right-user').id="column-right-user-"+userID;
-    renderSalarySection();
-    addSalaryRowListener();
-    deleteRowActionListener();
-
-    getUserData(userID);
+    getUserData(userID);        
 }
 
 function getEditFormData() {
@@ -382,7 +402,7 @@ function getEditFormData() {
         location: $('#user_edit_locationInput').val(),
         locationText: $("#user_edit_locationInput").find(":selected").text(),
         admission_day: $('#user_edit_admission_dayInput').val(),
-        unit_price: $('#user_edit_salaryInput').val(),
+        unit_price: $('#user-edit-Salary input').serialize(),
         user_authority: $('#user_edit_authorityInput').val(),
         _token: $('input[name=_token]').val()
     };
@@ -426,6 +446,14 @@ function updateUserTable(updatedData) {
 
 function updateUserEditModalData(data) {
 
+    var length=3;
+    renderEntryInfoSection(length);
+    renderSalarySection(length);
+    addSalaryRowListener();
+    deleteRowActionListener();
+    addEntryInfoRowListener();
+    entryInfoDeleteRowActionListener();
+
     for (let i = 0; i < data.length; i++) {
         if (data[i] == null)
             data[i] = "";
@@ -440,6 +468,8 @@ function updateUserEditModalData(data) {
     $("#user_edit_admission_dayInput").val(data.admission_day)
     $("#user_edit_resignation_yearInput").val(data.resign_day)
     $("#user_edit_salaryInput").val(data.unit_price)
+    
+   
 }
 
 function getUserData(userID) {
@@ -454,6 +484,7 @@ function getUserData(userID) {
         success: function(response) {
             if (response["resultStatus"]["isSuccess"]) {
                 updateUserEditModalData(response["resultData"]);
+                //return response["resultData"];
             } else
                 handleAJAXResponse(response);
         },
@@ -467,6 +498,7 @@ function updateUser() {
     event.preventDefault();
 
     modalData = getEditFormData();
+    console.log(modalData);
 
     $.ajax({
         type: "post",

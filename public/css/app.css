@@ -669,6 +669,10 @@ footer {
     color: white;
 }
 
+#entryInfo span{
+    width: 100%;;
+}
+
 .modal_addBtn{
     float: right;
     width: 30px;
