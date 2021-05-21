@@ -178,8 +178,8 @@ function createProject() {
         cache: false,
         success: function(response) {
             if (response["resultStatus"]["isSuccess"]) {
-                // updateProjectTable(modalData);
-
+                
+                modalData["projectID"] = response["resultData"]["projectID"];
                 let row = $("#accordian");
                 row.prepend( new ProjectListRenderer().renderHTMLProjectList(modalData));
                 closeModal('project-create-modal');
