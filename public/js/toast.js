@@ -20,7 +20,7 @@
 
 // #snackbar.show {
 //   visibility: visible;
-  
+
 // }
 
 // @-webkit-keyframes fadein {
@@ -56,14 +56,33 @@ function makeToast(message) {
 
   x.innerHTML = "";
   for (let index = 0; index < message.length; index++) {
-    x.innerHTML += "<div>" + message[index] + "</div>";
+
+    if (index == 0) {
+      x.innerHTML += ` <div  style="text-align: right"  > <div style="float:left;" >` + message[index] + '</div>   <div   style="display:inline-block; padding-left:5px; " onClick="hideSnackBar(this)" > X </div> </div>';
+
+    }
+
+    else {
+
+      x.innerHTML += "<div>" + message[index] + "</div>";
+
+
+    }
   }
 
   x.className = "show";
   setTimeout(function () {
     x.className = "hide";
-  }, message.length * 2000);
+  }, message.length * 8000 > 60000 ? 60000 : message.length * 8000);
 
+
+
+
+}
+
+
+function hideSnackBar(ele) {
+  ele.parentNode.parentNode.className = "hide";
 }
 
 
