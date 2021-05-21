@@ -132,7 +132,7 @@ class ProjectController extends Controller
             return JSONHandler::customErrorJSONPackage($data);
         }
 
-        return JSONHandler::emptySuccessfulJSONPackage();
+        return JSONHandler::packagedJSONData($data);
     }
 
     public function deleteProject(Request $request)

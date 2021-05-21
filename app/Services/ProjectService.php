@@ -203,7 +203,7 @@ class ProjectService
                 $inspectionYear = Carbon::parse($inspectionMonth)->format('Y');
                 $inspectionMonth = Carbon::parse($inspectionMonth)->format('m');
             } else {
-                $inspectionYear = $inspectionMonth = $inspectionDay =  null;
+                $inspectionYear = $inspectionMonth =  null;
             }
 
             $assignModel->deleteAllAssignValuesOutsideProjectTimeline($orderYear, $orderMonth, $inspectionYear, $inspectionMonth, $projectID);
@@ -370,27 +370,6 @@ class ProjectService
         return $formattedData;
     }
 
-    public function getUpsertAssignData()
-    {
-        return [
-            0 => [
-                'assignID' => 1,
-                'projectID' => 1,
-                'memberID' => 2,
-                'year' => 2,
-                'month' => 2,
-                'value' => 2,
-            ],
-            1 => [
-                'assignID' => 89,
-                'projectID' => 1,
-                'memberID' => 1,
-                'year' => 1,
-                'month' => 1,
-                'value' => 1,
-            ],
-        ];
-    }
 
     public function deleteProject($id)
     {

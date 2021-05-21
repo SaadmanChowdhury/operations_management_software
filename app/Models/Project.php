@@ -128,7 +128,8 @@ class Project extends Model
 
     public function upsertProjectDetails($validatedData, $projectID)
     {
-        Project::updateOrCreate(['project_id' => $projectID], $validatedData);
+        $project = Project::updateOrCreate(['project_id' => $projectID], $validatedData);
+        return ['projectID' => $project->project_id];
     }
 
 
