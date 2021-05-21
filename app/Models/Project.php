@@ -56,7 +56,7 @@ class Project extends Model
     public function createProject($validatedData)
     {
         //saving new record
-        $project = DB::table('projects')->insert([
+        $project = DB::table('projects')->insertGetId([
             'project_name' => $validatedData['project_name'],
             'client_id' => $validatedData['client_id'],
             'manager_id' => $validatedData['manager_id'],
@@ -69,7 +69,7 @@ class Project extends Model
             'transferred_amount' => $validatedData['transferred_amount'],
             'budget' => $validatedData['budget'],
         ]);
-        return $project;
+        return ['projectID' => $project];
     }
 
     public function convertOrderStatusToInt($sentStatus)

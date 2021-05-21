@@ -122,9 +122,9 @@ class ProjectService
             }
 
             // creating a project
-            $projectModel->createProject($validatedData);
+            $data = $projectModel->createProject($validatedData);
 
-            return JSONHandler::emptySuccessfulJSONPackage();
+            return $data;
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
