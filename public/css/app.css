@@ -55,7 +55,7 @@ body {
     position: relative;
     top: 72px;
     /* padding: 15px 30px 10px 30px; */
-    padding: 2vw 3vw 3vw 3vw;
+    padding: 1vw 1vw 1vw 1vw;
     width: 100%;
     height: fit-content;
     background-color: #F8F8F8;
@@ -714,7 +714,7 @@ footer {
 }
 
 .content-width {
-    width: 90vw;
+    width: 94vw;
     overflow-x: scroll;
 }
 
@@ -2441,7 +2441,7 @@ td img {
     font-size: 2.2vw;
   }
 .display li:nth-child(1) {
-   
+     
     min-width: 1%;
     /* margin-left: 5%; */
 }
@@ -2450,4 +2450,26 @@ td img {
     min-width: 20%;
     /* margin-left: 5%; */
 }
+@media only screen and (max-width: 1260px) {
+    .project .display li:nth-child(9) {
+       display: none;
+      
+   }
+   .project .display li:nth-child(10) {
+       display: none;
+      
+   }
+   .project .display li:nth-child(11) {
+       display: none;
+   } 
+   .edit{
+    padding: 0;
+    font-size: 0;
+    border-radius: 4px;
+    width: 22px;
+  }
+  
+   }
+   
+
 
