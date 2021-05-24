@@ -220,6 +220,7 @@
 
 <script>
 
+var user_editUserID;
 //var count=1;
 function deleteRowActionListener() {
 
@@ -399,7 +400,7 @@ var resetEditHTML=document.getElementById('user-edit-modal').innerHTML;
 
 function userEditModalHandler(userID) {
     event.preventDefault();
-    
+    user_editUserID=userID;
     document.getElementById('user-edit-modal').innerHTML=resetEditHTML;
     showModal('user-edit-modal');
     getUserData(userID);        
@@ -579,28 +580,29 @@ function deleteUserComfirmation(userId) {
     });
 }
 
-// function updateFavorites_AJAXcall(itemID,typeConstantID,checked){
-//     $.ajax({
-//         type: "post",
-//         url: "/API/updateFavoriteStatus",
-//         data: {
-//             _token:_token: $('input[name=_token]').val(),
-//             itemID: itemID,
-//             itemType: config('constants.Table.user'),
-//             favoriteStatus:checked
-//         },
-//         cache: false,
-//         success: function(response) {
-//             if (response["resultStatus"]["isSuccess"])
+function updateFavorites_AJAXcall(itemID,checked){
+    $.ajax({
+        type: "post",
+        url: "/API/updateFavoriteStatus",
+        data: {
+            _token: $('input[name=_token]').val(),
+            itemID: user_editUserID,
+            itemType: config('constants.Table.user'),
+            favoriteStatus:checked
+        },
+        cache: false,
+        success: function(response) {
+            if (response["resultStatus"]["isSuccess"])
 
-//             else
-//                 handleAJAXResponse(response);
-//             closeModal('user-edit-modal');
-//         },
-//         error: function(err) {
-//             handleAJAXError(err);
-//         }
-//     });
+            else
+                handleAJAXResponse(response);
+            closeModal('user-edit-modal');
+        },
+        error: function(err) {
+            handleAJAXError(err);
+        }
+    });
 
-// }
+}
+
 </script>
