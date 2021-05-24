@@ -117,7 +117,7 @@
   animation-name: appear;
   animation-duration: 1s;
   transform: translateY(25%);
-  transition: 1s ease all;
+  transition: 0.5s ease all;
   visibility: visible;
   
 }

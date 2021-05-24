@@ -10,6 +10,7 @@ function makeToast(message) {
   }
 
   x.className = "snackbar-show";
+  clearTimeout(timerObj);
   timerObj = setTimeout(function () {
 
     x.className = "snackbar-hide";
