@@ -33,11 +33,11 @@
             </ul>
 
             <ul class="userlist-nav center list-unstyled" style="float: right;">
-                <a href="" onclick="adjustRowHeight()">
+                <a href="" onclick="adjustRowHeight()" class="list-icon">
                     <li class="fa fa-list"> </li>
                 </a>
                 @if ($loggedUser->user_authority == 'システム管理者')
-                <a href="" onclick="userRegisterModalHandler()">
+                <a href="" onclick="userRegisterModalHandler()" >
                     <li> + 登録</li>
                 </a>
                 @endif

@@ -19,7 +19,7 @@
     <div class="row row-content">
         <div class="content-width">
         
-        <div style="min-width:1200px">
+        <div class="responsive-scroll">
             <ul class="userlist-nav center list-unstyled">
                 <a href="">
                     <li>全て</li>
@@ -73,8 +73,8 @@
                 </a>
             </ul>
             <ul class="userlist-nav center list-unstyled" style="float: right;">
-                <a href="" onclick="adjustRowHeight()">
-                    <li class="fa fa-list"> </li>
+                <a href="" onclick="adjustRowHeight()" class="list-icon">
+                    <li class="fa fa-list " > </li>
                 </a>
 
                 @if ($loggedInUser->user_authority == 'システム管理者')

@@ -362,7 +362,10 @@ footer {
 
 #nav #sidebar-logout-link-li {
     /* margin-top: calc(100vh - 500px); */
-    margin-top: calc(100vh - 72vh);
+    /* margin-top: calc(100vh - 72vh); */
+    bottom: 0px;
+    position: fixed;
+    left: 0px;
 }
 
 #nav li a {
@@ -715,7 +718,7 @@ footer {
 
 .content-width {
     width: 94vw;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
 }
 
 /*=== USER_LIST NAV=== */
@@ -744,7 +747,7 @@ footer {
 }
 
 .userlist-nav a li {
-    padding: 0.7rem 1.3rem 0.5rem 1.3rem;
+    padding: 0.7vh 1.3vw 0.5vh 1.3vw;
 }
 
 .userlist-nav a:nth-child(1) {
@@ -924,7 +927,7 @@ footer {
     text-align: center;
 }
 .responsive-scroll{
-    width: 90vw;
+    width: 94vw;
     min-width: 650px;
 }
 
@@ -2450,6 +2453,9 @@ td img {
     min-width: 20%;
     /* margin-left: 5%; */
 }
+.list-icon{
+    padding: 0px;
+}
 @media only screen and (max-width: 1260px) {
     .edit{
         padding: 0;
@@ -2462,12 +2468,23 @@ td img {
         } 
         .project .display li:nth-child(10) {
             min-width: 7%;
-            } 
+         } 
+         .userlist-nav a li {
+            /* padding: 0.7vh 1.0vw 0.5vh 1.0vw; */
+        }
     }
 @media only screen and (max-width: 1114px){
     .project .display li:nth-child(8) {
        display: none; 
    }
+   .userlist-nav a li {
+    /* padding: 0.7vh .9vw 0.5vh .9vw; */
+    }
+}
+@media only screen and (max-width: 1110px){
+   .userlist-nav a li {
+    /* padding: 0.7vh .6vw 0.5vh .6vw; */
+    }
     
 }
 @media only screen and (max-width: 1080px){
@@ -2480,6 +2497,38 @@ td img {
        display: none;
    }  
 }
-   
-
-
+@media only screen and (max-width: 970px){
+    .userlist-nav{
+        font-size: 65%;
+    }
+    .list-icon{
+        padding: 1px;
+    }
+}
+@media only screen and (max-width: 780px){
+    .userlist-nav a li {
+         padding: 0.7vh 1.0vw 0.5vh 1.0vw;
+    }
+    .list-icon{
+        padding: 1px;
+    }
+}
+@media only screen and (max-width: 774px){
+    .project .display li:nth-child(10) {
+        min-width: 10%;
+    }
+     .project .display li{
+         font-size: 96%;
+     }
+}
+@media only screen and (max-width: 650px){
+    .content-width {
+        overflow-x: scroll; 
+    }
+    .userlist-nav a li {
+        padding:6px;
+   }
+   .list-icon{
+       padding: 1px;
+   }
+}

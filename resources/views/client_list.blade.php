@@ -25,12 +25,12 @@
                     </a>
                 </ul>
                 <ul class="userlist-nav center list-unstyled" style="float: right;">
-                    <a href="" onclick="adjustRowHeight()">
+                    <a href="" onclick="adjustRowHeight()" class="list-icon">
                         <li class="fa fa-list"> </li>
                     </a>
 
                     @if ($loggedInUser->user_authority == 'システム管理者')
-                    <a href="" onclick="clientRegisterModalHandler()">
+                    <a href="" onclick="clientRegisterModalHandler()" >
                         <li> + 登録</li>
                     </a>
                     @endif
