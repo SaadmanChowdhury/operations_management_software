@@ -140,8 +140,4 @@
     <div id="background-shade-for-design-anomaly" class="bg-shade"></div>
     <div class="page-container">
     <div id="snackbar">Some text some message..</div>
-
-   
-
     
-    </div>
