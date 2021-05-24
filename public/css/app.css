@@ -2561,7 +2561,7 @@ td img {
     left: 3px;
     bottom: 11px;
     background-color: none;
-    color: white;
+    color: rgb(255, 255, 255);
     -webkit-transition: .4s;
     transition: .4s;
   }
@@ -2569,6 +2569,7 @@ td img {
   
   .fav input:checked + .slider {
     background-color: #C7B6DC;
+    
   }
   .fav input:focus + .slider {
     box-shadow: 0 0 1px #C7B6DC;
@@ -2576,6 +2577,7 @@ td img {
   
   
   input:checked + .slider:before {
+    color: rgb(235, 115, 115);
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);

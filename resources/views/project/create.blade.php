@@ -190,9 +190,16 @@ $(function() {
     convertToSearchableDropDown("project_create_managerID_Input", "USER");
     convertToSearchableDropDown("project_create_clientID_Input", "CLIENT");
 })
-
+var resetCreateHTML=document.getElementById('project-create-modal').innerHTML;
+function resetHTML(){
+    document.getElementById('project-create-modal').innerHTML=resetCreateHTML;
+}
 function ProjectRegisterModalHandler() {
+
     event.preventDefault();
+    resetHTML();
+    convertToSearchableDropDown("project_create_managerID_Input", "USER");
+    convertToSearchableDropDown("project_create_clientID_Input", "CLIENT");
     showModal('project-create-modal');
 }
 

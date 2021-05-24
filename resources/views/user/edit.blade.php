@@ -18,14 +18,14 @@
 
                         <span>アクティブ</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox">
                             <span class="slider round"></span>
                         </label>
                     </div>
                     <div class="fav">
                         <span>お気に入り</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="favFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -296,7 +296,19 @@ function renderSalarySection(salaryLength){
 
 function addSalaryRowListener()
 {
+    var selects = document.querySelector("#user-edit-Salary").getElementsByTagName("input");
+
+    console.log("hello from the other world");
+    for (let i = 0; i < selects.length; i++) {
+        console.log(selects[i]);
+
+        selects[i].addEventListener("change", function () {
+            console.log(this.value);
+            selects[i].setAttribute("value", selects[i].value);
+        });
+    }
     document.getElementById('salary_Add').onclick=function(){
+        
         
         document.getElementById('user-edit-Salary').innerHTML+=`<div class="row center">
                                 <div>
@@ -318,9 +330,12 @@ function addSalaryRowListener()
                                     <div><input class="modal_input" type="date" name="salary_endDate" required></div>
                                 </div>
                             </div>`;
+                            
+                            
                             addSalaryRowListener();
                             deleteRowActionListener();
         }
+        
         
 }
 
@@ -404,7 +419,8 @@ function getEditFormData() {
         admission_day: $('#user_edit_admission_dayInput').val(),
         unit_price: $('#user-edit-Salary input').serialize(),
         user_authority: $('#user_edit_authorityInput').val(),
-        _token: $('input[name=_token]').val()
+        _token: $('input[name=_token]').val(),
+        favChecked:$('#favFlag').prop("checked")
     };
 }
 
@@ -555,11 +571,36 @@ function deleteUserComfirmation(userId) {
                 $("#user-row-" + userId).remove();
             else
                 handleAJAXResponse(response);
-            closeModal('user-edit-modal');
+                closeModal('user-edit-modal');
         },
         error: function(err) {
             handleAJAXError(err);
         }
     });
 }
+
+// function updateFavorites_AJAXcall(itemID,typeConstantID,checked){
+//     $.ajax({
+//         type: "post",
+//         url: "/API/updateFavoriteStatus",
+//         data: {
+//             _token:_token: $('input[name=_token]').val(),
+//             itemID: itemID,
+//             itemType: config('constants.Table.user'),
+//             favoriteStatus:checked
+//         },
+//         cache: false,
+//         success: function(response) {
+//             if (response["resultStatus"]["isSuccess"])
+
+//             else
+//                 handleAJAXResponse(response);
+//             closeModal('user-edit-modal');
+//         },
+//         error: function(err) {
+//             handleAJAXError(err);
+//         }
+//     });
+
+// }
 </script>

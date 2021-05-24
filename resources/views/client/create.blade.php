@@ -55,7 +55,7 @@
 
                     <div class="_full">
                         <div><label for="user_id">顧客に責任者<span class="reruired-field-marker">*</span></label></div>
-                        <div><input type="number" id="client_create_userID_Input" name="user_id" required></div>
+                        <div><input class="modal_input" type="number" id="client_create_userID_Input" name="user_id" required></div>
                     </div>
                 </div>
 
@@ -72,9 +72,14 @@
 $(function() {
     convertToSearchableDropDown("client_create_userID_Input", "USER");
 })
-
+var resetCreateHTML=document.getElementById('client-create-modal').innerHTML;
+function resetHTML(){
+    document.getElementById('client-create-modal').innerHTML=resetCreateHTML;
+}
 function clientRegisterModalHandler() {
     event.preventDefault();
+    resetHTML();
+    convertToSearchableDropDown("client_create_userID_Input", "USER");
     showModal('client-create-modal');
 }
 

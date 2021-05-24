@@ -346,9 +346,12 @@ function createUser_entryInfoDeleteRowActionListener() {
 }
 
 var resetCreateHTML=document.getElementById('user-create-modal').innerHTML;
+function resetHTML(){
+    document.getElementById('user-create-modal').innerHTML=resetCreateHTML;
+}
 function userRegisterModalHandler() {
     event.preventDefault();
-    document.getElementById('user-create-modal').innerHTML=resetCreateHTML;
+    resetHTML();
     showModal('user-create-modal');
     createUser_addSalaryRowListener();
     createUser_deleteRowActionListener();
