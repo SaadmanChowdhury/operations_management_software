@@ -25,7 +25,7 @@
                     <div class="fav">
                         <span>お気に入り</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="favFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -216,7 +216,8 @@ function getProjectRegFormData() {
         salesTotal: $('#project_create_sales_total_Input').val(),
         transferredAmount: $('#project_create_transferred_amount_Input').val(),
         budget: $('#project_create_budget_Input').val(),
-        _token: $('input[name=_token]').val()
+        _token: $('input[name=_token]').val(),
+        favChecked:$('#favFlag').prop("checked")
     };
 }
 

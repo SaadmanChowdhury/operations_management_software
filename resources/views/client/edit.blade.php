@@ -24,7 +24,7 @@
                     <div class="fav">
                         <span>お気に入り</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="favFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -109,7 +109,8 @@ function getClientEditFormData() {
         id: $('#id').val(),
         client_name: $('#client_edit_nameInput').val(),
         user_id: $('#client_edit_user_id').val(),
-        _token: $('input[name=_token]').val()
+        _token: $('input[name=_token]').val(),
+        favChecked:$('#favFlag').prop("checked")
     };
 }
 

@@ -24,7 +24,7 @@
                     <div class="fav">
                         <span>お気に入り</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="favFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -370,7 +370,8 @@ function getRegFormData() {
         admission_day: $('#user_create_admission_dayInput').val(),
         unit_price: $('#user_create_salaryInput').val(),
         user_authority: $('#user_create_authorityInput').val(),
-        _token: $('input[name=_token]').val()
+        _token: $('input[name=_token]').val(),
+        favChecked:$('#favFlag').prop("checked")
     };
 }
 
