@@ -89,7 +89,7 @@
 
             {{-- ///====PROJECT-TABLE HEADER====/// --}}
             <div class="project">
-                <div id="table-nav" class="primary" style="min-width:1200px">
+                <div id="table-nav" class="primary" style="">
                     <div class="flex-col">
                         <ul class="display list-unstyled">
                             <li> 案件名</li>
@@ -112,7 +112,7 @@
 
             {{-- ///====PROJECT-TABLE DETAILS====/// --}}
 
-            <div id="accordian" class="project table-body"    style="min-width:1200px">
+            <div id="accordian" class="project table-body"    style="">
                 <div class="mainLoader" id="main-loader"></div>
 
 

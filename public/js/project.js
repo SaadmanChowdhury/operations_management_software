@@ -184,7 +184,7 @@ function renderProjectHTML(response01) {
             `<li>${row.orderMonth}</li>
              <li>${row.inspectionMonth}</li>`+salesProfitlist+
              `<li>
-             <div class="edit" onclick="projectEditModalHandler(${row.projectID})">
+             <div class="edit"  onclick="projectEditModalHandler(${row.projectID})">
              <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
              </div>
              </li>
@@ -1029,6 +1029,7 @@ function updateAssignData_AJAX(assignData,projectID,diff,orderMonth,leader) {
         }
     });
 }
+
 
 
 
