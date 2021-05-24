@@ -1,3 +1,4 @@
+var timerObj;
 function makeToast(message) {
   // document.body.innerHTML += style + toast_div;
 
@@ -9,12 +10,14 @@ function makeToast(message) {
   }
 
   x.className = "snackbar-show";
-  setTimeout(function () {
+  timerObj = setTimeout(function () {
+
     x.className = "snackbar-hide";
   }, message.length * 8000 > 60000 ? 60000 : message.length * 8000);
 
 
   document.getElementById("snackbar").addEventListener("click", function () {
     this.className = "snackbar-hide";
+    clearTimeout(timerObj);
   });
 }
