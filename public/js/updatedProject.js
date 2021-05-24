@@ -1136,10 +1136,56 @@ function filterProject(e) {
 }
 
 
-// var assignData= [[0,0,'2020/10','2020/11','2020/12'],
-//                  [4,4.0,3.0,3.0,3.0],
-//                  ['leader',18.0,1,1,1],
-//                  ['member',18.0,1,1,1],
-//                  ['member',18.0,1,1,1],
-//                  ['member',18.0,1,1,1]
-//                 ];
+
+function checkEditDates() {
+
+    var orderInput = document.getElementById("project_edit_order_month_Input");
+    var inspectionInput = document.getElementById("project_edit_inspection_month_Input");
+
+    orderInput.addEventListener("change", function () {
+        if (new Date(orderInput.value) > project_edit_order_month_Input) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "The existing assigns before the current date might be deleted and you won't be able to revert it again",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085D6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, change it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                }
+                else {
+                    orderInput.value = project_edit_order_month_Input.toISOString().substring(0, 10);
+                }
+            })
+        }
+    });
+
+
+    inspectionInput.addEventListener("change", function () {
+
+        if (new Date(inspectionInput.value) < project_edit_inspection_month_Input)
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "The existing assigns after the current date might be deleted and you won't be able to revert it again",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085D6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, change it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                }
+                else {
+                    inspectionInput.value = project_edit_inspection_month_Input.toISOString().substring(0, 10);;
+                }
+            })
+    });
+
+}
+
+
+checkEditDates();

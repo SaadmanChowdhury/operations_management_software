@@ -146,13 +146,20 @@ $(function() {
     convertToSearchableDropDown("project_edit_clientID_Input", "CLIENT");
 })
 
+
+var project_edit_order_month_Input ;
+var project_edit_inspection_month_Input ;
+
 function projectEditModalHandler(projectID) {
     event.preventDefault();
     event.stopPropagation();
     clearModalData('project-edit-modal');
+
+
     showModal('project-edit-modal');
 
     getProjectData(projectID);
+
 }
 
 function getProjectEditFormData() {
@@ -244,6 +251,9 @@ function getProjectData(projectID) {
             if (response["resultStatus"]["isSuccess"]) {
                  console.log(response)
                 updateProjectEditModalData(response["resultData"]);
+
+                project_edit_order_month_Input = new Date (document.getElementById("project_edit_order_month_Input").value);
+                project_edit_inspection_month_Input = new Date (document.getElementById("project_edit_inspection_month_Input").value);
             } else
                 handleAJAXResponse(response);
         },
