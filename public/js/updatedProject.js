@@ -41,6 +41,7 @@ function readProjectAssign_AJAX(projectID) {
             if (response02["resultStatus"]["isSuccess"]) {
                 // setTimeout(function(){
                 //     hideLoader(projectID)}, 1000);
+                console.log(response02);
                 response = response02;
 
 

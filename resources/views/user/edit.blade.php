@@ -249,7 +249,7 @@ document.getElementById("entryInfo").querySelectorAll(".delete").forEach(functio
         });
 }
 
-function renderSalarySection(salaryLength){
+function renderSalarySection(salaryLength,compositeSalary){
 
     var salarySectionHTML=`<div class="modal-form-input-container _dark flex-col" id="user-edit-Salary">
                         <span>
@@ -264,7 +264,7 @@ function renderSalarySection(salaryLength){
                                     <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
                                     <div class="row">
                                         <button class="delete">-</button>
-                                        <input class="modal_input" type="number" name="salary" required>
+                                        <input class="modal_input" type="number" name="salary" required value=${compositeSalary[index].salaryAmount}>
                                     </div>
                                 </div>
                                 
@@ -272,12 +272,12 @@ function renderSalarySection(salaryLength){
                                 <div>
                                     <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
                                     <div><input class="modal_input" type="date"
-                                            name="salary_startDate" required></div>
+                                            name="salary_startDate" required value=${compositeSalary[index].startDate}></div>
                                 </div>
 
                                 <div>
                                     <div><label for="salary_endDate">終了日</label></div>
-                                    <div><input class="modal_input" type="date" name="salary_endDate" required></div>
+                                    <div><input class="modal_input" type="date" name="salary_endDate" required value=${compositeSalary[index].endDate}></div>
                                 </div>
                             </div>`;
                                 
@@ -494,30 +494,30 @@ function updateUserTable(updatedData) {
 
 }
 
-function updateUserEditModalData(data) {
-
-    var length=3;
+function updateUserEditModalData(userObj) {
+    console.log(userObj.compositeSalary.length);
+    var length=userObj.compositeSalary.length;
     renderEntryInfoSection(length);
-    renderSalarySection(length);
+    renderSalarySection(length,userObj.compositeSalary);
     addSalaryRowListener();
     deleteRowActionListener();
     addEntryInfoRowListener();
     entryInfoDeleteRowActionListener();
 
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < userObj.length; i++) {
         if (data[i] == null)
             data[i] = "";
     }
 
-    $("#id").val(data.user_id)
-    $("#user_edit_nameInput").val(data.name)
-    $("#user_edit_emailInput").val(data.email)
-    $("#user_edit_telInput").val(data.tel)
-    $("#user_edit_locationInput").val(data.location)
-    $("#user_edit_positionInput").val(data.position)
-    $("#user_edit_admission_dayInput").val(data.admission_day)
-    $("#user_edit_resignation_yearInput").val(data.resign_day)
-    $("#user_edit_salaryInput").val(data.unit_price)
+    $("#id").val(userObj.user_id)
+    $("#user_edit_nameInput").val(userObj.name)
+    $("#user_edit_emailInput").val(userObj.email)
+    $("#user_edit_telInput").val(userObj.tel)
+    $("#user_edit_locationInput").val(userObj.location)
+    $("#user_edit_positionInput").val(userObj.position)
+    //$("#user_edit_admission_dayInput").val(userObj.admission_day)
+    //$("#user_edit_resignation_yearInput").val(userObj.resign_day)
+    //$("#user_edit_salaryInput").val(userObj.unit_price)
     
    
 }
@@ -533,7 +533,9 @@ function getUserData(userID) {
         cache: false,
         success: function(response) {
             if (response["resultStatus"]["isSuccess"]) {
-                updateUserEditModalData(response["resultData"]);
+                // updateUserEditModalData(response["resultData"]);
+                updateUserEditModalData(userObj);
+                
                 //return response["resultData"];
             } else
                 handleAJAXResponse(response);
@@ -637,5 +639,53 @@ function updateFavorites_AJAXcall(checkedStatus){
     });
 
 }
+
+var userObj={
+        userID:1,
+        userCode: "AEP1234",
+        userName: "志田",
+        email: "shida@gtmi.co.jp",
+        gender: "女性",
+        location:"",
+        tel: "123456",
+        position:null,
+        employeeClassification: "full-time",
+        affiliationID: null,
+        emergencyContact:null,
+        condition1:null,
+        condition2:null,
+        locker:null,
+        remark:null,
+        userAuthority:"",
+        isFavorite:true,
+        isActive:false,
+        compositeSalary:[
+            {
+                salaryID:0,
+                startDate:"2012-12-20",
+                endDate:"2013-10-20",
+                salaryAmount:2200000,
+
+            },
+            {
+                salaryID:0,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                salaryAmount:2300000,
+
+            }
+
+        ],
+        
+        compositeEmployment:[
+            {
+                employmentID:0,
+                startDate:12-12-20,
+                endDate:12-12-21,
+                isResign:false
+
+            }
+        ]
+    }
 
 </script>
