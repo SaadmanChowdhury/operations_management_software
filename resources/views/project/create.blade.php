@@ -18,14 +18,14 @@
                     <div>
                         <span>アクティブ</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="projectReg-activeFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
                     <div class="fav">
                         <span>お気に入り</span>
                         <label class="switch">
-                            <input type="checkbox" id="favFlag" checked>
+                            <input type="checkbox" id="projectReg-favFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -217,7 +217,8 @@ function getProjectRegFormData() {
         transferredAmount: $('#project_create_transferred_amount_Input').val(),
         budget: $('#project_create_budget_Input').val(),
         _token: $('input[name=_token]').val(),
-        favChecked:$('#favFlag').prop("checked")
+        favChecked:$('#projectReg-favFlag').prop("checked"),
+        activeChecked:$('#projectReg-activeFlag').prop("checked")
     };
 }
 

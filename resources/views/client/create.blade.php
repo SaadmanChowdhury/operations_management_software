@@ -18,14 +18,14 @@
                     <div>
                         <span>アクティブ</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="clientReg-activeFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
                     <div class="fav">
                         <span>お気に入り</span>
                         <label class="switch">
-                            <input type="checkbox" id="favFlag" checked>
+                            <input type="checkbox" id="clientReg-favFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -88,7 +88,8 @@ function getClientRegFormData() {
         client_name: $('#client_create_name_Input').val(),
         user_id: $('#client_create_userID_Input').val(),
         _token: $('input[name=_token]').val(),
-        favChecked:$('#favFlag').prop("checked")
+        favChecked:$('#clientReg-favFlag').prop("checked"),
+        activeChecked:$('#clientReg-activeFlag').prop("checked")
     };
 }
 

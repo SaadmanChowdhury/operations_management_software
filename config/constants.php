@@ -62,9 +62,9 @@ return [
     ],
     // itemTypeで使用するためのテーブルのID
     'Table' => [
-        'user' => 0,    // User Table    //config('constants.Table.user')
-        'project' => 1,    // Client Table    //config('constants.Table.project')
-        'client' => 2,    // Project Table    //config('constants.Table.client')
-    ]
+        'user' => 'user',    // User Table    //config('constants.Table.user')
+        'project' => 'project',    // Project Table    //config('constants.Table.project')
+        'client' => 'client',    // Client Table    //config('constants.Table.client')
+    ],
 
 ];

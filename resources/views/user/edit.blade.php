@@ -18,14 +18,14 @@
 
                         <span>アクティブ</span>
                         <label class="switch">
-                            <input type="checkbox">
+                            <input type="checkbox" id="userEdit-activeFlag">
                             <span class="slider round"></span>
                         </label>
                     </div>
                     <div class="fav">
                         <span>お気に入り</span>
                         <label class="switch">
-                            <input type="checkbox" id="favFlag" checked>
+                            <input type="checkbox" id="userEdit-favFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -209,6 +209,7 @@
                     </div>
                     
                     
+                    
 
                 </div>
             </div>
@@ -291,15 +292,19 @@ function renderSalarySection(salaryLength){
                     </div>`;
     string=salarySectionHTML+remarkHTMLString;
     //console.log(string2);
-    document.getElementById('column-right-user').innerHTML+=string;
-    deleteRowActionListener();
+    var loggedInUser=jQuery("#user-authority").val();
+    if(loggedInUser!='一般ユーザー')
+    {
+        document.getElementById('column-right-user').innerHTML+=string;
+        deleteRowActionListener();
+    }
 }
 
 function addSalaryRowListener()
 {
     var selects = document.querySelector("#user-edit-Salary").getElementsByTagName("input");
 
-    console.log("hello from the other world");
+    //console.log("hello from the other world");
     for (let i = 0; i < selects.length; i++) {
         console.log(selects[i]);
 
@@ -406,6 +411,20 @@ function userEditModalHandler(userID) {
     getUserData(userID);        
 }
 
+function salaryFormatting(array_Salary){
+    var formattedSalary=[];
+    for (let index = 0; index <array_Salary.length; ) {
+        var smallArr=[];
+        for(let j=0;j<3;j++){
+            smallArr.push(array_Salary[index]);
+            index++;
+        }
+        formattedSalary.push(smallArr);
+    }
+    console.log(formattedSalary);
+    return formattedSalary;
+}
+
 function getEditFormData() {
     return {
         id: $('#id').val(),
@@ -418,10 +437,11 @@ function getEditFormData() {
         location: $('#user_edit_locationInput').val(),
         locationText: $("#user_edit_locationInput").find(":selected").text(),
         admission_day: $('#user_edit_admission_dayInput').val(),
-        unit_price: $('#user-edit-Salary input').serialize(),
+        unit_price: salaryFormatting($('#user-edit-Salary input').serialize().split('&')),
         user_authority: $('#user_edit_authorityInput').val(),
         _token: $('input[name=_token]').val(),
-        favChecked:$('#favFlag').prop("checked")
+        favChecked:$('#userEdit-favFlag').prop("checked"),
+        activeChecked:$('#userEdit-activeFlag').prop("checked")
     };
 }
 
@@ -580,23 +600,23 @@ function deleteUserComfirmation(userId) {
     });
 }
 
-function updateFavorites_AJAXcall(itemID,checked){
+function updateFavorites_AJAXcall(checkedStatus){
     $.ajax({
         type: "post",
         url: "/API/updateFavoriteStatus",
         data: {
-            _token: $('input[name=_token]').val(),
+            _token: $('#CSRF-TOKEN').val(),
             itemID: user_editUserID,
             itemType: config('constants.Table.user'),
-            favoriteStatus:checked
+            favoriteStatus:checkedStatus
         },
         cache: false,
         success: function(response) {
             if (response["resultStatus"]["isSuccess"])
-
+                console.log("success");
             else
                 handleAJAXResponse(response);
-            closeModal('user-edit-modal');
+                closeModal('user-edit-modal');
         },
         error: function(err) {
             handleAJAXError(err);

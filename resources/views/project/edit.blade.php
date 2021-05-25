@@ -17,14 +17,14 @@
                     <div>
                         <span>アクティブ</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="projectEdit-activeFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
                     <div class="fav">
                         <span>お気に入り</span>
                         <label class="switch">
-                            <input type="checkbox" id="favFlag" checked>
+                            <input type="checkbox" id="projectEdit-favFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -231,7 +231,8 @@ function getProjectEditFormData() {
         transferredAmount: $('#project_edit_transferred_amount_Input').val(),
         budget: $('#project_edit_budget_Input').val(),
         _token: $('input[name=_token]').val(),
-        favChecked:$('#favFlag').prop("checked")
+        favChecked:$('#projectEdit-favFlag').prop("checked"),
+        activeChecked:$('#projectEdit-activeFlag').prop("checked")
     };
 }
 

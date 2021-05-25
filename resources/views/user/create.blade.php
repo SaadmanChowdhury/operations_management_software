@@ -17,14 +17,14 @@
                     <div>
                         <span>アクティブ</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="userReg-activeFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
                     <div class="fav">
                         <span>お気に入り</span>
                         <label class="switch">
-                            <input type="checkbox" id="favFlag" checked>
+                            <input type="checkbox" id="userReg-favFlag" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -170,7 +170,7 @@
 
                         <div class="_half">
                             <div><label for="emergency">緊急連絡</label></div>
-                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            
                             <div>
                                 <input class="modal_input" type="text" id="user_create_emergency" name="emergency" value="" required>
                             </div>
@@ -181,7 +181,7 @@
 
                         <div class="_half">
                             <div><label for="condition">Condition1</label></div>
-                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            
                             <div>
                                 <input class="modal_input" type="text" id="user_create_condition1" name="condition" value="" required>
                             </div>
@@ -200,7 +200,7 @@
 
                         <div class="_half">
                             <div><label for="condition">従業員の分類<span class="reruired-field-marker">*</span></label></div>
-                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
+                            
                             <div class="custom-select">
                                 <select class="modal_input" id="user_create_employeeType">
                                     
@@ -271,7 +271,6 @@
 
 function createUser_deleteRowActionListener() {
 
-// var i = 0;
 document.getElementById("user-create-Salary").querySelectorAll(".delete").forEach(function (obj, index) {
     obj.addEventListener("click", function (event) {
 
@@ -371,7 +370,8 @@ function getRegFormData() {
         unit_price: $('#user_create_salaryInput').val(),
         user_authority: $('#user_create_authorityInput').val(),
         _token: $('input[name=_token]').val(),
-        favChecked:$('#favFlag').prop("checked")
+        favChecked:$('#userReg-favFlag').prop("checked"),
+        activeChecked:$('#userReg-activeFlag').prop("checked")
     };
 }
 

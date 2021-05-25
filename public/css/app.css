@@ -2515,10 +2515,10 @@ td img {
   .slider:before {
     position: absolute;
     content: "";
-    height: 18px;
-    width: 18px;
-    left: 2px;
-    bottom: 3px;
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
@@ -2554,11 +2554,12 @@ td img {
       /* border-radius: 50%; */
     font-family: "Font Awesome 5 Free"; 
 	font-weight: 900;
+    font-size: 14px;
 	content: "\f004";
     position: absolute;
-    height: 10px;
+    height: 8px;
     width: 0px;
-    left: 3px;
+    left: 5px;
     bottom: 11px;
     background-color: none;
     color: rgb(255, 255, 255);
