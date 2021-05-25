@@ -25,6 +25,12 @@
                     </a>
                 </ul>
                 <ul class="userlist-nav center list-unstyled" style="float: right;">
+                <input type="text" id="search" name="search">
+                </ul>
+
+                <ul class="userlist-nav center list-unstyled" style="float: right;">
+
+              
                     <a id="toogler" href="">
                         <li class="fa fa-list"> </li>
                     </a>
@@ -40,14 +46,14 @@
             </div>
 
             {{-- ///====CLIENT-TABLE HEADER====/// --}}
-            <div id="table-nav" class="midori">
+            <div data-header="client-head" id="table-nav" class="midori">
                 <div class="flex-col">
                     <ul class="display list-unstyled">
-                        <li> コード</li>
+                        <li data-type="number" > コード</li>
                         <li>会社名</li>
                         <li>責任者</li>
-                        <li>受注顧合計</li>
-                        <li>実績粗利</li>
+                        <li data-type="number">受注顧合計</li>
+                        <li data-type="number">実績粗利</li>
 
                         <li><span class="fa fa-filter fa-lg fa-color-mild-midori">Filter</span></li>
 
@@ -61,7 +67,7 @@
             <div id="client_table" class="client table-body" style="display:none;">
 
                 @foreach ($list as $client)
-                <div class="card _client" id="client-row-{{ $client->client_id }}">
+                <div data-row="{{ $client->client_id }}" class="card _client" id="client-row-{{ $client->client_id }}">
                     <div class="card-header">
                         <div class="display list-unstyled">
                             <li>{{ $client->client_id }}</li>
@@ -114,5 +120,6 @@
 
 
 <script src="/js/client.js"></script>
+<script src="/js/generic-search-sort.js"></script>
 
 @include("footer")
