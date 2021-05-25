@@ -17,9 +17,9 @@
 <div class="d-flex">
 
     <div class="row row-content">
-        <div class="content-width" style="">
+        <div class=" projcet-scrollx" style="">
         
-        <div class="responsive-scroll">
+        <div class="project-responsive-scroll">
             <ul class="userlist-nav center list-unstyled">
                 <a href="">
                     <li>全て</li>
@@ -89,7 +89,7 @@
 
             {{-- ///====PROJECT-TABLE HEADER====/// --}}
             <div class="project">
-                <div id="table-nav" class="primary" style="">
+                <div id="table-nav" class="primary" style="min-width:800px">
                     <div class="flex-col">
                         <ul class="display list-unstyled">
                             <li> 案件名</li>
@@ -112,7 +112,7 @@
 
             {{-- ///====PROJECT-TABLE DETAILS====/// --}}
 
-            <div id="accordian" class="project table-body"    style="">
+            <div id="accordian" class="project table-body"    style="min-width:800px">
                 <div class="mainLoader" id="main-loader"></div>
 
 
