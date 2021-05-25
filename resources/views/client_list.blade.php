@@ -24,8 +24,12 @@
                         <li> 全て</li>
                     </a>
                 </ul>
+
                 <ul class="userlist-nav center list-unstyled" style="float: right;">
-                <input type="text" id="search" name="search">
+                    <a id="search-modal-init" href="">
+                            <li class="fa fa-list">Search</li>
+                    </a>
+               
                 </ul>
 
                 <ul class="userlist-nav center list-unstyled" style="float: right;">
@@ -118,8 +122,128 @@
 @include("client.edit")
 @include("client.create")
 
+<div class="modal-container modal-show" id="client-search-modal" style="display: none;">
+
+    <div class="modal-title midori">
+        <span class="form-ht">Search Modal</span>
+        <span class="fa fa-chevron-up close" onclick="closeModal('client-search-modal')"></span>
+    </div>
+
+
+    <div>
+    <form id="myForm">
+    全て:
+    <input type="text" id="search" name="search">
+    
+    会社名:
+     <input id="companyName" data-column-number="1" type="text">
+
+     責任:
+     <input id="duty" data-column-number="2" type="text">
+
+     受注顧合計
+
+     <div data-column-number="3" >
+        <input id="rev1" type="number" value="0" >~
+        <input id="rev2" type="number" value="0"  >
+     </div>
+
+     <button id="resetButton">Reset</button>
+     <button id="searchButton">Search</button>
+
+    <form>
+    
+    </div>
+
+   
+</div>
+
 
 <script src="/js/client.js"></script>
 <script src="/js/generic-search-sort.js"></script>
+
+<script>
+"use strict";
+
+var search_modal_init = document.getElementById("search-modal-init");
+search_modal_init.addEventListener("click", function (){
+
+    event.preventDefault();
+   // var modal = document.getElementById("client-search-modal");
+    //modal.style.display="block";
+    showModal('client-search-modal');
+    //openModal();
+});
+
+
+var resetButton = document.getElementById("resetButton");
+resetButton.addEventListener("click", function (){
+
+
+    event.preventDefault();
+    var form = document.getElementById("myForm");
+    form.reset();
+
+});
+
+
+var searchButton = document.getElementById("searchButton");
+searchButton.addEventListener("click", function (){
+
+
+    event.preventDefault();
+
+    var modal = document.getElementById("client-search-modal");
+
+
+    try{
+
+    var arrQuery =[
+            {
+                columNumber: 1,
+                query: document.getElementById("companyName").value,
+                type: "string"
+            },
+
+            {
+                columNumber: 2,
+                query:  document.getElementById("duty").value,
+                type: "string"
+            },
+
+            {
+                columNumber: 3,
+
+                range1: document.getElementById("rev1").value,
+                range2:  document.getElementById("rev2").value,
+                type: "number"
+    
+            },
+
+
+    ];
+
+
+    console.log(arrQuery);
+
+     var gss =new GenericSearchSort();
+     gss.searchInColumn(arrQuery);
+
+
+   }
+   catch(err){
+
+    console.log(err);
+   }
+
+    closeModal('client-search-modal');
+
+    
+
+});
+
+
+
+</script>
 
 @include("footer")

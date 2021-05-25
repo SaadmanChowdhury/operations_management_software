@@ -184,10 +184,68 @@ class GenericSearchSort {
         }
     }
 
-    searchInColumn(query, column) {
+
+    createQueryFunction(sq) {
+        // var sq = [
+        //     {
+        //         columNumber: 0,
+        //         query: "1",
+        //         type: "string"
+        //     },
+        //     {
+        //         columNumber: 1,
+        //         query: "社",
+        //         type: "string"
+        //     },
+        //     {
+        //         columNumber: 2,
+        //         query: "富",
+        //         type: "string"
+        //     },
+        //     {
+        //         columNumber: 3,
+        //         range1: "19,400,000",
+        //         range2: "19,500,004",
+        //         type: "number"
+
+        //     }
+        // ];
+
+        var conditionalBootstrapFuntionSring = "";
+
+
+        for (let i = 0; i < sq.length; i++) {
+
+            var qObject = sq[i];
+
+            if (qObject.type == "number") {
+                var cleanedNumber = ` row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.replaceAll(/([ ,円])/ig, "") `;
+                conditionalBootstrapFuntionSring += `parseFloat( ${cleanedNumber} )>=${qObject.range1.replaceAll(/([ ,円])/ig, "")} && parseFloat(  ${cleanedNumber} )<= ${qObject.range2.replaceAll(/([ ,円])/ig, "")} && `;
+            }
+            else {
+                conditionalBootstrapFuntionSring += `row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.toLowerCase().includes("${qObject.query}") && `;
+
+            }
+
+
+        }
+        conditionalBootstrapFuntionSring = conditionalBootstrapFuntionSring.slice(0, -3) + ";";
+        var compare = new Function("row", "sq", 'return ' + conditionalBootstrapFuntionSring);
+
+
+        return compare;
+
+    }
+
+    searchInColumn(searchArray) {
         var rows = document.querySelectorAll(`[${searchSortConfig.tableRow}]`);
         for (let i = 0; i < rows.length; i++) {
-            if (rows[i].innerText.toLowerCase().includes(query.toLowerCase())) {
+
+            var generatedFunction = this.createQueryFunction(searchArray);
+
+            console.log(generatedFunction);
+
+            if (generatedFunction(rows[i], searchArray)) {
 
                 if (this.functionExists(showCard))
                     showCard(rows[i]);
