@@ -424,6 +424,19 @@ function salaryFormatting(array_Salary){
     console.log(formattedSalary);
     return formattedSalary;
 }
+function entryInfoFormatting(array_entry){
+    var formattedEntryInfo=[];
+    for (let index = 0; index <array_entry.length; ) {
+        var smallArr=[];
+        for(let j=0;j<2;j++){
+            smallArr.push(array_entry[index]);
+            index++;
+        }
+        formattedEntryInfo.push(smallArr);
+    }
+    console.log(formattedEntryInfo);
+    return formattedEntryInfo;
+}
 
 function getEditFormData() {
     return {
@@ -436,7 +449,7 @@ function getEditFormData() {
         positionText: $("#user_edit_positionInput").find(":selected").text(),
         location: $('#user_edit_locationInput').val(),
         locationText: $("#user_edit_locationInput").find(":selected").text(),
-        admission_day: $('#user_edit_admission_dayInput').val(),
+        entry_info: entryInfoFormatting($('#entryInfo input').serialize().split('&')),
         unit_price: salaryFormatting($('#user-edit-Salary input').serialize().split('&')),
         user_authority: $('#user_edit_authorityInput').val(),
         _token: $('input[name=_token]').val(),
