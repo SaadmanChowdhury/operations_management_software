@@ -17,7 +17,7 @@
 <div class="d-flex">
 
     <div class="row row-content">
-        <div class="content-width">
+        <div class="content-width" style="">
         
         <div class="responsive-scroll">
             <ul class="userlist-nav center list-unstyled">

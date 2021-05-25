@@ -279,3 +279,4 @@ function isCurrentUser(userId) {
     var currentUserId = document.getElementById("logged-in-id");
     return userId == currentUserId.value ? true : false;
 }
+

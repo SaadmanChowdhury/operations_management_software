@@ -362,10 +362,8 @@ footer {
 
 #nav #sidebar-logout-link-li {
     /* margin-top: calc(100vh - 500px); */
-    /* margin-top: calc(100vh - 72vh); */
-    bottom: 0px;
-    position: fixed;
-    left: 0px;
+    margin-top: calc(100vh - 72vh);
+    
 }
 
 #nav li a {
@@ -747,7 +745,7 @@ footer {
 }
 
 .userlist-nav a li {
-    padding: 0.7vh 1.3vw 0.5vh 1.3vw;
+    padding: 0.7rem 1.3vw 0.5rem 1.3vw;
 }
 
 .userlist-nav a:nth-child(1) {
@@ -929,6 +927,10 @@ footer {
 .responsive-scroll{
     width: 94vw;
     min-width: 650px;
+}
+.project-responsive-scroll{
+    width: 94vw;
+    min-width: 800px;
 }
 
 /* @media only screen and (max-width: 640px) {
@@ -2465,32 +2467,61 @@ td img {
       }
       .project .display li:nth-child(9) {
         min-width: 7%;
-        } 
-        .project .display li:nth-child(10) {
+      } 
+      .project .display li:nth-child(10) {
             min-width: 7%;
-         } 
-         .userlist-nav a li {
-            /* padding: 0.7vh 1.0vw 0.5vh 1.0vw; */
-        }
+      } 
     }
 @media only screen and (max-width: 1114px){
     .project .display li:nth-child(8) {
        display: none; 
    }
-   .userlist-nav a li {
-    /* padding: 0.7vh .9vw 0.5vh .9vw; */
+}
+@media only screen and (max-width: 1250px){
+    .table-des-container{
+        max-width: 40vw;
+    }
+    .project-rhs{
+        left:2vw;
     }
 }
-@media only screen and (max-width: 1110px){
-   .userlist-nav a li {
-    /* padding: 0.7vh .6vw 0.5vh .6vw; */
+@media only screen and (max-width: 1142px){
+    .table-des-container{
+        max-width: 40vw;
     }
-    
+    .project-rhs{
+        left:2vw;
+    }
 }
+
 @media only screen and (max-width: 1080px){
    .project .display li:nth-child(7) {
        display: none; 
    }
+}
+
+@media only screen and (max-width: 1042px){
+    .smallpic {
+        display: none;
+     }
+    /* .card-body{
+        padding: 1.2rem 1rem;
+    } */
+    .table-des-container{
+        max-width: 34vw;
+    }
+} 
+
+@media only screen and (max-width: 1042px){
+    .table-des-container{
+        max-width: 30vw;
+    }
+} 
+@media only screen and (max-width: 875px){
+    
+    .table-des-container{
+        max-width: 25vw;
+    }
 }
 @media only screen and (max-width: 970px){
    .project .display li:nth-child(9) {
@@ -2505,9 +2536,18 @@ td img {
         padding: 1px;
     }
 }
+@media only screen and (max-width: 800px){
+    .projcet-scrollx{
+        overflow-x: scroll;  
+    }
+    .table-des-container{
+        max-width: 204px;
+    }
+    
+}
 @media only screen and (max-width: 780px){
     .userlist-nav a li {
-         padding: 0.7vh 1.0vw 0.5vh 1.0vw;
+         padding: 0.7rem 1.0vw 0.5rem 1.0vw;
     }
     .list-icon{
         padding: 1px;
@@ -2521,6 +2561,8 @@ td img {
          font-size: 96%;
      }
 }
+
+
 @media only screen and (max-width: 650px){
     .content-width {
         overflow-x: scroll; 
@@ -2532,3 +2574,4 @@ td img {
        padding: 1px;
    }
 }
+
