@@ -220,7 +220,7 @@ class GenericSearchSort {
 
             if (qObject.type == "number") {
                 var cleanedNumber = ` row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.replaceAll(/([ ,円])/ig, "") `;
-                conditionalBootstrapFuntionSring += `parseFloat( ${cleanedNumber} )>=${qObject.range1.replaceAll(/([ ,円])/ig, "")} && parseFloat(  ${cleanedNumber} )<= ${qObject.range2.replaceAll(/([ ,円])/ig, "")} && `;
+                conditionalBootstrapFuntionSring += `parseFloat( ${cleanedNumber} )>= parseFloat( '${qObject.range1.replaceAll(/([ ,円])/ig, "")}' ) && parseFloat(  ${cleanedNumber} )<= parseFloat( '${qObject.range2.replaceAll(/([ ,円])/ig, "")}' ) && `;
             }
             else {
                 conditionalBootstrapFuntionSring += `row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.toLowerCase().includes("${qObject.query}") && `;
