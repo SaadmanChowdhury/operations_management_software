@@ -275,4 +275,11 @@ class Project extends Model
         $project = Project::where('project_id', $projectID)->first();
         return $project->manager_id;
     }
+
+    public function changeActiveStatus($item_id, $active_status)
+    {
+        return DB::table('projects')
+            ->where('project_id', $item_id)
+            ->update(['active_status' => $active_status]);
+    }
 }

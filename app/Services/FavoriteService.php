@@ -18,8 +18,9 @@ class FavoriteService
     public function updateFavoriteStatus($request)
     {
         $favoriteModel = new Favorite;
+        $loggedUser = auth()->user();
 
-        $user_id = $request->userID;
+        $user_id = $loggedUser->user_id; // logged in user id
         $item_type = $request->itemType;
         $item_id = $request->itemID;
         $favorite_status = $request->favoriteStatus;

@@ -20,6 +20,7 @@ class CreateClientsTable extends Migration
 
             $table->string('client_name', 50);
             $table->unsignedInteger('user_id')->length(10);
+            $table->boolean('active_status')->default(true);
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();

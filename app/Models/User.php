@@ -240,4 +240,11 @@ class User extends Authenticatable
             ->get()->toArray();
         return $list;
     }
+
+    public function changeActiveStatus($item_id, $active_status)
+    {
+        return DB::table('users')
+            ->where('user_id', $item_id)
+            ->update(['active_status' => $active_status]);
+    }
 }

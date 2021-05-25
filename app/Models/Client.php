@@ -156,4 +156,11 @@ class Client extends Model
             ->get()->toArray();
         return $list;
     }
+
+    public function changeActiveStatus($item_id, $active_status)
+    {
+        return DB::table('clients')
+            ->where('client_id', $item_id)
+            ->update(['active_status' => $active_status]);
+    }
 }

@@ -44,6 +44,7 @@ class CreateUsersTable extends Migration
             $table->string('condition_2')->nullable();
             $table->string('locker')->nullable();
             $table->string('remark')->nullable();
+            $table->boolean('active_status')->default(true);
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();

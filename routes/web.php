@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AssignController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ActiveStatusController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -136,7 +137,8 @@ Route::post('/API/activeUserCount', [AssignController::class, 'activeUserCount']
 
 // route for favorite
 Route::post('/API/updateFavoriteStatus', [FavoriteController::class, 'updateFavoriteStatus']);
-
+// for active status change
+Route::post('/API/updateActiveStatus', [ActiveStatusController::class, 'updateActiveStatus']);
 
 
 

@@ -35,6 +35,7 @@ class CreateProjectsTable extends Migration
             $table->unsignedInteger('department_sales')->nullable();
             $table->unsignedInteger('cost_of_sales')->nullable();
             $table->text('remarks')->nullable();
+            $table->boolean('active_status')->default(true);
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();

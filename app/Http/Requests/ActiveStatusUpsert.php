@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FavoriteUpsert extends FormRequest
+class ActiveStatusUpsert extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,7 @@ class FavoriteUpsert extends FormRequest
         return [
             'item_type' => 'required',
             'item_id' => 'required',
+            'favorite_status' => 'required',
         ];
     }
 
@@ -37,9 +38,9 @@ class FavoriteUpsert extends FormRequest
     public function messages()
     {
         return [
-            'user_id.required' => 'user_id is required',
             'item_type.required' => 'item_type is required',
             'item_id.required' => 'item_id is required',
+            'favorite_status.required' => 'favorite_status is required',
         ];
     }
 }
