@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AssignController;
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -132,6 +133,10 @@ Route::post('/API/upsertAssign', [ProjectController::class, 'upsertAssign']);
 Route::post('/API/assignSummary', [AssignController::class, 'assignSummary']);
 
 Route::post('/API/activeUserCount', [AssignController::class, 'activeUserCount']);
+
+// route for favorite
+Route::get('/API/updateFavoriteStatus', [FavoriteController::class, 'updateFavoriteStatus']);
+
 
 
 

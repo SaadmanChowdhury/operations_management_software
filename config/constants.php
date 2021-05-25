@@ -61,4 +61,11 @@ return [
         '福岡' => 2,    // Fukuoka     //config('constants.Location.福岡')
     ],
 
+    // itemTypeで使用するためのテーブルのID
+    'Table' => [
+        'user' => 0,    // User Table    //config('constants.Table.user')
+        'project' => 1,    // Client Table    //config('constants.Table.project')
+        'client' => 2,    // Project Table    //config('constants.Table.client')
+    ],
+
 ];
