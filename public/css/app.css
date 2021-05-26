@@ -2568,9 +2568,11 @@ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 .modal-content {
 background-color: #fefefe;
 margin: auto;
+margin-bottom: -200px;
 padding: 20px;
 border: 1px solid #888;
 width: 50vw;
+
 }
 
 /* The Close Button */

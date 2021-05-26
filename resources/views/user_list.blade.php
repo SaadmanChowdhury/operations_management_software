@@ -127,8 +127,11 @@
                             </td>   
                             <td>  
                                  <div data-column-number="4" >
-                                    <input id="tim1" type=""  >~
-                                    <input id="tim2" type=""  >
+                                    <input id="tim1" type="number" >
+                                    <input id="tim2" type="number">
+                                    ~
+                                    <input id="tim3" type="number"  >
+                                    <input id="tim4" type="number"  >
                                 </div>
                            </td>
                         </tr>
@@ -224,6 +227,48 @@ function loadAndHide(){
 
 try{
 
+
+
+var t1,t2,t3,t4;
+
+t1=document.getElementById("tim1").value;
+t2=document.getElementById("tim2").value;
+t3=document.getElementById("tim3").value;
+t4=document.getElementById("tim4").value;
+
+if(t1==""){
+    //t1=;
+}else{
+    t1=t1+"年";
+}
+
+if(t2==""){
+    //t2=0;
+}
+else{
+    t2=t2+"月";
+}
+
+if(t3==""){
+    //t3=0;
+}
+else{
+    t3=t3+"年";
+}
+
+if(t4==""){
+    
+}
+else{
+    t4=t4+"月";
+}
+
+
+var q;
+if(t1==0 && t2==0){
+    
+}
+
 var arrQuery =[
         {
             columNumber: 1,
@@ -234,8 +279,8 @@ var arrQuery =[
         {
             columNumber: 4,
 
-            range1: document.getElementById("tim1").value,
-            range2:  document.getElementById("tim2").value,
+            range1: t1+t2,
+            range2: t3+t4,
             type: "time"
 
         },
