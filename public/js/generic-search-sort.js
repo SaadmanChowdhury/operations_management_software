@@ -219,6 +219,21 @@ class GenericSearchSort {
             var qObject = sq[i];
 
             if (qObject.type == "number") {
+
+
+                qObject.range1 = qObject.range1.replace(/\D/g, '');
+
+                if (!qObject.range1) {
+                    qObject.range1 = "" + Number.NEGATIVE_INFINITY;
+                }
+
+                qObject.range2 = qObject.range2.replace(/\D/g, '');
+
+                if (!qObject.range2) {
+                    qObject.range2 = "" + Number.MAX_SAFE_INTEGER;
+                }
+
+
                 var cleanedNumber = ` row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.replaceAll(/([ ,円])/ig, "") `;
                 conditionalBootstrapFuntionSring += `parseFloat( ${cleanedNumber} )>= parseFloat( '${qObject.range1.replaceAll(/([ ,円])/ig, "")}' ) && parseFloat(  ${cleanedNumber} )<= parseFloat( '${qObject.range2.replaceAll(/([ ,円])/ig, "")}' ) && `;
             }
