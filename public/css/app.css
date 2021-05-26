@@ -2507,9 +2507,7 @@ td img {
     /* .card-body{
         padding: 1.2rem 1rem;
     } */
-    .table-des-container{
-        max-width: 34vw;
-    }
+    
 } 
 
 @media only screen and (max-width: 1042px){
@@ -2574,4 +2572,13 @@ td img {
        padding: 1px;
    }
 }
-
+@media only screen and (min-width: 1350px){
+    .table-des-container{
+        max-width: 50vw;
+    }
+} 
+@media only screen and (min-width: 1630px){
+    .table-des-container{
+        max-width: 57vw;
+    }
+}
