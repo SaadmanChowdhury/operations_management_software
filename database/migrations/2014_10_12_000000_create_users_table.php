@@ -40,10 +40,10 @@ class CreateUsersTable extends Migration
             $table->integer('affiliation_id')->nullable();
             $table->integer('commercial_distribution')->nullable();
             $table->string('emergency_contact')->nullable();
-            $table->string('condition_1')->nullable();
-            $table->string('condition_2')->nullable();
+            $table->string('condition1')->nullable();
+            $table->string('condition2')->nullable();
             $table->string('locker')->nullable();
-            $table->string('remark')->nullable();
+            $table->text('remark')->nullable();
             $table->boolean('active_status')->default(true);
 
             $table->unsignedInteger('created_id')->nullable();

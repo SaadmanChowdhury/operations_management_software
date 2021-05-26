@@ -33,4 +33,17 @@ class Favorite extends Model
             ->delete();
         return $favorite;
     }
+
+    public function isFavorite($item_type, $item_id)
+    {
+        $loggedUser = auth()->user();
+        $user_id = $loggedUser->user_id;
+
+        // if there is no data then it will be not favorite
+        return DB::table('favorites')
+            ->where('user_id', $user_id)
+            ->where('item_type', $item_type)
+            ->where('item_id', $item_id)
+            ->exists();
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Utilities\JSONHandler;
+use App\Models\Favorite;
 
 class UserController extends Controller
 {
@@ -86,12 +87,14 @@ class UserController extends Controller
 
     public function readUser(Request $request)
     {
+        if (!Auth::check())
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
         $loggedUser = auth()->user();
         $id = $request->userID;
 
         if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $id) {
-            $user = new User();
-            $info = $user->readUser($id);
+            $info = $this->userService->readUser($id);
             return JSONHandler::packagedJSONData($info);
         } else {
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");

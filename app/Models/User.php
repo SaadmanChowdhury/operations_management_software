@@ -112,22 +112,27 @@ class User extends Authenticatable
 
     public function readUser($id)
     {
-        $user = User::select([
-            'user_id',
-            'name',
+        $user = DB::table('users')->select(
+            'user_id as userID',
+            'user_code as userCode',
+            'name as userName',
             'email',
             'gender',
             'location',
             'tel',
             'position',
-            'admission_day',
-            'exit_day',
-            'unit_price',
-            'user_authority',
-            'resign_day'
-        ])->where('user_id', $id)
+            'employment_classification as employeeClassification',
+            'affiliation_id as affiliationID',
+            'emergency_contact as emergencyContact',
+            'condition1',
+            'condition2',
+            'locker',
+            'remark',
+            'user_authority as userAuthority',
+            'active_status as isActive',
+        )->where('user_id', $id)
             ->whereNull("deleted_at")
-            ->first();
+            ->get();
         return $user;
     }
 
