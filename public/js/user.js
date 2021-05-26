@@ -108,7 +108,7 @@ function renderHTML(response) {
 
 
 
-        rowHtml = `<div class="card _user" id="user-row-${row.userID}">` +
+        rowHtml = `<div data-row="${row.userID}" class="card _user" id="user-row-${row.userID}">` +
             `<div class="card-header">` +
             `<div class="display list-unstyled">` +
             `<li>${row.userID}</li>` +

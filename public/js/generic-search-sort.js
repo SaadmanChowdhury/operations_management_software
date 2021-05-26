@@ -23,6 +23,72 @@ class GenericSearchSort {
     }
 
 
+    processStringBeforeComparing(processingString, dataType) {
+
+
+        switch (dataType) {
+
+            case "number":
+                processingString = processingString.replaceAll(/([ ,円])/ig, "");
+
+                break;
+
+            case "time":
+
+                var year = processingString.match(/[0-9]+[年][.]*/g);
+                var month = processingString.match(/[0-9]+[月][.]*/g);
+
+                if (typeof year == "undefined") year = "0";
+                if (typeof month == "undefined") month = "0";
+
+
+                processingString = + parseFloat(year == null ? 0 : year[0].replaceAll(/([ ,円年])/ig, ""))
+                    + parseFloat(month == null ? 0 : month[0].replaceAll(/([ ,月])/ig, "")) / 100;
+
+                processingString = "" + processingString;
+
+                console.log(processingString);
+                break;
+
+
+            default:
+
+                break;
+
+
+        };
+
+
+        return processingString;
+
+    }
+
+
+    makeComparatorAfterProcessing() {
+        var compare;
+
+        switch (searchSortConfig.columnDataType) {
+
+            case "number":
+                compare = new Function('x', 'y', 'return ' + `parseFloat(x)${searchSortConfig.order}parseFloat(y)`);
+                break;
+
+            case "time":
+                compare = new Function('x', 'y', 'return ' + `parseFloat(x)${searchSortConfig.order}parseFloat(y)`);
+                break;
+
+
+            default:
+                compare = new Function('x', 'y', 'return ' + `x${searchSortConfig.order}y`);
+                break;
+
+
+        };
+
+
+        return compare;
+    }
+
     sortTable() {
         var rows, switching, i, x, y, shouldSwitch;
         switching = true;
@@ -50,22 +116,21 @@ class GenericSearchSort {
                     throw new Error("Please initialize property tableDataTag of searchSortConfig");
                 }
 
-                x = rows[i].getElementsByTagName(tableDataTag)[searchSortConfig.columnNumberToSort].innerHTML.replaceAll(/([ ,円])/ig, "");
-                y = rows[i + 1].getElementsByTagName(tableDataTag)[searchSortConfig.columnNumberToSort].innerHTML.replaceAll(/([ ,円])/ig, "");
+                x = this.processStringBeforeComparing(rows[i].getElementsByTagName(tableDataTag)[searchSortConfig.columnNumberToSort].innerHTML, searchSortConfig.columnDataType);
+                y = this.processStringBeforeComparing(rows[i + 1].getElementsByTagName(tableDataTag)[searchSortConfig.columnNumberToSort].innerHTML, searchSortConfig.columnDataType);
                 // Check if the two rows should switch place:
 
 
-                var compare = new Function('x', 'y', 'return ' + `x${searchSortConfig.order}y`);
-
-                if (searchSortConfig.columnDataType == "number")
-                    compare = new Function('x', 'y', 'return ' + `parseFloat(x)${searchSortConfig.order}parseFloat(y)`);
+                var compare = this.makeComparatorAfterProcessing();
 
                 if (compare(x, y)) {
                     // If so, mark as a switch and break the loop:
-                    console.log(parseFloat(x), parseFloat(y));
+                    console.log(x, y);
                     shouldSwitch = true;
                     break;
                 }
+
+
             }
             if (shouldSwitch) {
                 /* If a switch has been marked, make the switch
@@ -223,6 +288,9 @@ class GenericSearchSort {
 
             var qObject = sq[i];
 
+
+            searchSortConfig.columnDataType = qObject.type;
+
             if (qObject.type == "number") {
 
 
@@ -241,6 +309,31 @@ class GenericSearchSort {
                 var cleanedNumber = ` row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.replaceAll(/([ ,円])/ig, "") `;
                 conditionalBootstrapFuntionSring += `parseFloat( ${cleanedNumber} )>= parseFloat( '${qObject.range1.replaceAll(/([ ,円])/ig, "")}' ) && parseFloat(  ${cleanedNumber} )<= parseFloat( '${qObject.range2.replaceAll(/([ ,円])/ig, "")}' ) && `;
             }
+
+            else if (qObject.type == "time") {
+
+
+                var r1 = this.processStringBeforeComparing(qObject.range1, qObject.type);
+
+                if (!qObject.range1) {
+                    r1 = "" + Number.NEGATIVE_INFINITY;
+                }
+
+                var r2 = this.processStringBeforeComparing(qObject.range2, qObject.type);
+
+                if (!qObject.range2) {
+
+                    console.log(r2);
+                    r2 = "" + Number.MAX_SAFE_INTEGER;
+                    console.log(r2);
+                }
+
+
+
+                var cleanedNumber = ` new GenericSearchSort().processStringBeforeComparing( row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText , '${qObject.type}' ) `;
+                conditionalBootstrapFuntionSring += `parseFloat( ${cleanedNumber} )>= parseFloat( '${r1}' ) && parseFloat(  ${cleanedNumber} )<= parseFloat( '${r2}' ) && `;
+            }
+
             else {
                 conditionalBootstrapFuntionSring += `row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.toLowerCase().includes("${qObject.query}") && `;
 
@@ -249,7 +342,10 @@ class GenericSearchSort {
 
         }
         conditionalBootstrapFuntionSring = conditionalBootstrapFuntionSring.slice(0, -3) + ";";
-        var compare = new Function("row", "sq", 'return ' + conditionalBootstrapFuntionSring);
+        var compare = new Function("row", "sq",
+
+            `//console.log( new GenericSearchSort().processStringBeforeComparing( row.getElementsByTagName(searchSortConfig.tableDataTag)[4].innerText), 'time' );
+              return ` + conditionalBootstrapFuntionSring);
 
 
         return compare;
