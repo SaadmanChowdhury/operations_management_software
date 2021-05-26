@@ -184,6 +184,11 @@ class GenericSearchSort {
         }
     }
 
+    isNumeric(str) {
+        if (typeof str != "string") return false // we only process strings!
+        return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+            !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+    }
 
     createQueryFunction(sq) {
         // var sq = [
@@ -221,15 +226,14 @@ class GenericSearchSort {
             if (qObject.type == "number") {
 
 
-                qObject.range1 = qObject.range1.replace(/\D/g, '');
+                qObject.range1 = qObject.range1.replace(/([^0-9.])+/g, '');
 
-                if (!qObject.range1) {
+                if (!qObject.range1 || !this.isNumeric(qObject.range1)) {
                     qObject.range1 = "" + Number.NEGATIVE_INFINITY;
                 }
 
-                qObject.range2 = qObject.range2.replace(/\D/g, '');
-
-                if (!qObject.range2) {
+                qObject.range2 = qObject.range2.replace(/([^0-9.])+/g, '');
+                if (!qObject.range2 || !this.isNumeric(qObject.range2)) {
                     qObject.range2 = "" + Number.MAX_SAFE_INTEGER;
                 }
 
