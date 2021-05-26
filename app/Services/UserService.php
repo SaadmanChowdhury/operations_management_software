@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Employment;
 use App\Models\Favorite;
 use App\Models\Salary;
 use App\Models\User;
@@ -63,12 +64,15 @@ class UserService
         $userModel = new User();
         $favoriteModel = new Favorite();
         $salaryModel = new Salary();
+        $employmentModel = new Employment();
 
         $data = $userModel->readUser($id);
         // from the perspective of the logged in user if that person is favorite
         $data[0]->isFavorite = $favoriteModel->isFavorite('user', $id);
         // getting the composite salary information
         $data[0]->compositeSalary = $salaryModel->getCompositeSalary($id);
+        // getting the composite employment information
+        $data[0]->compositeEmployment = $employmentModel->getCompositeEmployment($id);
         return $data;
     }
 }
