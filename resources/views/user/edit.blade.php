@@ -231,6 +231,103 @@
 
 
 <script>
+var salaryStatus = "less";
+function toggleText(compositeSalary)
+{
+    //var text="Here is some text that I want added to the HTML file";
+    console.log(compositeSalary);
+    
+    if (salaryStatus == "less") {
+        salaryStatus = "more";
+        document.getElementById("user-edit-Salary").remove();
+        document.getElementById("user-edit-remark").remove();
+        setTimeout(
+            renderSalarySection(compositeSalary),2000
+
+        );
+        addSalaryRowListener()
+        document.getElementById("toggleButton").innerText = "See Less";
+        
+    } 
+    else if (salaryStatus == "more") {
+        salaryStatus = "less";
+        document.getElementById("user-edit-Salary").remove();
+        document.getElementById("user-edit-remark").remove();
+        setTimeout(
+            renderSalarySection(compositeSalary),2000
+
+        ),
+        addSalaryRowListener();
+        document.getElementById("toggleButton").innerText = "See More";
+        
+    }
+}
+
+
+function showMoreSalary(compositeSalary){
+    var salarySectionHTML=``;
+    for (let index = 0; index < compositeSalary.length; index++) {
+        salarySectionHTML+=`<div class="row center" id="salary-row-1">
+                                
+                                <div>
+                                    <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
+                                    <input type="hidden" name="salaryID" value="${compositeSalary[index].salaryID}">
+                                    <div class="row">
+                                        <button class="delete">-</button>
+
+                                        <input class="modal_input" type="number" name="salary" required value=${compositeSalary[index].salaryAmount}>
+                                    </div>
+                                </div>
+                                
+
+                                <div>
+                                    <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div><input class="modal_input" type="date"
+                                            name="salary_startDate" required value=${compositeSalary[index].startDate}></div>
+                                </div>
+
+                                <div>
+                                    <div><label for="salary_endDate">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="salary_endDate" required value=${compositeSalary[index].endDate}></div>
+                                </div>
+                            </div>`;
+        
+    }
+    return salarySectionHTML;
+}
+function showLessSalary(compositeSalary){
+    var salarySectionHTML=``;
+    for (let index = 0; index < 1; index++) {
+        
+        salarySectionHTML+=`<div class="row center">
+                                
+                                <div>
+                                    <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
+                                    <input type="hidden" name="salaryID" value="${compositeSalary[index].salaryID}">
+                                    <div class="row">
+                                        <button class="delete">-</button>
+
+                                        <input class="modal_input" type="number" name="salary" required value=${compositeSalary[index].salaryAmount}>
+                                    </div>
+                                </div>
+                                
+
+                                <div>
+                                    <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div><input class="modal_input" type="date"
+                                            name="salary_startDate" required value=${compositeSalary[index].startDate}></div>
+                                </div>
+
+                                <div>
+                                    <div><label for="salary_endDate">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="salary_endDate" required value=${compositeSalary[index].endDate}></div>
+                                </div>
+                            </div>`;
+        
+    }
+    return salarySectionHTML;
+        
+}    
 
 var user_editUserID;
 //var count=1;
@@ -260,7 +357,8 @@ document.getElementById("entryInfo").querySelectorAll(".delete").forEach(functio
         });
 }
 
-function renderSalarySection(salaryLength,compositeSalary){
+
+function renderSalarySection(compositeSalary){
 
     var salarySectionHTML=`<div class="modal-form-input-container _dark flex-col" id="user-edit-Salary">
                         <span>
@@ -268,32 +366,42 @@ function renderSalarySection(salaryLength,compositeSalary){
                                 給料情報
                             </div>
                             <button class="modal_addBtn" id="salary_Add">+</button>`;
-                            for (let index = 0; index < salaryLength; index++) {
-                                salarySectionHTML+=`<div class="row center" id="salary-row-1">
-                                
-                                <div>
-                                    <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
-                                    <div class="row">
-                                        <button class="delete">-</button>
-                                        <input class="modal_input" type="number" name="salary" required value=${compositeSalary[index].salaryAmount}>
-                                    </div>
-                                </div>
-                                
-
-                                <div>
-                                    <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
-                                    <div><input class="modal_input" type="date"
-                                            name="salary_startDate" required value=${compositeSalary[index].startDate}></div>
-                                </div>
-
-                                <div>
-                                    <div><label for="salary_endDate">終了日</label></div>
-                                    <div><input class="modal_input" type="date" name="salary_endDate" required value=${compositeSalary[index].endDate}></div>
-                                </div>
-                            </div>`;
-                                
+                            if(salaryStatus=="less"){
+                                salarySectionHTML+=showLessSalary(compositeSalary);
                             }
+                            else{
+                                salarySectionHTML+=showMoreSalary(compositeSalary);
+                            }
+                            // for (let index = 0; index < salaryLength; index++) {
+                            //     salarySectionHTML+=`<div class="row center" id="salary-row-1">
+                                
+                            //     <div>
+                            //         <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
+                            //         <input type="hidden" name="salaryID" value="${compositeSalary[index].salaryID}">
+                            //         <div class="row">
+                            //             <button class="delete">-</button>
+
+                            //             <input class="modal_input" type="number" name="salary" required value=${compositeSalary[index].salaryAmount}>
+                            //         </div>
+                            //     </div>
+                                
+
+                            //     <div>
+                            //         <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
+                            //         <div><input class="modal_input" type="date"
+                            //                 name="salary_startDate" required value=${compositeSalary[index].startDate}></div>
+                            //     </div>
+
+                            //     <div>
+                            //         <div><label for="salary_endDate">終了日</label></div>
+                            //         <div><input class="modal_input" type="date" name="salary_endDate" required value=${compositeSalary[index].endDate}></div>
+                            //     </div>
+                            // </div>`;
+                                
+                            // }
+                        //console.log(compositeSalary.list);
                     salarySectionHTML+=`</span>
+                    <a id="toggleButton" href="javascript:void(0);">See More</a>
                     </div>`;
     var remarkHTMLString= `<div class="modal-form-input-container" id='user-edit-remark'>
                         <div class="_full">
@@ -308,6 +416,10 @@ function renderSalarySection(salaryLength,compositeSalary){
     {
         document.getElementById('column-right-user').innerHTML+=string;
         deleteRowActionListener();
+    }
+
+    document.getElementById("toggleButton").onclick= function(){
+        toggleText(compositeSalary);
     }
 }
 
@@ -327,7 +439,7 @@ function addSalaryRowListener()
     document.getElementById('salary_Add').onclick=function(){
         
         
-        document.getElementById('user-edit-Salary').innerHTML+=`<div class="row center">
+        document.querySelector('#user-edit-Salary span').innerHTML+=`<div class="row center">
                                 <div>
                                     <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
                                     <div class="row">
@@ -426,7 +538,7 @@ function salaryFormatting(array_Salary){
     var formattedSalary=[];
     for (let index = 0; index <array_Salary.length; ) {
         var smallArr=[];
-        for(let j=0;j<3;j++){
+        for(let j=0;j<4;j++){
             smallArr.push(array_Salary[index]);
             index++;
         }
@@ -451,7 +563,7 @@ function entryInfoFormatting(array_entry){
 
 function getEditFormData() {
     return {
-        id: $('#id').val(),
+        userCode: $('#user_edit_userID').val(),
         name: $('#user_edit_nameInput').val(),
         email: $('#user_edit_emailInput').val(),
         password: $('#user_edit_passwordInput').val(),
@@ -465,7 +577,11 @@ function getEditFormData() {
         user_authority: $('#user_edit_authorityInput').val(),
         _token: $('input[name=_token]').val(),
         favChecked:$('#userEdit-favFlag').prop("checked"),
-        activeChecked:$('#userEdit-activeFlag').prop("checked")
+        activeChecked:$('#userEdit-activeFlag').prop("checked"),
+        condition1:$('#user_edit_condition1').val(),
+        condition2:$('#user_edit_condition2').val(),
+        locker:$('#user_edit_locker').val(),
+        remarks:$('#user_edit_remarks').val()
     };
 }
 
@@ -511,7 +627,7 @@ function updateUserEditModalData(userObj) {
     var salaryLength=userObj.compositeSalary.length;
     var entryLength=userObj.compositeEmployment.length;
     renderEntryInfoSection(entryLength,userObj.compositeEmployment);
-    renderSalarySection(salaryLength,userObj.compositeSalary);
+    renderSalarySection(userObj.compositeSalary);
     addSalaryRowListener();
     deleteRowActionListener();
     addEntryInfoRowListener();
@@ -763,7 +879,7 @@ var userObj={
             },
 
             {
-                salaryID:0,
+                salaryID:1,
                 startDate:"2013-11-20",
                 endDate:"2014-10-20",
                 salaryAmount:2300000

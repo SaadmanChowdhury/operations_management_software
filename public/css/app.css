@@ -2589,4 +2589,8 @@ td img {
       flex-direction: column;
   }
   
-  
+  #toggleButton{
+      font-size: 12px;
+      position: relative;
+      bottom: 0px;
+  }
