@@ -49,9 +49,9 @@ return [
 
     // ユーザー　の　ユーザー権限															
     'User_authority' => [
-        'システム管理者' => 0,    // System Administrator    //config('constants.User_authority.システム管理者')
-        '一般管理者' => 1,    //General administrator    //config('constants.User_authority.一般管理者')
-        '一般ユーザー' => 2,    // General user    //config('constants.User_authority.一般ユーザー')
+        'システム管理者' => 'システム管理者',    // System Administrator    //config('constants.User_authority.システム管理者')
+        '一般管理者' => '一般管理者',    //General administrator    //config('constants.User_authority.一般管理者')
+        '一般ユーザー' => '一般ユーザー',    // General user    //config('constants.User_authority.一般ユーザー')
     ],
 
     // スタッフの職場

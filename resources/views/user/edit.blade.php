@@ -122,12 +122,23 @@
                                 <div class="custom-select">
                                     <select class="modal_input" id="user_edit_authorityInput">
                                         @if ($loggedUser->user_authority == 'システム管理者')
-                                            <option value="1" selected>一般ユーザー </option>
+                                            @foreach (config('constants.User_authority') as $user_auth => $value)
+                                                <option>{{ $user_auth }}</option>
+                                            @endforeach
+                                            {{-- <option value="1" selected>一般ユーザー </option>
                                             <option value="2">一般管理者</option>
-                                            <option value="3">システム管理者</option>
+                                            <option value="3">システム管理者</option> --}}
                                         @elseif ($loggedUser->user_authority == '一般管理者')
-                                            <option value="1" selected>一般ユーザー </option>
-                                            <option value="2">一般管理者</option>
+                                            @foreach (config('constants.User_authority') as $user_auth => $value)
+                                                @if ($user_auth!='システム管理者')
+                                                    <option>{{ $user_auth }}</option>                                                    
+                                                @else
+                                                    
+                                                @endif
+                                                
+                                            @endforeach
+                                            {{-- <option value="1" selected>一般ユーザー </option>
+                                            <option value="2">一般管理者</option> --}}
                                         
                                         @endif
                                     </select>
@@ -190,9 +201,9 @@
                             <div class="custom-select">
                                 <select class="modal_input" id="user_edit_employeeType">
                                     
-                                        <option value="2">Full-Time</option>
-                                        <option value="3">Part-Time</option>
-                                        <option value="1">SES</option>  
+                                        <option value="1">Full-Time</option>
+                                        <option value="2">Part-Time</option>
+                                        <option value="3">SES</option>  
                                     
                                 </select>
                             </div>
@@ -367,7 +378,7 @@ function addEntryInfoRowListener(){
         }
 }
 
-function renderEntryInfoSection(entryInfoLength){
+function renderEntryInfoSection(entryInfoLength,entryInfoData){
 
     var entryInfoHTML=` <span>
                             <div style="font-size:20px; margin-left:12px">
@@ -382,13 +393,13 @@ function renderEntryInfoSection(entryInfoLength){
                                     <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
                                     <div class="row">
                                         <button class="delete">-</button>
-                                        <div><input class="modal_input" type="date" name="user_admissionDay" required></div>
+                                        <div><input class="modal_input" type="date" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
                                     </div>
                                 </div>
 
                                 <div>
                                     <div><label for="user_resignationDay">終了日</label></div>
-                                    <div><input class="modal_input" type="date" name="user_resignationDay" required></div>
+                                    <div><input class="modal_input" type="date" name="user_resignationDay" value=${entryInfoData[index].endDate} required></div>
                                 </div>
                             </div>`;
                             
@@ -495,10 +506,12 @@ function updateUserTable(updatedData) {
 }
 
 function updateUserEditModalData(userObj) {
-    console.log(userObj.compositeSalary.length);
-    var length=userObj.compositeSalary.length;
-    renderEntryInfoSection(length);
-    renderSalarySection(length,userObj.compositeSalary);
+    console.log(userObj.compositeSalary);
+    console.log(userObj.compositeEmployment);
+    var salaryLength=userObj.compositeSalary.length;
+    var entryLength=userObj.compositeEmployment.length;
+    renderEntryInfoSection(entryLength,userObj.compositeEmployment);
+    renderSalarySection(salaryLength,userObj.compositeSalary);
     addSalaryRowListener();
     deleteRowActionListener();
     addEntryInfoRowListener();
@@ -509,12 +522,74 @@ function updateUserEditModalData(userObj) {
             data[i] = "";
     }
 
-    $("#id").val(userObj.user_id)
-    $("#user_edit_nameInput").val(userObj.name)
+    $("#user_edit_userID").val(userObj.userCode)
+    $("#user_edit_nameInput").val(userObj.userName)
     $("#user_edit_emailInput").val(userObj.email)
+    switch(userObj.gender){
+        case '女性':
+        $("#user_edit_Gender").val(1);
+        break;
+        case '男性':
+        $("#user_edit_Gender").val(2);
+        break;
+        default:
+        $("#user_edit_Gender").val(1);
+        break;
+
+    }
+    
     $("#user_edit_telInput").val(userObj.tel)
     $("#user_edit_locationInput").val(userObj.location)
-    $("#user_edit_positionInput").val(userObj.position)
+    
+    switch(userObj.position){
+        case 'PM':
+            $("#user_edit_positionInput").val(1);
+            break;
+        case 'PL':
+            $("#user_edit_positionInput").val(2)
+            break;
+        case 'PG':
+            $("#user_edit_positionInput").val(3)
+            break;
+        case 'SE':
+            $("#user_edit_positionInput").val(4)
+            break;
+        default:
+        $("#user_edit_positionInput").val(1)
+        break;
+
+    }
+    $("#user_edit_employeeType").val(userObj.employeeClassification)
+    switch(userObj.employeeClassification){
+        case 'full-time':
+            $("#user_edit_employeeType").val(1);
+            break;
+        case 'part-time':
+            $("#user_edit_employeeType").val(2);
+            break;
+        case 'part-time':
+            $("#user_edit_employeeType").val(3);
+            break;
+        default:
+            $("#user_edit_employeeType").val(1);
+            break;
+
+    }
+    switch(userObj.userAuthority){
+        case 'システム管理者':
+            $("#user_edit_authorityInput").val('システム管理者');
+            break;
+        case '一般管理者':
+            $("#user_edit_authorityInput").val('一般管理者');
+            break;
+        case '一般ユーザー':
+            $("#user_edit_authorityInput").val('一般ユーザー');
+            break;
+        default:
+            $("#user_edit_authorityInput").val('システム管理者');
+            break;
+
+    }
     //$("#user_edit_admission_dayInput").val(userObj.admission_day)
     //$("#user_edit_resignation_yearInput").val(userObj.resign_day)
     //$("#user_edit_salaryInput").val(userObj.unit_price)
@@ -648,7 +723,7 @@ var userObj={
         gender: "女性",
         location:"",
         tel: "123456",
-        position:null,
+        position:"SE",
         employeeClassification: "full-time",
         affiliationID: null,
         emergencyContact:null,
@@ -656,7 +731,7 @@ var userObj={
         condition2:null,
         locker:null,
         remark:null,
-        userAuthority:"",
+        userAuthority:"一般管理者",
         isFavorite:true,
         isActive:false,
         compositeSalary:[
@@ -664,15 +739,14 @@ var userObj={
                 salaryID:0,
                 startDate:"2012-12-20",
                 endDate:"2013-10-20",
-                salaryAmount:2200000,
-
+                salaryAmount:2200000
             },
+
             {
                 salaryID:0,
                 startDate:"2013-11-20",
                 endDate:"2014-10-20",
-                salaryAmount:2300000,
-
+                salaryAmount:2300000
             }
 
         ],
@@ -680,10 +754,9 @@ var userObj={
         compositeEmployment:[
             {
                 employmentID:0,
-                startDate:12-12-20,
-                endDate:12-12-21,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
                 isResign:false
-
             }
         ]
     }
