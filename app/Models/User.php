@@ -252,4 +252,30 @@ class User extends Authenticatable
             ->where('user_id', $item_id)
             ->update(['active_status' => $active_status]);
     }
+
+    public function createNewUser($request)
+    {
+
+        $id = DB::table('users')->insertGetId(
+            [
+                'user_code' => $request->userCode,
+                'name' => $request->userName,
+                'email' => $request->email,
+                'password' => $request->password,
+                'gender' => $request->gender,
+                'location' => $request->location,
+                'tel' => $request->tel,
+                'position' => $request->position,
+                'employment_classification' => $request->employeeClassification,
+                'affiliation_id' => $request->affiliationID,
+                'emergency_contact' => $request->emergencyContact,
+                'condition1' => $request->condition1,
+                'condition2' => $request->condition2,
+                'locker' => $request->locker,
+                'user_authority' => $request->userAuthority,
+                'remark' => $request->remark,
+            ]
+        );
+        return $id;
+    }
 }

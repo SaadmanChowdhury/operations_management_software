@@ -35,4 +35,20 @@ class Salary extends Model
             ->first();
         return $data->salary;
     }
+
+    public function createCompositeSalary($compositeSalaryArray, $user_id)
+    {
+        $newArray = [];
+        foreach ($compositeSalaryArray as $compositeSalary) {
+            $data = [
+                'user_id' => $user_id,
+                'start_date' => $compositeSalary['startDate'],
+                'end_date' => $compositeSalary['endDate'],
+                'salary' => $compositeSalary['salaryAmount'],
+            ];
+            array_push($newArray, $data);
+        }
+
+        return DB::table('salaries')->insert($newArray);
+    }
 }

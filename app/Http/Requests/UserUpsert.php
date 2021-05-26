@@ -25,22 +25,40 @@ class UserUpsert extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required',
+            'userCode' => 'required|unique:users',
+            'userName' => 'required',
+            'email' => 'required',
             'password' => '',
-            'company' => '',
-            'commercial_distribute' => '',
+            'gender' => '',
+            'location' => 'required',
             'tel' => 'required',
             'position' => 'required',
-            'location' => 'required',
-            'admission_day' => 'required',
-            'exit_day' => '',
-            'unit_price' => 'required|integer|min:1',
-            'user_authority' => '',
-            'resign_day' => '',
+            'employeeClassification' => '',
+            'affiliationID' => '',
+            'emergencyContact' => '',
+            'condition1' => '',
+            'condition2' => '',
+            'locker' => '',
+            'userAuthority' => '',
+            'remark' => '',
+        ];
+
+        $rules['compositeSalary'] = [
+            'salaryID' => '',
+            'startDate' => '',
+            'endDate' => '',
+            'salaryAmount' => '',
+        ];
+
+        $rules['compositeEmployment'] = [
+            'employmentID' => '',
+            'startDate' => '',
+            'endDate' => '',
+            'isResign' => '',
         ];
 
         //for creating new user
-        if ($this->id == null) {
+        if ($this->userID == null) {
             $rules['password'] = 'required';
             $rules['email'] = 'required|email|unique:users';
             return $rules;
@@ -50,10 +68,10 @@ class UserUpsert extends FormRequest
         $email = $this->email;
         $userExists = User::where('email', $email)->exists();
         if ($userExists) {
-            $rules['id'] = 'required';
+            $rules['userID'] = 'required';
             return $rules;
         } else {
-            $rules['id'] = 'required';
+            $rules['userID'] = 'required';
             $rules['email'] = 'required|email|unique:users';
             return $rules;
         }
@@ -67,7 +85,8 @@ class UserUpsert extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Name is required',
+            'userCode.required' => 'Name is required',
+            'userName.required' => 'Username is required',
             'email.required' => 'Email is required',
             'email.email' => 'Has to be email',
             'email.unique:users' => 'Has to be unique email',
@@ -77,7 +96,6 @@ class UserUpsert extends FormRequest
             'admission_day.required' => 'Admission day is required',
             'unit_price.required' => 'Unit price is required',
             'unit_price.min:1' => 'Unit price must be at least 1',
-            // 'user_authority.required' => 'User authority is required',
         ];
     }
 }

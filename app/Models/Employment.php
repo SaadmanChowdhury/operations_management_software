@@ -26,4 +26,20 @@ class Employment extends Model
             ->where('user_id', $user_id)
             ->get();
     }
+
+    public function createCompositeEmployment($compositeEmploymentArray, $user_id)
+    {
+        $newArray = [];
+        foreach ($compositeEmploymentArray as $compositeEmployment) {
+            $data = [
+                'user_id' => $user_id,
+                'start_date' => $compositeEmployment['startDate'],
+                'end_date' => $compositeEmployment['endDate'],
+                'resignation_flag' => $compositeEmployment['isResign'],
+            ];
+            array_push($newArray, $data);
+        }
+
+        return DB::table('employments')->insert($newArray);
+    }
 }
