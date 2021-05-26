@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Favorite;
 use App\Models\Salary;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
 class UserService
@@ -19,15 +18,19 @@ class UserService
 
     public function fetchUserList()
     {
+        $userModel  = new User();
+        $favoriteModel  = new Favorite();
+        $salaryModel  = new Salary();
 
-        $userModel  = new User;
-        // Step 2
-        $array = $userModel->readUserList();
+        $usersList = $userModel->readUserList();
 
-        // Step 3
-        $array = $this->helper_fetchUserList($array);
+        foreach ($usersList as $user) {
+            $user->isFavorite = $favoriteModel->isFavorite('user', $user->userID);
+            $user->latestSalary = $salaryModel->getLatestSalary($user->userID);
+        }
 
-        // Step 4 and 5
+        $array = $this->helper_fetchUserList($usersList);
+
         return $this->arrayFormatting_fetchUserList($array);
     }
 
@@ -35,18 +38,16 @@ class UserService
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == 'システム管理者') {
-            // take your decision
             return $array;
         }
 
         for ($i = 0; $i < count($array); $i++) {
-            // If user is not project leader [General user]
-            if ($loggedUser->user_authority != 'システム管理者') {
-                // unset($array[$i]->unitPrice);
-                $array[$i]->unitPrice = '';
-            }
+            // logged in user can see his/her salary
+            // if ($loggedUser->user_id == $array[$i]->userID) {
+            //     continue;
+            // }
+            $array[$i]->latestSalary = '';
         }
-
         return $array;
     }
 

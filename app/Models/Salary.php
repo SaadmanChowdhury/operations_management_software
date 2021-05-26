@@ -26,4 +26,13 @@ class Salary extends Model
             ->where('user_id', $user_id)
             ->get();
     }
+
+    public function getLatestSalary($user_id)
+    {
+        $data = Salary::select('salary')
+            ->where('user_id', $user_id)
+            ->orderBy('start_date', 'desc')
+            ->first();
+        return $data->salary;
+    }
 }

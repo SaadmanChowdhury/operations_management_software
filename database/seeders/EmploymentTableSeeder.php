@@ -64,55 +64,55 @@ class EmploymentTableSeeder extends Seeder
                 'resignation_flag' => false,
             ],
             [
-                'user_id' => 1, //kaku san
+                'user_id' => 9, //kaku san
                 'start_date' => '2020-01-01',
                 'end_date' => null,
                 'resignation_flag' => false,
             ],
             [
-                'user_id' => 1, //kameshima san
+                'user_id' => 10, //kameshima san
                 'start_date' => '2020-01-01',
                 'end_date' => null,
                 'resignation_flag' => false,
             ],
             [
-                'user_id' => 1, //tamura san
+                'user_id' => 11, //tamura san
                 'start_date' => '2020-01-01',
                 'end_date' => null,
                 'resignation_flag' => false,
             ],
             [
-                'user_id' => 1, //matsumoto san
+                'user_id' => 12, //matsumoto san
                 'start_date' => '2020-01-01',
                 'end_date' => null,
                 'resignation_flag' => false,
             ],
             [
-                'user_id' => 1, //samiul san
+                'user_id' => 13, //samiul san
                 'start_date' => '2021-04-01',
                 'end_date' => null,
                 'resignation_flag' => false,
             ],
             [
-                'user_id' => 1, //sofia san
+                'user_id' => 14, //sofia san
                 'start_date' => '2021-04-01',
                 'end_date' => null,
                 'resignation_flag' => false,
             ],
             [
-                'user_id' => 1, //roy san
+                'user_id' => 15, //roy san
                 'start_date' => '2021-04-01',
                 'end_date' => null,
                 'resignation_flag' => false,
             ],
             [
-                'user_id' => 1, //alif san
+                'user_id' => 16, //alif san
                 'start_date' => '2021-04-01',
                 'end_date' => '2021-06-30',
                 'resignation_flag' => false,
             ],
             [
-                'user_id' => 1, //israt san
+                'user_id' => 17, //israt san
                 'start_date' => '2021-04-01',
                 'end_date' => '2021-06-30',
                 'resignation_flag' => false,

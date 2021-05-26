@@ -65,17 +65,17 @@ class User extends Authenticatable
     {
         $list = DB::table('users')->select(
             'user_id as userID',
-            'name as username',
-            'email as email',
-            'gender as gender',
-            'location as location',
-            'tel as tel',
-            'position as position',
-            'admission_day as admissionDay',
-            'exit_day as exitDay',
-            'unit_price as unitPrice',
-            'user_authority as authority',
-            'resign_day as resignationDay'
+            'user_code as userCode',
+            'name as userName',
+            'email',
+            'gender',
+            'location',
+            'tel',
+            'position',
+            'employment_classification as employeeClassification',
+            'affiliation_id as affiliationID',
+            'user_authority as userAuthority',
+            'active_status as isActive',
         )
             ->whereNull("deleted_at")
             ->get()->toArray();
