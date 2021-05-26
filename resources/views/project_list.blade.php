@@ -17,7 +17,7 @@
 <div class="d-flex">
 
     <div class="row row-content">
-        <div class=" projcet-scrollx" style="">
+        <div class="project-scrollx" style="">
         
         <div class="project-responsive-scroll">
             <ul class="userlist-nav center list-unstyled">
