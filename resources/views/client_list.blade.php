@@ -59,7 +59,7 @@
                         <li data-type="number">受注顧合計</li>
                         <li data-type="number">実績粗利</li>
 
-                        <li><span class="fa fa-filter fa-lg fa-color-mild-midori">Filter</span></li>
+                        <li><span class="fa fa-search fa-lg fa-color-mild-midori"> <b> 検索 </b></span></li>
 
                     </ul>
                 </div>

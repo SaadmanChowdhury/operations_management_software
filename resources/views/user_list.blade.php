@@ -78,7 +78,7 @@
                     <li>単価(最新)</li>
                     @endif
 
-                    <li><span class="fa fa-filter fa-lg fa-color-mild-midori">Filter</span> </li>
+                    <li><span class="fa fa-search fa-lg fa-color-mild-midori"> <b> 検索 </b></span> </li>
                 </ul>
             </div>
 

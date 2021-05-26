@@ -103,7 +103,7 @@
                             <li> 売上高</li>
                             <li> 売上総利益</li>
                             <li> 利益率</li>
-                            <li><span class="fa fa-filter fa-lg fa-color-primary">Filter</span> </li>
+                            <li><span class="fa fa-search fa-lg fa-color-primary"> <b> 検索 </b></span> </li>
                         </ul>
                     </div>
                 </div>
