@@ -232,7 +232,8 @@
 
 <script>
 var salaryStatus = "less";
-function toggleText(compositeSalary)
+var entryStatus = "less";
+function toggleSalaryText(compositeSalary)
 {
     //var text="Here is some text that I want added to the HTML file";
     console.log(compositeSalary);
@@ -327,7 +328,78 @@ function showLessSalary(compositeSalary){
     }
     return salarySectionHTML;
         
-}    
+}
+
+function toggleEntryText(entryInfoData)
+{
+    //var text="Here is some text that I want added to the HTML file";
+    console.log(entryInfoData);
+    
+    if (entryStatus == "less") {
+        entryStatus = "more";
+        document.getElementById("entryInfo").innerHTML="";
+        renderEntryInfoSection(entryInfoData);
+        addEntryInfoRowListener()
+        document.getElementById("entryToggleButton").innerText = "See Less";
+        
+    } 
+    else if (entryStatus == "less") {
+        entryStatus = "more";
+        document.getElementById("entryInfo").innerHTML="";
+        renderEntryInfoSection(entryInfoData);
+        addEntryInfoRowListener()
+        document.getElementById("entryToggleButton").innerText = "See More";
+        
+    }
+}
+
+
+function showMoreEntry(entryInfoData){
+    var entryInfoHTML=``;
+    for (let index = 0; index < entryInfoData.length; index++) {
+        entryInfoHTML+=`<div class="row center">
+                                
+                                <div>
+                                    <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <div><input class="modal_input" type="date" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div><label for="user_resignationDay">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="user_resignationDay" value=${entryInfoData[index].endDate} required></div>
+                                </div>
+                            </div>`;
+        
+    }
+    return entryInfoHTML;
+}
+function showLessEntry(entryInfoData){
+    var entryInfoHTML=``;
+    for (let index = 0; index < 1; index++) {
+        
+        entryInfoHTML+=`<div class="row center">
+                                
+                                <div>
+                                    <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <div><input class="modal_input" type="date" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div><label for="user_resignationDay">終了日</label></div>
+                                    <div><input class="modal_input" type="date" name="user_resignationDay" value=${entryInfoData[index].endDate} required></div>
+                                </div>
+                            </div>`;
+        
+    }
+    return entryInfoHTML;
+        
+}
 
 var user_editUserID;
 //var count=1;
@@ -372,34 +444,7 @@ function renderSalarySection(compositeSalary){
                             else{
                                 salarySectionHTML+=showMoreSalary(compositeSalary);
                             }
-                            // for (let index = 0; index < salaryLength; index++) {
-                            //     salarySectionHTML+=`<div class="row center" id="salary-row-1">
-                                
-                            //     <div>
-                            //         <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
-                            //         <input type="hidden" name="salaryID" value="${compositeSalary[index].salaryID}">
-                            //         <div class="row">
-                            //             <button class="delete">-</button>
-
-                            //             <input class="modal_input" type="number" name="salary" required value=${compositeSalary[index].salaryAmount}>
-                            //         </div>
-                            //     </div>
-                                
-
-                            //     <div>
-                            //         <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
-                            //         <div><input class="modal_input" type="date"
-                            //                 name="salary_startDate" required value=${compositeSalary[index].startDate}></div>
-                            //     </div>
-
-                            //     <div>
-                            //         <div><label for="salary_endDate">終了日</label></div>
-                            //         <div><input class="modal_input" type="date" name="salary_endDate" required value=${compositeSalary[index].endDate}></div>
-                            //     </div>
-                            // </div>`;
-                                
-                            // }
-                        //console.log(compositeSalary.list);
+                            
                     salarySectionHTML+=`</span>
                     <a id="toggleButton" href="javascript:void(0);">See More</a>
                     </div>`;
@@ -419,7 +464,7 @@ function renderSalarySection(compositeSalary){
     }
 
     document.getElementById("toggleButton").onclick= function(){
-        toggleText(compositeSalary);
+        toggleSalaryText(compositeSalary);
     }
 }
 
@@ -471,7 +516,7 @@ function addSalaryRowListener()
 function addEntryInfoRowListener(){
     document.getElementById('entryInfo_Add').onclick=function(){
         
-        document.getElementById('entryInfo').innerHTML+=`<div class="row center">
+        document.querySelector('#entryInfo span').innerHTML+=`<div class="row center">
                                 <div>
                                     <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
                                     <div class="row">
@@ -490,36 +535,57 @@ function addEntryInfoRowListener(){
         }
 }
 
-function renderEntryInfoSection(entryInfoLength,entryInfoData){
-
+function renderEntryInfoSection(entryInfoData){
+    console.log(entryInfoData);
     var entryInfoHTML=` <span>
                             <div style="font-size:20px; margin-left:12px">
                                 入社情報
                             </div>
                             <button class="modal_addBtn" id="entryInfo_Add">+</button>`;
-                        for (let index = 0; index < entryInfoLength; index++) {
+                            if(entryStatus=="less"){
+                                entryInfoHTML+=showLessEntry(entryInfoData);
+                            }
+                            else{
+                                entryInfoHTML+=showMoreEntry(entryInfoData);
+                            }
+                        // for (let index = 0; index < entryInfoLength; index++) {
                             
-                            entryInfoHTML+=`<div class="row center">
+                        //     entryInfoHTML+=`<div class="row center">
                                 
-                                <div>
-                                    <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
-                                    <div class="row">
-                                        <button class="delete">-</button>
-                                        <div><input class="modal_input" type="date" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
-                                    </div>
-                                </div>
+                        //         <div>
+                        //             <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
+                        //             <div class="row">
+                        //                 <button class="delete">-</button>
+                        //                 <div><input class="modal_input" type="date" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
+                        //             </div>
+                        //         </div>
 
-                                <div>
-                                    <div><label for="user_resignationDay">終了日</label></div>
-                                    <div><input class="modal_input" type="date" name="user_resignationDay" value=${entryInfoData[index].endDate} required></div>
-                                </div>
-                            </div>`;
+                        //         <div>
+                        //             <div><label for="user_resignationDay">終了日</label></div>
+                        //             <div><input class="modal_input" type="date" name="user_resignationDay" value=${entryInfoData[index].endDate} required></div>
+                        //         </div>
+                        //     </div>`;
                             
-                        }    
+                        // }    
                             
-                        entryInfoHTML+=`</span>`;
+                        entryInfoHTML+=`</span>
+                        <a id="entryToggleButton" href="javascript:void(0);">See More</a>`;
     
     jQuery('#entryInfo').append(entryInfoHTML);
+    setTimeout(() => {
+        
+        document.getElementById("entryToggleButton").onclick= function(){
+            console.log("hi");
+            toggleEntryText(entryInfoData);
+        }
+    }, 0);
+    // document.querySelector("#entryToggleButton").onclick=function(){
+    // console.log("hi");}
+    // document.getElementById("entryToggleButton").onclick= function(){
+    //     console.log("hi");
+    //     toggleEntryText(entryInfoData);
+        
+    // }
     
 }
 
@@ -626,7 +692,7 @@ function updateUserEditModalData(userObj) {
     console.log(userObj.compositeEmployment);
     var salaryLength=userObj.compositeSalary.length;
     var entryLength=userObj.compositeEmployment.length;
-    renderEntryInfoSection(entryLength,userObj.compositeEmployment);
+    renderEntryInfoSection(userObj.compositeEmployment);
     renderSalarySection(userObj.compositeSalary);
     addSalaryRowListener();
     deleteRowActionListener();
@@ -890,6 +956,18 @@ var userObj={
         compositeEmployment:[
             {
                 employmentID:0,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                isResign:false
+            },
+            {
+                employmentID:1,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                isResign:false
+            },
+            {
+                employmentID:2,
                 startDate:"2013-11-20",
                 endDate:"2014-10-20",
                 isResign:false
