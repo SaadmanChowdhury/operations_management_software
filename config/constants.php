@@ -41,10 +41,10 @@ return [
 
     // ユーザー　の　位置									
     'Position' => [
-        'PM' => 0,    //Project Manager    //config('constants.Position.PM')
-        'PL' => 1,    //Project Leader    //config('constants.Position.PL')
-        'SE' => 2,    // Software Engineer    //config('constants.Position.SE')
-        'PG' => 3,    //Programmer    //config('constants.Position.PG'),
+        'PM' => 'PM',    //Project Manager    //config('constants.Position.PM')
+        'PL' => 'PL',    //Project Leader    //config('constants.Position.PL')
+        'SE' => 'SE',    // Software Engineer    //config('constants.Position.SE')
+        'PG' => 'PG',    //Programmer    //config('constants.Position.PG'),
     ],
 
     // ユーザー　の　ユーザー権限															
@@ -56,9 +56,9 @@ return [
 
     // スタッフの職場
     'Location' => [
-        '宮崎' => 0,    // Miyazaki    //config('constants.Location.宮崎')
-        '東京' => 1,    // Tokyo       //config('constants.Location.東京')
-        '福岡' => 2,    // Fukuoka     //config('constants.Location.福岡')
+        '宮崎' => '宮崎',    // Miyazaki    //config('constants.Location.宮崎')
+        '東京' => '東京',    // Tokyo       //config('constants.Location.東京')
+        '福岡' => '福岡' ,    // Fukuoka     //config('constants.Location.福岡')
     ],
     // itemTypeで使用するためのテーブルのID
     'Table' => [

@@ -543,23 +543,23 @@ function updateUserEditModalData(userObj) {
     
     switch(userObj.position){
         case 'PM':
-            $("#user_edit_positionInput").val(1);
+            $("#user_edit_positionInput").val('PM');
             break;
         case 'PL':
-            $("#user_edit_positionInput").val(2)
+            $("#user_edit_positionInput").val('PL')
             break;
         case 'PG':
-            $("#user_edit_positionInput").val(3)
+            $("#user_edit_positionInput").val('PG')
             break;
         case 'SE':
-            $("#user_edit_positionInput").val(4)
+            $("#user_edit_positionInput").val('SE')
             break;
         default:
-        $("#user_edit_positionInput").val(1)
+        $("#user_edit_positionInput").val('SE')
         break;
 
     }
-    $("#user_edit_employeeType").val(userObj.employeeClassification)
+    //$("#user_edit_employeeType").val(userObj.employeeClassification)
     switch(userObj.employeeClassification){
         case 'full-time':
             $("#user_edit_employeeType").val(1);
@@ -572,6 +572,22 @@ function updateUserEditModalData(userObj) {
             break;
         default:
             $("#user_edit_employeeType").val(1);
+            break;
+
+    }
+    
+    switch(userObj.location){
+        case '宮崎':
+            $("#user_edit_locationInput").val('宮崎');
+            break;
+        case '東京':
+            $("#user_edit_locationInput").val('東京');
+            break;
+        case '福岡':
+            $("#user_edit_locationInput").val('福岡');
+            break;
+        default:
+            $("#user_edit_locationInput").val('宮崎');
             break;
 
     }
@@ -590,9 +606,13 @@ function updateUserEditModalData(userObj) {
             break;
 
     }
+    $("#user_edit_remarks").val(userObj.remark);
+    $("#user_edit_condition1").val(userObj.condition1);
+    $("#user_edit_condition2").val(userObj.condition2);
+    $("#user_edit_locker").val(userObj.locker);
+    $('#user_edit_emergency').val(userObj.emergencyContact);
+    
     //$("#user_edit_admission_dayInput").val(userObj.admission_day)
-    //$("#user_edit_resignation_yearInput").val(userObj.resign_day)
-    //$("#user_edit_salaryInput").val(userObj.unit_price)
     
    
 }
@@ -721,16 +741,16 @@ var userObj={
         userName: "志田",
         email: "shida@gtmi.co.jp",
         gender: "女性",
-        location:"",
+        location:'宮崎',
         tel: "123456",
         position:"SE",
         employeeClassification: "full-time",
         affiliationID: null,
-        emergencyContact:null,
-        condition1:null,
-        condition2:null,
-        locker:null,
-        remark:null,
+        emergencyContact:"345678",
+        condition1:"null",
+        condition2:"null",
+        locker:"12345",
+        remark:"動力",
         userAuthority:"一般管理者",
         isFavorite:true,
         isActive:false,
