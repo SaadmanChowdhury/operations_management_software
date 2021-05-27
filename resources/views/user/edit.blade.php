@@ -218,6 +218,16 @@
                             
                         </div>
                     </div>
+                    <div class="modal-form-input-container _dark flex-col" id="user-edit-Salary">
+                        
+                        
+                    </div>
+                    <div class="modal-form-input-container" id='user-edit-remark'>
+                        <div class="_full">
+                            <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
+                            <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
+                        </div>
+                    </div>
                     
                     
                     
@@ -240,20 +250,21 @@ function toggleSalaryText(compositeSalary)
     
     if (salaryStatus == "less") {
         salaryStatus = "more";
-        document.getElementById("user-edit-Salary").remove();
-        document.getElementById("user-edit-remark").remove();
-        setTimeout(
-            renderSalarySection(compositeSalary),2000
-
-        );
+        document.getElementById("user-edit-Salary").innerHTML="";
+        //document.getElementById("user-edit-remark").remove();
+        // setTimeout(() => {
+        //     renderSalarySection(compositeSalary);
+        // }, 2000);
+        renderSalarySection(compositeSalary);
+        
         addSalaryRowListener()
         document.getElementById("toggleButton").innerText = "See Less";
         
     } 
     else if (salaryStatus == "more") {
         salaryStatus = "less";
-        document.getElementById("user-edit-Salary").remove();
-        document.getElementById("user-edit-remark").remove();
+        document.getElementById("user-edit-Salary").innerHTML="";
+        //document.getElementById("user-edit-remark").remove();
         setTimeout(
             renderSalarySection(compositeSalary),2000
 
@@ -267,7 +278,7 @@ function toggleSalaryText(compositeSalary)
 
 function showMoreSalary(compositeSalary){
     var salarySectionHTML=``;
-    for (let index = 0; index < compositeSalary.length; index++) {
+    for (let index = compositeSalary.length-1; index >=0; index--) {
         salarySectionHTML+=`<div class="row center" id="salary-row-1">
                                 
                                 <div>
@@ -298,7 +309,7 @@ function showMoreSalary(compositeSalary){
 }
 function showLessSalary(compositeSalary){
     var salarySectionHTML=``;
-    for (let index = 0; index < 1; index++) {
+    for (let index = compositeSalary.length-1; index >compositeSalary.length-2; index--) {
         
         salarySectionHTML+=`<div class="row center">
                                 
@@ -343,8 +354,8 @@ function toggleEntryText(entryInfoData)
         document.getElementById("entryToggleButton").innerText = "See Less";
         
     } 
-    else if (entryStatus == "less") {
-        entryStatus = "more";
+    else if (entryStatus == "more") {
+        entryStatus = "less";
         document.getElementById("entryInfo").innerHTML="";
         renderEntryInfoSection(entryInfoData);
         addEntryInfoRowListener()
@@ -361,6 +372,7 @@ function showMoreEntry(entryInfoData){
                                 
                                 <div>
                                     <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <input type="hidden" name="employmentID" value="${entryInfoData[index].employmentID}">
                                     <div class="row">
                                         <button class="delete">-</button>
                                         <div><input class="modal_input" type="date" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
@@ -384,6 +396,7 @@ function showLessEntry(entryInfoData){
                                 
                                 <div>
                                     <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
+                                    <input type="hidden" name="employmentID" value="${entryInfoData[index].employmentID}">
                                     <div class="row">
                                         <button class="delete">-</button>
                                         <div><input class="modal_input" type="date" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
@@ -402,10 +415,9 @@ function showLessEntry(entryInfoData){
 }
 
 var user_editUserID;
-//var count=1;
+
 function deleteRowActionListener() {
 
-    // var i = 0;
     document.getElementById("user-edit-Salary").querySelectorAll(".delete").forEach(function (obj, index) {
         obj.addEventListener("click", function (event) {
 
@@ -431,8 +443,8 @@ document.getElementById("entryInfo").querySelectorAll(".delete").forEach(functio
 
 
 function renderSalarySection(compositeSalary){
-
-    var salarySectionHTML=`<div class="modal-form-input-container _dark flex-col" id="user-edit-Salary">
+    // <div class="modal-form-input-container _dark flex-col" id="user-edit-Salary">
+    var salarySectionHTML=`
                         <span>
                             <div style="font-size:20px; margin-left:12px">
                                 給料情報
@@ -447,19 +459,19 @@ function renderSalarySection(compositeSalary){
                             
                     salarySectionHTML+=`</span>
                     <a id="toggleButton" href="javascript:void(0);">See More</a>
-                    </div>`;
-    var remarkHTMLString= `<div class="modal-form-input-container" id='user-edit-remark'>
-                        <div class="_full">
-                            <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
-                            <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
-                        </div>
-                    </div>`;
-    string=salarySectionHTML+remarkHTMLString;
+                    `;
+    // var remarkHTMLString= `<div class="modal-form-input-container" id='user-edit-remark'>
+    //                     <div class="_full">
+    //                         <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
+    //                         <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
+    //                     </div>
+    //                 </div>`;
+    // string=salarySectionHTML+remarkHTMLString;
     //console.log(string2);
     var loggedInUser=jQuery("#user-authority").val();
     if(loggedInUser!='一般ユーザー')
     {
-        document.getElementById('column-right-user').innerHTML+=string;
+        document.getElementById('user-edit-Salary').innerHTML=salarySectionHTML;
         deleteRowActionListener();
     }
 
@@ -548,25 +560,7 @@ function renderEntryInfoSection(entryInfoData){
                             else{
                                 entryInfoHTML+=showMoreEntry(entryInfoData);
                             }
-                        // for (let index = 0; index < entryInfoLength; index++) {
                             
-                        //     entryInfoHTML+=`<div class="row center">
-                                
-                        //         <div>
-                        //             <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
-                        //             <div class="row">
-                        //                 <button class="delete">-</button>
-                        //                 <div><input class="modal_input" type="date" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
-                        //             </div>
-                        //         </div>
-
-                        //         <div>
-                        //             <div><label for="user_resignationDay">終了日</label></div>
-                        //             <div><input class="modal_input" type="date" name="user_resignationDay" value=${entryInfoData[index].endDate} required></div>
-                        //         </div>
-                        //     </div>`;
-                            
-                        // }    
                             
                         entryInfoHTML+=`</span>
                         <a id="entryToggleButton" href="javascript:void(0);">See More</a>`;
@@ -578,14 +572,8 @@ function renderEntryInfoSection(entryInfoData){
             console.log("hi");
             toggleEntryText(entryInfoData);
         }
-    }, 0);
-    // document.querySelector("#entryToggleButton").onclick=function(){
-    // console.log("hi");}
-    // document.getElementById("entryToggleButton").onclick= function(){
-    //     console.log("hi");
-    //     toggleEntryText(entryInfoData);
-        
-    // }
+    }, 1000);
+    
     
 }
 
@@ -615,9 +603,10 @@ function salaryFormatting(array_Salary){
 }
 function entryInfoFormatting(array_entry){
     var formattedEntryInfo=[];
+    console.log(array_entry);
     for (let index = 0; index <array_entry.length; ) {
         var smallArr=[];
-        for(let j=0;j<2;j++){
+        for(let j=0;j<3;j++){
             smallArr.push(array_entry[index]);
             index++;
         }
@@ -932,7 +921,7 @@ var userObj={
         condition1:"null",
         condition2:"null",
         locker:"12345",
-        remark:"動力",
+        remark:"動力家",
         userAuthority:"一般管理者",
         isFavorite:true,
         isActive:false,
