@@ -156,15 +156,24 @@
                             
                         </div>
                     </div>
-                    <div class="modal-form-input-container">
+                    <div class="modal-form-input-container _dark">
+                        <input type="hidden" name="estimateID" id="project_create_estimateID" value="">
 
-                        <div class="_half">
-                            <div><label for="condition">Estimate ID</label></div>
-                            {{-- @if ($loggedUser->user_authority == 'システム管理者') --}}
-                            <div>
-                                <input class="modal_input" type="text" id="project_create_estimateID" name="condition" value="">
+                        <div class="_third">
+                            <div><label for="estimateCode">Estimate Code<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="text" id="project_create_estimateCode" name="estimateCode" required>
                             </div>
-                            
+                        </div>
+
+                        <div class="_third">
+                            <div><label for="estimateStatus">Estimate Status<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="number" id="project_create_estimateStatus"
+                                    name="estimateStatus" required></div>
+                        </div>
+
+                        <div class="_third">
+                            <div><label for="estimateCost">Estimate Cost<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="number" id="project_create_estimateCost" name="estimateCost" required></div>
                         </div>
                     </div>
                     <div class="modal-form-input-container">

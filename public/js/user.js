@@ -83,7 +83,10 @@ function renderHTML(response) {
         }
         // console.log(gender);
 
-        var unitPrice = numberWithCommas(row.unitPrice) + " 円";
+        // var unitPrice = numberWithCommas(row.unitPrice) + " 円";
+        var salaryLen=userObjList[0].compositeSalary.length;
+        console.log(salaryLen);
+        var unitPrice = numberWithCommas(userObjList[0].compositeSalary[salaryLen-1].salaryAmount) + " 円";
         if (auth != 'システム管理者') {
             unitPrice = '';
         }
@@ -209,7 +212,7 @@ function filterPos(e) {
 }
 
 
-var userObj=[
+var userObjList=[
     {
         userID:1,
         userCode: "AEP1234",
