@@ -27,19 +27,35 @@ class Employment extends Model
             ->get();
     }
 
-    public function createCompositeEmployment($compositeEmploymentArray, $user_id)
-    {
-        $newArray = [];
-        foreach ($compositeEmploymentArray as $compositeEmployment) {
-            $data = [
-                'user_id' => $user_id,
-                'start_date' => $compositeEmployment['startDate'],
-                'end_date' => $compositeEmployment['endDate'],
-                'resignation_flag' => $compositeEmployment['isResign'],
-            ];
-            array_push($newArray, $data);
-        }
+    // public function createCompositeEmployment($compositeEmploymentArray, $user_id)
+    // {
+    //     $newArray = [];
+    //     foreach ($compositeEmploymentArray as $compositeEmployment) {
+    //         $data = [
+    //             'user_id' => $user_id,
+    //             'start_date' => $compositeEmployment['startDate'],
+    //             'end_date' => $compositeEmployment['endDate'],
+    //             'resignation_flag' => $compositeEmployment['isResign'],
+    //         ];
+    //         array_push($newArray, $data);
+    //     }
 
-        return DB::table('employments')->insert($newArray);
+    //     return DB::table('employments')->insert($newArray);
+    // }
+
+    public function upsertCompositeEmployment($compositeEmploymentArray, $user_id)
+    {
+        foreach ($compositeEmploymentArray as $compositeEmployment) {
+            DB::table('employments')
+                ->updateOrInsert(
+                    ['employment_id' => $compositeEmployment['employmentID']], // condition
+                    [
+                        'user_id' => $user_id,
+                        'start_date' => $compositeEmployment['startDate'],
+                        'end_date' => $compositeEmployment['endDate'],
+                        'resignation_flag' => $compositeEmployment['isResign'],
+                    ] // values
+                );
+        }
     }
 }

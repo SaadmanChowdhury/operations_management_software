@@ -36,19 +36,35 @@ class Salary extends Model
         return $data->salary;
     }
 
-    public function createCompositeSalary($compositeSalaryArray, $user_id)
-    {
-        $newArray = [];
-        foreach ($compositeSalaryArray as $compositeSalary) {
-            $data = [
-                'user_id' => $user_id,
-                'start_date' => $compositeSalary['startDate'],
-                'end_date' => $compositeSalary['endDate'],
-                'salary' => $compositeSalary['salaryAmount'],
-            ];
-            array_push($newArray, $data);
-        }
+    // public function createCompositeSalary($compositeSalaryArray, $user_id)
+    // {
+    //     $newArray = [];
+    //     foreach ($compositeSalaryArray as $compositeSalary) {
+    //         $data = [
+    //             'user_id' => $user_id,
+    //             'start_date' => $compositeSalary['startDate'],
+    //             'end_date' => $compositeSalary['endDate'],
+    //             'salary' => $compositeSalary['salaryAmount'],
+    //         ];
+    //         array_push($newArray, $data);
+    //     }
 
-        return DB::table('salaries')->insert($newArray);
+    //     return DB::table('salaries')->insert($newArray);
+    // }
+
+    public function upsertCompositeSalary($compositeSalaryArray, $user_id)
+    {
+        foreach ($compositeSalaryArray as $compositeSalary) {
+            DB::table('salaries')
+                ->updateOrInsert(
+                    ['salary_id' => $compositeSalary['salaryID']], // condition
+                    [
+                        'user_id' => $user_id,
+                        'start_date' => $compositeSalary['startDate'],
+                        'end_date' => $compositeSalary['endDate'],
+                        'salary' => $compositeSalary['salaryAmount'],
+                    ] // values
+                );
+        }
     }
 }

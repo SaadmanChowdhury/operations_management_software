@@ -6,7 +6,7 @@ use App\Models\Employment;
 use App\Models\Favorite;
 use App\Models\Salary;
 use App\Models\User;
-use Illuminate\Http\Request as Rq;
+// use Illuminate\Http\Request as Rq;
 
 class UserService
 {
@@ -77,59 +77,31 @@ class UserService
         return $data;
     }
 
-    public function updateUser($request)
+    public function upsertUser($request)
     {
         $userModel = new User();
         $salaryModel = new Salary();
         $employmentModel = new Employment();
         $loggedUser = auth()->user();
 
-        //validating data
-        // $validatedData = $request->validated();
-        $data = $this->getDummyData();
-        $request = new Rq($data);
-        $id = $request->userID;
+        // $data = $this->getDummyData();
+        // $request = new Rq($data);
 
-        //create user or update user
-        //if $id is null then we will create create new user
-        if ($id == null) {
-            //we are creating new user and inserting data in the user table
-            $new_user_id = $userModel->createNewUser($request);
-            //we are create composite salary and insert data in the table
-            $salaryModel->createCompositeSalary($request->compositeSalary, $new_user_id);
-            //we are create composite employment and insert data in the table
-            $employmentModel->createCompositeEmployment($request->compositeEmployment, $new_user_id);
+        $createdOrUpdatedUserId = $userModel->upsertUser($request);
+
+        //only admin can change the salary and the employment
+        if ($loggedUser->user_authority == 'システム管理者') {
+            $salaryModel->upsertCompositeSalary($request->compositeSalary, $createdOrUpdatedUserId);
+            $employmentModel->upsertCompositeEmployment($request->compositeEmployment, $createdOrUpdatedUserId);
         }
-
-        dd('create done for new user');
-        //else we will update the data
-
-        //if the password has been changed -> hashing password
-        if ($request->password != null) {
-            $validatedData['password'] = bcrypt($request->password);
-        } else {
-            // the password is not changed, so setting the old password
-            $data = User::select('password')->where('user_id', $id)->first();
-            $oldPassword = $data->password;
-            $validatedData['password'] = $oldPassword;
-        }
-
-        //if the logged in user is general user then he/she will not be able to change the unit_price
-        if ($loggedUser->user_authority != 'システム管理者') {
-            unset($validatedData['unit_price']);
-        }
-
-        //changing the array key name from id to user_id
-        $validatedData['user_id'] = $validatedData['id'];
-        unset($validatedData['id']);
-
-        //updating record
-        User::where('user_id', $id)->update($validatedData);
+        return ['userID' => $createdOrUpdatedUserId];
     }
 
+    // created for testing upsertUser function
     public function getDummyData()
     {
         $rules = [
+            // 'userID' => 15,
             'userCode' => 'roy01',
             'userName' => 'Roy',
             'email' => 'roy@gmail.com',
@@ -151,8 +123,8 @@ class UserService
 
 
         $rules['compositeSalary'][0] = [
-            'salaryID' => null,
-            'startDate' => '2021-05-04',
+            'salaryID' => 1,
+            'startDate' => '2091-05-04',
             'endDate' => '2021-05-14',
             'salaryAmount' => 200,
         ];
@@ -160,12 +132,12 @@ class UserService
             'salaryID' => null,
             'startDate' => '2021-05-04',
             'endDate' => '2021-05-14',
-            'salaryAmount' => 200,
+            'salaryAmount' => 999,
         ];
 
         $rules['compositeEmployment'][0] = [
             'employmentID' => null,
-            'startDate' => '2021-06-04',
+            'startDate' => '1111-06-04',
             'endDate' => '2021-06-17',
             'isResign' => '1',
         ];

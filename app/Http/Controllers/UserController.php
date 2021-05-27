@@ -102,17 +102,13 @@ class UserController extends Controller
     }
 
 
-    // public function updateUser(UserUpsert $request)
-    public function updateUser()
+    public function upsertUser(UserUpsert $request)
     {
-        $id = 1;
+        $id = $request->userID;
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $id) {
-            $userModel = new User();
-            // $data = $this->userService->updateUser($request, $id);
-            $data = $this->userService->updateUser($request = 1);
-            return $data;
-            return JSONHandler::emptySuccessfulJSONPackage();
+            $data = $this->userService->upsertUser($request);
+            return JSONHandler::packagedJSONData($data);
         } else {
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
         }

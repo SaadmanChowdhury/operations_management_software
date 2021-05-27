@@ -60,7 +60,7 @@ Route::get('user/edit/{id}', [UserController::class, 'getEditView']);
 Route::post("/API/createUser", [UserController::class, 'createUser']);
 Route::post("/API/readUser",   [UserController::class, 'readUser']);
 Route::post("/API/fetchUserList", [UserController::class, 'fetchUserList']);
-Route::get("/API/updateUser", [UserController::class, 'updateUser']);
+Route::post("/API/upsertUser", [UserController::class, 'upsertUser']);
 Route::post("/API/deleteUser", [UserController::class, 'deleteUser']);
 
 Route::post("/API/updateUIPreference", [UserController::class, 'updateUserUIPreference']);

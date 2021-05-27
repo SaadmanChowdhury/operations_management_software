@@ -253,29 +253,38 @@ class User extends Authenticatable
             ->update(['active_status' => $active_status]);
     }
 
-    public function createNewUser($request)
+    public function upsertUser($request)
     {
 
-        $id = DB::table('users')->insertGetId(
-            [
-                'user_code' => $request->userCode,
-                'name' => $request->userName,
-                'email' => $request->email,
-                'password' => $request->password,
-                'gender' => $request->gender,
-                'location' => $request->location,
-                'tel' => $request->tel,
-                'position' => $request->position,
-                'employment_classification' => $request->employeeClassification,
-                'affiliation_id' => $request->affiliationID,
-                'emergency_contact' => $request->emergencyContact,
-                'condition1' => $request->condition1,
-                'condition2' => $request->condition2,
-                'locker' => $request->locker,
-                'user_authority' => $request->userAuthority,
-                'remark' => $request->remark,
-            ]
-        );
+        DB::table('users')
+            ->updateOrInsert(
+                ['user_id' => $request->userID],
+                [
+                    'user_code' => $request->userCode,
+                    'name' => $request->userName,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                    'gender' => $request->gender,
+                    'location' => $request->location,
+                    'tel' => $request->tel,
+                    'position' => $request->position,
+                    'employment_classification' => $request->employeeClassification,
+                    'affiliation_id' => $request->affiliationID,
+                    'emergency_contact' => $request->emergencyContact,
+                    'condition1' => $request->condition1,
+                    'condition2' => $request->condition2,
+                    'locker' => $request->locker,
+                    'user_authority' => $request->userAuthority,
+                    'remark' => $request->remark,
+                ]
+            );
+
+        $updatedOrInsertedRecord = DB::table('users')
+            ->where('email', $request->email)
+            ->first();
+
+        $id = $updatedOrInsertedRecord->user_id;
+
         return $id;
     }
 }
