@@ -207,3 +207,122 @@ function filterPos(e) {
             }
     }
 }
+
+
+var userObj=[
+    {
+        userID:1,
+        userCode: "AEP1234",
+        userName: "志田",
+        email: "shida@gtmi.co.jp",
+        gender: "女性",
+        location:'宮崎',
+        tel: "123456",
+        position:"SE",
+        employeeClassification: "full-time",
+        affiliationID: null,
+        emergencyContact:"345678",
+        condition1:"null",
+        condition2:"null",
+        locker:"12345",
+        remark:"動力家",
+        userAuthority:"一般管理者",
+        isFavorite:true,
+        isActive:false,
+        compositeSalary:[
+            {
+                salaryID:0,
+                startDate:"2012-12-20",
+                endDate:"2013-10-20",
+                salaryAmount:2200000
+            },
+
+            {
+                salaryID:1,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                salaryAmount:2300000
+            }
+
+        ],
+        
+        compositeEmployment:[
+            {
+                employmentID:0,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                isResign:false
+            },
+            {
+                employmentID:1,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                isResign:false
+            },
+            {
+                employmentID:2,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                isResign:false
+            }
+        ]
+    },
+
+    {
+        userID:1,
+        userCode: "AEP1234",
+        userName: "志田",
+        email: "shida@gtmi.co.jp",
+        gender: "女性",
+        location:'宮崎',
+        tel: "123456",
+        position:"SE",
+        employeeClassification: "full-time",
+        affiliationID: null,
+        emergencyContact:"345678",
+        condition1:"null",
+        condition2:"null",
+        locker:"12345",
+        remark:"動力家",
+        userAuthority:"一般管理者",
+        isFavorite:true,
+        isActive:false,
+        compositeSalary:[
+            {
+                salaryID:0,
+                startDate:"2012-12-20",
+                endDate:"2013-10-20",
+                salaryAmount:2200000
+            },
+
+            {
+                salaryID:1,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                salaryAmount:2300000
+            }
+
+        ],
+        
+        compositeEmployment:[
+            {
+                employmentID:0,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                isResign:false
+            },
+            {
+                employmentID:1,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                isResign:false
+            },
+            {
+                employmentID:2,
+                startDate:"2013-11-20",
+                endDate:"2014-10-20",
+                isResign:false
+            }
+        ]
+    }
+]
