@@ -29,7 +29,13 @@ class GenericSearchSort {
         switch (dataType) {
 
             case "number":
-                processingString = processingString.replaceAll(/([ ,円])/ig, "");
+                var matchedNumber = processingString.match(/[0-9]+/g);
+
+                if (matchedNumber != null)
+                    processingString = matchedNumber.join().replaceAll(",", "");
+                else {
+                    processingString = "" + Number.POSITIVE_INFINITY;
+                }
 
                 break;
 
@@ -282,6 +288,7 @@ class GenericSearchSort {
         // ];
 
         var conditionalBootstrapFuntionSring = "";
+        var cleanedString = ""
 
 
         for (let i = 0; i < sq.length; i++) {
@@ -306,7 +313,23 @@ class GenericSearchSort {
                 }
 
 
-                var cleanedNumber = ` row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.replaceAll(/([ ,円])/ig, "") `;
+                cleanedString += `
+                
+                var x${i}= row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText;
+                var matchedNumber = x${i}.match(/[0-9.]+/g);
+
+                if (matchedNumber != null)
+                    x${i} = matchedNumber.join().replaceAll(",", "");
+                else {
+                    x${i} = "" + Number.POSITIVE_INFINITY;
+                }
+
+
+                console.log(x${i});
+                
+                `;
+
+                var cleanedNumber = `x${i}`;
                 conditionalBootstrapFuntionSring += `parseFloat( ${cleanedNumber} )>= parseFloat( '${qObject.range1.replaceAll(/([ ,円])/ig, "")}' ) && parseFloat(  ${cleanedNumber} )<= parseFloat( '${qObject.range2.replaceAll(/([ ,円])/ig, "")}' ) && `;
             }
 
@@ -344,7 +367,9 @@ class GenericSearchSort {
         conditionalBootstrapFuntionSring = conditionalBootstrapFuntionSring.slice(0, -3) + ";";
         var compare = new Function("row", "sq",
 
-            `//console.log( new GenericSearchSort().processStringBeforeComparing( row.getElementsByTagName(searchSortConfig.tableDataTag)[4].innerText), 'time' );
+            `
+            ${cleanedString}
+            //console.log( new GenericSearchSort().processStringBeforeComparing( row.getElementsByTagName(searchSortConfig.tableDataTag)[4].innerText), 'time' );
               return ` + conditionalBootstrapFuntionSring);
 
 

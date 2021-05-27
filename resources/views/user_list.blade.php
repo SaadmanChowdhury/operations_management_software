@@ -127,11 +127,11 @@
                             </td>   
                             <td>  
                                  <div data-column-number="4" >
-                                    <input id="tim1" type="number" >
-                                    <input id="tim2" type="number">
+                                    <input id="tim1" type="number" min="0" >
+                                    <input id="tim2" type="number" min="0">
                                     ~
-                                    <input id="tim3" type="number"  >
-                                    <input id="tim4" type="number"  >
+                                    <input id="tim3" type="number" min="0" >
+                                    <input id="tim4" type="number" min="0" >
                                 </div>
                            </td>
                         </tr>
@@ -142,8 +142,8 @@
                             </td>   
                             <td>  
                                  <div data-column-number="5" >
-                                    <input id="rev1" type="number"  >~
-                                    <input id="rev2" type="number"  >
+                                    <input id="rev1" type="number" min="0" >~
+                                    <input id="rev2" type="number" min="0" >
                                 </div>
                            </td>
                         </tr>
