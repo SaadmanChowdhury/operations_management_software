@@ -158,11 +158,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="modal-form-input-container _dark flex-col" id="entryInfo">
-                        
-                        
-                    </div>
                     <div class="modal-form-input-container">
 
                         <div class="_half">
@@ -174,6 +169,12 @@
                             
                         </div>
                     </div>
+                    
+                    <div class="modal-form-input-container _dark flex-col" id="entryInfo">
+                        
+                        
+                    </div>
+                    
                     <div class="modal-form-input-container">
 
                         <div class="_half">
@@ -217,6 +218,17 @@
                             </div>
                             
                         </div>
+                    </div>
+                    <div class="modal-form-input-container" id="affiliationInfo">
+                        <div class="_half">
+                            <div><label for="affiliationID">affiliation ID</label></div>
+                            
+                            <div>
+                                <input class="modal_input" type="text" id="affiliationID" name="affiliationID" value="">
+                            </div>
+                            
+                        </div>
+                        
                     </div>
                     <div class="modal-form-input-container _dark flex-col" id="user-edit-Salary">
                         
