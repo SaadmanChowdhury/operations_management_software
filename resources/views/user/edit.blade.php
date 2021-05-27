@@ -224,7 +224,7 @@
                             <div><label for="affiliationID">affiliation ID</label></div>
                             
                             <div>
-                                <input class="modal_input" type="text" id="affiliationID" name="affiliationID" value="">
+                                <input class="modal_input" type="text" id="user_edit_affiliationID" name="affiliationID" value="">
                             </div>
                             
                         </div>
@@ -255,6 +255,22 @@
 <script>
 var salaryStatus = "less";
 var entryStatus = "less";
+function makeAffiliationRequired(){
+    document.querySelector("#user_edit_employeeType").onchange=function(){
+        document.querySelector("#user_edit_employeeType").setAttribute("value",document.querySelector("#user_edit_employeeType").value);
+        console.log(document.querySelector("#user_edit_employeeType").value);
+        if(document.querySelector("#user_edit_employeeType").value==3)
+            // document.querySelector("#user_edit_affiliationID").setAttribute("required","required");
+            document.querySelector("#affiliationInfo").innerHTML=`<div class="_half">
+                            <div><label for="affiliationID">affiliation ID<span class="reruired-field-marker">*</span></label></div>
+                            
+                            <div>
+                                <input class="modal_input" type="text" id="user_edit_affiliationID" required name="affiliationID" value="">
+                            </div>
+                            
+                        </div>`;
+    };
+}
 function toggleSalaryText(compositeSalary)
 {
     //var text="Here is some text that I want added to the HTML file";
@@ -692,6 +708,8 @@ function getEditFormData() {
         entry_info: entryInfoFormatting($('#entryInfo input').serialize().split('&')),
         unit_price: salaryFormatting($('#user-edit-Salary input').serialize().split('&')),
         user_authority: $('#user_edit_authorityInput').val(),
+        employeeClassification: $('#user_edit_employeeType').val(),
+        affiliationID:$('#user_edit_affiliationID').val(),
         _token: $('input[name=_token]').val(),
         favChecked:$('#userEdit-favFlag').prop("checked"),
         activeChecked:$('#userEdit-activeFlag').prop("checked"),
@@ -749,6 +767,7 @@ function updateUserEditModalData(userObj) {
     deleteRowActionListener();
     addEntryInfoRowListener();
     entryInfoDeleteRowActionListener();
+    makeAffiliationRequired();
 
     for (let i = 0; i < userObj.length; i++) {
         if (data[i] == null)
@@ -844,6 +863,7 @@ function updateUserEditModalData(userObj) {
     $("#user_edit_condition2").val(userObj.condition2);
     $("#user_edit_locker").val(userObj.locker);
     $('#user_edit_emergency').val(userObj.emergencyContact);
+    $("#user_edit_affiliationID").val(userObj.affiliationID);
     
     //$("#user_edit_admission_dayInput").val(userObj.admission_day)
     

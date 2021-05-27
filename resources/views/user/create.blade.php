@@ -204,9 +204,9 @@
                             <div class="custom-select">
                                 <select class="modal_input" id="user_create_employeeType">
                                     
-                                        <option value="2">Full-Time</option>
-                                        <option value="3">Part-Time</option>
-                                        <option value="1">SES</option>  
+                                        <option value="1">Full-Time</option>
+                                        <option value="2">Part-Time</option>
+                                        <option value="3">SES</option>  
                                     
                                 </select>
                             </div>
@@ -220,6 +220,17 @@
                             </div>
                             
                         </div>
+                    </div>
+                    <div class="modal-form-input-container" id="userCreate_affiliationInfo">
+                        <div class="_half">
+                            <div><label for="affiliationID">affiliation ID</label></div>
+                            
+                            <div>
+                                <input class="modal_input" type="text" id="user_create_affiliationID" name="affiliationID" value="">
+                            </div>
+                            
+                        </div>
+                        
                     </div>
                     <div class="modal-form-input-container _dark flex-col" id="user-create-Salary">
 
@@ -268,6 +279,26 @@
 
 
 <script>
+
+
+function userCreate_makeAffiliationRequired(){
+    console.log("inside makeAffiliation");
+    document.querySelector("#user_create_employeeType").onchange=function(){
+        console.log("inside makeAffiliation onchange");
+        document.querySelector("#user_create_employeeType").setAttribute("value",document.querySelector("#user_create_employeeType").value);
+        console.log(document.querySelector("#user_create_employeeType").value);
+        if(document.querySelector("#user_create_employeeType").value==3)
+            // document.querySelector("#user_edit_affiliationID").setAttribute("required","required");
+            document.querySelector("#userCreate_affiliationInfo").innerHTML=`<div class="_half">
+                            <div><label for="affiliationID">affiliation ID<span class="reruired-field-marker">*</span></label></div>
+                            
+                            <div>
+                                <input class="modal_input" type="text" id="user_create_affiliationID" required name="affiliationID" value="">
+                            </div>
+                            
+                        </div>`;
+    };
+}
 
 function createUser_deleteRowActionListener() {
 
@@ -352,6 +383,7 @@ function userRegisterModalHandler() {
     event.preventDefault();
     resetHTML();
     showModal('user-create-modal');
+    userCreate_makeAffiliationRequired();
     createUser_addSalaryRowListener();
     createUser_deleteRowActionListener();
     createUser_addEntryInfoRowListener();
@@ -393,7 +425,9 @@ function getRegFormData() {
         condition1:$('#user_create_condition1').val(),
         condition2:$('#user_create_condition2').val(),
         locker:$('#user_create_locker').val(),
-        remarks:$('#user_create_remarks').val()
+        remarks:$('#user_create_remarks').val(),
+        employeeClassification: $('#user_create_employeeType').val(),
+        affiliationID:$('#user_create_affiliationID').val()
 
     };
 }
