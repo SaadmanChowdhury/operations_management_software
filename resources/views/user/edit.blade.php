@@ -309,9 +309,11 @@ function showMoreSalary(compositeSalary){
 }
 function showLessSalary(compositeSalary){
     var salarySectionHTML=``;
-    for (let index = compositeSalary.length-1; index >compositeSalary.length-2; index--) {
+    for (let index = compositeSalary.length-1; index >=0; index--) {
         
-        salarySectionHTML+=`<div class="row center">
+        if(index==compositeSalary.length-1)
+        {
+            salarySectionHTML+=`<div class="row center">
                                 
                                 <div>
                                     <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
@@ -335,6 +337,33 @@ function showLessSalary(compositeSalary){
                                     <div><input class="modal_input" type="date" name="salary_endDate" required value=${compositeSalary[index].endDate}></div>
                                 </div>
                             </div>`;
+                        }
+                else{
+                    salarySectionHTML+=`<div class="row center">
+                                
+                                <div>
+                                    <div><label class="hide" for="salary">給料<span class="hide reruired-field-marker">*</span></label></div>
+                                    <input type="hidden" name="salaryID" value="${compositeSalary[index].salaryID}">
+                                    <div class="row">
+                                        
+
+                                        <input class="hide modal_input" type="hidden" name="salary" required value=${compositeSalary[index].salaryAmount}>
+                                    </div>
+                                </div>
+                                
+
+                                <div>
+                                    <div><label class="hide" for="salary_startDate">開始日<span class="hide reruired-field-marker">*</span></label></div>
+                                    <div><input class="hide modal_input" type="hidden"
+                                            name="salary_startDate" required value=${compositeSalary[index].startDate}></div>
+                                </div>
+
+                                <div>
+                                    <div><label class="hide" for="salary_endDate">終了日</label></div>
+                                    <div><input class="hide modal_input" type="hidden" name="salary_endDate" required value=${compositeSalary[index].endDate}></div>
+                                </div>
+                            </div>`;
+                }
         
     }
     return salarySectionHTML;
@@ -390,24 +419,45 @@ function showMoreEntry(entryInfoData){
 }
 function showLessEntry(entryInfoData){
     var entryInfoHTML=``;
-    for (let index = 0; index < 1; index++) {
+    for (let index = entryInfoData.length-1; index >=0; index--) {
         
-        entryInfoHTML+=`<div class="row center">
-                                
-                                <div>
-                                    <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
-                                    <input type="hidden" name="employmentID" value="${entryInfoData[index].employmentID}">
-                                    <div class="row">
-                                        <button class="delete">-</button>
-                                        <div><input class="modal_input" type="date" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
+        if(index==entryInfoData.length-1)
+        {
+            entryInfoHTML+=`<div class="row center">
+                                    
+                                    <div>
+                                        <div><label for="user_admissionDay">開始日<span class="reruired-field-marker">*</span></label></div>
+                                        <input type="hidden" name="employmentID" value="${entryInfoData[index].employmentID}">
+                                        <div class="row">
+                                            <button class="delete">-</button>
+                                            <div><input class="modal_input" type="date" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div>
-                                    <div><label for="user_resignationDay">終了日</label></div>
-                                    <div><input class="modal_input" type="date" name="user_resignationDay" value=${entryInfoData[index].endDate} required></div>
-                                </div>
-                            </div>`;
+                                    <div>
+                                        <div><label for="user_resignationDay">終了日</label></div>
+                                        <div><input class="modal_input" type="date" name="user_resignationDay" value=${entryInfoData[index].endDate} required></div>
+                                    </div>
+                                </div>`;
+        }
+        else{
+            entryInfoHTML+=`<div class="row center">
+                                    
+                                    <div>
+                                        
+                                        <input type="hidden" name="employmentID" value="${entryInfoData[index].employmentID}">
+                                        
+                                            
+                                        <div><input class="modal_input" type="hidden" name="user_admissionDay" value=${entryInfoData[index].startDate} required></div>
+                                        
+                                    </div>
+
+                                    <div>
+                                        
+                                        <div><input class="modal_input" type="hidden" name="user_resignationDay" value=${entryInfoData[index].endDate} required></div>
+                                    </div>
+                                </div>`;
+        }
         
     }
     return entryInfoHTML;

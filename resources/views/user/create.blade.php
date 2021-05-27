@@ -359,19 +359,42 @@ function userRegisterModalHandler() {
 }
 
 function getRegFormData() {
-    return {
+    // return {
+    //     name: $('#user_create_nameInput').val(),
+    //     email: $('#user_create_emailInput').val(),
+    //     password: $('#user_create_passwordInput').val(),
+    //     tel: $('#user_create_telInput').val(),
+    //     position: $('#user_create_positionInput').val(),
+    //     location: $('#user_create_locationInput').val(),
+    //     admission_day: $('#user_create_admission_dayInput').val(),
+    //     unit_price: $('#user_create_salaryInput').val(),
+    //     user_authority: $('#user_create_authorityInput').val(),
+    //     _token: $('input[name=_token]').val(),
+    //     favChecked:$('#userReg-favFlag').prop("checked"),
+    //     activeChecked:$('#userReg-activeFlag').prop("checked")
+    // };
+
+    return{
+        userCode: $('#user_create_userID').val(),
         name: $('#user_create_nameInput').val(),
         email: $('#user_create_emailInput').val(),
         password: $('#user_create_passwordInput').val(),
         tel: $('#user_create_telInput').val(),
         position: $('#user_create_positionInput').val(),
+        positionText: $("#user_create_positionInput").find(":selected").text(),
         location: $('#user_create_locationInput').val(),
-        admission_day: $('#user_create_admission_dayInput').val(),
-        unit_price: $('#user_create_salaryInput').val(),
+        locationText: $("#user_create_locationInput").find(":selected").text(),
+        entry_info: entryInfoFormatting($('#entryInfo input').serialize().split('&')),
+        unit_price: salaryFormatting($('#user-create-Salary input').serialize().split('&')),
         user_authority: $('#user_create_authorityInput').val(),
         _token: $('input[name=_token]').val(),
         favChecked:$('#userReg-favFlag').prop("checked"),
-        activeChecked:$('#userReg-activeFlag').prop("checked")
+        activeChecked:$('#userReg-activeFlag').prop("checked"),
+        condition1:$('#user_create_condition1').val(),
+        condition2:$('#user_create_condition2').val(),
+        locker:$('#user_create_locker').val(),
+        remarks:$('#user_create_remarks').val()
+
     };
 }
 
