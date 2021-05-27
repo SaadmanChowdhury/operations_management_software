@@ -29,13 +29,23 @@ class GenericSearchSort {
         switch (dataType) {
 
             case "number":
-                var matchedNumber = processingString.match(/[0-9]+/g);
 
-                if (matchedNumber != null)
-                    processingString = matchedNumber.join().replaceAll(",", "");
-                else {
-                    processingString = "" + Number.POSITIVE_INFINITY;
+                var matchedNumber = processingString.replaceAll(/[%,円]/ig, "");
+
+
+
+                if (!new GenericSearchSort().isNumeric(matchedNumber)) {
+                    var matchedNumber = processingString.match(/[0-9.]+/g);
+
+                    if (matchedNumber != null)
+                        processingString = matchedNumber.join().replaceAll(",", "");
+                    else {
+                        processingString = "" + Number.POSITIVE_INFINITY;
+                    }
+
                 }
+
+                console.log(processingString);
 
                 break;
 
@@ -301,13 +311,14 @@ class GenericSearchSort {
             if (qObject.type == "number") {
 
 
-                qObject.range1 = qObject.range1.replace(/([^0-9.])+/g, '');
+                //  qObject.range1 = qObject.range1.replace(/([^0-9.])+/g, '');
 
                 if (!qObject.range1 || !this.isNumeric(qObject.range1)) {
                     qObject.range1 = "" + Number.NEGATIVE_INFINITY;
                 }
 
-                qObject.range2 = qObject.range2.replace(/([^0-9.])+/g, '');
+                //qObject.range2 = qObject.range2.replace(/([^0-9.])+/g, '');
+
                 if (!qObject.range2 || !this.isNumeric(qObject.range2)) {
                     qObject.range2 = "" + Number.MAX_SAFE_INTEGER;
                 }
@@ -315,13 +326,17 @@ class GenericSearchSort {
 
                 cleanedString += `
                 
-                var x${i}= row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText;
-                var matchedNumber = x${i}.match(/[0-9.]+/g);
+                var x${i}= row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.replaceAll(/[%,円]/ig,"");
 
-                if (matchedNumber != null)
-                    x${i} = matchedNumber.join().replaceAll(",", "");
-                else {
-                    x${i} = "" + Number.POSITIVE_INFINITY;
+                if( !new GenericSearchSort().isNumeric(x${i}) ){
+                    var matchedNumber = x${i}.match(/[0-9.]+/g);
+
+                    if (matchedNumber != null)
+                        x${i} = matchedNumber.join().replaceAll(",", "");
+                    else {
+                        x${i} = "" + Number.POSITIVE_INFINITY;
+                    }
+
                 }
 
 
