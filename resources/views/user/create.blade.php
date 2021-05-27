@@ -384,7 +384,7 @@ function getRegFormData() {
         positionText: $("#user_create_positionInput").find(":selected").text(),
         location: $('#user_create_locationInput').val(),
         locationText: $("#user_create_locationInput").find(":selected").text(),
-        entry_info: entryInfoFormatting($('#entryInfo input').serialize().split('&')),
+        entry_info: entryInfoFormatting($('#user-create-entryInfo input').serialize().split('&')),
         unit_price: salaryFormatting($('#user-create-Salary input').serialize().split('&')),
         user_authority: $('#user_create_authorityInput').val(),
         _token: $('input[name=_token]').val(),
