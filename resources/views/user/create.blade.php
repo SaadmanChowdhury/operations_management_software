@@ -432,6 +432,7 @@ function getRegFormData() {
     };
 }
 
+
 function handleAJAXResponse(response) {
     if (response["resultStatus"]["isSuccess"])
         $('#message').html("Operation Succesful");

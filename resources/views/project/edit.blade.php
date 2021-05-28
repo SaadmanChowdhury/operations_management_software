@@ -221,13 +221,13 @@ function addEstimateRowListener()
                                     <div><label for="estimateCode">Estimate Code</label></div>
                                     <div class="row">
                                         <button class="delete">-</button>
-                                        <div><input class="modal_input" type="number" id="project_edit_estimateCode" name="estimateCode"></div>
+                                        <div><input class="modal_input" type="text" id="project_edit_estimateCode" name="estimateCode"></div>
                                     </div>
                                 </div>
 
                                 <div class="_third">
                                     <div><label for="estimateStatus">Estimate Status</label></div>
-                                    <div><input class="modal_input" type="number" id="project_edit_estimateStatus"
+                                    <div><input class="modal_input" type="text" id="project_edit_estimateStatus"
                                             name="estimateStatus"></div>
                                 </div>
 
@@ -276,14 +276,14 @@ function toggleEstimateText(compositeEstimate)
 
 function projectEdit_deleteRowActionListener() {
 
-document.getElementById("project-edit-estimationInfo").querySelectorAll(".delete").forEach(function (obj, index) {
-    obj.addEventListener("click", function (event) {
+    document.getElementById("project-edit-estimationInfo").querySelectorAll(".delete").forEach(function (obj, index) {
+        obj.addEventListener("click", function (event) {
 
-            this.parentNode.parentNode.parentNode.remove();
-            projectEdit_deleteRowActionListener();
-        
+                this.parentNode.parentNode.parentNode.remove();
+                projectEdit_deleteRowActionListener();
+            
+        });
     });
-});
 }
 function showMoreEstimation(compositeEstimate){
     var estimateSectionHTML=``;
@@ -296,13 +296,13 @@ function showMoreEstimation(compositeEstimate){
                                     <div><label for="estimateCode">Estimate Code</label></div>
                                     <div class="row">
                                         <button class="delete">-</button>
-                                        <div><input class="modal_input" type="number" id="project_edit_estimateCode" name="estimateCode"></div>
+                                        <div><input class="modal_input" type="text" id="project_edit_estimateCode" name="estimateCode"></div>
                                     </div>
                                 </div>
 
                                 <div class="_third">
                                     <div><label for="estimateStatus">Estimate Status</label></div>
-                                    <div><input class="modal_input" type="number" id="project_edit_estimateStatus"
+                                    <div><input class="modal_input" type="text" id="project_edit_estimateStatus"
                                             name="estimateStatus"></div>
                                 </div>
 
@@ -330,13 +330,13 @@ function showLessEstimation(compositeEstimate){
                                         <div><label for="estimateCode">Estimate Code</label></div>
                                         <div class="row">
                                             <button class="delete">-</button>
-                                            <div><input class="modal_input" type="number" id="project_edit_estimateCode" name="estimateCode"></div>
+                                            <div><input class="modal_input" type="text" id="project_edit_estimateCode" name="estimateCode"></div>
                                         </div>
                                     </div>
 
                                     <div class="_third">
                                         <div><label for="estimateStatus">Estimate Status</label></div>
-                                        <div><input class="modal_input" type="number" id="project_edit_estimateStatus"
+                                        <div><input class="modal_input" type="text" id="project_edit_estimateStatus"
                                                 name="estimateStatus"></div>
                                     </div>
 
@@ -405,9 +405,63 @@ function renderEstimateSection(compositeEstimate){
     document.getElementById("toggleButton").onclick= function(){
         toggleEstimateText(compositeEstimate);
     }
+
 }
 
+function estimateFormatting(array_Estimate){
+    var formattedEstimate=[];
+    console.log(array_Estimate);
+    for (let index = 0; index <array_Estimate.length; ) {
+        console.log(array_Estimate[index]);
+        var smallArr={
+            estimateID:null,
+            estimateStatus:null,
+            estimateCost:null,
+            estimateCode:null
 
+        };
+        for(let j=0;j<4;j++){
+            var arrayValue=array_Estimate[index].split('=');
+            
+            if(j==0){
+                var arrayValueTobePushed=parseInt(arrayValue[1]);
+                smallArr.estimateID=arrayValueTobePushed;
+                index++;
+
+            }
+            else if(j==1)
+            {
+                
+                var arrayValueTobePushed=arrayValue[1];
+                smallArr.estimateCode=arrayValueTobePushed;
+                index++;
+                
+            }
+            else if(j==2){
+                var arrayValueTobePushed=arrayValue[1];
+                smallArr.estimateStatus=arrayValueTobePushed;
+                index++;
+                
+            }
+            else{
+
+                
+                var arrayValueTobePushed=arrayValue[1];
+                smallArr.estimateCost=arrayValueTobePushed;
+                index++;
+                
+                
+
+            }
+            
+            //smallArr.push(array_Salary[index]);
+            // index++;
+        }
+        formattedEstimate.push(smallArr);
+    }
+    console.log(formattedEstimate);
+    return formattedEstimate;
+}
 
 
 $(function() {
@@ -443,7 +497,7 @@ function getProjectEditFormData() {
         salesDepartment:$('#project_edit_salesDept').val(),
         costOfSales:$('#project_edit_salesCost').val(),
         remarks:$('#project_edit_remarks').val(),
-        // estimate
+        estimate:estimateFormatting($('#project-edit-estimationInfo input').serialize().split('&')),
         
         favChecked:$('#projectEdit-favFlag').prop("checked"),
         activeChecked:$('#projectEdit-activeFlag').prop("checked")

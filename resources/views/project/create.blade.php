@@ -105,6 +105,7 @@
                             </div>
                         </div>
                     </div>
+                    
 
                     <div class="modal-form-input-container _dark">
 
@@ -156,33 +157,44 @@
                             
                         </div>
                     </div>
-                    <div class="modal-form-input-container _dark">
-                        <input type="hidden" name="estimateID" id="project_create_estimateID" value="">
-
-                        <div class="_third">
-                            <div><label for="estimateCode">Estimate Code<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="text" id="project_create_estimateCode" name="estimateCode" required>
+                    <div class="modal-form-input-container _dark" id="project-create-estimationInfo">
+                        <span>
+                            <div style="font-size:20px; margin-left:12px">
+                                Estimation Info
                             </div>
-                        </div>
+                            <button class="modal_addBtn" id="projectCreate_estimate_Add">+</button>
+                            <div class="row center">
+                                
+                                <input type="hidden" name="estimateID" id="project_create_estimateID" value="">
 
-                        <div class="_third">
-                            <div><label for="estimateStatus">Estimate Status<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="number" id="project_create_estimateStatus"
-                                    name="estimateStatus" required></div>
-                        </div>
+                                <div class="_third">
+                                    <div><label for="estimateCode">Estimate Code</label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <div><input class="modal_input" type="text" id="project_create_estimateCode" name="estimateCode"></div>
+                                    </div>
+                                </div>
 
-                        <div class="_third">
-                            <div><label for="estimateCost">Estimate Cost<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="number" id="project_create_estimateCost" name="estimateCost" required></div>
-                        </div>
+                                <div class="_third">
+                                    <div><label for="estimateStatus">Estimate Status</label></div>
+                                    <div><input class="modal_input" type="text" id="project_create_estimateStatus"
+                                            name="estimateStatus"></div>
+                                </div>
+
+                                <div class="_third">
+                                    <div><label for="estimateCost">Estimate Cost</label></div>
+                                    <div><input class="modal_input" type="number" id="project_create_estimateCost" name="estimateCost"></div>
+                                </div>
+                            </div>
+                        </span>
+                        
+
+                </div>
+                <div class="modal-form-input-container">
+                    <div class="_full">
+                        <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
+                        <div><input type="textarea" id="project_create_remarks" class="project_textarea" name="remarks" value=""></div>
                     </div>
-                    <div class="modal-form-input-container">
-                        <div class="_full">
-                            <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
-                            <div><input type="textarea" id="project_create_remarks" class="project_textarea" name="remarks" value=""></div>
-                        </div>
-                    </div>
-
                 </div>
 
             </div>
@@ -210,27 +222,105 @@ function ProjectRegisterModalHandler() {
     convertToSearchableDropDown("project_create_managerID_Input", "USER");
     convertToSearchableDropDown("project_create_clientID_Input", "CLIENT");
     showModal('project-create-modal');
+    addEstimateRowListener();
+    projectCreate_deleteRowActionListener();
 }
 
 function getProjectRegFormData() {
     return {
+        // projectName: $('#project_create_name_Input').val(),
+        // clientID: $('#project_create_clientID_Input').val(),
+        // projectLeaderID: $('#project_create_managerID_Input').val(),
+        // orderMonth: $('#project_create_order_month_Input').val(),
+        // inspectionMonth: $('#project_create_inspection_month_Input').val(),
+        // orderStatus: $('#project_create_order_status_Input').val(),
+        // businessSituation: $('#project_create_business_situation_Input').val(),
+        // developmentStage: $('#project_create_development_stage_Input').val(),
+        // salesTotal: $('#project_create_sales_total_Input').val(),
+        // transferredAmount: $('#project_create_transferred_amount_Input').val(),
+        // budget: $('#project_create_budget_Input').val(),
+        // _token: $('input[name=_token]').val(),
+        token: $('input[name=_token]').val(),
+        projectID:$('#id').val(),
+        projectCode:$('#project_create_projectCode').val(),
         projectName: $('#project_create_name_Input').val(),
         clientID: $('#project_create_clientID_Input').val(),
         projectLeaderID: $('#project_create_managerID_Input').val(),
-        orderMonth: $('#project_create_order_month_Input').val(),
+        orderStatus: $("#project_create_order_status_Input").val(),
+        businessSituation: $('#project_create_business_situation_Input').val(), 
+        developmentStage: $("#project_create_development_stage_Input").val(),
+        orderMonth: $('#project_create_order_month_Input').val(), 
         inspectionMonth: $('#project_create_inspection_month_Input').val(),
-        orderStatus: $('#project_create_order_status_Input').val(),
-        businessSituation: $('#project_create_business_situation_Input').val(),
-        developmentStage: $('#project_create_development_stage_Input').val(),
         salesTotal: $('#project_create_sales_total_Input').val(),
         transferredAmount: $('#project_create_transferred_amount_Input').val(),
         budget: $('#project_create_budget_Input').val(),
-        _token: $('input[name=_token]').val(),
+        salesDepartment:$('#project_create_salesDept').val(),
+        costOfSales:$('#project_create_salesCost').val(),
+        remarks:$('#project_create_remarks').val(),
+        estimate:estimateFormatting($('#project-create-estimationInfo input').serialize().split('&')),
         favChecked:$('#projectReg-favFlag').prop("checked"),
         activeChecked:$('#projectReg-activeFlag').prop("checked")
     };
 }
 
+function addEstimateRowListener()
+{
+    var selects = document.querySelector("#project-create-estimationInfo").getElementsByTagName("input");
+
+    for (let i = 0; i < selects.length; i++) {
+        console.log(selects[i]);
+
+        selects[i].addEventListener("change", function () {
+            console.log(this.value);
+            selects[i].setAttribute("value", selects[i].value);
+        });
+    }
+    document.getElementById('projectCreate_estimate_Add').onclick=function(){
+        
+        
+        document.querySelector('#project-create-estimationInfo span').innerHTML+=`<div class="row center">
+                                
+                                <input type="hidden" name="estimateID" id="project_create_estimateID" value="">
+
+                                <div class="_third">
+                                    <div><label for="estimateCode">Estimate Code</label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <div><input class="modal_input" type="text" id="project_create_estimateCode" name="estimateCode"></div>
+                                    </div>
+                                </div>
+
+                                <div class="_third">
+                                    <div><label for="estimateStatus">Estimate Status</label></div>
+                                    <div><input class="modal_input" type="text" id="project_create_estimateStatus"
+                                            name="estimateStatus"></div>
+                                </div>
+
+                                <div class="_third">
+                                    <div><label for="estimateCost">Estimate Cost</label></div>
+                                    <div><input class="modal_input" type="number" id="project_create_estimateCost" name="estimateCost"></div>
+                                </div>
+                            </div>`;
+                            
+                            
+                            addEstimateRowListener();
+                            projectCreate_deleteRowActionListener();
+        }
+        
+        
+}
+
+function projectCreate_deleteRowActionListener() {
+
+document.getElementById("project-create-estimationInfo").querySelectorAll(".delete").forEach(function (obj, index) {
+    obj.addEventListener("click", function (event) {
+
+            this.parentNode.parentNode.parentNode.remove();
+            projectCreate_deleteRowActionListener();
+        
+    });
+});
+}
 
 function handleAJAXResponse(response) {
     if (response["resultStatus"]["isSuccess"])
