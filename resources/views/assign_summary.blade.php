@@ -1208,7 +1208,7 @@ function loadAndHide(){
     ];
 
 
-    console.log(arrQuery);
+   // console.log(arrQuery);
 
     var gss =new GenericSearchSort();
 

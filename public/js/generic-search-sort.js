@@ -33,7 +33,7 @@ class GenericSearchSort {
                 var matchedNumber = processingString.replaceAll(/[ %,円]/ig, "") + "";
 
 
-                console.log(matchedNumber);
+                //  console.log(matchedNumber);
 
                 if (!new GenericSearchSort().isNumeric(matchedNumber)) {
                     var matchedNumber = matchedNumber.match(/[0-9.]+/g);
@@ -50,7 +50,7 @@ class GenericSearchSort {
                     processingString = matchedNumber;
                 }
 
-                console.log(processingString);
+                //    console.log(processingString);
 
                 break;
 
@@ -68,7 +68,7 @@ class GenericSearchSort {
 
                 processingString = "" + processingString;
 
-                console.log(processingString);
+                // console.log(processingString);
                 break;
 
 
@@ -146,7 +146,7 @@ class GenericSearchSort {
 
                 if (compare(x, y)) {
                     // If so, mark as a switch and break the loop:
-                    console.log(x, y);
+                    //    console.log(x, y);
                     shouldSwitch = true;
                     break;
                 }
@@ -235,7 +235,7 @@ class GenericSearchSort {
 
                 classContext.handleHeaderDataType(heads[i], i);
                 classContext.handleSortOrder(heads[i]);
-                console.log(searchSortConfig);
+                //   console.log(searchSortConfig);
                 classContext.sortTable();
 
             });
@@ -376,7 +376,7 @@ class GenericSearchSort {
                 }
 
 
-                console.log(x${i});
+              //  console.log(x${i});
                 
                 `;
 
@@ -397,9 +397,9 @@ class GenericSearchSort {
 
                 if (!qObject.range2) {
 
-                    console.log(r2);
+                    //    console.log(r2);
                     r2 = "" + Number.MAX_SAFE_INTEGER;
-                    console.log(r2);
+                    //  console.log(r2);
                 }
 
 
@@ -438,7 +438,7 @@ class GenericSearchSort {
 
             var generatedFunction = this.createQueryFunction(searchArray);
 
-            console.log(generatedFunction);
+            // console.log(generatedFunction);
 
             if (generatedFunction(rows[i], searchArray)) {
 
@@ -467,12 +467,12 @@ class GenericSearchSort {
 
             var generatedFunction = this.createQueryFunction(searchArray);
 
-            console.log(generatedFunction);
+            //  console.log(generatedFunction);
 
             if (generatedFunction(rows[i], searchArray)) {
 
 
-                console.log(rows[i].parentNode.parentNode);
+                // console.log(rows[i].parentNode.parentNode);
 
                 if (this.functionExists(showCard))
 
