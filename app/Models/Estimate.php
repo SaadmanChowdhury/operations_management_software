@@ -41,4 +41,20 @@ class Estimate extends Model
             ->whereNull("deleted_at")
             ->latest()->first();
     }
+
+    public function upsertEstimate($EstimateArray, $project_id)
+    {
+        foreach ($EstimateArray as $Estimate) {
+            DB::table('estimates')
+                ->updateOrInsert(
+                    ['estimate_id' => $Estimate['estimateID']], // condition
+                    [
+                        'project_id' => $project_id,
+                        'estimate_code' => $Estimate['estimateCode'],
+                        'estimate_status' => $Estimate['estimateStatus'],
+                        'estimate_cost' => $Estimate['estimateCost'],
+                    ] // values
+                );
+        }
+    }
 }

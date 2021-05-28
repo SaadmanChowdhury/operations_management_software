@@ -124,11 +124,13 @@ class ProjectController extends Controller
         if (!Auth::check())
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
 
-        $projectID = $request->projectID;
+        $data = $this->projectService->upsertProjectDetails($request);
 
-        $this->projectService->upsertProjectDetails($request, $projectID);
+        if (gettype($data) == "string") {
+            return JSONHandler::errorJSONPackage($data);
+        }
 
-        return JSONHandler::emptySuccessfulJSONPackage();
+        return JSONHandler::packagedJSONData($data);
     }
 
     public function deleteProject(Request $request)

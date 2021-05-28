@@ -102,12 +102,17 @@ class UserController extends Controller
     }
 
 
-    public function upsertUser(UserUpsert $request)
+    // public function upsertUser(UserUpsert $request)
+    public function upsertUser()
     {
-        $id = $request->userID;
+        if (!Auth::check())
+            return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+
+        // $id = $request->userID;
+        $id = 15;
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $id) {
-            $data = $this->userService->upsertUser($request);
+            $data = $this->userService->upsertUser($request = 1);
             return JSONHandler::packagedJSONData($data);
         } else {
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");

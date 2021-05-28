@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '小中',
@@ -64,7 +64,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '丸田',
@@ -89,7 +89,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '富永',
@@ -114,7 +114,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '金井',
@@ -139,7 +139,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '大起',
@@ -164,7 +164,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'サードマン',
@@ -189,7 +189,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'スマイヤ',
@@ -214,7 +214,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '賀来',
@@ -239,7 +239,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '亀嶋',
@@ -264,7 +264,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '田村',
@@ -289,7 +289,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '松本',
@@ -314,7 +314,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'サミウール',
@@ -339,7 +339,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'ソフィア',
@@ -364,7 +364,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'ロイ',
@@ -389,7 +389,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'アリフ',
@@ -414,7 +414,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'イスラト',
@@ -439,7 +439,7 @@ class UsersTableSeeder extends Seeder
                 'condition1' => null,
                 'condition2' => null,
                 'locker' => null,
-                'remark' => null,
+                'remarks' => null,
             ],
         ];
 

@@ -20,21 +20,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'company',
-        'commercial_distribute',
-        'tel',
-        'position',
-        'location',
-        'admission_day',
-        'exit_day',
-        'unit_price',
-        'user_authority',
-        'resign_day'
-    ];
+
+    protected $guarded = [];
 
 
     /**
@@ -127,7 +114,7 @@ class User extends Authenticatable
             'condition1',
             'condition2',
             'locker',
-            'remark',
+            'remarks',
             'user_authority as userAuthority',
             'active_status as isActive',
         )->where('user_id', $id)
@@ -256,35 +243,28 @@ class User extends Authenticatable
     public function upsertUser($request)
     {
 
-        DB::table('users')
-            ->updateOrInsert(
-                ['user_id' => $request->userID],
-                [
-                    'user_code' => $request->userCode,
-                    'name' => $request->userName,
-                    'email' => $request->email,
-                    'password' => bcrypt($request->password),
-                    'gender' => $request->gender,
-                    'location' => $request->location,
-                    'tel' => $request->tel,
-                    'position' => $request->position,
-                    'employment_classification' => $request->employeeClassification,
-                    'affiliation_id' => $request->affiliationID,
-                    'emergency_contact' => $request->emergencyContact,
-                    'condition1' => $request->condition1,
-                    'condition2' => $request->condition2,
-                    'locker' => $request->locker,
-                    'user_authority' => $request->userAuthority,
-                    'remark' => $request->remark,
-                ]
-            );
+        $user = User::updateOrCreate(
+            ['user_id' => $request->userID],
+            [
+                'user_code' => $request->userCode,
+                'name' => $request->userName,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'gender' => $request->gender,
+                'location' => $request->location,
+                'tel' => $request->tel,
+                'position' => $request->position,
+                'employment_classification' => $request->employeeClassification,
+                'affiliation_id' => $request->affiliationID,
+                'emergency_contact' => $request->emergencyContact,
+                'condition1' => $request->condition1,
+                'condition2' => $request->condition2,
+                'locker' => $request->locker,
+                'user_authority' => $request->userAuthority,
+                'remarks' => $request->remarks,
+            ]
+        );
 
-        $updatedOrInsertedRecord = DB::table('users')
-            ->where('email', $request->email)
-            ->first();
-
-        $id = $updatedOrInsertedRecord->user_id;
-
-        return $id;
+        return $user->user_id;
     }
 }

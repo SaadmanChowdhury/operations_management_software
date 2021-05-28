@@ -117,7 +117,7 @@ class UserService
             'condition2' => '',
             'locker' => '',
             'userAuthority' => 'システム管理者',
-            'remark' => 'dummy',
+            'remarks' => 'dummy',
         ];
 
 

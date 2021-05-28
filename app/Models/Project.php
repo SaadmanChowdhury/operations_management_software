@@ -16,19 +16,7 @@ class Project extends Model
 
     protected $primaryKey = 'project_id';
 
-    protected $fillable = [
-        'project_name',
-        'client_id',
-        'manager_id',
-        'order_month',
-        'inspection_month',
-        'order_status',
-        'business_situation',
-        'development_stage',
-        'sales_total',
-        'transferred_amount',
-        'budget',
-    ];
+    protected $guarded = [];
 
     public function readProjectList()
     {
@@ -134,9 +122,27 @@ class Project extends Model
         return $project;
     }
 
-    public function upsertProjectDetails($validatedData, $projectID)
+    public function upsertProjectDetails($request)
     {
-        Project::updateOrCreate(['project_id' => $projectID], $validatedData);
+        $project = Project::updateOrCreate(
+            ['project_id' => $request->projectID],
+            [
+                'project_ode' => $request->projectCode,
+                'project_name' => $request->projectName,
+                'client_id' => $request->clientID,
+                'manager_id' => $request->projectLeaderID,
+                'businessSituation  ' => $request->businessSituation,
+                'developmentStage' => $request->developmentStage,
+                'inspectionMonth ' => $request->inspectionMonth,
+                'transferredAmount' => $request->transferredAmount,
+                'budget' => $request->budget,
+                'salesDepartment' => $request->salesDepartment,
+                'costOfSales' => $request->costOfSales,
+                'remarks' => $request->remarks,
+            ]
+        );
+
+        return $project->project_id;
     }
 
 

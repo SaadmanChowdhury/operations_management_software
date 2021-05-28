@@ -40,7 +40,7 @@ class UserUpsert extends FormRequest
             'condition2' => '',
             'locker' => '',
             'userAuthority' => '',
-            'remark' => '',
+            'remarks' => '',
         ];
 
         $rules['compositeSalary'] = [

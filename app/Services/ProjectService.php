@@ -131,7 +131,7 @@ class ProjectService
             $validatedData = $this->formatDataToCreateOrUpdate($request);
 
             // if all the logic passed then project can be create of update
-            $result = $this->logicForUpSertProject($validatedData);
+            $result = $this->logicForUpsertProject($validatedData);
             // dd($result);
 
             // has some logical error
@@ -147,10 +147,10 @@ class ProjectService
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
-    private function logicForUpSertProject($validatedData)
+    private function logicForUpsertProject($request)
     {
-        $orderMonth = $validatedData['order_month'];
-        $inspectionMonth = $validatedData['inspection_month'];
+        $orderMonth = $request->orderMonth;
+        $inspectionMonth = $request->inspectionMonth;
 
         //checking the inspection_month is greater than order_month
         if ($orderMonth != null && $inspectionMonth != null) {
@@ -161,9 +161,9 @@ class ProjectService
             }
         }
 
-        $budget = $validatedData['budget'];
-        $salesTotal = $validatedData['sales_total'];
-        $transferredAmount = $validatedData['transferred_amount'];
+        $budget = $request->budget;
+        $salesTotal = $request->salesTotal;
+        $transferredAmount = $request->transferredAmount;
 
         // the monitory values cannot be negative and
         // sales_total and transferred_amount cannot be greater than budget
@@ -184,32 +184,35 @@ class ProjectService
         return true;
     }
 
-    public function upsertProjectDetails($request, $projectID)
+    public function upsertProjectDetails($request)
     {
-        $projectModel  = new Project;
+        $projectModel  = new Project();
+        $estimateModel  = new Estimate();
 
-        $validatedData = $request->validated();
         $loggedUser = auth()->user();
-        $project = $managerID = null;
-
-        if ($projectID != null) {
-            $project = Project::find($projectID);
-            $managerID = $project->managerID;
-        }
+        $manager_id = $request->projectLeaderID;
         //only admin and manager can update the project
-        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $managerID) {
-
-            $validatedData = $this->formatDataToCreateOrUpdate($request);
-
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $manager_id) {
             // if all the logic passed then project can be create of update
-            $result = $this->logicForUpSertProject($validatedData);
+            $result = $this->logicForUpsertProject($request);
 
             // has some logical error
             if ($result !== true) {
-                return JSONHandler::errorJSONPackage($result);
+                return $result; // error string
             }
+            // passed all the logic for create or update project details
+            $createdOrUpdatedProjectId = $projectModel->upsertProjectDetails($request);
+            $estimateModel->upsertEstimate($request->estimate, $createdOrUpdatedProjectId);
+            $grossProfit = $projectModel->getProjectProfit($createdOrUpdatedProjectId);
+            $profitPercentage = $projectModel->getProjectProfitPercentage($createdOrUpdatedProjectId);
 
-            return $projectModel->upsertProjectDetails($validatedData, $projectID);
+            // return necessary data
+            $result_data = [
+                'projectID' => $createdOrUpdatedProjectId,
+                'grossProfit' => $grossProfit,
+                'profitPercentage' => $profitPercentage,
+            ];
+            return $result_data;
         }
     }
 
