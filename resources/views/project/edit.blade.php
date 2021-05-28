@@ -66,8 +66,8 @@
                    
                     <div class="modal-form-input-container">
                         <div class="_half">
-                            <div><label for="projectID">案件コード<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="text" id="project_edit_projectID" name="projectID" required></div>
+                            <div><label for="projectCode">案件コード<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="text" id="project_edit_projectCode" name="projectCode" required></div>
                         </div>
                         <div class="_half">
                             <div><label for="name">案件名<span class="reruired-field-marker">*</span></label></div>
@@ -181,7 +181,7 @@
                     <div class="modal-form-input-container">
                         <div class="_full">
                             <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
-                            <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
+                            <div><input type="textarea" id="project_edit_remarks" class="project_textarea" name="remarks" value=""></div>
                         </div>
                     </div>
 
@@ -426,19 +426,25 @@ function projectEditModalHandler(projectID) {
 
 function getProjectEditFormData() {
     return {
-        projectID: $('#id').val(),
+        token: $('input[name=_token]').val(),
+        projectID:$('#id').val(),
+        projectCode:$('#project_edit_projectCode').val(),
         projectName: $('#project_edit_name_Input').val(),
         clientID: $('#project_edit_clientID_Input').val(),
         projectLeaderID: $('#project_edit_managerID_Input').val(),
         orderStatus: $("#project_edit_order_status_Input").val(),
-        businessSituation: $('#project_edit_business_situation_Input').val(),
+        businessSituation: $('#project_edit_business_situation_Input').val(), 
         developmentStage: $("#project_edit_development_stage_Input").val(),
-        orderMonth: $('#project_edit_order_month_Input').val(),
+        orderMonth: $('#project_edit_order_month_Input').val(), 
         inspectionMonth: $('#project_edit_inspection_month_Input').val(),
         salesTotal: $('#project_edit_sales_total_Input').val(),
         transferredAmount: $('#project_edit_transferred_amount_Input').val(),
         budget: $('#project_edit_budget_Input').val(),
-        _token: $('input[name=_token]').val(),
+        salesDepartment:$('#project_edit_salesDept').val(),
+        costOfSales:$('#project_edit_salesCost').val(),
+        remarks:$('#project_edit_remarks').val(),
+        // estimate
+        
         favChecked:$('#projectEdit-favFlag').prop("checked"),
         activeChecked:$('#projectEdit-activeFlag').prop("checked")
     };
