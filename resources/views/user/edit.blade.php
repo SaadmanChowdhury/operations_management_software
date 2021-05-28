@@ -538,14 +538,7 @@ function renderSalarySection(compositeSalary){
                     salarySectionHTML+=`</span>
                     <a id="toggleButton" href="javascript:void(0);">See More</a>
                     `;
-    // var remarkHTMLString= `<div class="modal-form-input-container" id='user-edit-remark'>
-    //                     <div class="_full">
-    //                         <div><label for="name">Remarks<span class="reruired-field-marker"></span></label></div>
-    //                         <div><input type="textarea" id="user_edit_remarks" class="project_textarea" name="remarks" value=""></div>
-    //                     </div>
-    //                 </div>`;
-    // string=salarySectionHTML+remarkHTMLString;
-    //console.log(string2);
+
     var loggedInUser=jQuery("#user-authority").val();
     if(loggedInUser!='一般ユーザー')
     {
@@ -576,10 +569,11 @@ function addSalaryRowListener()
         
         document.querySelector('#user-edit-Salary span').innerHTML+=`<div class="row center">
                                 <div>
-                                    <div><label for="sales_total">給料<span class="reruired-field-marker">*</span></label></div>
+                                    <div><label for="salaryAmount">給料<span class="reruired-field-marker">*</span></label></div>
+                                    <input type="hidden" name="salaryID" value="">
                                     <div class="row">
                                         <button class="delete">-</button>
-                                        <input class="modal_input" type="number" name="salary" required>
+                                        <input class="modal_input" type="number" name="salaryAmount" required>
                                     </div>
 
                                 </div>
@@ -668,11 +662,49 @@ function userEditModalHandler(userID) {
 
 function salaryFormatting(array_Salary){
     var formattedSalary=[];
+    console.log(array_Salary);
     for (let index = 0; index <array_Salary.length; ) {
-        var smallArr=[];
+        console.log(array_Salary[index]);
+        var smallArr={
+            salaryID:null,
+            startDate:null,
+            endDate:null,
+            salaryAmount:null
+
+        };
         for(let j=0;j<4;j++){
-            smallArr.push(array_Salary[index]);
-            index++;
+            var arrayValue=array_Salary[index].split('=');
+            //console.log(arrayValue);
+            var arrayValueTobePushed=parseInt(arrayValue[1]);
+            if(j==0){
+                smallArr.salaryID=arrayValueTobePushed;
+                index++;
+
+            }
+            else if(j==1)
+            {
+                smallArr.salaryAmount=arrayValueTobePushed;
+                index++;
+
+            }
+            else if(j==2){
+                arrayValue=array_Salary[index].split('=');
+                //console.log(arrayValue);
+                arrayValueTobePushed=arrayValue[1];
+                smallArr.startDate=arrayValueTobePushed;
+                index++;
+            }
+            else{
+                arrayValue=array_Salary[index].split('=');
+                //console.log(arrayValue);
+                var arrayValueTobePushed=arrayValue[1];
+                smallArr.endDate=arrayValueTobePushed;
+                index++;
+
+            }
+            
+            //smallArr.push(array_Salary[index]);
+            // index++;
         }
         formattedSalary.push(smallArr);
     }
@@ -683,10 +715,31 @@ function entryInfoFormatting(array_entry){
     var formattedEntryInfo=[];
     console.log(array_entry);
     for (let index = 0; index <array_entry.length; ) {
-        var smallArr=[];
+        var smallArr={
+            employmentID:null,
+            startDate:null,
+            endDate:null
+        };
         for(let j=0;j<3;j++){
-            smallArr.push(array_entry[index]);
-            index++;
+            var arrayValue=array_entry[index].split('=');
+            //console.log(arrayValue);
+            if(j==0)
+            {
+                var arrayValueTobePushed=parseInt(arrayValue[1]);
+                smallArr.employmentID=arrayValueTobePushed;
+                index++;
+
+            }
+            else if(j==1)
+            {
+                smallArr.startDate=arrayValue[1];
+                index++;
+            }
+            else{
+                smallArr.endDate=arrayValue[1];
+                index++;
+            }
+            
         }
         formattedEntryInfo.push(smallArr);
     }
@@ -705,8 +758,8 @@ function getEditFormData() {
         positionText: $("#user_edit_positionInput").find(":selected").text(),
         location: $('#user_edit_locationInput').val(),
         locationText: $("#user_edit_locationInput").find(":selected").text(),
-        entry_info: entryInfoFormatting($('#entryInfo input').serialize().split('&')),
-        unit_price: salaryFormatting($('#user-edit-Salary input').serialize().split('&')),
+        compositeEmployment: entryInfoFormatting($('#entryInfo input').serialize().split('&')),
+        compositeSalary: salaryFormatting($('#user-edit-Salary input').serialize().split('&')),
         user_authority: $('#user_edit_authorityInput').val(),
         employeeClassification: $('#user_edit_employeeType').val(),
         affiliationID:$('#user_edit_affiliationID').val(),

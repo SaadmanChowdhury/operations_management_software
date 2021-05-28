@@ -151,7 +151,7 @@
                         <div class="_half">
                             <div><label for="salesCost">Cost of Sales</label></div>
                             <div>
-                                <input class="modal_input" type="text" id="project_create_salesCost" name="salesCost" value="">
+                                <input class="modal_input" type="number" id="project_create_salesCost" name="salesCost" value="">
                             </div>
                             
                         </div>

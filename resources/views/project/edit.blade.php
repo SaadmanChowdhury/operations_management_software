@@ -173,25 +173,8 @@
                             
                         </div>
                     </div>
-                    <div class="modal-form-input-container _dark">
-                        <input type="hidden" name="estimateID" id="project_edit_estimateID" value="">
-
-                        <div class="_third">
-                            <div><label for="estimateCode">Estimate Code<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="number" id="project_edit_estimateCode" name="estimateCode" required>
-                            </div>
-                        </div>
-
-                        <div class="_third">
-                            <div><label for="estimateStatus">Estimate Status<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="number" id="project_edit_estimateStatus"
-                                    name="estimateStatus" required></div>
-                        </div>
-
-                        <div class="_third">
-                            <div><label for="estimateCost">Estimate Cost<span class="reruired-field-marker">*</span></label></div>
-                            <div><input class="modal_input" type="number" id="project_edit_estimateCost" name="estimateCost" required></div>
-                        </div>
+                    <div class="modal-form-input-container _dark flex-col" id="project-edit-estimationInfo">
+                        
                     </div>
                     
                     
@@ -212,6 +195,221 @@
 
 
 <script>
+
+var estimateStatus="less";
+
+function addEstimateRowListener()
+{
+    var selects = document.querySelector("#project-edit-estimationInfo").getElementsByTagName("input");
+
+    for (let i = 0; i < selects.length; i++) {
+        console.log(selects[i]);
+
+        selects[i].addEventListener("change", function () {
+            console.log(this.value);
+            selects[i].setAttribute("value", selects[i].value);
+        });
+    }
+    document.getElementById('estimate_Add').onclick=function(){
+        
+        
+        document.querySelector('#project-edit-estimationInfo span').innerHTML+=`<div class="row center">
+                                
+                                <input type="hidden" name="estimateID" id="project_edit_estimateID" value="">
+
+                                <div class="_third">
+                                    <div><label for="estimateCode">Estimate Code</label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <div><input class="modal_input" type="number" id="project_edit_estimateCode" name="estimateCode"></div>
+                                    </div>
+                                </div>
+
+                                <div class="_third">
+                                    <div><label for="estimateStatus">Estimate Status</label></div>
+                                    <div><input class="modal_input" type="number" id="project_edit_estimateStatus"
+                                            name="estimateStatus"></div>
+                                </div>
+
+                                <div class="_third">
+                                    <div><label for="estimateCost">Estimate Cost</label></div>
+                                    <div><input class="modal_input" type="number" id="project_edit_estimateCost" name="estimateCost"></div>
+                                </div>
+                            </div>`;
+                            
+                            
+                            addEstimateRowListener();
+                            projectEdit_deleteRowActionListener();
+        }
+        
+        
+}
+
+
+function toggleEstimateText(compositeEstimate)
+{
+    
+    console.log(compositeEstimate);
+    
+    if (estimateStatus == "less") {
+        estimateStatus = "more";
+        document.getElementById("project-edit-estimationInfo").innerHTML="";
+        renderEstimateSection(compositeEstimate);
+        
+        addEstimateRowListener();
+        document.getElementById("toggleButton").innerText = "See Less";
+        
+    } 
+    else if (estimateStatus == "more") {
+        estimateStatus = "less";
+        document.getElementById("project-edit-estimationInfo").innerHTML="";
+        //document.getElementById("user-edit-remark").remove();
+        setTimeout(
+            renderEstimateSection(compositeEstimate),2000
+
+        ),
+        addEstimateRowListener();
+        document.getElementById("toggleButton").innerText = "See More";
+        
+    }
+}
+
+function projectEdit_deleteRowActionListener() {
+
+document.getElementById("project-edit-estimationInfo").querySelectorAll(".delete").forEach(function (obj, index) {
+    obj.addEventListener("click", function (event) {
+
+            this.parentNode.parentNode.parentNode.remove();
+            projectEdit_deleteRowActionListener();
+        
+    });
+});
+}
+function showMoreEstimation(compositeEstimate){
+    var estimateSectionHTML=``;
+    for (let index = compositeEstimate.length-1; index >=0; index--) {
+        estimateSectionHTML+=`<div class="row center">
+                                
+                                <input type="hidden" name="estimateID" id="project_edit_estimateID" value="">
+
+                                <div class="_third">
+                                    <div><label for="estimateCode">Estimate Code</label></div>
+                                    <div class="row">
+                                        <button class="delete">-</button>
+                                        <div><input class="modal_input" type="number" id="project_edit_estimateCode" name="estimateCode"></div>
+                                    </div>
+                                </div>
+
+                                <div class="_third">
+                                    <div><label for="estimateStatus">Estimate Status</label></div>
+                                    <div><input class="modal_input" type="number" id="project_edit_estimateStatus"
+                                            name="estimateStatus"></div>
+                                </div>
+
+                                <div class="_third">
+                                    <div><label for="estimateCost">Estimate Cost</label></div>
+                                    <div><input class="modal_input" type="number" id="project_edit_estimateCost" name="estimateCost"></div>
+                                </div>
+                            </div>`;
+        
+    }
+    return estimateSectionHTML;
+}
+
+function showLessEstimation(compositeEstimate){
+    var estimateSectionHTML=``;
+    for (let index = compositeEstimate.length-1; index >=0; index--) {
+        
+        if(index==compositeEstimate.length-1)
+        {
+            estimateSectionHTML+=`<div class="row center">
+                                
+                                    <input type="hidden" name="estimateID" id="project_edit_estimateID" value="">
+
+                                    <div class="_third">
+                                        <div><label for="estimateCode">Estimate Code</label></div>
+                                        <div class="row">
+                                            <button class="delete">-</button>
+                                            <div><input class="modal_input" type="number" id="project_edit_estimateCode" name="estimateCode"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="_third">
+                                        <div><label for="estimateStatus">Estimate Status</label></div>
+                                        <div><input class="modal_input" type="number" id="project_edit_estimateStatus"
+                                                name="estimateStatus"></div>
+                                    </div>
+
+                                    <div class="_third">
+                                        <div><label for="estimateCost">Estimate Cost</label></div>
+                                        <div><input class="modal_input" type="number" id="project_edit_estimateCost" name="estimateCost"></div>
+                                    </div>
+                                </div>`;
+                        }
+                else{
+                    estimateSectionHTML+=`<div class="row center">
+                                
+                                <input type="hidden" name="estimateID" id="project_edit_estimateID" value="">
+
+                                <div class="_third">
+                                    
+                                    <div><input class="modal_input" type="hidden" id="project_edit_estimateCode" name="estimateCode">
+                                    </div>
+                                </div>
+
+                                <div class="_third">
+                                    
+                                    <div><input class="modal_input" type="hidden" id="project_edit_estimateStatus"
+                                            name="estimateStatus"></div>
+                                </div>
+
+                                <div class="_third">
+                                    
+                                    <div><input class="modal_input" type="hidden" id="project_edit_estimateCost" name="estimateCost"></div>
+                                </div>
+                            </div>`;
+                                
+                }
+        
+    }
+    return estimateSectionHTML;
+        
+}
+
+function renderEstimateSection(compositeEstimate){
+    
+    var estimateSectionHTML=`
+                        <span>
+                            <div style="font-size:20px; margin-left:12px">
+                                Estimation Info
+                            </div>
+                            <button class="modal_addBtn" id="estimate_Add">+</button>`;
+                            if(estimateStatus=="less"){
+                                estimateSectionHTML+=showLessEstimation(compositeEstimate);
+                            }
+                            else{
+                                estimateSectionHTML+=showMoreEstimation(compositeEstimate);
+                            }
+                            
+                    estimateSectionHTML+=`</span>
+                    <a id="toggleButton" href="javascript:void(0);">See More</a>
+                    `;
+    
+    var loggedInUser=jQuery("#user-authority").val();
+    if(loggedInUser!='一般ユーザー')
+    {
+        document.getElementById('project-edit-estimationInfo').innerHTML=estimateSectionHTML;
+        projectEdit_deleteRowActionListener();
+    }
+
+    document.getElementById("toggleButton").onclick= function(){
+        toggleEstimateText(compositeEstimate);
+    }
+}
+
+
+
+
 $(function() {
     convertToSearchableDropDown("project_edit_managerID_Input", "USER");
     convertToSearchableDropDown("project_edit_clientID_Input", "CLIENT");
@@ -295,6 +493,9 @@ function updateProjectEditModalData(data) {
             data[i] = "";
     }
 
+    renderEstimateSection(compositeEstimate);
+    addEstimateRowListener();
+    projectEdit_deleteRowActionListener();
     $("#id").val(data.projectID)
     $("#project_edit_name_Input").val(data.projectName)
     $("#project_edit_clientID_Input").val(data.clientID)
@@ -400,4 +601,14 @@ function  deleteComfirmed( projectId ){
         }
     });
 }
+
+
+var compositeEstimate=[
+    {
+        estimateID:1
+    },
+    {
+        estimateID:1
+    }
+];
 </script>

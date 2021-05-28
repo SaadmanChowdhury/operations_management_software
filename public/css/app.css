@@ -1068,6 +1068,10 @@ footer {
     display: inline-block;
     width: 32%;
 }
+#project-edit-estimationInfo ._third {
+    display: inline-block;
+    width: 28%;
+}
 
 .column.right ._full {
     width: 100%;
