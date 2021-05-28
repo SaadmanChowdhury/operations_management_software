@@ -150,3 +150,7 @@ Route::get('/test-view', function () {
 Route::get('/', function () {
     return redirect('/login');
 });
+
+Route::get('/logout', function () {
+    return Auth::logout();
+});

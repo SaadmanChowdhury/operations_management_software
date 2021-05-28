@@ -14,7 +14,7 @@ class Estimate extends Model
 
     protected $guarded = [];
 
-    public function getEstimateOfProject($project_id)
+    public function getEstimatesOfProject($project_id)
     {
         return DB::table('estimates')
             ->select(
@@ -26,5 +26,19 @@ class Estimate extends Model
             ->where('project_id', $project_id)
             ->whereNull("deleted_at")
             ->get();
+    }
+
+    public function getLatestEstimateOfProject($project_id)
+    {
+        return DB::table('estimates')
+            ->select(
+                'estimate_id as estimateID',
+                'estimate_code as estimateCode',
+                'estimate_status as estimateStatus',
+                'estimate_cost as estimateCost',
+            )
+            ->where('project_id', $project_id)
+            ->whereNull("deleted_at")
+            ->latest()->first();
     }
 }

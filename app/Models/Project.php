@@ -34,21 +34,26 @@ class Project extends Model
     {
         $project = DB::table('projects')
             ->select([
-                DB::raw('project_id AS projectID'),
-                DB::raw('project_name AS projectName'),
-                DB::raw('client_id AS clientID'),
-                DB::raw('manager_id AS projectLeaderID'),
-                DB::raw('order_month AS orderMonth'),
-                DB::raw('inspection_month AS inspectionMonth'),
-                DB::raw('order_status AS orderStatus'),
-                DB::raw('business_situation AS businessSituation'),
-                DB::raw('development_stage AS developmentStage'),
-                DB::raw('sales_total AS salesTotal'),
-                DB::raw('transferred_amount AS transferredAmount'),
-                DB::raw('budget AS budget'),
+                'project_id as projectID',
+                'project_id as projectCode',
+                'project_name as projectName',
+                'client_id as clientID',
+                'manager_id as projectLeaderID',
+
+                'order_status as orderStatus',
+                'business_situation as businessSituation',
+                'development_stage as developmentStage',
+                'order_month as orderMonth',
+                'inspection_month as inspectionMonth',
+                'sales_total as salesTotal',
+                'transferred_amount as transferredAmount',
+                'budget as budget',
+                // 'cost_of_sales as costOfSales',
+                'remarks',
+                'active_status as isActive',
             ])
             ->whereNull("deleted_at")
-            ->get()->toArray();
+            ->get();
 
         return $project;
     }
@@ -119,8 +124,9 @@ class Project extends Model
             'sales_total as salesTotal',
             'transferred_amount as transferredAmount',
             'budget as budget',
-            'cost_of_sales as costOfSales',
+            // 'cost_of_sales as costOfSales',
             'remarks',
+            'active_status as isActive',
         ])->where('project_id', $id)
             ->whereNull("deleted_at")
             ->first();

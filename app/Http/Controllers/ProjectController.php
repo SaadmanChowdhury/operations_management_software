@@ -46,8 +46,6 @@ class ProjectController extends Controller
 
     public function fetchProjectList()
     {
-        /** CHECK IF USER IS LOGGED IN */
-        /** If not logged in return not authorized JSON alert */
         if (!Auth::check())
             return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
 

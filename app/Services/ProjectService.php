@@ -68,21 +68,39 @@ class ProjectService
     public function fetchProjectList()
     {
         $newArray = [];
-        $projectModel  = new Project;
+        $projectModel  = new Project();
+        $favoriteModel  = new Favorite();
+        $estimateModel  = new Estimate();
         // Step 2
         $array = $projectModel->readProjectList();
 
         // getting the profit percentage for each project
         foreach ($array as $key => $value) {
+            $value->grossProfit = $projectModel->getProjectProfit($value->projectID);
             $value->profitPercentage = $projectModel->getProjectProfitPercentage($value->projectID);
+            $value->isFavorite = $favoriteModel->isFavorite('project', $value->projectID);
+            $latestEstimate = $estimateModel->getLatestEstimateOfProject($value->projectID);
+
+            // if the project has estimate data
+            if ($latestEstimate) {
+                $value->latestEstimateID = $latestEstimate->estimateID;
+                $value->latestEstimateCode = $latestEstimate->estimateCode;
+                $value->latestEstimateStatus = $latestEstimate->estimateStatus;
+                $value->estimateCost = $latestEstimate->estimateCost;
+            } else { // does not have any estimate value
+                $value->latestEstimateCode = null;
+                $value->latestEstimateCode = null;
+                $value->latestEstimateStatus = null;
+                $value->estimateCost = null;
+            }
+
             array_push($newArray, $value);
         }
 
-        // Step 3
-        $array = $this->helper_fetchProjectList($newArray);
+        // checking who will be able to see the monitory information
+        $array = $this->helperFetchProjectList($newArray);
 
-        // Step 4 and 5
-        return $this->arrayFormatting_fetchProjectList($array);
+        return $this->arrayFormattingFetchProjectList($array);
     }
 
     public function readProjectDetails($project_id)
@@ -97,7 +115,7 @@ class ProjectService
         $project["project"]->grossProfit = $projectModel->getProjectProfit($project_id);
         $project["project"]->profitPercentage = $projectModel->getProjectProfitPercentage($project_id);
         $project["project"]->isFavorite = $favoriteModel->isFavorite('project', $project_id);
-        $project["project"]->estimate = $estimateModel->getEstimateOfProject($project_id);
+        $project["project"]->estimate = $estimateModel->getEstimatesOfProject($project_id);
         return $project;
     }
 
@@ -213,7 +231,7 @@ class ProjectService
         return $formattedData;
     }
 
-    private function helper_fetchProjectList($array)
+    private function helperFetchProjectList($array)
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == 'システム管理者') {
@@ -224,19 +242,18 @@ class ProjectService
         for ($i = 0; $i < count($array); $i++) {
             // If user is not project leader [General user]
             if ($array[$i]->projectLeaderID != $loggedUser->user_id) {
-                // unset($array[$i]->salesTotal);
-                // unset($array[$i]->transferredAmount);
-                // unset($array[$i]->budget);
-                $array[$i]->salesTotal = '';
-                $array[$i]->transferredAmount = '';
-                $array[$i]->budget = '';
+                $array[$i]->salesTotal = null;
+                $array[$i]->transferredAmount = null;
+                $array[$i]->budget = null;
+                $array[$i]->grossProfit = null;
+                $array[$i]->profitPercentage = null;
             }
         }
 
         return $array;
     }
 
-    private function arrayFormatting_fetchProjectList($array)
+    private function arrayFormattingFetchProjectList($array)
     {
         $formattedArray['project'] = $array;
 
