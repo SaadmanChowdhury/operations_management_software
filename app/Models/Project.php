@@ -104,21 +104,23 @@ class Project extends Model
 
     public function readProject($id)
     {
-
         $project = Project::select([
             'project_id as projectID',
+            'project_id as projectCode',
             'project_name as projectName',
             'client_id as clientID',
             'manager_id as projectLeaderID',
 
-            'order_month as orderMonth',
-            'inspection_month as inspectionMonth',
             'order_status as orderStatus',
             'business_situation as businessSituation',
             'development_stage as developmentStage',
+            'order_month as orderMonth',
+            'inspection_month as inspectionMonth',
             'sales_total as salesTotal',
             'transferred_amount as transferredAmount',
             'budget as budget',
+            'cost_of_sales as costOfSales',
+            'remarks',
         ])->where('project_id', $id)
             ->whereNull("deleted_at")
             ->first();
@@ -190,10 +192,10 @@ class Project extends Model
         return $data;
     }
 
-    public function getUserUnitPrice($user_id)
+    public function getUserSalary($user_id)
     {
-        $user = User::select('unit_price')->where('user_id', $user_id)->first();
-        return $user->unit_price;
+        $salaryModel = new Salary();
+        return $salaryModel->getLatestSalary($user_id);
     }
 
     public function getProjectCost($project_id)
@@ -203,8 +205,8 @@ class Project extends Model
         foreach ($assignedUsersId as $user) {
             $user_id = $user->user_id;
             $individualPlanManMonth = $this->getIndividualTotalPlanManMonth($project_id, $user_id);
-            $unit_price = $this->getUserUnitPrice($user_id);
-            $totalCost += $individualPlanManMonth * $unit_price;
+            $salary = $this->getUserSalary($user_id);
+            $totalCost += $individualPlanManMonth * $salary;
         }
 
         return $totalCost;

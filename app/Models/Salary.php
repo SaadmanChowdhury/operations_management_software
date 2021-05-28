@@ -24,6 +24,7 @@ class Salary extends Model
                 'salary as salaryAmount',
             )
             ->where('user_id', $user_id)
+            ->whereNull("deleted_at")
             ->get();
     }
 
@@ -32,6 +33,7 @@ class Salary extends Model
         $data = Salary::select('salary')
             ->where('user_id', $user_id)
             ->orderBy('start_date', 'desc')
+            ->whereNull("deleted_at")
             ->first();
         return $data->salary;
     }

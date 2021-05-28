@@ -24,6 +24,7 @@ class Employment extends Model
                 'resignation_flag as isResign',
             )
             ->where('user_id', $user_id)
+            ->whereNull("deleted_at")
             ->get();
     }
 

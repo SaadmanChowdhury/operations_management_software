@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Http\Utilities\JSONHandler;
 use App\Models\Assign;
+use App\Models\Estimate;
+use App\Models\Favorite;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
 use Carbon\Carbon;
@@ -83,18 +85,20 @@ class ProjectService
         return $this->arrayFormatting_fetchProjectList($array);
     }
 
-    public function readProjectDetails($projectID)
+    public function readProjectDetails($project_id)
     {
-        $projectModel  = new Project;
-        // getting the project data
-        $project = $projectModel->readProject($projectID);
+        $projectModel  = new Project();
+        $favoriteModel  = new Favorite();
+        $estimateModel  = new Estimate();
 
-        $loggedUser = auth()->user();
-        //if admin or manager
-        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->projectLeaderID) {
-            return $project;
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        $data = $projectModel->readProject($project_id);
+        $project["project"] = $data;
+
+        $project["project"]->grossProfit = $projectModel->getProjectProfit($project_id);
+        $project["project"]->profitPercentage = $projectModel->getProjectProfitPercentage($project_id);
+        $project["project"]->isFavorite = $favoriteModel->isFavorite('project', $project_id);
+        $project["project"]->estimate = $estimateModel->getEstimateOfProject($project_id);
+        return $project;
     }
 
     public function createProject($request)

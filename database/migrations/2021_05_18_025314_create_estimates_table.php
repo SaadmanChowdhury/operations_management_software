@@ -16,8 +16,10 @@ class CreateEstimatesTable extends Migration
     {
         Schema::create('estimates', function (Blueprint $table) {
             $table->increments('estimate_id')->unsigned();
+            $table->string('estimate_code');
             $table->unsignedInteger('project_id')->length(10);
             $table->enum('estimate_status', ['調整中', '作成済', '保留', '提出']);
+            $table->unsignedInteger('estimate_cost')->length(10);
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();

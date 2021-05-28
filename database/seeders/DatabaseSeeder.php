@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             FavoriteTableSeeder::class,
             EmploymentTableSeeder::class,
             SalaryTableSeeder::class,
+            EstimateTableSeeder::class,
         ]);
     }
 }
