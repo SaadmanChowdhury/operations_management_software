@@ -463,33 +463,57 @@ class GenericSearchSort {
         var rows = document.querySelectorAll(`[${searchSortConfig.tableRow}]`);
 
 
+        var r = new AssignSummrayRenderer(null, getManMonthByYear());
+        var instantaneousLiveRows = [];
+
+        var divChecker = new Set();
+
+
         for (let i = 0; i < rows.length; i++) {
 
             var generatedFunction = this.createQueryFunction(searchArray);
 
             //  console.log(generatedFunction);
 
+            var userDiv = rows[i].parentNode.parentNode;
+
             if (generatedFunction(rows[i], searchArray)) {
 
 
-                // console.log(rows[i].parentNode.parentNode);
+                if (typeof userDiv.id != "undefined") {
+                    if (divChecker.has(userDiv.id)) {
 
-                if (this.functionExists(showCard))
+                    }
+                    else {
 
+                        instantaneousLiveRows.push(userDiv);
+                        divChecker.add(userDiv.id);
 
-                    showCard(rows[i].parentNode.parentNode);
-                else {
-                    console.warn("Please check showcard definition.");
+                        if (this.functionExists(showCard))
+                            showCard(rows[i].parentNode.parentNode);
+                        else {
+                            console.warn("Please check showcard definition.");
+                        }
+                    }
                 }
-            }
-            else {
-                if (this.functionExists(hideCard))
-                    hideCard(rows[i].parentNode.parentNode);
                 else {
-                    console.warn("Please check hidecard definition.");
+
+
+
                 }
+
+
             }
+
+
         }
+
+
+        // console.log(instantaneousLiveRows)
+
+        var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
+        r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
+        r.inflatePopupForManMonths();
     }
 
 

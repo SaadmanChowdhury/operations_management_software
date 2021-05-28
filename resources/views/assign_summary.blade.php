@@ -437,14 +437,15 @@
 
         for (let i = 0; i < instantaneousLiveRows.length; i++) {
             var lists=instantaneousLiveRows[i].getElementsByTagName("li");
-                for (let j = 2; j < lists.length; j++) {
+            //console.log(lists);
+                for (let j = 2; j < 14; j++) {
                     sumRow[j]=  parseFloat(sumRow[j])+ parseFloat(lists[j].innerText);
                     sumRow[j]= sumRow[j].toFixed(2);
                     
                 }
         }
 
-    // console.log(sumRow);
+     //console.log(sumRow);
 
         return sumRow;
     }
@@ -704,7 +705,7 @@
                 all_work_weights += this.makeSummaryRowList(arr[index]);
             }
 
-            var c = `<div  class="assign-user-tab">
+            var c = `<div id="assign-user-tab${rowId}"  class="assign-user-tab">
                         <div  data-position="${position}" class="d-flex assign-user-sub-row _header list-unstyled text-center" onclick="assignDisplay(${rowId})">
                             <div class="wrapper d-flex text-center">
                                 <li class="d-flex text-medium align-items-center">${name}</li>
@@ -1223,7 +1224,12 @@ function loadAndHide(){
     setTimeout(() => {
 
         gss.searchInColumnWithParent(arrQuery);
-    }, 500);
+
+       
+    }, 400);
+
+    var sm= document.getElementById('client-search-modal');
+        sm.style.display="none";
 
 
 
@@ -1231,8 +1237,7 @@ function loadAndHide(){
    
 
 
-    var sm= document.getElementById('client-search-modal');
-    sm.style.display="none";
+   
 
 
 }
