@@ -30,12 +30,13 @@ class GenericSearchSort {
 
             case "number":
 
-                var matchedNumber = processingString.replaceAll(/[%,円]/ig, "");
+                var matchedNumber = processingString.replaceAll(/[ %,円]/ig, "") + "";
 
 
+                console.log(matchedNumber);
 
                 if (!new GenericSearchSort().isNumeric(matchedNumber)) {
-                    var matchedNumber = processingString.match(/[0-9.]+/g);
+                    var matchedNumber = matchedNumber.match(/[0-9.]+/g);
 
                     if (matchedNumber != null)
                         processingString = matchedNumber.join().replaceAll(",", "");
@@ -43,6 +44,10 @@ class GenericSearchSort {
                         processingString = "" + Number.POSITIVE_INFINITY;
                     }
 
+                }
+                else {
+
+                    processingString = matchedNumber;
                 }
 
                 console.log(processingString);
@@ -326,7 +331,7 @@ class GenericSearchSort {
 
                 cleanedString += `
                 
-                var x${i}= row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.replaceAll(/[%,円]/ig,"");
+                var x${i}= row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.replaceAll(/[ %,円]/ig,"");
 
                 if( !new GenericSearchSort().isNumeric(x${i}) ){
                     var matchedNumber = x${i}.match(/[0-9.]+/g);
