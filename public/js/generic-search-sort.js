@@ -244,6 +244,36 @@ class GenericSearchSort {
 
     }
 
+    addSortListenerWithOutSort() {
+        var header = document.querySelector(`[${searchSortConfig.tableHeader}]`);
+        if (header == null) throw new Error("Please add a property named  'data-header' in the table of the header variable 'tableHeader' .");
+
+        var heads = header.getElementsByTagName(searchSortConfig.tableHeaderNameTag);
+        if (heads == null) throw new Error(("Please add a property named 'tableHeaderNameTag' in the table of the header."));
+
+
+        var classContext = this;
+
+
+        for (let i = 0; i < heads.length; i++) {
+
+
+
+            // heads[i].addEventListener("click", function () {
+
+            //classContext.resetClassListsFromHeader(heads);
+
+            classContext.handleHeaderDataType(heads[i], i);
+            //classContext.handleSortOrder(heads[i]);
+            //console.log(searchSortConfig);
+            // classContext.sortTable();
+
+            //   });
+        }
+
+
+    }
+
 
     functionExists(func) {
         return (typeof func == "function");
@@ -331,6 +361,7 @@ class GenericSearchSort {
 
                 cleanedString += `
                 
+               
                 var x${i}= row.getElementsByTagName(searchSortConfig.tableDataTag)[${qObject.columNumber}].innerText.replaceAll(/[ %,円]/ig,"");
 
                 if( !new GenericSearchSort().isNumeric(x${i}) ){
@@ -389,6 +420,10 @@ class GenericSearchSort {
 
             `
             ${cleanedString}
+
+            // console.log(row.getElementsByTagName(searchSortConfig.tableDataTag)[0].innerText);
+            // console.log(row.getElementsByTagName(searchSortConfig.tableDataTag)[1].innerText);
+            //console.log( searchSortConfig.tableDataTag);
             //console.log( new GenericSearchSort().processStringBeforeComparing( row.getElementsByTagName(searchSortConfig.tableDataTag)[4].innerText), 'time' );
               return ` + conditionalBootstrapFuntionSring);
 
@@ -416,6 +451,40 @@ class GenericSearchSort {
             else {
                 if (this.functionExists(hideCard))
                     hideCard(rows[i]);
+                else {
+                    console.warn("Please check hidecard definition.");
+                }
+            }
+        }
+    }
+
+
+    searchInColumnWithParent(searchArray) {
+        var rows = document.querySelectorAll(`[${searchSortConfig.tableRow}]`);
+
+
+        for (let i = 0; i < rows.length; i++) {
+
+            var generatedFunction = this.createQueryFunction(searchArray);
+
+            console.log(generatedFunction);
+
+            if (generatedFunction(rows[i], searchArray)) {
+
+
+                console.log(rows[i].parentNode.parentNode);
+
+                if (this.functionExists(showCard))
+
+
+                    showCard(rows[i].parentNode.parentNode);
+                else {
+                    console.warn("Please check showcard definition.");
+                }
+            }
+            else {
+                if (this.functionExists(hideCard))
+                    hideCard(rows[i].parentNode.parentNode);
                 else {
                     console.warn("Please check hidecard definition.");
                 }
@@ -479,6 +548,3 @@ class GenericSearchSort {
 
 
 }
-
-
-new GenericSearchSort().configure();

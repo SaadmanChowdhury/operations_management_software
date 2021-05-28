@@ -275,6 +275,8 @@
 <script>
 "use strict";
 
+new GenericSearchSort().configure();
+
 var search_modal_init = document.getElementById("search-modal-init");
 
 var cloned_search=search_modal_init.cloneNode(true);

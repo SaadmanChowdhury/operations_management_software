@@ -77,7 +77,7 @@
                             <span class="fa fa-caret-right" onclick="year_inc($assign_year)"></span>
                         </div>
                     </div>
-                    <div class="d-flex assign-header-sub-row mild-yellow text-center list-unstyled">
+                    <div  data-header="summary-head" class="d-flex assign-header-sub-row mild-yellow text-center list-unstyled">
                         <div class="wrapper d-flex text-medium">
                             <li>名前</li>
                             <li>プロジェクト</li>
@@ -334,240 +334,137 @@
 
 
 <script>
-var users = [
+    var users = [
 
-    {
-        userName: "user name 1",
+        {
+            userName: "user name 1",
 
-        projects: [
+            projects: [
 
-            {
-                projectName: "project name 1",
-                assign: [
+                {
+                    projectName: "project name 1",
+                    assign: [
 
-                    {
-                        year: 2020,
-                        month: 1,
-                        assignValue: 0.5
-                    },
-                    {
-                        year: 2020,
-                        month: 2,
-                        assignValue: 1.0
-                    },
-                    {
-                        year: 2020,
-                        month: 3,
-                        assignValue: 1.0
-                    }
-
-
-                ]
-            },
-
-            {
-                projectName: "project name 2",
-                assign: [
-
-                    {
-                        year: 2020,
-                        month: 2,
-                        assignValue: 1.0
-                    },
-                    {
-                        year: 2020,
-                        month: 3,
-                        assignValue: 1.0
-                    }
+                        {
+                            year: 2020,
+                            month: 1,
+                            assignValue: 0.5
+                        },
+                        {
+                            year: 2020,
+                            month: 2,
+                            assignValue: 1.0
+                        },
+                        {
+                            year: 2020,
+                            month: 3,
+                            assignValue: 1.0
+                        }
 
 
-                ]
-            }
+                    ]
+                },
 
-        ]
+                {
+                    projectName: "project name 2",
+                    assign: [
 
-    },
+                        {
+                            year: 2020,
+                            month: 2,
+                            assignValue: 1.0
+                        },
+                        {
+                            year: 2020,
+                            month: 3,
+                            assignValue: 1.0
+                        }
 
-    {
-        userName: "user name 2",
 
-        projects: [
+                    ]
+                }
+
+            ]
+
+        },
+
+        {
+            userName: "user name 2",
+
+            projects: [
 
 
 
-        ]
+            ]
+
+        }
+
+
+    ];
+
+
+
+
+    var categoryViewMode="all";
+    //az atleast one ois zero
+    //ago atleast one is greater than one
+    //alo atleast one is less than one
+
+
+
+
+    function atleastOneAssignIsZero(htmlDomRowListContainer){
+    
+    var lists = htmlDomRowListContainer.getElementsByTagName("li");
+
+    for (let i = 0; i < lists.length; i++) {
+        if(!isNaN(lists[i].innerText))
+        if(lists[i].innerText==0)
+            return true;
+    }
+
+    return false;
 
     }
 
 
-];
 
+    function calcCumSumOnInstantaneousRows(instantaneousLiveRows){
 
+        var sumRow=["","",
+            0,0,0,0,0,0,
+            0,0,0,0,0,0];
 
+        for (let i = 0; i < instantaneousLiveRows.length; i++) {
+            var lists=instantaneousLiveRows[i].getElementsByTagName("li");
+                for (let j = 2; j < lists.length; j++) {
+                    sumRow[j]=  parseFloat(sumRow[j])+ parseFloat(lists[j].innerText);
+                    sumRow[j]= sumRow[j].toFixed(2);
+                    
+                }
+        }
 
-var categoryViewMode="all";
-//az atleast one ois zero
-//ago atleast one is greater than one
-//alo atleast one is less than one
+    // console.log(sumRow);
 
-
-
-
-function atleastOneAssignIsZero(htmlDomRowListContainer){
-  
-  var lists = htmlDomRowListContainer.getElementsByTagName("li");
-
-  for (let i = 0; i < lists.length; i++) {
-      if(!isNaN(lists[i].innerText))
-      if(lists[i].innerText==0)
-          return true;
-  }
-
-  return false;
-
-}
-
-
-
-function calcCumSumOnInstantaneousRows(instantaneousLiveRows){
-
-    var sumRow=["","",
-        0,0,0,0,0,0,
-        0,0,0,0,0,0];
-
-    for (let i = 0; i < instantaneousLiveRows.length; i++) {
-          var lists=instantaneousLiveRows[i].getElementsByTagName("li");
-            for (let j = 2; j < lists.length; j++) {
-                sumRow[j]=  parseFloat(sumRow[j])+ parseFloat(lists[j].innerText);
-                sumRow[j]= sumRow[j].toFixed(2);
-                
-            }
+        return sumRow;
     }
 
-   // console.log(sumRow);
 
-    return sumRow;
-}
-
-
-function showAssignedUserByPosition(position){
-
-var instantaneousLiveRows =[]; 
-
-var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
-
-var all=false;
-if(position=="ALL"){
-   all=true;
-}
-
-for (let i = 0; i < rows.length; i++) {
-   if(all || (rows[i].getAttribute("data-position")==position) ){
-    showCard(rows[i].parentElement);
-    instantaneousLiveRows.push(rows[i]);
-   }
-   else{
-    hideCard(rows[i].parentElement);
-   }
-}
-
-var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
-r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
-r.inflatePopupForManMonths();
-
-}
-
-
-function showAssignsWhereAssignHasAtleastOneZero(){
+    function showAssignedUserByPosition(position){
 
     var instantaneousLiveRows =[]; 
 
     var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
-    
-   
-    for (let i = 0; i < rows.length; i++) {
-       if(atleastOneAssignIsZero(rows[i])){
-        showCard(rows[i].parentElement);
-        instantaneousLiveRows.push(rows[i]);
-       }
-       else{
-        hideCard(rows[i].parentElement);
-       }
+
+    var all=false;
+    if(position=="ALL"){
+    all=true;
     }
 
-    var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
-    r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
-    r.inflatePopupForManMonths();
-
-}
-  
-function atleastOneAssignIsGreaterThanOne(htmlDomRowListContainer){
-  
-  var lists = htmlDomRowListContainer.getElementsByTagName("li");
-
-  for (let i = 0; i < lists.length; i++) {
-      if(!isNaN(lists[i].innerText))
-      if(lists[i].innerText>1)
-          return true;
-  }
-
-  return false;
-
-}
-
-function showAssignsWhereAssignHasAtleastOneIsGreaterThanOne(){
-    var year = document.getElementById('assign_year').innerHTML;
-
-    var r = new AssignSummrayRenderer(null,getManMonthByYear());
-    var instantaneousLiveRows =[]; 
-
-var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
-
-for (let i = 0; i < rows.length; i++) {
-   if(atleastOneAssignIsGreaterThanOne(rows[i])){
-    showCard(rows[i].parentElement);
-    instantaneousLiveRows.push(rows[i]);
-   }
-   else{
-    
-    hideCard(rows[i].parentElement);
-   }
-}
-
-    var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
-    r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
-    r.inflatePopupForManMonths();
-
-}
-
-function atleastOneAssignIsLessThanOne(htmlDomRowListContainer){
-  
-  var lists = htmlDomRowListContainer.getElementsByTagName("li");
-
-  for (let i = 0; i < lists.length; i++) {
-      if(!isNaN(lists[i].innerText))
-      if(lists[i].innerText>0 && lists[i].innerText<1)
-          return true;
-  }
-
-  return false;
-
-}
-
-function showAssignsWhereAssignHasAtleastOneIsLessThanOne(){
-
-    var year = document.getElementById('assign_year').innerHTML;
-
-    var r = new AssignSummrayRenderer(null,getManMonthByYear());
-    var instantaneousLiveRows =[]; 
-
-    var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
-
     for (let i = 0; i < rows.length; i++) {
-    if(atleastOneAssignIsLessThanOne(rows[i])){
+    if(all || (rows[i].getAttribute("data-position")==position) ){
         showCard(rows[i].parentElement);
         instantaneousLiveRows.push(rows[i]);
-        
     }
     else{
         hideCard(rows[i].parentElement);
@@ -578,492 +475,795 @@ function showAssignsWhereAssignHasAtleastOneIsLessThanOne(){
     r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
     r.inflatePopupForManMonths();
 
-}
+    }
 
-class AssignSummrayRenderer {
 
-    constructor(users , man_months) {
-        this.users = users;
-        this.cumSumAllUser = new Array(12).fill(0);
-        this.man_mon = man_months;
+    function showAssignsWhereAssignHasAtleastOneZero(){
+
+        var instantaneousLiveRows =[]; 
+
+        var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
+        
+    
+        for (let i = 0; i < rows.length; i++) {
+        if(atleastOneAssignIsZero(rows[i])){
+            showCard(rows[i].parentElement);
+            instantaneousLiveRows.push(rows[i]);
+        }
+        else{
+            hideCard(rows[i].parentElement);
+        }
+        }
+
+        var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
+        r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
+        r.inflatePopupForManMonths();
+
+    }
+    
+    function atleastOneAssignIsGreaterThanOne(htmlDomRowListContainer){
+    
+    var lists = htmlDomRowListContainer.getElementsByTagName("li");
+
+    for (let i = 0; i < lists.length; i++) {
+        if(!isNaN(lists[i].innerText))
+        if(lists[i].innerText>1)
+            return true;
+    }
+
+    return false;
 
     }
 
-    calcCumSumPerUser(array_all) {
-        var cumSum = [];
+    function showAssignsWhereAssignHasAtleastOneIsGreaterThanOne(){
+        var year = document.getElementById('assign_year').innerHTML;
 
-        for (let index = 0; index < 12; index++) {
-            cumSum[index] = 0;
+        var r = new AssignSummrayRenderer(null,getManMonthByYear());
+        var instantaneousLiveRows =[]; 
+
+    var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
+
+    for (let i = 0; i < rows.length; i++) {
+    if(atleastOneAssignIsGreaterThanOne(rows[i])){
+        showCard(rows[i].parentElement);
+        instantaneousLiveRows.push(rows[i]);
+    }
+    else{
+        
+        hideCard(rows[i].parentElement);
+    }
+    }
+
+        var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
+        r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
+        r.inflatePopupForManMonths();
+
+    }
+
+    function atleastOneAssignIsLessThanOne(htmlDomRowListContainer){
+    
+    var lists = htmlDomRowListContainer.getElementsByTagName("li");
+
+    for (let i = 0; i < lists.length; i++) {
+        if(!isNaN(lists[i].innerText))
+        if(lists[i].innerText>0 && lists[i].innerText<1)
+            return true;
+    }
+
+    return false;
+
+    }
+
+    function showAssignsWhereAssignHasAtleastOneIsLessThanOne(){
+
+        var year = document.getElementById('assign_year').innerHTML;
+
+        var r = new AssignSummrayRenderer(null,getManMonthByYear());
+        var instantaneousLiveRows =[]; 
+
+        var rows= document.querySelectorAll("#assign_summary_table > div > div.d-flex.assign-user-sub-row._header.list-unstyled.text-center");
+
+        for (let i = 0; i < rows.length; i++) {
+        if(atleastOneAssignIsLessThanOne(rows[i])){
+            showCard(rows[i].parentElement);
+            instantaneousLiveRows.push(rows[i]);
+            
+        }
+        else{
+            hideCard(rows[i].parentElement);
+        }
         }
 
-        for (let index = 0; index < array_all.length; index++) {
-            for (let j = 1; j < 13; j++) {
-                cumSum[j - 1] += array_all[index][j];
+        var r = new AssignSummrayRenderer(null, new Array(12).fill(instantaneousLiveRows.length));
+        r.renderCumulitiveValueForAllUser(calcCumSumOnInstantaneousRows(instantaneousLiveRows));
+        r.inflatePopupForManMonths();
+
+    }
+
+    class AssignSummrayRenderer {
+
+        constructor(users , man_months) {
+            this.users = users;
+            this.cumSumAllUser = new Array(12).fill(0);
+            this.man_mon = man_months;
+
+        }
+
+        calcCumSumPerUser(array_all) {
+            var cumSum = [];
+
+            for (let index = 0; index < 12; index++) {
+                cumSum[index] = 0;
             }
-        }
-        return cumSum;
-    }
 
-
-    makeSubRowListInner(val) {
-        var list = `<li class="faded-yellow">${val}</li>`;
-
-        if (!isNaN(val)) {
-
-            if (val == 0) {
-                list = `<li></li>`;
-            } else if (val > 0) {
-                list = `<li class="faded-yellow">${val}</li>`
+            for (let index = 0; index < array_all.length; index++) {
+                for (let j = 1; j < 13; j++) {
+                    cumSum[j - 1] += array_all[index][j];
+                }
             }
-        } else {
-            list = `<li>${val}</li>`;
+            return cumSum;
         }
 
-        return list;
-    }
 
-    makeSubRow(row, subsRows) {
-        var all_lists = "";
+        makeSubRowListInner(val) {
+            var list = `<li class="faded-yellow">${val}</li>`;
 
-        // console.log(subsRows)
+            if (!isNaN(val)) {
 
-        for (var j = 0; j < 13; j++) {
-            all_lists += this.makeSubRowListInner(subsRows[row][j]);
+                if (val == 0) {
+                    list = `<li></li>`;
+                } else if (val > 0) {
+                    list = `<li class="faded-yellow">${val}</li>`
+                }
+            } else {
+                list = `<li>${val}</li>`;
+            }
+
+            return list;
         }
 
-        var subRow = ` <div class="assign-user-sub-row">
+        makeSubRow( name ,row, subsRows) {
+            var all_lists = "";
+
+            // console.log(subsRows)
+
+            for (var j = 0; j < 13; j++) {
+                all_lists += this.makeSubRowListInner(subsRows[row][j]);
+            }
+
+            var subRow = ` <div data-row="${name}" class="assign-user-sub-row">
+                                <div class="wrapper d-flex text-center">
+                                    <li class="d-flex align-items-center"> <div style="display:none;" > ${name} </div> </li>
+                                    ` + all_lists + `
+                                </div>
+                            </div>`;
+            return subRow;
+        }
+        makeSubRowList( name ,rowId, subsRows) {
+
+            var subRowsString = ``;
+
+            for (let index = 0; index < subsRows.length; index++) {
+
+                subRowsString += this.makeSubRow( name ,index, subsRows);
+
+            }
+
+            var fullRow = ` <div  class="assign-user-row" id="user-row-${rowId}">` +
+                subRowsString +
+                `</div>`;
+
+            return fullRow;
+        }
+
+        round(n) {
+        var h = (n * 100) % 10;
+        return h >= 7
+                ? n + (10 - h) * .01
+                : n;
+        }
+
+        makeSummaryRowList(val) {
+
+
+
+            //console.log(val)
+
+            
+            val=this.round(val).toFixed(2);
+
+            var list = `<li class="faded-green">エラー</li>`;
+
+            if (!isNaN(val)) {
+
+                if (val <= 0) {
+                    list = ` <li class="faded-grey">${val}</li>`;
+                } else if (val > 0 && val < 1) {
+                    list = ` <li class="faded-blue">${val}</li>`;
+                } else if (val == 1) {
+                    list = ` <li class="faded-green">${val}</li>`;
+                } else if (val > 1) {
+                    list = ` <li class="faded-face-color">${val}</li>`;
+                }
+
+            } else {
+
+                list = ` <li class=" text-medium">${val}</li>`
+            }
+
+            return list;
+
+        }
+
+        makeUserSummaryRow(name, rowId, position,  arr, subsRows) {
+
+            var all_work_weights = "";
+            var arrl = arr.length;
+
+            for (let index = 0; index < arrl; index++) {
+                all_work_weights += this.makeSummaryRowList(arr[index]);
+            }
+
+            var c = `<div  class="assign-user-tab">
+                        <div  data-position="${position}" class="d-flex assign-user-sub-row _header list-unstyled text-center" onclick="assignDisplay(${rowId})">
                             <div class="wrapper d-flex text-center">
-                                <li class="d-flex align-items-center"></li>
-                                ` + all_lists + `
+                                <li class="d-flex text-medium align-items-center">${name}</li>
+                                <li class=" text-medium">合計 </li>
+                            
+                                ` + all_work_weights + `
                             </div>
-                        </div>`;
-        return subRow;
-    }
-    makeSubRowList(rowId, subsRows) {
+                        </div>
+                        ` + this.makeSubRowList( name, rowId, subsRows) + `          
+                    </div>`;
 
-        var subRowsString = ``;
+            return c;
+        }
 
-        for (let index = 0; index < subsRows.length; index++) {
 
-            subRowsString += this.makeSubRow(index, subsRows);
+        calcCumulitiveValueForAllUser(cumSum) {
+            for (let index = 0; index < this.cumSumAllUser.length; index++) {
+                this.cumSumAllUser[index] += cumSum[index];
+            }
+        }
+
+
+        parseUserPro(pro) {
+            //console.log(pro)
+            var pro_row = [];
+            pro_row[0] = pro.projectName;
+
+            for (let i = 1; i < 13; i++) {
+                pro_row[i] = 0;
+            }
+
+            for (let index = 0; index < pro.assign.length; index++) {
+                for (let month = 1; month < 13; month++) {
+                    if (pro.assign[index].month == month) {
+                        pro_row[month] = pro.assign[index].assignValue;
+                    }
+                }
+            }
+
+
+            return pro_row;
+        }
+
+
+        calcUserProject(user, id) {
+            var name = user.userName;
+            var position = user.position;
+            var array_all = [];
+
+
+            for (let index = 0; index < user.projects.length; index++) {
+                array_all.push(this.parseUserPro(user.projects[index]));
+            }
+
+            var cumSum = this.calcCumSumPerUser(array_all);
+
+            document.getElementById("assign_summary_table").innerHTML +=
+                this.makeUserSummaryRow(name, id, position, cumSum, array_all);
+
+            this.calcCumulitiveValueForAllUser(cumSum);
+        }
+
+        inflateAllUserWithProjects() {
+            document.getElementById("assign_summary_table").innerHTML = "";
+            for (let index = 0; index < this.users.length; index++) {
+                this.calcUserProject(this.users[index], index);
+            }
+        }
+
+
+
+
+
+        checkValidNumber(num){
+            if(!isNaN(num) && num>0){
+                return true;
+            }
+            return false;
+        }
+
+        makeListOfCumulitiveSum(cumCell, index) {
+
+            var sinCellList = `<li class="yellow tooltip">${cumCell}</li>`;
+
+            if(index==0 || index==1)
+            return sinCellList;
+
+            else if (index > 1) {
+
+                if(this.man_mon[(index-2)]==0){
+                    sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
+
+                }
+                else if ( cumCell<this.man_mon[(index-2)]){
+
+                    sinCellList = `<li class="blue tooltip">${cumCell}</li>`;
+                }
+
+                else if ( cumCell==this.man_mon[(index-2)]){
+
+                    sinCellList = `<li class="green tooltip">${cumCell}</li>`;
+                }
+
+                else if ( cumCell>this.man_mon[(index-2)]){
+
+                    sinCellList = `<li class="face-color tooltip">${cumCell}</li>`;
+                }
+            //     var colorWeight = 0;
+                
+            //     if( this.checkValidNumber(cumCell)  &&  this.checkValidNumber( this.man_mon[(index-2)]) )
+            //      colorWeight =cumCell / this.man_mon[(index-2)];
+            //    // console.log(cumCell, index ,this.man_mon[(index-2)], colorWeight);
+
+
+            //     if (cumCell > 0) {
+
+            //         if (colorWeight < 0) {
+            //             sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
+            //         } else if (colorWeight > 0 && colorWeight < 1)
+            //             sinCellList = `<li class="blue tooltip">${cumCell}</li>`;
+
+            //         else if (colorWeight == 1)
+            //             sinCellList = `<li class="green tooltip">${cumCell}</li>`;
+            //         else if (colorWeight > 1)
+            //             sinCellList = `<li class="face-color tooltip">${cumCell}</li>`;
+
+            //     } else {
+
+            //         sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
+            //     }
+
+
+            } 
+
+
+            return sinCellList;
+        }
+
+
+
+        makeAllListOfCumulitiveSum(cumCells) {
+
+            var all = "";
+            for (let index = 0; index < cumCells.length; index++) {
+                all += this.makeListOfCumulitiveSum(cumCells[index], index);
+            }
+            return all;
+        }
+
+        renderCumulitiveValueForAllUser(arrCumSum) {
+
+            var cumulitive_values_div = document.getElementById("cumulitive_values");
+
+            cumulitive_values_div.innerHTML = this.makeAllListOfCumulitiveSum(arrCumSum);
 
         }
 
-        var fullRow = ` <div class="assign-user-row" id="user-row-${rowId}">` +
-            subRowsString +
-            `</div>`;
-
-        return fullRow;
-    }
-
-    round(n) {
-      var h = (n * 100) % 10;
-      return h >= 7
-             ? n + (10 - h) * .01
-             : n;
-    }
-
-    makeSummaryRowList(val) {
 
 
+        showCumulitiveValueForAllUsers() {
+            this.cumSumAllUser.unshift("");
+            this.cumSumAllUser.unshift("");
+            this.renderCumulitiveValueForAllUser(this.cumSumAllUser);
+        }
 
-        //console.log(val)
 
         
-        val=this.round(val).toFixed(2);
 
-        var list = `<li class="faded-green">エラー</li>`;
+        
+        removePopup(parent, index) {
+            document.getElementById("popup" + index).remove();;
+        }
 
-        if (!isNaN(val)) {
 
-            if (val <= 0) {
-                list = ` <li class="faded-grey">${val}</li>`;
-            } else if (val > 0 && val < 1) {
-                list = ` <li class="faded-blue">${val}</li>`;
-            } else if (val == 1) {
-                list = ` <li class="faded-green">${val}</li>`;
-            } else if (val > 1) {
-                list = ` <li class="faded-face-color">${val}</li>`;
+        createPopup(parent, index , usersPerMonth) {
+
+            var span = document.getElementById("popup" + index);
+
+            // console.log(span);
+            if (span == null)
+
+            {
+
+                span = document.createElement("span");
+                span.classList.add("tooltiptext");
+                span.id="popup" + index;
+                span.innerHTML = usersPerMonth;
+
+                parent.appendChild(span);
             }
 
-        } else {
-
-            list = ` <li class=" text-medium">${val}</li>`
         }
 
-        return list;
-
-    }
-
-    makeUserSummaryRow(name, rowId, position,  arr, subsRows) {
-
-        var all_work_weights = "";
-        var arrl = arr.length;
-
-        for (let index = 0; index < arrl; index++) {
-            all_work_weights += this.makeSummaryRowList(arr[index]);
-        }
-
-        var c = `<div class="assign-user-tab">
-                    <div data-position="${position}" class="d-flex assign-user-sub-row _header list-unstyled text-center" onclick="assignDisplay(${rowId})">
-                        <div class="wrapper d-flex text-center">
-                            <li class="d-flex text-medium align-items-center">${name}</li>
-                            <li class=" text-medium">合計 </li>
-                          
-                            ` + all_work_weights + `
-                        </div>
-                    </div>
-                    ` + this.makeSubRowList(rowId, subsRows) + `          
-                </div>`;
-
-        return c;
-    }
 
 
-    calcCumulitiveValueForAllUser(cumSum) {
-        for (let index = 0; index < this.cumSumAllUser.length; index++) {
-            this.cumSumAllUser[index] += cumSum[index];
-        }
-    }
+        inflatePopupForManMonths(){
+            var all_list = document.getElementById("cumulitive_values").getElementsByTagName("li");
+                for (let index = 2; index < all_list.length; index++) {
 
+                    var _self=this;
+                    all_list[index].onmouseover = function() {
+                        _self.createPopup(all_list[index], index - 2 , _self.man_mon[index - 2]);
+                    }
 
-    parseUserPro(pro) {
-        //console.log(pro)
-        var pro_row = [];
-        pro_row[0] = pro.projectName;
-
-        for (let i = 1; i < 13; i++) {
-            pro_row[i] = 0;
-        }
-
-        for (let index = 0; index < pro.assign.length; index++) {
-            for (let month = 1; month < 13; month++) {
-                if (pro.assign[index].month == month) {
-                    pro_row[month] = pro.assign[index].assignValue;
                 }
-            }
+        }
+
+        render() {
+
+            //the sequence is important 
+            this.inflateAllUserWithProjects();
+            this.showCumulitiveValueForAllUsers();
+            this.inflatePopupForManMonths();
+
+            let preference = document.getElementById("initial-preference");
+                adjustRowHeightByState(preference, false);
         }
 
 
-        return pro_row;
-    }
-
-
-    calcUserProject(user, id) {
-        var name = user.userName;
-        var position = user.position;
-        var array_all = [];
-
-
-        for (let index = 0; index < user.projects.length; index++) {
-            array_all.push(this.parseUserPro(user.projects[index]));
-        }
-
-        var cumSum = this.calcCumSumPerUser(array_all);
-
-        document.getElementById("assign_summary_table").innerHTML +=
-            this.makeUserSummaryRow(name, id, position, cumSum, array_all);
-
-        this.calcCumulitiveValueForAllUser(cumSum);
-    }
-
-    inflateAllUserWithProjects() {
-        document.getElementById("assign_summary_table").innerHTML = "";
-        for (let index = 0; index < this.users.length; index++) {
-            this.calcUserProject(this.users[index], index);
-        }
     }
 
 
 
 
 
-    checkValidNumber(num){
-        if(!isNaN(num) && num>0){
-            return true;
-        }
-        return false;
-    }
 
-    makeListOfCumulitiveSum(cumCell, index) {
+    function getManMonthByYear(aYear) {
 
-        var sinCellList = `<li class="yellow tooltip">${cumCell}</li>`;
+        var active_users_per_month= [0,0,0,0,0,0,
+        0,0,0,0,0,0];
 
-        if(index==0 || index==1)
-         return sinCellList;
+        $.ajax({
+            type: "post",
+            async:false,
+            url: "/API/activeUserCount",
+            data: {
+                year: aYear,
+                _token: $('input[name=_token]').val()
+            },
+            cache: false,
+            success: function(response) {
+                if (response["resultStatus"]["isSuccess"]) {
 
-        else if (index > 1) {
 
-            if(this.man_mon[(index-2)]==0){
-                sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
+                active_users_per_month= response["resultData"]["userCount"];
 
+                } else
+                    handleAJAXResponse(response);
+            },
+            error: function(err) {
+                handleAJAXError(err);
             }
-            else if ( cumCell<this.man_mon[(index-2)]){
+        });
 
-                sinCellList = `<li class="blue tooltip">${cumCell}</li>`;
+        return active_users_per_month;
+    }
+
+
+    function getUserData(aYear) {
+        $.ajax({
+            type: "post",
+            url: "/API/assignSummary",
+            data: {
+                year: aYear,
+                _token: $('input[name=_token]').val()
+            },
+            cache: false,
+            success: function(response) {
+                if (response["resultStatus"]["isSuccess"]) {
+
+                    if(response["resultData"]["user"].length>0){
+
+                        var x = new AssignSummrayRenderer(response["resultData"]["user"] ,
+                        getManMonthByYear(aYear)
+                        );
+                        x.render();
+
+
+                    }
+
+                    else {
+
+                        showEmptyListInfromation("#assign_summary_table");
+                    }
+
+                    
+
+                } else
+                    handleAJAXResponse(response);
+            },
+            error: function(err) {
+                handleAJAXError(err);
             }
-
-            else if ( cumCell==this.man_mon[(index-2)]){
-
-                sinCellList = `<li class="green tooltip">${cumCell}</li>`;
-            }
-
-            else if ( cumCell>this.man_mon[(index-2)]){
-
-                sinCellList = `<li class="face-color tooltip">${cumCell}</li>`;
-            }
-        //     var colorWeight = 0;
-            
-        //     if( this.checkValidNumber(cumCell)  &&  this.checkValidNumber( this.man_mon[(index-2)]) )
-        //      colorWeight =cumCell / this.man_mon[(index-2)];
-        //    // console.log(cumCell, index ,this.man_mon[(index-2)], colorWeight);
-
-
-        //     if (cumCell > 0) {
-
-        //         if (colorWeight < 0) {
-        //             sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
-        //         } else if (colorWeight > 0 && colorWeight < 1)
-        //             sinCellList = `<li class="blue tooltip">${cumCell}</li>`;
-
-        //         else if (colorWeight == 1)
-        //             sinCellList = `<li class="green tooltip">${cumCell}</li>`;
-        //         else if (colorWeight > 1)
-        //             sinCellList = `<li class="face-color tooltip">${cumCell}</li>`;
-
-        //     } else {
-
-        //         sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
-        //     }
-
-
-        } 
-
-
-        return sinCellList;
+        });
     }
 
 
 
-    makeAllListOfCumulitiveSum(cumCells) {
+    function addAssignCategoryListeners(){
 
-        var all = "";
-        for (let index = 0; index < cumCells.length; index++) {
-            all += this.makeListOfCumulitiveSum(cumCells[index], index);
+        var categories = document.querySelectorAll("body > div.page-container > div.d-flex > div > div > div:nth-child(1) > ul:nth-child(2) > a ");
+        //console.log(categories);
+        if(categories.length==3){
+                categories[0].addEventListener("click",function eventsForCategories(e){
+
+                        e.preventDefault();
+                        showAssignsWhereAssignHasAtleastOneZero();
+                        
+
+                    } );
+
+
+                    categories[1].addEventListener("click",function eventsForCategories(e){
+
+                                e.preventDefault();
+                                showAssignsWhereAssignHasAtleastOneIsGreaterThanOne();
+                                
+
+                    } );
+
+                    categories[2].addEventListener("click",function eventsForCategories(e){
+
+                                e.preventDefault();
+                                showAssignsWhereAssignHasAtleastOneIsLessThanOne();
+
+                    } );
+
+        
         }
-        return all;
     }
 
-    renderCumulitiveValueForAllUser(arrCumSum) {
+    function addAssignCategoryListenersByPosition(){
+        var posBtns = document.querySelectorAll("body > div.page-container > div.d-flex > div > div > div:nth-child(1) > ul:nth-child(1) > a");
+        
+        var options = ["ALL" , "PM" , "PL" , "SE" , "PG"]
 
-        var cumulitive_values_div = document.getElementById("cumulitive_values");
-
-        cumulitive_values_div.innerHTML = this.makeAllListOfCumulitiveSum(arrCumSum);
+        for (let i = 0; i < posBtns.length; i++) {
+            posBtns[i].addEventListener("click",function eventsForCategories(e){
+                    e.preventDefault();
+                    showAssignedUserByPosition(options[i]);
+                } );
+            }
 
     }
 
+    function onYearChanged(year) {
 
 
-    showCumulitiveValueForAllUsers() {
-        this.cumSumAllUser.unshift("");
-        this.cumSumAllUser.unshift("");
-        this.renderCumulitiveValueForAllUser(this.cumSumAllUser);
+
+        getUserData(year);
+
+
     }
 
+    var year = document.getElementById('assign_year').innerHTML;
+    onYearChanged(year);
+    addAssignCategoryListeners();
+    addAssignCategoryListenersByPosition();
 
+</script>
+
+
+<div class="modal" id="client-search-modal" >
+
+    <div class="modal-content" >
+        <span onclick="closeSearchModal('client-search-modal')" class="close">&times;</span>
+        <span >Search Modal</span>
+        <div>
+             <form id="myForm">
+
+                <table>
+
+                     <tbody  style=" width: 100%;">
+                        <!-- <tr>
+                            <td>
+                               全て:
+                            </td>
+
+                             <td>
+                                 <input type="text" class="modal-inout" id="search" name="search">
+                            </td>
+                        </tr> -->
+                        <tr>
+                          <td>    
+                          名前:
+                          </td>
+                          <td>  
+                             <input class="modal-inout" id="companyName" data-column-number="0" type="text">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td> 
+                          プロジェクト: 
+                          </td>
+                          <td>  
+                             <input class="modal-inout" id="duty" data-column-number="1" type="text">
+                         </td>
+                        </tr>
+                        
+
+                        <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <button id="resetButton">Reset</button>
+                             <button id="searchButton">Search</button>
+                        </td>
+                        </tr>
+
+                  </tbody>
+          </table>
+
+        <form>
+    
+    </div>
+    </div>
+
+
+   
+</div>
+<script src="/js/generic-search-sort.js"></script>
+
+<script>
+"use strict";
+
+var search_modal_init = document.getElementById("search-modal-init");
+
+var cloned_search=search_modal_init.cloneNode(true);
+search_modal_init.replaceWith(cloned_search);
+
+cloned_search.addEventListener("click", function (){
+
+    event.preventDefault();
+   // var modal = document.getElementById("client-search-modal");
+    //modal.style.display="block";
+    var sm= document.getElementById('client-search-modal');
+    sm.style.display="block";
+    //openModal();
+});
+
+
+var resetButton = document.getElementById("resetButton");
+resetButton.addEventListener("click", function (){
+
+
+    event.preventDefault();
+    var form = document.getElementById("myForm");
+    form.reset();
+
+    loadAndHide();
+
+    var sm= document.getElementById('client-search-modal');
+    sm.style.display="none";
+
+    setTimeout(() => {
+        showAll();   
+    }, 500);
     
 
+});
+
+
+var searchButton = document.getElementById("searchButton");
+searchButton.addEventListener("click", function (){
+
+
+    event.preventDefault();
+    loadAndHide();
+   
+
+});
+
+function loadAndHide(){
+    var modal = document.getElementById("client-search-modal");
+
+
+
+    var arrQuery =[
+            {
+                columNumber: 0,
+                query: document.getElementById("companyName").value,
+                type: "string"
+            },
+
+            {
+                columNumber: 1,
+                query:  document.getElementById("duty").value,
+                type: "string"
+            },
+
+            // {
+            //     columNumber: 3,
+
+            //     range1: document.getElementById("rev1").value,
+            //     range2:  document.getElementById("rev2").value,
+            //     type: "number"
+
+            // },
+
+
+    ];
+
+
+    console.log(arrQuery);
+
+    var gss =new GenericSearchSort();
+
+    gss.checkSearchSortDefinition();
+    gss.addSortListenerWithOutSort();
+    //gss.addSearchListener();
+
+
+    hideAll();
+   
+
+    setTimeout(() => {
+
+        gss.searchInColumnWithParent(arrQuery);
+    }, 500);
+
+
+
+
+   
+
+
+    var sm= document.getElementById('client-search-modal');
+    sm.style.display="none";
+
+
+}
+
+
+function hideAll(){
+    var all_users= document.getElementsByClassName("assign-user-tab");
+
+for (let i = 0; i < all_users.length; i++) {
+   
+    hideCard(all_users[i]);
     
-     removePopup(parent, index) {
-        document.getElementById("popup" + index).remove();;
-    }
-
-
-     createPopup(parent, index , usersPerMonth) {
-
-        var span = document.getElementById("popup" + index);
-
-        // console.log(span);
-        if (span == null)
-
-        {
-
-            span = document.createElement("span");
-            span.classList.add("tooltiptext");
-            span.id="popup" + index;
-            span.innerHTML = usersPerMonth;
-
-            parent.appendChild(span);
-        }
-
-    }
-
-
-
-    inflatePopupForManMonths(){
-        var all_list = document.getElementById("cumulitive_values").getElementsByTagName("li");
-            for (let index = 2; index < all_list.length; index++) {
-
-                var _self=this;
-                all_list[index].onmouseover = function() {
-                    _self.createPopup(all_list[index], index - 2 , _self.man_mon[index - 2]);
-                }
-
-            }
-    }
-
-    render() {
-
-        //the sequence is important 
-        this.inflateAllUserWithProjects();
-        this.showCumulitiveValueForAllUsers();
-        this.inflatePopupForManMonths();
-
-        let preference = document.getElementById("initial-preference");
-            adjustRowHeightByState(preference, false);
-    }
-
-
+}
 }
 
+function showAll(){
+    var all_users= document.getElementsByClassName("assign-user-tab");
 
-
-
-
-
-function getManMonthByYear(aYear) {
-
-    var active_users_per_month= [0,0,0,0,0,0,
-    0,0,0,0,0,0];
-
-    $.ajax({
-        type: "post",
-        async:false,
-        url: "/API/activeUserCount",
-        data: {
-            year: aYear,
-            _token: $('input[name=_token]').val()
-        },
-        cache: false,
-        success: function(response) {
-            if (response["resultStatus"]["isSuccess"]) {
-
-
-             active_users_per_month= response["resultData"]["userCount"];
-
-            } else
-                handleAJAXResponse(response);
-        },
-        error: function(err) {
-            handleAJAXError(err);
-        }
-    });
-
-    return active_users_per_month;
-}
-
-
-function getUserData(aYear) {
-    $.ajax({
-        type: "post",
-        url: "/API/assignSummary",
-        data: {
-            year: aYear,
-            _token: $('input[name=_token]').val()
-        },
-        cache: false,
-        success: function(response) {
-            if (response["resultStatus"]["isSuccess"]) {
-
-                if(response["resultData"]["user"].length>0){
-
-                    var x = new AssignSummrayRenderer(response["resultData"]["user"] ,
-                    getManMonthByYear(aYear)
-                    );
-                    x.render();
-
-
-                }
-
-                else {
-
-                    showEmptyListInfromation("#assign_summary_table");
-                }
-
-                
-
-            } else
-                handleAJAXResponse(response);
-        },
-        error: function(err) {
-            handleAJAXError(err);
-        }
-    });
-}
-
-
-
-function addAssignCategoryListeners(){
-
-    var categories = document.querySelectorAll("body > div.page-container > div.d-flex > div > div > div:nth-child(1) > ul:nth-child(2) > a ");
-    //console.log(categories);
-    if(categories.length==3){
-            categories[0].addEventListener("click",function eventsForCategories(e){
-
-                       e.preventDefault();
-                       showAssignsWhereAssignHasAtleastOneZero();
-                       
-
-                } );
-
-
-                categories[1].addEventListener("click",function eventsForCategories(e){
-
-                            e.preventDefault();
-                            showAssignsWhereAssignHasAtleastOneIsGreaterThanOne();
-                            
-
-                } );
-
-                categories[2].addEventListener("click",function eventsForCategories(e){
-
-                            e.preventDefault();
-                            showAssignsWhereAssignHasAtleastOneIsLessThanOne();
-
-                } );
-
-       
-    }
-}
-
-function addAssignCategoryListenersByPosition(){
-    var posBtns = document.querySelectorAll("body > div.page-container > div.d-flex > div > div > div:nth-child(1) > ul:nth-child(1) > a");
+for (let i = 0; i < all_users.length; i++) {
+   
+    showCard(all_users[i]);
     
-    var options = ["ALL" , "PM" , "PL" , "SE" , "PG"]
-
-    for (let i = 0; i < posBtns.length; i++) {
-        posBtns[i].addEventListener("click",function eventsForCategories(e){
-                e.preventDefault();
-                showAssignedUserByPosition(options[i]);
-            } );
-        }
-
+}
 }
 
-function onYearChanged(year) {
+function closeSearchModal(domId){
 
-
-
-    getUserData(year);
-
+    var sm= document.getElementById(domId);
+    sm.style.display="none";
 
 }
-
-var year = document.getElementById('assign_year').innerHTML;
-onYearChanged(year);
-addAssignCategoryListeners();
-addAssignCategoryListenersByPosition();
-
 </script>
 
 @include("footer")
