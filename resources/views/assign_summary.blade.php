@@ -38,8 +38,7 @@
                 </ul>
                 <ul class="userlist-nav center list-unstyled" style="margin-left: 30px;">
                     <a href="">
-                        <li> 無し
-                        </li>
+                        <li> 無し</li>
                     </a>
                     <a href="">
                         <li> 限界</li>
@@ -52,6 +51,9 @@
                 <ul class="userlist-nav center list-unstyled" style="float: right; ">
                     <a id="toogler" href="" >
                         <li class="fa fa-arrows-alt"> </li>
+                    </a>
+                    <a>
+                        <li id="search-modal-init"><span class="fa fa-search fa-lg"> </span> </li>
                     </a>
                 </ul>
 
@@ -96,8 +98,7 @@
                 </div>
 
 
-                {{-- ///====ASSIGN-SUMMARY-TABLE DETAILS====///
-            --}}
+                {{-- ///====ASSIGN-SUMMARY-TABLE DETAILS====///--}}
                 <div class="d-flex assign-summary table-header _assign list-unstyled">
                     <div id="cumulitive_values" class="wrapper text-medium d-flex text-center">
                         <li class="yellow">2.0</li>
@@ -295,43 +296,6 @@
                         </div>
                     </div>
                 </div>
-
-
-                {{-- <div class="assign-user-tab">
-                    <div class="assign-user-sub-row _header">
-
-                    </div>
-                    <div class="assign-user-sub-row">
-
-                    </div>
-                    <div class="assign-user-sub-row">
-
-                    </div>
-                    
-                </div>
-
-                <div class="assign-user-tab">
-                    <div class="assign-user-sub-row _header">
-
-                    </div>
-                    <div class="assign-user-sub-row">
-
-                    </div>
-                    <div class="assign-user-sub-row">
-
-                    </div>
-                </div>
-                <div class="assign-user-tab">
-                    <div class="assign-user-sub-row _header">
-
-                    </div>
-                    <div class="assign-user-sub-row">
-
-                    </div>
-                    <div class="assign-user-sub-row">
-
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>
