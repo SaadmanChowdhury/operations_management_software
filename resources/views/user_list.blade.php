@@ -16,7 +16,7 @@
     <div class="content-width">
 
         {{-- ///====FILTER NAVIGATION====/// --}}
-        <div style="min-width: 1200px">
+        <div class="responsive-scroll">
             <ul class="userlist-nav center list-unstyled">
                 <a href="">
                     <li> 全て</li>
@@ -36,11 +36,11 @@
             </ul>
 
             <ul class="userlist-nav center list-unstyled" style="float: right;">
-                <a id="toogler" href="">
+                <a href="" id="toogler" onclick="adjustRowHeight()" class="list-icon">
                     <li class="fa fa-list"> </li>
                 </a>
                 @if ($loggedUser->user_authority == 'システム管理者')
-                <a href="" onclick="userRegisterModalHandler()">
+                <a href="" onclick="userRegisterModalHandler()" >
                     <li> + 登録</li>
                 </a>
                 @endif

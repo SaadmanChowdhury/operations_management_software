@@ -17,9 +17,9 @@
 <div class="d-flex">
 
     <div class="row row-content">
-        <div class="content-width">
+        <div class="project-scrollx" style="">
         
-        <div style="min-width: 1200px">
+        <div class="project-responsive-scroll">
             <ul class="userlist-nav center list-unstyled">
                 <a href="">
                     <li>全て</li>
@@ -73,8 +73,8 @@
                 </a>
             </ul>
             <ul class="userlist-nav center list-unstyled" style="float: right;">
-                <a id="toogler" href="" >
-                    <li class="fa fa-list"> </li>
+                <a id="toogler" href="" onclick="adjustRowHeight()" class="list-icon">
+                    <li class="fa fa-list " > </li>
                 </a>
 
                 @if ($loggedInUser->user_authority == 'システム管理者')
@@ -89,7 +89,7 @@
 
             {{-- ///====PROJECT-TABLE HEADER====/// --}}
             <div class="project">
-                <div id="table-nav" class="primary">
+                <div id="table-nav" class="primary" style="min-width:800px">
                     <div class="flex-col">
                         <ul class="display list-unstyled">
                             <li> 案件名</li>
@@ -112,7 +112,7 @@
 
             {{-- ///====PROJECT-TABLE DETAILS====/// --}}
 
-            <div id="accordian" class="project table-body">
+            <div id="accordian" class="project table-body"    style="min-width:800px">
                 <div class="mainLoader" id="main-loader"></div>
 
 

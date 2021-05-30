@@ -17,8 +17,8 @@
 <div class="d-flex">
 
     <div class="row row-content">
-        <div class="content-width">
-            <div style="min-width: 1200px">
+        <div class="assign-summary-scroll">
+            <div class="assignSummary-responsive-scroll">
                 <ul class="userlist-nav center list-unstyled">
                     <a href="">
                         <li> 全て</li>
@@ -62,11 +62,11 @@
 
             {{-- ///====ASSIGN-SUMMARY-TABLE HEADER====///
             --}}
-            <div style="min-width: 1200px">
+            <div style="">
                 <div id="table-nav" class=" _assign mild-yellow text-medium">
 
                     <div class="assign-header-sub-row mild-yellow ">
-                        <div class="wrapper text-center text-lg d-flex text-medium" style="align-items: center">
+                        <div class="text-center text-lg d-flex text-medium" style="align-items: center">
                             <script>
                             $assign_year = 2020;
                             </script>
