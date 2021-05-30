@@ -2,6 +2,8 @@
 
 namespace App\Http\Utilities;
 
+use Illuminate\Support\Facades\Response;
+
 class JSONHandler
 {
     public static function emptyJSONPackage()
@@ -41,5 +43,18 @@ class JSONHandler
         $jsonPackage["resultData"] = $data;
 
         return $jsonPackage;
+    }
+
+    public static function customErrorJSONPackage($errorMessage)
+    {
+        $array = [];
+        $errorMessage = array_push($array, $errorMessage);
+
+        $var = [
+            'message' => 'The given data was invalid.',
+            'errors' => ['default' => $array],
+        ];
+
+        return Response::json($var, 422);
     }
 }

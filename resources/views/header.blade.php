@@ -36,9 +36,72 @@
     fetchUserList();
     fetchClientList();
     </script>
-    <style>
-    #snackbar {
-  visibility: hidden;
+
+
+<style>
+.snackbar {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #0b1841;
+      color: #fff;
+      text-align: left;
+      border-radius: 10px;
+      padding: 16px;
+      position: fixed;
+      z-index: 9999999;
+      right: 1rem;
+      top: 1rem;
+      font-size: 17px;
+}
+
+.snackbar:hover {
+
+      transform: translateY(25%);
+      transition: 1s ease all;
+      visibility: visible;
+
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #0b1841;
+      color: #fff;
+      text-align: left;
+      border-radius: 10px;
+      padding: 16px;
+      position: fixed;
+      z-index: 9999999;
+      right: 1rem;
+      top: 1rem;
+      font-size: 17px;
+      opacity: 0.9;
+      cursor: pointer;
+}
+
+@keyframes appear {
+  from {
+    display:none;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    display:block;
+  }
+}
+
+
+@keyframes dissappear {
+  from {
+    display:block;
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    display:none;
+  }
+}
+
+
+.snackbar-show {
   min-width: 250px;
   margin-left: -125px;
   background-color: #0b1841;
@@ -51,38 +114,49 @@
   right: 1rem;
   top: 1rem;
   font-size: 17px;
-}
-
-#snackbar.show {
+  animation-name: appear;
+  animation-duration: 1s;
+  transform: translateY(25%);
+  transition: 0.5s ease all;
   visibility: visible;
   
 }
 
-#snackbar.hide {
-  visibility: hidden;
+.snackbar-show:hover{
+  cursor: pointer;
+  background-color: #000000;
+  opacity: 0.75; 
+}
+
+.snackbar-hide {
+
+
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #0b1841;
+  color: #fff;
+  text-align: left;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 9999999;
+  right: 1rem;
+  top: 1rem;
+  font-size: 17px;
+
+  transform: translateY(0%);
+  transition: 1s ease all;
+
+  animation-name: dissappear;
+  animation-duration: 1s;
+  transform: translateY(0%);
+
+  visibility:hidden;
+  
   
 }
 
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;} 
-  to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;} 
-  to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
-    </style>
+</style>
 </head>
 
 <body>
@@ -95,8 +169,6 @@
     <input type="hidden" id="CSRF-TOKEN" value="{{ csrf_token() }}">
     <input type="hidden" id="logged-in-id" value="{{ $user->user_id }}">
     <input type="hidden" id="user-authority" value="{{ $user->user_authority }}">
-    <input type="hidden" id="page-name" value="user_list">
-    <input type="hidden" id="initial-preference" value="{{ $initialPreference }}">
     {{--
 
     <body style="opacity: 0;" onload="showBody()"> --}}
@@ -127,4 +199,4 @@
     <div id="background-shade"></div>
     <div id="background-shade-for-design-anomaly" class="bg-shade"></div>
     <div class="page-container">
-    <div id="snackbar">Some text some message..</div>
+    <div id="snackbar" class="snackbar-hide" onlclik="hideSnackBar(this)">Some text some message..</div>

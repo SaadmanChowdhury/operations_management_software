@@ -88,6 +88,10 @@ class ProjectService
         $projectModel  = new Project;
         // getting the project data
         $project = $projectModel->readProject($projectID);
+        // get the project ID
+        $projectId = ($project->projectID);
+        // get the project profit
+        $project->profit = $projectModel->getProjectProfit($projectId);
 
         $loggedUser = auth()->user();
         //if admin or manager
@@ -118,9 +122,9 @@ class ProjectService
             }
 
             // creating a project
-            $projectModel->createProject($validatedData);
+            $data = $projectModel->createProject($validatedData);
 
-            return JSONHandler::emptySuccessfulJSONPackage();
+            return $data;
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
@@ -143,21 +147,20 @@ class ProjectService
         $salesTotal = $validatedData['sales_total'];
         $transferredAmount = $validatedData['transferred_amount'];
 
-        // the monitory values cannot be negative and
-        // sales_total and transferred_amount cannot be greater than budget
-        if ($salesTotal != null) {
-            if (intval($salesTotal) < 0) {
-                return 'salesTotal cannot be negative';
-            } elseif (intval($salesTotal) > intval($budget)) {
-                return 'salesTotal cannot be greater than budget';
-            }
+        // the monitory values cannot be negative
+        if (intval($budget) < 0) {
+            return 'Budget cannot be negative';
         }
-        if ($transferredAmount != null) {
-            if (intval($transferredAmount) < 0) {
-                return 'transferredAmount cannot be negative';
-            } elseif (intval($transferredAmount) > intval($budget)) {
-                return 'transferredAmount cannot be greater than budget';
-            }
+        if (intval($salesTotal) < 0) {
+            return 'salesTotal cannot be negative';
+        }
+        if (intval($transferredAmount) < 0) {
+            return 'transferredAmount cannot be negative';
+        }
+
+        // transferredAmount cannot be greater than salesTotal
+        if (intval($transferredAmount) > intval($salesTotal)) {
+            return 'Transferred Amount cannot be greater than Sales Total';
         }
         return true;
     }
@@ -165,6 +168,7 @@ class ProjectService
     public function upsertProjectDetails($request, $projectID)
     {
         $projectModel  = new Project;
+        $assignModel  = new Assign();
 
         $validatedData = $request->validated();
         $loggedUser = auth()->user();
@@ -184,8 +188,25 @@ class ProjectService
 
             // has some logical error
             if ($result !== true) {
-                return JSONHandler::errorJSONPackage($result);
+                return $result;
             }
+
+            // need to hard delete any assign which are outside the new inspect/order date range
+            // delete all the assign values before the order date if inspection date is null
+
+            $orderDate = $validatedData['order_month'];
+            $orderYear = Carbon::parse($orderDate)->format('Y');
+            $orderMonth = Carbon::parse($orderDate)->format('m');
+
+            $inspectionMonth = $validatedData['inspection_month'];
+            if ($inspectionMonth != null) {
+                $inspectionYear = Carbon::parse($inspectionMonth)->format('Y');
+                $inspectionMonth = Carbon::parse($inspectionMonth)->format('m');
+            } else {
+                $inspectionYear = $inspectionMonth =  null;
+            }
+
+            $assignModel->deleteAllAssignValuesOutsideProjectTimeline($orderYear, $orderMonth, $inspectionYear, $inspectionMonth, $projectID);
 
             return $projectModel->upsertProjectDetails($validatedData, $projectID);
         }
@@ -349,27 +370,6 @@ class ProjectService
         return $formattedData;
     }
 
-    public function getUpsertAssignData()
-    {
-        return [
-            0 => [
-                'assignID' => 1,
-                'projectID' => 1,
-                'memberID' => 2,
-                'year' => 2,
-                'month' => 2,
-                'value' => 2,
-            ],
-            1 => [
-                'assignID' => 89,
-                'projectID' => 1,
-                'memberID' => 1,
-                'year' => 1,
-                'month' => 1,
-                'value' => 1,
-            ],
-        ];
-    }
 
     public function deleteProject($id)
     {

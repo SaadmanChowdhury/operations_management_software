@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Utilities\JSONHandler;
 
+
 class ProjectController extends Controller
 {
 
@@ -94,8 +95,8 @@ class ProjectController extends Controller
         $loggedUser = auth()->user();
 
         if ($loggedUser->user_authority == 'システム管理者') {
-            $this->projectService->createProject($request);
-            return JSONHandler::emptySuccessfulJSONPackage();
+            $data = $this->projectService->createProject($request);
+            return JSONHandler::packagedJSONData($data);
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
@@ -124,9 +125,14 @@ class ProjectController extends Controller
 
         $projectID = $request->projectID;
 
-        $this->projectService->upsertProjectDetails($request, $projectID);
+        $data = $this->projectService->upsertProjectDetails($request, $projectID);
 
-        return JSONHandler::emptySuccessfulJSONPackage();
+        if (gettype($data) == "string") {
+
+            return JSONHandler::customErrorJSONPackage($data);
+        }
+
+        return JSONHandler::packagedJSONData($data);
     }
 
     public function deleteProject(Request $request)

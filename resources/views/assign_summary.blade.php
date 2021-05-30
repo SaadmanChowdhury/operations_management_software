@@ -50,7 +50,7 @@
                 </ul>
 
                 <ul class="userlist-nav center list-unstyled" style="float: right; ">
-                    <a href="" onclick="alert('Adjust font size');">
+                    <a id="toogler" href="" >
                         <li class="fa fa-arrows-alt"> </li>
                     </a>
                 </ul>
@@ -954,6 +954,9 @@ class AssignSummrayRenderer {
         this.inflateAllUserWithProjects();
         this.showCumulitiveValueForAllUsers();
         this.inflatePopupForManMonths();
+
+        let preference = document.getElementById("initial-preference");
+            adjustRowHeightByState(preference, false);
     }
 
 
@@ -1008,10 +1011,20 @@ function getUserData(aYear) {
         success: function(response) {
             if (response["resultStatus"]["isSuccess"]) {
 
-                var x = new AssignSummrayRenderer(response["resultData"]["user"] ,
-                getManMonthByYear(aYear)
-                );
-                x.render();
+                if(response["resultData"]["user"].length>0){
+
+                    var x = new AssignSummrayRenderer(response["resultData"]["user"] ,
+                    getManMonthByYear(aYear)
+                    );
+                    x.render();
+
+
+                }
+
+                else {
+
+                    showEmptyListInfromation("#assign_summary_table");
+                }
 
                 
 
