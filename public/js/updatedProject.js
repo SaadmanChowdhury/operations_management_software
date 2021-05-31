@@ -1134,3 +1134,61 @@ function filterProject(e) {
 //                  ['member',18.0,1,1,1],
 //                  ['member',18.0,1,1,1]
 //                 ];
+
+var projectList=[{
+    projectID:1,
+    projectCode: "PIVOT123",
+    projectName:"PIVOT FENRI",
+    clientID:1,
+    projectLeaderID:3,
+    orderStatus: 0,
+    businessSituation:1,
+    developmentStage:2,
+    orderMonth:"2012-12-12",
+    inspectionMonth:"2021-1-23",
+    isFavorite:true,
+    isActive:true,
+    salesTotal:123459,
+    salesDepartment:"Marketing",
+    costOfSales:12345,
+    transferredAmount:12344,
+    budget:23445,
+    grossProfit:20344,
+    profitPercentage:20,
+    remarks:"good good",
+    latestEstimateID:1,
+    latestEstimateCode:"kjkjkj123",
+    latestEstimateStatus:2,
+    latestEstimateCost:122345
+
+},
+{
+    projectID:2,
+    projectCode: "PIVOT123",
+    projectName:"PIVOT FENRI",
+    clientID:1,
+    projectLeaderID:3,
+    orderStatus: 0,
+    businessSituation:1,
+    developmentStage:2,
+    orderMonth:"2012-12-12",
+    inspectionMonth:"2021-1-23",
+    isFavorite:true,
+    isActive:true,
+    salesTotal:123459,
+    salesDepartment:"Marketing",
+    costOfSales:12345,
+    transferredAmount:12344,
+    budget:23445,
+    grossProfit:20344,
+    profitPercentage:20,
+    remarks:"good good",
+    latestEstimateID:1,
+    latestEstimateCode:"kjkjkj123",
+    latestEstimateStatus:2,
+    latestEstimateCost:122345
+    
+}
+];
+
+console.log(projectList[1].latestEstimateCode);

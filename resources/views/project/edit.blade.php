@@ -303,20 +303,9 @@ function showMoreEstimation(compositeEstimate){
 
                                 <div class="_third">
                                     <div><label for="estimateStatus">Estimate Status</label></div>
+                                    <div><input class="modal_input" type="text" name="estimateStatus" value=${compositeEstimate[index].estimateStatus}></div>
                                     
-                                    <div class="custom-select">
-                                        <select class="modal_input" id="project_edit_estimateStatus">`;
-                                            @foreach (config('constants.Estimate_status_id') as $stage => $value)
-                                                @if ($value==1)
-                                                    estimateSectionHTML+=`<option selected>{{ $stage }}</option>`;
-                                                @else
-                                                    estimateSectionHTML+=`<option>{{ $stage }}</option>`;
-                                                @endif
-                                             
-                                            @endforeach
-                                           
-                                        estimateSectionHTML+=`</select>
-                                    </div>
+                                    
                                 </div>
 
                                 <div class="_third">
@@ -349,20 +338,7 @@ function showLessEstimation(compositeEstimate){
 
                                     <div class="_third">
                                         <div><label for="estimateStatus">Estimate Status</label></div>
-                                        <div class="custom-select">
-                                            <select class="modal_input" id="project_edit_estimateStatus">`;
-                                                @foreach (config('constants.Estimate_status_id') as $stage => $value)
-                                                    @if ($value==1)
-                                                        estimateSectionHTML+=`<option selected>{{ $stage }}</option>`;
-                                                    @else
-                                                        estimateSectionHTML+=`<option>{{ $stage }}</option>`;
-                                                    @endif
-                                                
-                                                @endforeach
-                                            
-                                            estimateSectionHTML+=`</select>
-                                        </div>
-                                    </div>
+                                        <div><input class="modal_input" type="text" name="estimateStatus" value=${compositeEstimate[index].estimateStatus}></div>                                    </div>
 
                                     <div class="_third">
                                         <div><label for="estimateCost">Estimate Cost</label></div>
@@ -373,23 +349,23 @@ function showLessEstimation(compositeEstimate){
                 else{
                     estimateSectionHTML+=`<div class="row center">
                                 
-                                <input type="hidden" name="estimateID" id="project_edit_estimateID" value="">
+                                <input type="hidden" name="estimateID" id="project_edit_estimateID" value=${compositeEstimate[index].estimateID}>
 
                                 <div class="_third">
                                     
-                                    <div><input class="modal_input" type="hidden" id="project_edit_estimateCode" name="estimateCode">
+                                    <div><input class="modal_input" type="hidden" id="project_edit_estimateCode" name="estimateCode" value="${compositeEstimate[index].estimateCode}">
                                     </div>
                                 </div>
 
                                 <div class="_third">
                                     
                                     <div><input class="modal_input" type="hidden" id="project_edit_estimateStatus"
-                                            name="estimateStatus"></div>
+                                            name="estimateStatus" value=${compositeEstimate[index].estimateStatus}></div>
                                 </div>
 
                                 <div class="_third">
                                     
-                                    <div><input class="modal_input" type="hidden" id="project_edit_estimateCost" name="estimateCost"></div>
+                                    <div><input class="modal_input" type="hidden" id="project_edit_estimateCost" name="estimateCost" value=${compositeEstimate[index].estimateCost}></div>
                                 </div>
                             </div>`;
                                 
@@ -448,8 +424,14 @@ function estimateFormatting(array_Estimate){
             var arrayValue=array_Estimate[index].split('=');
             
             if(j==0){
-                var arrayValueTobePushed=parseInt(arrayValue[1]);
-                smallArr.estimateID=arrayValueTobePushed;
+                if(arrayValue[1]==""){
+
+                }
+                else{
+                    var arrayValueTobePushed=parseInt(arrayValue[1]);
+                    smallArr.estimateID=arrayValueTobePushed;
+
+                }                
                 index++;
 
             }
