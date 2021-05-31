@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AssignController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ActiveStatusController;
+use App\Services\EmploymentSalaryService;
 use Illuminate\Support\Facades\Auth;
 
 /*
