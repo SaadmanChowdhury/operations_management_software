@@ -101,11 +101,20 @@ function convertToSearchableDropDown(id, type) {
     let options = "";
     currentVal = $(dom).val();
 
-    if (type == "USER") {
+    if (type == "USER" && USER_LIST.length > 0) {
         options = userSelectGenerator();
     }
-    else if (type == "CLIENT") {
+    else if (type == "CLIENT" && CLIENT_LIST > 0) {
         options = clientSelectGenerator();
+    }
+
+    else {
+
+        setTimeout(() => {
+            convertToSearchableDropDown(id, type);
+        }, 50);
+
+        return;
     }
 
     $(dom).replaceWith(`<select id="${id}">${options}</select>`);
