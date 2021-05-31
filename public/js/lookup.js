@@ -104,7 +104,7 @@ function convertToSearchableDropDown(id, type) {
     if (type == "USER" && USER_LIST.length > 0) {
         options = userSelectGenerator();
     }
-    else if (type == "CLIENT" && CLIENT_LIST > 0) {
+    else if (type == "CLIENT" && CLIENT_LIST.length > 0) {
         options = clientSelectGenerator();
     }
 
