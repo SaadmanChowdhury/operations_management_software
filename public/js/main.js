@@ -311,15 +311,21 @@ function dateDifference(endDate, startDate) {
         diffYear = ""
     }
     else {
-        diffYear = Math.floor(diffYear) + "年"
+        diffYear = Math.abs(Math.floor(diffYear)) + "年"
     }
 
     if (Math.floor(monthDiff) == 0) {
-        monthDiff = "";
+        if (Math.floor(diffYear) == 0) {
+            monthDiff = Math.abs(Math.floor(monthDiff)) + "月"
+        }
+        else {
+            monthDiff = "";
+        }
     }
     else {
-        monthDiff = Math.floor(monthDiff) + "月"
+        monthDiff = Math.abs(Math.floor(monthDiff)) + "月"
     }
+
 
     return diffYear + monthDiff;
 }
