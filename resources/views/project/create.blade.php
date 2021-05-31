@@ -82,7 +82,7 @@
                                 </select>
                             </div>
                         </div>
-
+  
                         <div class="_third">
                             <div><label>営業状況</label></div>
                             <div class="custom-select">
@@ -222,7 +222,7 @@ function ProjectRegisterModalHandler() {
     convertToSearchableDropDown("project_create_managerID_Input", "USER");
     convertToSearchableDropDown("project_create_clientID_Input", "CLIENT");
     showModal('project-create-modal');
-    addEstimateRowListener();
+    Create_addEstimateRowListener();
     projectCreate_deleteRowActionListener();
 }
 
@@ -263,7 +263,7 @@ function getProjectRegFormData() {
     };
 }
 
-function addEstimateRowListener()
+function Create_addEstimateRowListener()
 {
     var selects = document.querySelector("#project-create-estimationInfo").getElementsByTagName("input");
 
@@ -303,7 +303,7 @@ function addEstimateRowListener()
                             </div>`;
                             
                             
-                            addEstimateRowListener();
+                            Create_addEstimateRowListener();
                             projectCreate_deleteRowActionListener();
         }
         
@@ -312,14 +312,14 @@ function addEstimateRowListener()
 
 function projectCreate_deleteRowActionListener() {
 
-document.getElementById("project-create-estimationInfo").querySelectorAll(".delete").forEach(function (obj, index) {
-    obj.addEventListener("click", function (event) {
+    document.getElementById("project-create-estimationInfo").querySelectorAll(".delete").forEach(function (obj, index) {
+        obj.addEventListener("click", function (event) {
 
-            this.parentNode.parentNode.parentNode.remove();
-            projectCreate_deleteRowActionListener();
-        
+                this.parentNode.parentNode.parentNode.remove();
+                projectCreate_deleteRowActionListener();
+            
+        });
     });
-});
 }
 
 function handleAJAXResponse(response) {
