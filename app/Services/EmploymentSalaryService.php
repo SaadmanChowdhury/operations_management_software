@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Employment;
+use App\Models\Salary;
 use Carbon\Carbon;
 
 class EmploymentSalaryService
@@ -95,5 +96,61 @@ class EmploymentSalaryService
             } // end of child loop
         } // end of parent loop
         return true;
+    }
+
+    public function salaryIsNotOutOfScope($user_id)
+    {
+        $isInScope = false;
+
+        $salaryModel = new Salary();
+        $salaries = $salaryModel->getCompositeSalary($user_id);
+
+        foreach ($salaries as $salary) {
+            $salary_start_date =  $salary_end_date = null;
+            if ($salary->startDate != null) {
+                $salary_start_date = Carbon::createFromFormat('Y-m-d',  $salary->startDate);
+            }
+
+            if ($salary->endDate != null) {
+                $salary_end_date = Carbon::createFromFormat('Y-m-d',  $salary->endDate);
+            }
+
+            $employmentModel = new Employment();
+            $employments = $employmentModel->getCompositeEmployment($user_id);
+
+            foreach ($employments as $employment) {
+                $employment_start_date =  $employment_end_date = null;
+                if ($employment->startDate != null) {
+                    $employment_start_date = Carbon::createFromFormat('Y-m-d',  $employment->startDate);
+                }
+
+                if ($employment->endDate != null) {
+                    $employment_end_date = Carbon::createFromFormat('Y-m-d',  $employment->endDate);
+                }
+
+                // IF the employment interval ends in NULL
+                if ($employment->endDate == null) {
+                    if ($salary_start_date->gte($employment_start_date)) {
+                        $isInScope = true;
+                        break;
+                    }
+                } else {
+                    if (
+                        ($employment_start_date->lte($salary_start_date) &&
+                            ($salary_end_date->lte($employment_end_date)))
+                    ) { //IF ( Std-E_X <= Std-S_L ) && ( End-S_L <= End-E_X )
+                        $isInScope = true;
+                        break;
+                    }
+                }
+            } // end of employee loop
+
+            // if did not pass the test
+            if (!$isInScope) {
+                return false;
+            }
+        } // end of salary loop
+
+        return $isInScope;
     }
 } // end of EmploymentSalaryService class
