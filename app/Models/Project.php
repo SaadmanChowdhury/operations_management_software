@@ -275,4 +275,11 @@ class Project extends Model
         $project = Project::where('project_id', $projectID)->first();
         return $project->manager_id;
     }
+
+    public function deleteProjectIfUserIsLeader($user_id)
+    {
+        DB::table('projects')->where('manager_id', $user_id)
+            ->whereNull('deleted_at')
+            ->update(['deleted_at' => Carbon::now()]);
+    }
 }

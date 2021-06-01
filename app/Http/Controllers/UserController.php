@@ -117,8 +117,9 @@ class UserController extends Controller
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == 'システム管理者') {
 
-            $user = new User();
-            $user->deleteUser($request->id);
+            $user_id = $request->id;
+            $this->userService->userDelete($user_id);
+
             return JSONHandler::emptySuccessfulJSONPackage();
         } else {
 

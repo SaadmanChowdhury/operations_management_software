@@ -103,4 +103,9 @@ class Assign extends Model
         $returnArray['profitPercentage'] = $profitPercentage;
         return $returnArray;
     }
+
+    public function deleteAssignValuesOfUser($user_id)
+    {
+        DB::table('assign')->where('user_id', $user_id)->delete();
+    }
 }
