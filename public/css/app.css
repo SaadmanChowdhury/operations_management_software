@@ -2110,7 +2110,7 @@ td img {
 .wrapper {
     font-size: 13px;
     /* max-width: 94vw; */
-    /* margin-left: auto; */
+    /* margin-left: auto;  */
     margin-right: auto;
     height: 100%;
 }
@@ -2633,5 +2633,36 @@ td img {
 @media only screen and (min-width: 1630px){
     .table-des-container{
         max-width: 57vw;
+    }
+}
+@media only screen and (max-width: 900px){
+    #header_top{
+        min-width: 40px;
+    }
+    #sidebar-svg{
+        width: 20px;
+        height: 20px;
+    }
+    .page-container{
+    left:40px;
+    width: calc(100% - 40px);
+    }
+    .row-content{
+    /* padding:1vw 5vw 1vw 1vw; */
+    }
+    #header_top:hover{
+        min-width: 166px;
+        
+    }
+    .label-text {
+        font-size: .60rem;
+    }
+    .sidebar.label-text {
+        margin-left: 29px;
+    }
+    #nav li a{
+        padding: 10px;
+        font-size: 16px;
+        
     }
 }

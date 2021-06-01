@@ -43,6 +43,7 @@ function sidebar_expand(sidebar) {
 }
 
 function sidebar_contract(sidebar) {
+
     var text = $(".label-text.sidebar");
 
     isMouseOnSideBar = false;
@@ -51,11 +52,13 @@ function sidebar_contract(sidebar) {
     }
 
     sidebar.style.width = sidebarCloseWidth;
+   // sidebar.style.minWidth = "40px";
     sidebar.style.transition = sidebarDuration + " " + sidebarCloseCurve;
 
     if (mainContainerFlexFlag) {
         content[0].style.left = sidebarCloseWidth;
         content[0].style.width = "calc(100% - " + sidebarCloseWidth + ")";
+        content[0].style.minWidth = "calc(100% - " + sidebarCloseWidth + "- 40px)";
     }
 
     shade.style.opacity = 0;
