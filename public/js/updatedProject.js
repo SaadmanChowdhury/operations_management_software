@@ -769,7 +769,7 @@ function calcSubTotalManMonthRow(mainTableArray) {
         mainTableArray[i][1] = sum;
     }
 
-    console.log(mainTableArray);
+    // console.log(mainTableArray);
     return mainTableArray;
 }
 

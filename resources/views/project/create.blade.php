@@ -177,8 +177,17 @@
 
                                 <div class="_third">
                                     <div><label for="estimateStatus">Estimate Status</label></div>
-                                    <div><input class="modal_input" type="text" id="project_create_estimateStatus"
-                                            name="estimateStatus"></div>
+                                    <div class="custom-select">
+                                            <select class="modal_input" name="estimateStatus">
+                                                @foreach (config('constants.Estimate_status_id') as $status => $value)
+                                                    @if($value=="1")
+                                                     <option selected value={{ $value }}>{{ $status }}</option>
+                                                    @else
+                                                     <option value={{ $value }}>{{ $status }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                    </div>
                                 </div>
 
                                 <div class="_third">
@@ -257,7 +266,7 @@ function getProjectRegFormData() {
         salesDepartment:$('#project_create_salesDept').val(),
         costOfSales:$('#project_create_salesCost').val(),
         remarks:$('#project_create_remarks').val(),
-        estimate:estimateFormatting($('#project-create-estimationInfo input').serialize().split('&')),
+        estimate:estimateFormatting($('#project-create-estimationInfo input,#project-create-estimationInfo select').serialize().split('&')),
         favChecked:$('#projectReg-favFlag').prop("checked"),
         activeChecked:$('#projectReg-activeFlag').prop("checked")
     };
@@ -292,8 +301,17 @@ function Create_addEstimateRowListener()
 
                                 <div class="_third">
                                     <div><label for="estimateStatus">Estimate Status</label></div>
-                                    <div><input class="modal_input" type="text" id="project_create_estimateStatus"
-                                            name="estimateStatus"></div>
+                                    <div class="custom-select">
+                                            <select class="modal_input" name="estimateStatus">`+
+                                                @foreach (config('constants.Estimate_status_id') as $status => $value)
+                                                    @if($value=="1")
+                                                     `<option selected value={{ $value }}>{{ $status }}</option>`+
+                                                    @else
+                                                     `<option value={{ $value }}>{{ $status }}</option>`+
+                                                    @endif
+                                                @endforeach
+                                            `</select>
+                                    </div>
                                 </div>
 
                                 <div class="_third">
