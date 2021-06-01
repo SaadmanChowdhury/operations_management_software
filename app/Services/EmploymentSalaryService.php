@@ -37,11 +37,9 @@ class EmploymentSalaryService
     {
         $employmentModel = new Employment();
         $employments = $employmentModel->getCompositeEmployment($user_id);
-        // dd($employments);
 
-        $parent_start_date = $parent_end_date = null;
-        $child_start_date = $child_end_date = null;
         foreach ($employments as $employment) { // parent loop
+            $parent_start_date = $parent_end_date = null;
             if ($employment->startDate != null) {
                 $parent_start_date = Carbon::createFromFormat('Y-m-d',  $employment->startDate);
             }
@@ -52,6 +50,7 @@ class EmploymentSalaryService
 
             // the child loop counter
             for ($i = 0; $i < count($employments); $i++) { // child loop
+                $child_start_date = $child_end_date = null;
                 //ignore the loop if parent and child is same (for all other values)
                 if ($employment->employmentID == $employments[$i]->employmentID) {
                     continue;
@@ -100,12 +99,13 @@ class EmploymentSalaryService
 
     public function salaryIsNotOutOfScope($user_id)
     {
-        $isInScope = false;
+
 
         $salaryModel = new Salary();
         $salaries = $salaryModel->getCompositeSalary($user_id);
 
         foreach ($salaries as $salary) {
+            $isInScope = false;
             $salary_start_date =  $salary_end_date = null;
             if ($salary->startDate != null) {
                 $salary_start_date = Carbon::createFromFormat('Y-m-d',  $salary->startDate);
@@ -134,11 +134,11 @@ class EmploymentSalaryService
                         $isInScope = true;
                         break;
                     }
-                } else {
+                } else { //IF ( Std-E_X <= Std-S_L ) && ( End-S_L <= End-E_X )
                     if (
                         ($employment_start_date->lte($salary_start_date) &&
                             ($salary_end_date->lte($employment_end_date)))
-                    ) { //IF ( Std-E_X <= Std-S_L ) && ( End-S_L <= End-E_X )
+                    ) {
                         $isInScope = true;
                         break;
                     }
@@ -152,5 +152,64 @@ class EmploymentSalaryService
         } // end of salary loop
 
         return $isInScope;
+    }
+
+    public function salaryIsNoGapOutside($user_id)
+    {
+        $employmentModel = new Employment();
+        $employments = $employmentModel->getCompositeEmployment($user_id);
+
+        foreach ($employments as $employment) {
+            $isStartFilled = $isEndFilled = false;
+            $employment_start_date =  $employment_end_date = null;
+
+            //IF employment end date is null
+            if ($employment->endDate == null) {
+                $isEndFilled = true;
+            }
+
+            // Select an employment value for comparison
+            if ($employment->startDate != null) {
+                $employment_start_date = Carbon::createFromFormat('Y-m-d',  $employment->startDate);
+            }
+
+            if ($employment->endDate != null) {
+                $employment_end_date = Carbon::createFromFormat('Y-m-d',  $employment->endDate);
+            }
+
+            $salaryModel = new Salary();
+            $salaries = $salaryModel->getCompositeSalary($user_id);
+            foreach ($salaries as $salary) {
+                $salary_start_date =  $salary_end_date = null;
+
+                if ($salary->startDate != null) {
+                    $salary_start_date = Carbon::createFromFormat('Y-m-d',  $salary->startDate);
+                }
+
+                if ($salary->endDate != null) {
+                    $salary_end_date = Carbon::createFromFormat('Y-m-d',  $salary->endDate);
+                }
+
+                // Check if both isStartFilled flag and isEndFilled flag are true
+                if ($isStartFilled == true && $isEndFilled == true) {
+                    break;
+                }
+
+                //Check if the salary start date matches employment start date
+                if ($employment_start_date->eq($salary_start_date)) {
+                    $isStartFilled = true;
+                }
+
+                //Continue to next salary incase of employment end date being null 
+                if ($employment_end_date == null) {
+                    $isEndFilled = true;
+                }
+            } // end of salary loop
+
+            if (!($isStartFilled && $isEndFilled)) {
+                return false;
+            }
+        } // end of employee loop
+        return true;
     }
 } // end of EmploymentSalaryService class
