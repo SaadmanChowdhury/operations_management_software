@@ -236,7 +236,6 @@ function addEstimateRowListener()
         
             e.preventDefault();
            jQuery('#project-edit-estimationInfo span').append(renderEstimateRow());                
-            //addEstimateRowListener();
             projectEdit_deleteRowActionListener();
         }
         
@@ -251,22 +250,16 @@ function toggleEstimateText(compositeEstimate)
     
     if (estimateStatus == "less") {
         estimateStatus = "more";
-        document.getElementById("project-edit-estimationInfo").innerHTML="";
-        renderEstimateSection(compositeEstimate);
-        
-        addEstimateRowListener();
+        showEstimation();
+        //addEstimateRowListener();
         document.getElementById("toggleButton").innerText = "See Less";
         
     } 
     else if (estimateStatus == "more") {
         estimateStatus = "less";
-        document.getElementById("project-edit-estimationInfo").innerHTML="";
-        //document.getElementById("user-edit-remark").remove();
         setTimeout(
-            renderEstimateSection(compositeEstimate),2000
-
-        ),
-        addEstimateRowListener();
+            hideEstimation(),100);
+        //addEstimateRowListener();
         document.getElementById("toggleButton").innerText = "See More";
         
     }
@@ -325,7 +318,23 @@ function showMoreEstimation(compositeEstimate){
     }
     return estimateSectionHTML;
 }
-
+function hideEstimation(){
+    console.log("in hideSection");
+    
+    var inputsRow= document.querySelectorAll("#project-edit-estimationInfo > span > .hideable");
+    console.log(inputsRow,inputsRow.length);
+    for (let index = inputsRow.length-1; index >=-0; index--) {
+        inputsRow[index].style.display="none";    
+        console.log(inputsRow[index].style.display);
+        console.log("hey");    
+    }
+}
+function showEstimation(){
+    var inputs= jQuery("#project-edit-estimationInfo > span > .hideable");
+    for (let index = 0; index < inputs.length; index++) {
+        inputs[index].style.display="flex";        
+    }
+}
 function showLessEstimation(compositeEstimate){
     var estimateSectionHTML=``;
     for (let index = compositeEstimate.length-1; index >=0; index--) {
@@ -405,11 +414,103 @@ function renderEstimateSection(compositeEstimate){
                                 Estimation Info
                             </div>
                             <button class="modal_addBtn" id="estimate_Add">+</button>`;
+                            // estimateSectionHTML+=showMoreEstimation(compositeEstimate);
+                            for (let index = compositeEstimate.length-1; index >=0; index--) {
+                                if(index==compositeEstimate.length-1)
+                                {
+                                    estimateSectionHTML+=`<div class="row center">
+                                                        
+                                                        <input type="hidden" name="estimateID" value=${compositeEstimate[index].estimateID}>
+
+                                                        <div class="_third">
+                                                            <div><label for="estimateCode">Estimate Code</label></div>
+                                                            <div class="row">
+                                                                <button class="delete">-</button>
+                                                                <div><input class="modal_input" type="text" name="estimateCode" value="${compositeEstimate[index].estimateCode}"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="_third">
+                                                            <div><label for="estimateStatus">Estimate Status</label></div>
+                                                            <!--<div><input class="modal_input" type="text" name="estimateStatus" value=${compositeEstimate[index].estimateStatus}></div>-->
+                                                            <div class="custom-select">
+                                                                <select class="modal_input" name="estimateStatus">`;
+                                                                    @foreach (config('constants.Estimate_status_id') as $status => $value)
+                                                                    @if($value==1)
+                                                                    estimateSectionHTML+=`<option selected value={{ $value }}>{{ $status }}</option>`;
+                                                                    @else
+                                                                        estimateSectionHTML+=`<option value={{ $value }}>{{ $status }}</option>`;
+                                                                    @endif
+                                                                    @endforeach
+                                                                estimateSectionHTML+=`</select>
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+
+                                                        <div class="_third">
+                                                            <div><label for="estimateCost">Estimate Cost</label></div>
+                                                            <div><input class="modal_input" type="number" name="estimateCost" value=${compositeEstimate[index].estimateCost}></div>
+                                                        </div>
+                                                    </div>`;
+
+                                }
+                                else{
+
+                                    estimateSectionHTML+=`<div class="row center hideable">
+                                                        
+                                                        <input type="hidden" name="estimateID" value=${compositeEstimate[index].estimateID}>
+
+                                                        <div class="_third">
+                                                            <div><label for="estimateCode">Estimate Code</label></div>
+                                                            <div class="row">
+                                                                <button class="delete">-</button>
+                                                                <div><input class="modal_input" type="text" name="estimateCode" value="${compositeEstimate[index].estimateCode}"></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="_third">
+                                                            <div><label for="estimateStatus">Estimate Status</label></div>
+                                                            <!--<div><input class="modal_input" type="text" name="estimateStatus" value=${compositeEstimate[index].estimateStatus}></div>-->
+                                                            <div class="custom-select">
+                                                                <select class="modal_input" name="estimateStatus">`;
+                                                                    @foreach (config('constants.Estimate_status_id') as $status => $value)
+                                                                    @if($value==1)
+                                                                    estimateSectionHTML+=`<option selected value={{ $value }}>{{ $status }}</option>`;
+                                                                    @else
+                                                                        estimateSectionHTML+=`<option value={{ $value }}>{{ $status }}</option>`;
+                                                                    @endif
+                                                                    @endforeach
+                                                                estimateSectionHTML+=`</select>
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+
+                                                        <div class="_third">
+                                                            <div><label for="estimateCost">Estimate Cost</label></div>
+                                                            <div><input class="modal_input" type="number" name="estimateCost" value=${compositeEstimate[index].estimateCost}></div>
+                                                        </div>
+                                                    </div>`;
+
+                                }
+                                
+                                
+                            }
+                            
                             if(estimateStatus=="less"){
-                                estimateSectionHTML+=showLessEstimation(compositeEstimate);
+                                
+                                console.log("less working");
+                                setTimeout(() => {
+                                    hideEstimation();
+                                }, 200);
+                               
                             }
                             else{
-                                estimateSectionHTML+=showMoreEstimation(compositeEstimate);
+                                //estimateSectionHTML+=showMoreEstimation(compositeEstimate);
+                                
+                                showEstimation();
+                                
                             }
                             
                     estimateSectionHTML+=`</span>
@@ -735,7 +836,7 @@ var project={
         },
         {
             estimateID:2,
-            estimateCode:"EST1234",
+            estimateCode:"EST5678",
             estimateStatus:2,
             estimateCost:12345
         }
