@@ -192,58 +192,52 @@
 
 var estimateStatus="less";
 var resetEditHTML=document.getElementById('project-edit-modal').innerHTML;
+function renderEstimateRow(){
 
+    var html= `<div class="row center">
+                                
+                <input type="hidden" name="estimateID" id="project_edit_estimateID" value="">
+
+                <div class="_third">
+                    <div><label for="estimateCode">Estimate Code</label></div>
+                    <div class="row">
+                        <button class="delete">-</button>
+                        <div><input class="modal_input" type="text" id="project_edit_estimateCode" name="estimateCode"></div>
+                    </div>
+                </div>
+
+                <div class="_third">
+                    <div><label for="estimateStatus">Estimate Status</label></div>
+                    <div class="custom-select">
+                            <select class="modal_input" name="estimateStatus">`+
+                                @foreach (config('constants.Estimate_status_id') as $status => $value)
+                                    @if($value==1)
+                                        `<option selected value={{ $value }}>{{ $status }}</option>`+
+                                    @else
+                                        `<option value={{ $value }}>{{ $status }}</option>`+
+                                    @endif
+                                @endforeach
+                            `</select>
+                    </div>
+                </div>
+
+                <div class="_third">
+                    <div><label for="estimateCost">Estimate Cost</label></div>
+                    <div><input class="modal_input" type="number" id="project_edit_estimateCost" name="estimateCost"></div>
+                </div>
+            </div>`;
+            return html;
+
+}
 function addEstimateRowListener()
 {
-    var selects = document.querySelector("#project-edit-estimationInfo").getElementsByTagName("input");
-
-    for (let i = 0; i < selects.length; i++) {
-        // console.log(selects[i]);
-
-        selects[i].addEventListener("change", function () {
-            // console.log(this.value);
-            selects[i].setAttribute("value", selects[i].value);
-        });
-    }
-    document.getElementById('estimate_Add').onclick=function(){
+    
+    document.getElementById('estimate_Add').onclick=function(e){
         
-        
-        document.querySelector('#project-edit-estimationInfo span').innerHTML+=`<div class="row center">
-                                
-                                <input type="hidden" name="estimateID" id="project_edit_estimateID" value="">
-
-                                <div class="_third">
-                                    <div><label for="estimateCode">Estimate Code</label></div>
-                                    <div class="row">
-                                        <button class="delete">-</button>
-                                        <div><input class="modal_input" type="text" id="project_edit_estimateCode" name="estimateCode"></div>
-                                    </div>
-                                </div>
-
-                                <div class="_third">
-                                    <div><label for="estimateStatus">Estimate Status</label></div>
-                                    <div class="custom-select">
-                                            <select class="modal_input" name="estimateStatus">`+
-                                                @foreach (config('constants.Estimate_status_id') as $status => $value)
-                                                    @if($value==1)
-                                                     `<option selected value={{ $value }}>{{ $status }}</option>`+
-                                                    @else
-                                                     `<option value={{ $value }}>{{ $status }}</option>`+
-                                                    @endif
-                                                @endforeach
-                                            `</select>
-                                    </div>
-                                </div>
-
-                                <div class="_third">
-                                    <div><label for="estimateCost">Estimate Cost</label></div>
-                                    <div><input class="modal_input" type="number" id="project_edit_estimateCost" name="estimateCost"></div>
-                                </div>
-                            </div>`;
-                            
-                            
-                            addEstimateRowListener();
-                            projectEdit_deleteRowActionListener();
+            e.preventDefault();
+           jQuery('#project-edit-estimationInfo span').append(renderEstimateRow());                
+            //addEstimateRowListener();
+            projectEdit_deleteRowActionListener();
         }
         
         
