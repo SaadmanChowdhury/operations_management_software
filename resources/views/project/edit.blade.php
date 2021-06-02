@@ -276,48 +276,7 @@ function projectEdit_deleteRowActionListener() {
         });
     });
 }
-function showMoreEstimation(compositeEstimate){
-    var estimateSectionHTML=``;
-    for (let index = compositeEstimate.length-1; index >=0; index--) {
-        estimateSectionHTML+=`<div class="row center">
-                                
-                                <input type="hidden" name="estimateID" value=${compositeEstimate[index].estimateID}>
 
-                                <div class="_third">
-                                    <div><label for="estimateCode">Estimate Code</label></div>
-                                    <div class="row">
-                                        <button class="delete">-</button>
-                                        <div><input class="modal_input" type="text" name="estimateCode" value="${compositeEstimate[index].estimateCode}"></div>
-                                    </div>
-                                </div>
-
-                                <div class="_third">
-                                    <div><label for="estimateStatus">Estimate Status</label></div>
-                                    <!--<div><input class="modal_input" type="text" name="estimateStatus" value=${compositeEstimate[index].estimateStatus}></div>-->
-                                    <div class="custom-select">
-                                        <select class="modal_input" name="estimateStatus">`;
-                                            @foreach (config('constants.Estimate_status_id') as $status => $value)
-                                            @if($value==1)
-                                              estimateSectionHTML+=`<option selected value={{ $value }}>{{ $status }}</option>`;
-                                            @else
-                                                estimateSectionHTML+=`<option value={{ $value }}>{{ $status }}</option>`;
-                                            @endif
-                                            @endforeach
-                                        estimateSectionHTML+=`</select>
-                                    </div>
-                                    
-                                    
-                                </div>
-
-                                <div class="_third">
-                                    <div><label for="estimateCost">Estimate Cost</label></div>
-                                    <div><input class="modal_input" type="number" name="estimateCost" value=${compositeEstimate[index].estimateCost}></div>
-                                </div>
-                            </div>`;
-        
-    }
-    return estimateSectionHTML;
-}
 function hideEstimation(){
     console.log("in hideSection");
     
@@ -335,76 +294,7 @@ function showEstimation(){
         inputs[index].style.display="flex";        
     }
 }
-function showLessEstimation(compositeEstimate){
-    var estimateSectionHTML=``;
-    for (let index = compositeEstimate.length-1; index >=0; index--) {
-        
-        if(index==compositeEstimate.length-1)
-        {
-            estimateSectionHTML+=`<div class="row center">
-                                
-                                    <input type="hidden" name="estimateID" value=${compositeEstimate[index].estimateID}>
 
-                                    <div class="_third">
-                                        <div><label for="estimateCode">Estimate Code</label></div>
-                                        <div class="row">
-                                            <button class="delete">-</button>
-                                            <div><input class="modal_input" type="text" name="estimateCode" value="${compositeEstimate[index].estimateCode}"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="_third">
-                                        <div><label for="estimateStatus">Estimate Status</label></div>
-                                        <!--<div><input class="modal_input" type="text" name="estimateStatus" value=${compositeEstimate[index].estimateStatus}></div>-->
-                                        
-                                        <div class="custom-select">
-                                            <select class="modal_input" name="estimateStatus">`;
-                                                @foreach (config('constants.Estimate_status_id') as $status => $value)
-                                                    @if($value=="1")
-                                                    estimateSectionHTML+=`<option selected value={{ $status }}>{{ $status }}</option>`;
-                                                    @else
-                                                        estimateSectionHTML+=`<option value={{ $value }}>{{ $status }}</option>`;
-                                                    @endif
-                                                @endforeach
-                                            estimateSectionHTML+=`</select>
-                                        </div>
-                                    </div>
-
-                                    <div class="_third">
-                                        <div><label for="estimateCost">Estimate Cost</label></div>
-                                        <div><input class="modal_input" type="number" name="estimateCost" value=${compositeEstimate[index].estimateCost}></div>
-                                    </div>
-                                </div>`;
-                        }
-                else{
-                    estimateSectionHTML+=`<div class="row center">
-                                
-                                <input type="hidden" name="estimateID" value=${compositeEstimate[index].estimateID}>
-
-                                <div class="_third">
-                                    
-                                    <div><input class="modal_input" type="hidden" name="estimateCode" value="${compositeEstimate[index].estimateCode}">
-                                    </div>
-                                </div>
-
-                                <div class="_third">
-                                    
-                                    <div><input class="modal_input" type="hidden"
-                                            name="estimateStatus" value=${compositeEstimate[index].estimateStatus}></div>
-                                </div>
-
-                                <div class="_third">
-                                    
-                                    <div><input class="modal_input" type="hidden" name="estimateCost" value=${compositeEstimate[index].estimateCost}></div>
-                                </div>
-                            </div>`;
-                                
-                }
-        
-    }
-    return estimateSectionHTML;
-        
-}
 
 function renderEstimateSection(compositeEstimate){
     
@@ -507,10 +397,8 @@ function renderEstimateSection(compositeEstimate){
                                
                             }
                             else{
-                                //estimateSectionHTML+=showMoreEstimation(compositeEstimate);
                                 
                                 showEstimation();
-                                
                             }
                             
                     estimateSectionHTML+=`</span>
@@ -582,8 +470,7 @@ function estimateFormatting(array_Estimate){
 
             }
             
-            //smallArr.push(array_Salary[index]);
-            // index++;
+            
         }
         formattedEstimate.push(smallArr);
     }
@@ -798,14 +685,7 @@ function  deleteComfirmed( projectId ){
 }
 
 
-// var compositeEstimate=[
-//     {
-//         estimateID:1
-//     },
-//     {
-//         estimateID:1
-//     }
-// ];
+
 var project={
     projectID:1,
     projectCode: "PIVOT123",
