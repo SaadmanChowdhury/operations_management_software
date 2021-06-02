@@ -26,11 +26,20 @@ class UsersTableSeeder extends Seeder
                 'location' => '東京', //tokyo
                 'tel' => '0123645789',
                 'position' => 'PM', //PM
-                'admission_day' => '2019-01-01',
-                'exit_day' => null,
-                'unit_price' => 400000,
+                // 'admission_day' => '2019-01-01',
+                // 'exit_day' => null,
+                // 'unit_price' => 400000,
                 'user_authority' => 'システム管理者',
-                'resign_day' => null,
+
+                'user_code' => '中村',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '小中',
@@ -41,11 +50,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
                 'position' => 'PL', //PL
-                'admission_day' => '2019-01-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 350000,
+                // 'admission_day' => '2019-01-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 350000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => '小中',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '丸田',
@@ -56,11 +75,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
                 'position' => 'SE', //SE
-                'admission_day' => '2019-04-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 300000,
+                // 'admission_day' => '2019-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 300000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => '丸田',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '富永',
@@ -71,11 +100,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
                 'position' => 'SE', //SE
-                'admission_day' => '2019-04-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 280000,
+                // 'admission_day' => '2019-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 280000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => '富永',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '金井',
@@ -86,11 +125,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2019-04-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 240000,
+                // 'admission_day' => '2019-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 240000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => '金井',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '大起',
@@ -101,11 +150,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2019-04-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 240000,
+                // 'admission_day' => '2019-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 240000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => '大起',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'サードマン',
@@ -116,11 +175,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2020-01-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 220000,
+                // 'admission_day' => '2020-01-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => 'サードマン',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'スマイヤ',
@@ -131,11 +200,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2020-01-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 220000,
+                // 'admission_day' => '2020-01-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => 'スマイヤ',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '賀来',
@@ -146,11 +225,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '東京', //tokyo
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2020-01-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 220000,
+                // 'admission_day' => '2020-01-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => '賀来',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '亀嶋',
@@ -161,11 +250,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '東京', //tokyo
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 220000,
+                // 'admission_day' => '2020-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => '亀嶋',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '田村',
@@ -176,11 +275,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '東京', //tokyo
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 220000,
+                // 'admission_day' => '2020-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => '田村',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => '松本',
@@ -191,11 +300,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '東京', //tokyo
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 220000,
+                // 'admission_day' => '2020-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => '松本',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'サミウール',
@@ -206,11 +325,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 220000,
+                // 'admission_day' => '2020-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => 'サミウール',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'ソフィア',
@@ -221,11 +350,21 @@ class UsersTableSeeder extends Seeder
                 'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 220000,
+                // 'admission_day' => '2020-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => 'ソフィア',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
             [
                 'name' => 'ロイ',
@@ -236,11 +375,71 @@ class UsersTableSeeder extends Seeder
                 'location' => '宮崎', //miyazaki
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
-                'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
-                'unit_price' => 220000,
+                // 'admission_day' => '2020-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
-                'resign_day' => null,
+                // 'resign_day' => null,
+
+                'user_code' => 'ロイ',
+                'employment_classification' => 'full time',
+                'affiliation_id' => null,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
+            ],
+            [
+                'name' => 'アリフ',
+                'email' => 'alif@gtmi.co.jp',
+                'email_verified_at' => now(),
+                'password' => bcrypt('password'), // password
+                'gender' => 0, //male
+                'location' => '東京', //tokyo
+                'tel' => '0123456789',
+                'position' => 'PG', //PG
+                // 'admission_day' => '2020-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
+                'user_authority' => '一般ユーザー',
+                // 'resign_day' => null,
+
+                'user_code' => 'アリフ',
+                'employment_classification' => 'SES',
+                'affiliation_id' => 7,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
+            ],
+            [
+                'name' => 'イスラト',
+                'email' => 'israt@gtmi.co.jp',
+                'email_verified_at' => now(),
+                'password' => bcrypt('password'), // password
+                'gender' => 0, //male
+                'location' => '東京', //Tokyo
+                'tel' => '0123456789',
+                'position' => 'PG', //PG
+                // 'admission_day' => '2020-04-01',
+                // 'exit_day' => '2021-06-30',
+                // 'unit_price' => 220000,
+                'user_authority' => '一般ユーザー',
+                // 'resign_day' => null,
+
+                'user_code' => 'イスラト',
+                'employment_classification' => 'SES',
+                'affiliation_id' => 7,
+                'commercial_distribution' => null,
+                'emergency_contact' => null,
+                'condition1' => null,
+                'condition2' => null,
+                'locker' => null,
+                'remarks' => null,
             ],
         ];
 

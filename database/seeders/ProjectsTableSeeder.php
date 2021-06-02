@@ -28,6 +28,9 @@ class ProjectsTableSeeder extends Seeder
                 'order_status' => '●',
                 'business_situation' => '完了',
                 'development_stage' => '開発完了',
+
+                'project_code' => '勤怠管理システム',
+                'transferred_amount' => 50000,
             ],
             [
                 'project_name' => '実績管理システム',
@@ -40,6 +43,9 @@ class ProjectsTableSeeder extends Seeder
                 'order_status' => '●',
                 'business_situation' => '完了',
                 'development_stage' => '受注前着手',
+
+                'project_code' => '実績管理システム',
+                'transferred_amount' => 60000,
             ],
             [
                 'project_name' => 'ASE＿HP',
@@ -52,6 +58,9 @@ class ProjectsTableSeeder extends Seeder
                 'order_status' => 'A',
                 'business_situation' => '完了',
                 'development_stage' => '設計',
+
+                'project_code' => 'ASE＿HP',
+                'transferred_amount' => 70000,
             ],
             [
                 'project_name' => 'PIVOT アンドロイドアプリ',
@@ -64,6 +73,9 @@ class ProjectsTableSeeder extends Seeder
                 'order_status' => 'B',
                 'business_situation' => '完了',
                 'development_stage' => 'テスト',
+
+                'project_code' => 'PIVOT アンドロイドアプリ',
+                'transferred_amount' => 80000,
             ],
             [
                 'project_name' => 'Zoom プラグイン',
@@ -76,6 +88,9 @@ class ProjectsTableSeeder extends Seeder
                 'order_status' => 'Z',
                 'business_situation' => '見積済',
                 'development_stage' => null,
+
+                'project_code' => 'Zoom プラグイン',
+                'transferred_amount' => 90000,
             ],
             [
                 'project_name' => 'CBC ムーバルタイプ',
@@ -88,6 +103,9 @@ class ProjectsTableSeeder extends Seeder
                 'order_status' => 'A',
                 'business_situation' => '検収中',
                 'development_stage' => null,
+
+                'project_code' => 'CBC ムーバルタイプ',
+                'transferred_amount' => 50000,
             ],
             [
                 'project_name' => 'ピープル LP',
@@ -100,6 +118,9 @@ class ProjectsTableSeeder extends Seeder
                 'order_status' => 'A',
                 'business_situation' => '完了',
                 'development_stage' => '設計',
+
+                'project_code' => 'ピープル LP',
+                'transferred_amount' => 40000,
             ],
         ];
 

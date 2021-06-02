@@ -5,6 +5,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AssignController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ActiveStatusController;
+use App\Services\EmploymentSalaryService;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -58,7 +61,7 @@ Route::get('user/edit/{id}', [UserController::class, 'getEditView']);
 Route::post("/API/createUser", [UserController::class, 'createUser']);
 Route::post("/API/readUser",   [UserController::class, 'readUser']);
 Route::post("/API/fetchUserList", [UserController::class, 'fetchUserList']);
-Route::post("/API/updateUser", [UserController::class, 'updateUser']);
+Route::post("/API/upsertUser", [UserController::class, 'upsertUser']);
 Route::post("/API/deleteUser", [UserController::class, 'deleteUser']);
 
 Route::post("/API/updateUIPreference", [UserController::class, 'updateUserUIPreference']);
@@ -133,6 +136,11 @@ Route::post('/API/assignSummary', [AssignController::class, 'assignSummary']);
 
 Route::post('/API/activeUserCount', [AssignController::class, 'activeUserCount']);
 
+// route for favorite
+Route::post('/API/updateFavoriteStatus', [FavoriteController::class, 'updateFavoriteStatus']);
+// for active status change
+Route::post('/API/updateActiveStatus', [ActiveStatusController::class, 'updateActiveStatus']);
+
 
 
 //for testing the update function
@@ -142,4 +150,8 @@ Route::get('/test-view', function () {
 
 Route::get('/', function () {
     return redirect('/login');
+});
+
+Route::get('/logout', function () {
+    return Auth::logout();
 });

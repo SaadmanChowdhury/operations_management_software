@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Http\Utilities\JSONHandler;
 use App\Models\Assign;
+use App\Models\Estimate;
+use App\Models\Favorite;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
 use Carbon\Carbon;
@@ -66,39 +68,55 @@ class ProjectService
     public function fetchProjectList()
     {
         $newArray = [];
-        $projectModel  = new Project;
+        $projectModel  = new Project();
+        $favoriteModel  = new Favorite();
+        $estimateModel  = new Estimate();
         // Step 2
         $array = $projectModel->readProjectList();
 
         // getting the profit percentage for each project
         foreach ($array as $key => $value) {
+            $value->grossProfit = $projectModel->getProjectProfit($value->projectID);
             $value->profitPercentage = $projectModel->getProjectProfitPercentage($value->projectID);
+            $value->isFavorite = $favoriteModel->isFavorite('project', $value->projectID);
+            $latestEstimate = $estimateModel->getLatestEstimateOfProject($value->projectID);
+
+            // if the project has estimate data
+            if ($latestEstimate) {
+                $value->latestEstimateID = $latestEstimate->estimateID;
+                $value->latestEstimateCode = $latestEstimate->estimateCode;
+                $value->latestEstimateStatus = $latestEstimate->estimateStatus;
+                $value->estimateCost = $latestEstimate->estimateCost;
+            } else { // does not have any estimate value
+                $value->latestEstimateCode = null;
+                $value->latestEstimateCode = null;
+                $value->latestEstimateStatus = null;
+                $value->estimateCost = null;
+            }
+
             array_push($newArray, $value);
         }
 
-        // Step 3
-        $array = $this->helper_fetchProjectList($newArray);
+        // checking who will be able to see the monitory information
+        $array = $this->helperFetchProjectList($newArray);
 
-        // Step 4 and 5
-        return $this->arrayFormatting_fetchProjectList($array);
+        return $this->arrayFormattingFetchProjectList($array);
     }
 
-    public function readProjectDetails($projectID)
+    public function readProjectDetails($project_id)
     {
-        $projectModel  = new Project;
-        // getting the project data
-        $project = $projectModel->readProject($projectID);
-        // get the project ID
-        $projectId = ($project->projectID);
-        // get the project profit
-        $project->profit = $projectModel->getProjectProfit($projectId);
+        $projectModel  = new Project();
+        $favoriteModel  = new Favorite();
+        $estimateModel  = new Estimate();
 
-        $loggedUser = auth()->user();
-        //if admin or manager
-        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $project->projectLeaderID) {
-            return $project;
-        }
-        return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
+        $data = $projectModel->readProject($project_id);
+        $project["project"] = $data;
+
+        $project["project"]->grossProfit = $projectModel->getProjectProfit($project_id);
+        $project["project"]->profitPercentage = $projectModel->getProjectProfitPercentage($project_id);
+        $project["project"]->isFavorite = $favoriteModel->isFavorite('project', $project_id);
+        $project["project"]->estimate = $estimateModel->getEstimatesOfProject($project_id);
+        return $project;
     }
 
     public function createProject($request)
@@ -113,7 +131,7 @@ class ProjectService
             $validatedData = $this->formatDataToCreateOrUpdate($request);
 
             // if all the logic passed then project can be create of update
-            $result = $this->logicForUpSertProject($validatedData);
+            $result = $this->logicForUpsertProject($validatedData);
             // dd($result);
 
             // has some logical error
@@ -129,10 +147,10 @@ class ProjectService
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");
     }
 
-    private function logicForUpSertProject($validatedData)
+    private function logicForUpsertProject($request)
     {
-        $orderMonth = $validatedData['order_month'];
-        $inspectionMonth = $validatedData['inspection_month'];
+        $orderMonth = $request->orderMonth;
+        $inspectionMonth = $request->inspectionMonth;
 
         //checking the inspection_month is greater than order_month
         if ($orderMonth != null && $inspectionMonth != null) {
@@ -143,9 +161,9 @@ class ProjectService
             }
         }
 
-        $budget = $validatedData['budget'];
-        $salesTotal = $validatedData['sales_total'];
-        $transferredAmount = $validatedData['transferred_amount'];
+        $budget = $request->budget;
+        $salesTotal = $request->salesTotal;
+        $transferredAmount = $request->transferredAmount;
 
         // the monitory values cannot be negative
         if (intval($budget) < 0) {
@@ -165,50 +183,35 @@ class ProjectService
         return true;
     }
 
-    public function upsertProjectDetails($request, $projectID)
+    public function upsertProjectDetails($request)
     {
-        $projectModel  = new Project;
-        $assignModel  = new Assign();
+        $projectModel  = new Project();
+        $estimateModel  = new Estimate();
 
-        $validatedData = $request->validated();
         $loggedUser = auth()->user();
-        $project = $managerID = null;
-
-        if ($projectID != null) {
-            $project = Project::find($projectID);
-            $managerID = $project->managerID;
-        }
+        $manager_id = $request->projectLeaderID;
         //only admin and manager can update the project
-        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $managerID) {
-
-            $validatedData = $this->formatDataToCreateOrUpdate($request);
-
+        if ($loggedUser->user_authority == 'システム管理者' || $loggedUser->user_id == $manager_id) {
             // if all the logic passed then project can be create of update
-            $result = $this->logicForUpSertProject($validatedData);
+            $result = $this->logicForUpsertProject($request);
 
             // has some logical error
             if ($result !== true) {
-                return $result;
+                return $result; // error string
             }
+            // passed all the logic for create or update project details
+            $createdOrUpdatedProjectId = $projectModel->upsertProjectDetails($request);
+            $estimateModel->upsertEstimate($request->estimate, $createdOrUpdatedProjectId);
+            $grossProfit = $projectModel->getProjectProfit($createdOrUpdatedProjectId);
+            $profitPercentage = $projectModel->getProjectProfitPercentage($createdOrUpdatedProjectId);
 
-            // need to hard delete any assign which are outside the new inspect/order date range
-            // delete all the assign values before the order date if inspection date is null
-
-            $orderDate = $validatedData['order_month'];
-            $orderYear = Carbon::parse($orderDate)->format('Y');
-            $orderMonth = Carbon::parse($orderDate)->format('m');
-
-            $inspectionMonth = $validatedData['inspection_month'];
-            if ($inspectionMonth != null) {
-                $inspectionYear = Carbon::parse($inspectionMonth)->format('Y');
-                $inspectionMonth = Carbon::parse($inspectionMonth)->format('m');
-            } else {
-                $inspectionYear = $inspectionMonth =  null;
-            }
-
-            $assignModel->deleteAllAssignValuesOutsideProjectTimeline($orderYear, $orderMonth, $inspectionYear, $inspectionMonth, $projectID);
-
-            return $projectModel->upsertProjectDetails($validatedData, $projectID);
+            // return necessary data
+            $result_data = [
+                'projectID' => $createdOrUpdatedProjectId,
+                'grossProfit' => $grossProfit,
+                'profitPercentage' => $profitPercentage,
+            ];
+            return $result_data;
         }
     }
 
@@ -230,7 +233,7 @@ class ProjectService
         return $formattedData;
     }
 
-    private function helper_fetchProjectList($array)
+    private function helperFetchProjectList($array)
     {
         $loggedUser = auth()->user();
         if ($loggedUser->user_authority == 'システム管理者') {
@@ -241,19 +244,18 @@ class ProjectService
         for ($i = 0; $i < count($array); $i++) {
             // If user is not project leader [General user]
             if ($array[$i]->projectLeaderID != $loggedUser->user_id) {
-                // unset($array[$i]->salesTotal);
-                // unset($array[$i]->transferredAmount);
-                // unset($array[$i]->budget);
-                $array[$i]->salesTotal = '';
-                $array[$i]->transferredAmount = '';
-                $array[$i]->budget = '';
+                $array[$i]->salesTotal = null;
+                $array[$i]->transferredAmount = null;
+                $array[$i]->budget = null;
+                $array[$i]->grossProfit = null;
+                $array[$i]->profitPercentage = null;
             }
         }
 
         return $array;
     }
 
-    private function arrayFormatting_fetchProjectList($array)
+    private function arrayFormattingFetchProjectList($array)
     {
         $formattedArray['project'] = $array;
 

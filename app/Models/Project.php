@@ -16,39 +16,32 @@ class Project extends Model
 
     protected $primaryKey = 'project_id';
 
-    protected $fillable = [
-        'project_name',
-        'client_id',
-        'manager_id',
-        'order_month',
-        'inspection_month',
-        'order_status',
-        'business_situation',
-        'development_stage',
-        'sales_total',
-        'transferred_amount',
-        'budget',
-    ];
+    protected $guarded = [];
 
     public function readProjectList()
     {
         $project = DB::table('projects')
             ->select([
-                DB::raw('project_id AS projectID'),
-                DB::raw('project_name AS projectName'),
-                DB::raw('client_id AS clientID'),
-                DB::raw('manager_id AS projectLeaderID'),
-                DB::raw('order_month AS orderMonth'),
-                DB::raw('inspection_month AS inspectionMonth'),
-                DB::raw('order_status AS orderStatus'),
-                DB::raw('business_situation AS businessSituation'),
-                DB::raw('development_stage AS developmentStage'),
-                DB::raw('sales_total AS salesTotal'),
-                DB::raw('transferred_amount AS transferredAmount'),
-                DB::raw('budget AS budget'),
+                'project_id as projectID',
+                'project_id as projectCode',
+                'project_name as projectName',
+                'client_id as clientID',
+                'manager_id as projectLeaderID',
+
+                'order_status as orderStatus',
+                'business_situation as businessSituation',
+                'development_stage as developmentStage',
+                'order_month as orderMonth',
+                'inspection_month as inspectionMonth',
+                'sales_total as salesTotal',
+                'transferred_amount as transferredAmount',
+                'budget as budget',
+                // 'cost_of_sales as costOfSales',
+                'remarks',
+                'active_status as isActive',
             ])
             ->whereNull("deleted_at")
-            ->get()->toArray();
+            ->get();
 
         return $project;
     }
@@ -104,21 +97,24 @@ class Project extends Model
 
     public function readProject($id)
     {
-
         $project = Project::select([
             'project_id as projectID',
+            'project_id as projectCode',
             'project_name as projectName',
             'client_id as clientID',
             'manager_id as projectLeaderID',
 
-            'order_month as orderMonth',
-            'inspection_month as inspectionMonth',
             'order_status as orderStatus',
             'business_situation as businessSituation',
             'development_stage as developmentStage',
+            'order_month as orderMonth',
+            'inspection_month as inspectionMonth',
             'sales_total as salesTotal',
             'transferred_amount as transferredAmount',
             'budget as budget',
+            // 'cost_of_sales as costOfSales',
+            'remarks',
+            'active_status as isActive',
         ])->where('project_id', $id)
             ->whereNull("deleted_at")
             ->first();
@@ -126,10 +122,27 @@ class Project extends Model
         return $project;
     }
 
-    public function upsertProjectDetails($validatedData, $projectID)
+    public function upsertProjectDetails($request)
     {
-        $project = Project::updateOrCreate(['project_id' => $projectID], $validatedData);
-        return ['projectID' => $project->project_id];
+        $project = Project::updateOrCreate(
+            ['project_id' => $request->projectID],
+            [
+                'project_ode' => $request->projectCode,
+                'project_name' => $request->projectName,
+                'client_id' => $request->clientID,
+                'manager_id' => $request->projectLeaderID,
+                'businessSituation  ' => $request->businessSituation,
+                'developmentStage' => $request->developmentStage,
+                'inspectionMonth ' => $request->inspectionMonth,
+                'transferredAmount' => $request->transferredAmount,
+                'budget' => $request->budget,
+                'salesDepartment' => $request->salesDepartment,
+                'costOfSales' => $request->costOfSales,
+                'remarks' => $request->remarks,
+            ]
+        );
+
+        return $project->project_id;
     }
 
 
@@ -191,10 +204,10 @@ class Project extends Model
         return $data;
     }
 
-    public function getUserUnitPrice($user_id)
+    public function getUserSalary($user_id)
     {
-        $user = User::select('unit_price')->where('user_id', $user_id)->first();
-        return $user->unit_price;
+        $salaryModel = new Salary();
+        return $salaryModel->getLatestSalary($user_id);
     }
 
     public function getProjectCost($project_id)
@@ -204,8 +217,8 @@ class Project extends Model
         foreach ($assignedUsersId as $user) {
             $user_id = $user->user_id;
             $individualPlanManMonth = $this->getIndividualTotalPlanManMonth($project_id, $user_id);
-            $unit_price = $this->getUserUnitPrice($user_id);
-            $totalCost += $individualPlanManMonth * $unit_price;
+            $salary = $this->getUserSalary($user_id);
+            $totalCost += $individualPlanManMonth * $salary;
         }
 
         return $totalCost;
@@ -277,10 +290,10 @@ class Project extends Model
         return $project->manager_id;
     }
 
-    public function deleteProjectIfUserIsLeader($user_id)
+    public function changeActiveStatus($item_id, $active_status)
     {
-        DB::table('projects')->where('manager_id', $user_id)
-            ->whereNull('deleted_at')
-            ->update(['deleted_at' => Carbon::now()]);
+        return DB::table('projects')
+            ->where('project_id', $item_id)
+            ->update(['active_status' => $active_status]);
     }
 }

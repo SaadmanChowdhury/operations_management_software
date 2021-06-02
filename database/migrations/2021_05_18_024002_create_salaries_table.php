@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
-class CreateClientsTable extends Migration
+class CreateSalariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,12 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
-            $table->increments('client_id')->unsigned();
-            $table->string('client_code');
-
-            $table->string('client_name', 50);
+        Schema::create('salaries', function (Blueprint $table) {
+            $table->increments('salary_id')->unsigned();
             $table->unsignedInteger('user_id')->length(10);
-            $table->boolean('active_status')->default(true);
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->unsignedInteger('salary')->length(10);
 
             $table->unsignedInteger('created_id')->nullable();
             $table->unsignedInteger('updated_id')->nullable();
@@ -38,6 +37,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('salaries');
     }
 }
