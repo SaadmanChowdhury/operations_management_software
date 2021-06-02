@@ -126,6 +126,10 @@ class Assign extends Model
         //     ->WhereIn('month', [$orderMonth, $inspectionMonth])
         //     ->where('project_id', $projectID)
         //     ->get();
-
+    }
+    
+    public function deleteAssignValuesOfUser($user_id)
+    {
+        DB::table('assign')->where('user_id', $user_id)->delete();
     }
 }
