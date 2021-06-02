@@ -354,3 +354,20 @@ function showEmptyListInfromation(targetDomId) {
     `);
 
 }
+
+
+function resetCss(parent) {
+    var allElements = parent.getElementsByTagName("*");
+    for (var i = 0, len = allElements.length; i < len; i++) {
+        var element = allElements[i];
+        element.style = `{
+            all: initial;
+            * {
+              all: unset;
+            }
+          }`;
+
+
+        console.log(element.style);
+    }
+}

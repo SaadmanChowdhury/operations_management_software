@@ -154,7 +154,7 @@ class ProjectListRenderer {
     renderHTMLProjectList(project) {
 
         var projectHtml =
-            `<div class="card _project" id="project-row-${project.projectID}">
+            `<div class="card _project" data-row="${project.projectID}" id="project-row-${project.projectID}">
         <div class="card-header" id="row1head" onclick="display(${project.projectID})">
         <div class="display list-unstyled">
         <li>${project.projectName}</li>
