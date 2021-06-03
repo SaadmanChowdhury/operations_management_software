@@ -237,19 +237,7 @@ function ProjectRegisterModalHandler() {
 
 function getProjectRegFormData() {
     return {
-        // projectName: $('#project_create_name_Input').val(),
-        // clientID: $('#project_create_clientID_Input').val(),
-        // projectLeaderID: $('#project_create_managerID_Input').val(),
-        // orderMonth: $('#project_create_order_month_Input').val(),
-        // inspectionMonth: $('#project_create_inspection_month_Input').val(),
-        // orderStatus: $('#project_create_order_status_Input').val(),
-        // businessSituation: $('#project_create_business_situation_Input').val(),
-        // developmentStage: $('#project_create_development_stage_Input').val(),
-        // salesTotal: $('#project_create_sales_total_Input').val(),
-        // transferredAmount: $('#project_create_transferred_amount_Input').val(),
-        // budget: $('#project_create_budget_Input').val(),
-        // _token: $('input[name=_token]').val(),
-        token: $('input[name=_token]').val(),
+        
         projectID:$('#id').val(),
         projectCode:$('#project_create_projectCode').val(),
         projectName: $('#project_create_name_Input').val(),
@@ -271,58 +259,64 @@ function getProjectRegFormData() {
         activeChecked:$('#projectReg-activeFlag').prop("checked")
     };
 }
+function createProject_renderEstimateRow(){
 
+    var html= `<div class="row center">
+                                
+                    <input type="hidden" name="estimateID" id="project_create_estimateID" value="">
+
+                    <div class="_third">
+                        <div><label for="estimateCode">Estimate Code</label></div>
+                        <div class="row">
+                            <button class="delete">-</button>
+                            <div><input class="modal_input" type="text" id="project_create_estimateCode" name="estimateCode"></div>
+                        </div>
+                    </div>
+
+                    <div class="_third">
+                        <div><label for="estimateStatus">Estimate Status</label></div>
+                        <div class="custom-select">
+                                <select class="modal_input" name="estimateStatus">`+
+                                    @foreach (config('constants.Estimate_status_id') as $status => $value)
+                                        @if($value=="1")
+                                            `<option selected value={{ $value }}>{{ $status }}</option>`+
+                                        @else
+                                            `<option value={{ $value }}>{{ $status }}</option>`+
+                                        @endif
+                                    @endforeach
+                                `</select>
+                        </div>
+                    </div>
+
+                    <div class="_third">
+                        <div><label for="estimateCost">Estimate Cost</label></div>
+                        <div><input class="modal_input" type="number" id="project_create_estimateCost" name="estimateCost"></div>
+                    </div>
+                </div>`;
+            return html;
+
+}
 function Create_addEstimateRowListener()
 {
     var selects = document.querySelector("#project-create-estimationInfo").getElementsByTagName("input");
 
-    for (let i = 0; i < selects.length; i++) {
-        console.log(selects[i]);
+    // for (let i = 0; i < selects.length; i++) {
+    //     console.log(selects[i]);
 
-        selects[i].addEventListener("change", function () {
-            console.log(this.value);
-            selects[i].setAttribute("value", selects[i].value);
-        });
-    }
-    document.getElementById('projectCreate_estimate_Add').onclick=function(){
+    //     selects[i].addEventListener("change", function () {
+    //         console.log(this.value);
+    //         selects[i].setAttribute("value", selects[i].value);
+    //     });
+    // }
+    document.getElementById('projectCreate_estimate_Add').onclick=function(e){
+            
+            e.preventDefault();
         
-        
-        document.querySelector('#project-create-estimationInfo span').innerHTML+=`<div class="row center">
-                                
-                                <input type="hidden" name="estimateID" id="project_create_estimateID" value="">
-
-                                <div class="_third">
-                                    <div><label for="estimateCode">Estimate Code</label></div>
-                                    <div class="row">
-                                        <button class="delete">-</button>
-                                        <div><input class="modal_input" type="text" id="project_create_estimateCode" name="estimateCode"></div>
-                                    </div>
-                                </div>
-
-                                <div class="_third">
-                                    <div><label for="estimateStatus">Estimate Status</label></div>
-                                    <div class="custom-select">
-                                            <select class="modal_input" name="estimateStatus">`+
-                                                @foreach (config('constants.Estimate_status_id') as $status => $value)
-                                                    @if($value=="1")
-                                                     `<option selected value={{ $value }}>{{ $status }}</option>`+
-                                                    @else
-                                                     `<option value={{ $value }}>{{ $status }}</option>`+
-                                                    @endif
-                                                @endforeach
-                                            `</select>
-                                    </div>
-                                </div>
-
-                                <div class="_third">
-                                    <div><label for="estimateCost">Estimate Cost</label></div>
-                                    <div><input class="modal_input" type="number" id="project_create_estimateCost" name="estimateCost"></div>
-                                </div>
-                            </div>`;
+            $('#project-create-estimationInfo span').append(createProject_renderEstimateRow());
+            //Create_addEstimateRowListener();
+            projectCreate_deleteRowActionListener();                 
                             
                             
-                            Create_addEstimateRowListener();
-                            projectCreate_deleteRowActionListener();
         }
         
         
