@@ -310,27 +310,25 @@ function renderEstimateSection(compositeEstimate){
                                 {
                                     estimateSectionHTML+=`<div class="row center">
                                                         
-                                                        <input type="hidden" name="estimateID" value=${compositeEstimate[index].estimateID}>
+                                                        <input type="hidden" name="estimateID">
 
                                                         <div class="_third">
                                                             <div><label for="estimateCode">Estimate Code</label></div>
                                                             <div class="row">
                                                                 <button class="delete">-</button>
-                                                                <div><input class="modal_input" type="text" name="estimateCode" value="${compositeEstimate[index].estimateCode}"></div>
+                                                                <div><input class="modal_input" type="text" name="estimateCode"></div>
                                                             </div>
                                                         </div>
 
                                                         <div class="_third">
                                                             <div><label for="estimateStatus">Estimate Status</label></div>
-                                                            <!--<div><input class="modal_input" type="text" name="estimateStatus" value=${compositeEstimate[index].estimateStatus}></div>-->
+                                                            <!--<div><input class="modal_input" type="text" name="estimateStatus"></div>-->
                                                             <div class="custom-select">
                                                                 <select class="modal_input" name="estimateStatus">`;
                                                                     @foreach (config('constants.Estimate_status_id') as $status => $value)
-                                                                    @if($value==1)
-                                                                    estimateSectionHTML+=`<option selected value={{ $value }}>{{ $status }}</option>`;
-                                                                    @else
+                                                                    
                                                                         estimateSectionHTML+=`<option value={{ $value }}>{{ $status }}</option>`;
-                                                                    @endif
+                                                                    
                                                                     @endforeach
                                                                 estimateSectionHTML+=`</select>
                                                             </div>
@@ -589,6 +587,30 @@ function updateProjectEditModalData(data) {
     $("#project_edit_remarks").val(project.remarks)
     $("#project_edit_salesDept").val(project.salesDepartment)
     $("#project_edit_salesCost").val(project.costOfSales)
+    var selects=$("#project-edit-estimationInfo > span > .center");
+    console.log(selects,selects.length);
+    var latest=project.estimate.length-1;
+    for (let index = 0; index < selects.length; index++) {
+        console.log(selects[index].querySelectorAll("input,select"));
+        
+        var inputs=selects[index].querySelectorAll("input,select");
+        for (let j = 0; j < inputs.length; j++) {
+            //console.log(inputs[j].value);
+            if(j==0)
+            {
+                inputs[j].value=project.estimate[latest].estimateID;
+            }
+            else if(j==1)
+                inputs[j].value=project.estimate[latest].estimateCode;
+            else if(j==2)
+                inputs[j].value=project.estimate[latest].estimateStatus;
+            else
+                inputs[j].value=project.estimate[latest].estimateCost;
+            
+        }
+        latest--;
+        
+    }
 
 }
 
