@@ -2969,7 +2969,8 @@ td img {
 
 /* The Close Button */
 
-.close {
+
+/* .close {
     top: 0;
     right: 0;
     position: relative;
@@ -2984,7 +2985,7 @@ td img {
     color: #000;
     text-decoration: none;
     cursor: pointer;
-}
+} */
 
 .modal input {
     width: 34vw;

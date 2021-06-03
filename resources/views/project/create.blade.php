@@ -66,7 +66,8 @@
                         </div>
                         <div class="_half">
                             <div><label for="manager_id">担当</label></div>
-                            <div><input class="modal_input" type="number" id="project_create_managerID_Input" name="manager_id">
+                            <div>
+                                <input class="modal_input" type="number" id="project_create_managerID_Input" name="manager_id">
                             </div>
                         </div>
                     </div>

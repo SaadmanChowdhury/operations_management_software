@@ -190,6 +190,7 @@
 
 <script>
 
+
 var estimateStatus="less";
 var resetEditHTML=document.getElementById('project-edit-modal').innerHTML;
 function renderEstimateRow(){
