@@ -1,7 +1,7 @@
 <div class="modal-container" id="project-create-modal">
 
     <div class="modal-title primary">
-        <span class="form-ht">クライアント登録</span>
+        <span class="form-ht">案件登録</span>
         <span class="fa fa-chevron-up close" onclick="closeModal('project-create-modal')"></span>
     </div>
 

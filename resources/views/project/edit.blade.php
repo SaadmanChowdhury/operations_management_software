@@ -1,7 +1,7 @@
 <div class="modal-container" id="project-edit-modal">
 
     <div class="modal-title primary">
-        <span class="form-ht">プロジェクト編集</span>
+        <span class="form-ht">案件編集</span>
         <span class="fa fa-chevron-up close" onclick="closeModal('project-edit-modal')"></span>
     </div>
 
