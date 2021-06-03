@@ -41,24 +41,30 @@ return [
 
     // ユーザー　の　位置									
     'Position' => [
-        'PM' => 0,    //Project Manager    //config('constants.Position.PM')
-        'PL' => 1,    //Project Leader    //config('constants.Position.PL')
-        'SE' => 2,    // Software Engineer    //config('constants.Position.SE')
-        'PG' => 3,    //Programmer    //config('constants.Position.PG'),
+        'PM' => 'PM',    //Project Manager    //config('constants.Position.PM')
+        'PL' => 'PL',    //Project Leader    //config('constants.Position.PL')
+        'SE' => 'SE',    // Software Engineer    //config('constants.Position.SE')
+        'PG' => 'PG',    //Programmer    //config('constants.Position.PG'),
     ],
 
     // ユーザー　の　ユーザー権限															
     'User_authority' => [
-        'システム管理者' => 0,    // System Administrator    //config('constants.User_authority.システム管理者')
-        '一般管理者' => 1,    //General administrator    //config('constants.User_authority.一般管理者')
-        '一般ユーザー' => 2,    // General user    //config('constants.User_authority.一般ユーザー')
+        'システム管理者' => 'システム管理者',    // System Administrator    //config('constants.User_authority.システム管理者')
+        '一般管理者' => '一般管理者',    //General administrator    //config('constants.User_authority.一般管理者')
+        '一般ユーザー' => '一般ユーザー',    // General user    //config('constants.User_authority.一般ユーザー')
     ],
 
     // スタッフの職場
     'Location' => [
-        '宮崎' => 0,    // Miyazaki    //config('constants.Location.宮崎')
-        '東京' => 1,    // Tokyo       //config('constants.Location.東京')
-        '福岡' => 2,    // Fukuoka     //config('constants.Location.福岡')
+        '宮崎' => '宮崎',    // Miyazaki    //config('constants.Location.宮崎')
+        '東京' => '東京',    // Tokyo       //config('constants.Location.東京')
+        '福岡' => '福岡' ,    // Fukuoka     //config('constants.Location.福岡')
+    ],
+    // itemTypeで使用するためのテーブルのID
+    'Table' => [
+        'user' => 'user',    // User Table    //config('constants.Table.user')
+        'project' => 'project',    // Project Table    //config('constants.Table.project')
+        'client' => 'client',    // Client Table    //config('constants.Table.client')
     ],
 
 ];

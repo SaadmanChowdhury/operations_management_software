@@ -15,6 +15,20 @@
                     <div>
                         <img src="{{ asset('img/client_dp.png') }}" class="dp _client" alt="display photo">
                     </div>
+                    <div>
+                        <span>アクティブ</span>
+                        <label class="switch">
+                            <input type="checkbox" id="clientReg-activeFlag" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="fav">
+                        <span>お気に入り</span>
+                        <label class="switch">
+                            <input type="checkbox" id="clientReg-favFlag" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
 
                     <div>
                         <button type="submit" onclick="createClient()"><i class="fa fa-floppy-o" aria-hidden="true"></i>
@@ -29,15 +43,19 @@
 
                 <div class="column right _client">
                     <div class="modal-form-input-container">
-                        <div class="_full">
+                        <div class="_half">
+                            <div><label for="clientID">顧客コード<span class="reruired-field-marker">*</span></label></div>
+                            <div><input class="modal_input" type="text" id="client_create_clientID" name="clientID" required></div>
+                        </div>
+                        <div class="_half">
                             <div><label for="name">顧客名<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="text" id="client_create_name_Input" name="name" required></div>
+                            <div><input class="modal_input" type="text" id="client_create_name_Input" name="name" required></div>
                         </div>
                     </div>
 
                     <div class="_full">
                         <div><label for="user_id">顧客に責任者<span class="reruired-field-marker">*</span></label></div>
-                        <div><input type="number" id="client_create_userID_Input" name="user_id" required></div>
+                        <div><input class="modal_input" type="number" id="client_create_userID_Input" name="user_id" required></div>
                     </div>
                 </div>
 
@@ -54,9 +72,14 @@
 $(function() {
     convertToSearchableDropDown("client_create_userID_Input", "USER");
 })
-
+var resetCreateHTML=document.getElementById('client-create-modal').innerHTML;
+function resetHTML(){
+    document.getElementById('client-create-modal').innerHTML=resetCreateHTML;
+}
 function clientRegisterModalHandler() {
     event.preventDefault();
+    resetHTML();
+    convertToSearchableDropDown("client_create_userID_Input", "USER");
     showModal('client-create-modal');
 }
 
@@ -64,7 +87,9 @@ function getClientRegFormData() {
     return {
         client_name: $('#client_create_name_Input').val(),
         user_id: $('#client_create_userID_Input').val(),
-        _token: $('input[name=_token]').val()
+        _token: $('input[name=_token]').val(),
+        favChecked:$('#clientReg-favFlag').prop("checked"),
+        activeChecked:$('#clientReg-activeFlag').prop("checked")
     };
 }
 

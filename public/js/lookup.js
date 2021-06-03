@@ -14,6 +14,7 @@ function convertClient_IDToName(id) {
 
     return "";
 }
+
 function convertUser_IDToName(id) {
     for (let i = 0; i < USER_LIST.length; i++) {
         if (USER_LIST[i].id == id)
@@ -48,12 +49,12 @@ function fetchUserList() {
         },
         cache: false,
 
-        success: function (response) {
+        success: function(response) {
 
             USER_LIST = response;
 
         },
-        error: function (err) {
+        error: function(err) {
             console.log(err)
         }
     });
@@ -69,7 +70,7 @@ function fetchClientList() {
         },
         cache: false,
 
-        success: function (response) {
+        success: function(response) {
 
             CLIENT_LIST = response;
 
@@ -79,8 +80,7 @@ function fetchClientList() {
             if (response.length > 0) {
 
                 //  console.log(response);
-            }
-            else {
+            } else {
 
 
                 if (typeof showEmptyListInfromation !== "undefined")
@@ -90,7 +90,7 @@ function fetchClientList() {
 
 
         },
-        error: function (err) {
+        error: function(err) {
             console.log(err)
         }
     });
@@ -103,12 +103,9 @@ function convertToSearchableDropDown(id, type) {
 
     if (type == "USER" && USER_LIST.length > 0) {
         options = userSelectGenerator();
-    }
-    else if (type == "CLIENT" && CLIENT_LIST.length > 0) {
+    } else if (type == "CLIENT" && CLIENT_LIST.length > 0) {
         options = clientSelectGenerator();
-    }
-
-    else {
+    } else {
 
         setTimeout(() => {
             convertToSearchableDropDown(id, type);
