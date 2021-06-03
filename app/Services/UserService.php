@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Assign;
 use App\Models\Employment;
 use App\Models\Favorite;
+use App\Models\Project;
 use App\Models\Salary;
 use App\Models\User;
 // use Illuminate\Http\Request as Rq;
@@ -143,5 +145,19 @@ class UserService
         ];
 
         return $rules;
+    }
+
+    public function userDelete($user_id)
+    {
+        $userModel  = new User;
+        $assignModel  = new Assign();
+        $projectModel  = new Project();
+        // deleting the user
+        $userModel->deleteUser($user_id);
+        // need to delete corresponding assign values of the user
+        $assignModel->deleteAssignValuesOfUser($user_id);
+        // need to delete all corresponding projects 
+        // if the user is project leader
+        $projectModel->deleteProjectIfUserIsLeader($user_id);
     }
 }

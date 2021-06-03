@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use App\Http\Utilities\JSONHandler;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class Project extends Model
 {
@@ -295,5 +293,12 @@ class Project extends Model
         return DB::table('projects')
             ->where('project_id', $item_id)
             ->update(['active_status' => $active_status]);
+    }
+
+    public function deleteProjectIfUserIsLeader($user_id)
+    {
+        DB::table('projects')->where('manager_id', $user_id)
+            ->whereNull('deleted_at')
+            ->update(['deleted_at' => Carbon::now()]);
     }
 }
