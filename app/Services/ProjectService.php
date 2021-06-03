@@ -86,7 +86,7 @@ class ProjectService
                 $value->latestEstimateID = $latestEstimate->estimateID;
                 $value->latestEstimateCode = $latestEstimate->estimateCode;
                 $value->latestEstimateStatus = $latestEstimate->estimateStatus;
-                $value->estimateCost = $latestEstimate->estimateCost;
+                $value->latestEstimateCost = $latestEstimate->estimateCost;
             } else { // does not have any estimate value
                 $value->latestEstimateCode = null;
                 $value->latestEstimateCode = null;
