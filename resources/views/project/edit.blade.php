@@ -476,12 +476,6 @@ function estimateFormatting(array_Estimate){
     return formattedEstimate;
 }
 
-
-$(function() {
-    convertToSearchableDropDown("project_edit_managerID_Input", "USER");
-    convertToSearchableDropDown("project_edit_clientID_Input", "CLIENT");
-})
-
 function projectEditModalHandler(projectID) {
     event.preventDefault();
     event.stopPropagation();
@@ -611,6 +605,10 @@ function updateProjectEditModalData(data) {
         latest--;
         
     }
+    $(function() {
+        convertToSearchableDropDown("project_edit_managerID_Input", "USER");
+        convertToSearchableDropDown("project_edit_clientID_Input", "CLIENT");
+    })
 
 }
 
