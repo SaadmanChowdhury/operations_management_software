@@ -23,19 +23,33 @@ class ProjectUpsert extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules =  [
+            'projectID' => '',
+            'projectCode' => 'required|unique:projects',
             'projectName' => 'required',
             'clientID' => 'required',
             'projectLeaderID' => 'required',
-            'orderMonth' => '',
-            'inspectionMonth' => '',
             'orderStatus' => '',
             'businessSituation' => '',
             'developmentStage' => '',
+            'orderMonth' => '',
+            'inspectionMonth' => '',
             'salesTotal' => 'integer|min:1',
             'transferredAmount' => 'integer|min:1',
             'budget' => 'required|integer|min:1',
+            'salesDepartment' => '',
+            'costOfSales' => '',
+            'remarks' => '',
         ];
+
+        $rules['estimate'] = [
+            'estimateID' => '',
+            'estimateCode' => '',
+            'estimateStatus' => '',
+            'estimateCost' => '',
+        ];
+
+        return $rules;
     }
 
     /**

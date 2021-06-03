@@ -20,21 +20,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'company',
-        'commercial_distribute',
-        'tel',
-        'position',
-        'location',
-        'admission_day',
-        'exit_day',
-        'unit_price',
-        'user_authority',
-        'resign_day'
-    ];
+
+    protected $guarded = [];
 
 
     /**
@@ -65,17 +52,17 @@ class User extends Authenticatable
     {
         $list = DB::table('users')->select(
             'user_id as userID',
-            'name as username',
-            'email as email',
-            'gender as gender',
-            'location as location',
-            'tel as tel',
-            'position as position',
-            'admission_day as admissionDay',
-            'exit_day as exitDay',
-            'unit_price as unitPrice',
-            'user_authority as authority',
-            'resign_day as resignationDay'
+            'user_code as userCode',
+            'name as userName',
+            'email',
+            'gender',
+            'location',
+            'tel',
+            'position',
+            'employment_classification as employeeClassification',
+            'affiliation_id as affiliationID',
+            'user_authority as userAuthority',
+            'active_status as isActive',
         )
             ->whereNull("deleted_at")
             ->get()->toArray();
@@ -112,22 +99,27 @@ class User extends Authenticatable
 
     public function readUser($id)
     {
-        $user = User::select([
-            'user_id',
-            'name',
+        $user = DB::table('users')->select(
+            'user_id as userID',
+            'user_code as userCode',
+            'name as userName',
             'email',
             'gender',
             'location',
             'tel',
             'position',
-            'admission_day',
-            'exit_day',
-            'unit_price',
-            'user_authority',
-            'resign_day'
-        ])->where('user_id', $id)
+            'employment_classification as employeeClassification',
+            'affiliation_id as affiliationID',
+            'emergency_contact as emergencyContact',
+            'condition1',
+            'condition2',
+            'locker',
+            'remarks',
+            'user_authority as userAuthority',
+            'active_status as isActive',
+        )->where('user_id', $id)
             ->whereNull("deleted_at")
-            ->first();
+            ->get();
         return $user;
     }
 
@@ -239,5 +231,40 @@ class User extends Authenticatable
             ->whereNull("deleted_at")
             ->get()->toArray();
         return $list;
+    }
+
+    public function changeActiveStatus($item_id, $active_status)
+    {
+        return DB::table('users')
+            ->where('user_id', $item_id)
+            ->update(['active_status' => $active_status]);
+    }
+
+    public function upsertUser($request)
+    {
+
+        $user = User::updateOrCreate(
+            ['user_id' => $request->userID],
+            [
+                'user_code' => $request->userCode,
+                'name' => $request->userName,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'gender' => $request->gender,
+                'location' => $request->location,
+                'tel' => $request->tel,
+                'position' => $request->position,
+                'employment_classification' => $request->employeeClassification,
+                'affiliation_id' => $request->affiliationID,
+                'emergency_contact' => $request->emergencyContact,
+                'condition1' => $request->condition1,
+                'condition2' => $request->condition2,
+                'locker' => $request->locker,
+                'user_authority' => $request->userAuthority,
+                'remarks' => $request->remarks,
+            ]
+        );
+
+        return $user->user_id;
     }
 }
