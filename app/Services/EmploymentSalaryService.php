@@ -15,6 +15,11 @@ class EmploymentSalaryService
         $employments = $employmentModel->getCompositeEmployment($user_id);
         foreach ($employments as $employment) {
             $start_date =  $end_date = null;
+
+            if ($employment->startDate == null) {
+                return false;
+            }
+
             if ($employment->startDate != null) {
                 $start_date = Carbon::createFromFormat('Y-m-d',  $employment->startDate);
             }
