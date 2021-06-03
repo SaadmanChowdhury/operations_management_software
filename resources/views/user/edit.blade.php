@@ -278,31 +278,48 @@ function toggleSalaryText(compositeSalary)
     
     if (salaryStatus == "less") {
         salaryStatus = "more";
-        document.getElementById("user-edit-Salary").innerHTML="";
+        //document.getElementById("user-edit-Salary").innerHTML="";
         //document.getElementById("user-edit-remark").remove();
         // setTimeout(() => {
         //     renderSalarySection(compositeSalary);
         // }, 2000);
-        renderSalarySection(compositeSalary);
-        
-        addSalaryRowListener()
+        //renderSalarySection(compositeSalary);
+        showSalary();
+        //addSalaryRowListener()
         document.getElementById("toggleButton").innerText = "See Less";
         
     } 
     else if (salaryStatus == "more") {
         salaryStatus = "less";
-        document.getElementById("user-edit-Salary").innerHTML="";
+        //document.getElementById("user-edit-Salary").innerHTML="";
         //document.getElementById("user-edit-remark").remove();
         setTimeout(
-            renderSalarySection(compositeSalary),2000
+            hideSalary(),100
 
         ),
-        addSalaryRowListener();
+        //addSalaryRowListener();
         document.getElementById("toggleButton").innerText = "See More";
         
     }
 }
 
+function hideSalary(){
+    console.log("in hideSection");
+    
+    var inputsRow= document.querySelectorAll("#user-edit-Salary > span > .hideable");
+    console.log(inputsRow,inputsRow.length);
+    for (let index = inputsRow.length-1; index >=-0; index--) {
+        inputsRow[index].style.display="none";    
+        console.log(inputsRow[index].style.display);
+        console.log("hey");    
+    }
+}
+function showSalary(){
+    var inputs= jQuery("#user-edit-Salary > span > .hideable");
+    for (let index = 0; index < inputs.length; index++) {
+        inputs[index].style.display="flex";        
+    }
+}
 
 function showMoreSalary(compositeSalary){
     var salarySectionHTML=``;
@@ -522,18 +539,79 @@ document.getElementById("entryInfo").querySelectorAll(".delete").forEach(functio
 
 function renderSalarySection(compositeSalary){
     // <div class="modal-form-input-container _dark flex-col" id="user-edit-Salary">
+
     var salarySectionHTML=`
                         <span>
                             <div style="font-size:20px; margin-left:12px">
                                 給料情報
                             </div>
                             <button class="modal_addBtn" id="salary_Add">+</button>`;
-                            if(salaryStatus=="less"){
-                                salarySectionHTML+=showLessSalary(compositeSalary);
-                            }
-                            else{
-                                salarySectionHTML+=showMoreSalary(compositeSalary);
-                            }
+                            for (let index = compositeSalary.length-1; index >=0; index--) {
+                                if(index==compositeSalary.length-1)
+                                {
+                                    salarySectionHTML+=`<div class="row center" id="salary-row-1">
+                                                            
+                                                            <div>
+                                                                <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
+                                                                <input type="hidden" name="salaryID" value="${compositeSalary[index].salaryID}">
+                                                                <div class="row">
+                                                                    <button class="delete">-</button>
+
+                                                                    <input class="modal_input" type="number" name="salary" required value=${compositeSalary[index].salaryAmount}>
+                                                                </div>
+                                                            </div>
+                                                            
+
+                                                            <div>
+                                                                <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
+                                                                <div><input class="modal_input" type="date"
+                                                                        name="salary_startDate" required value=${compositeSalary[index].startDate}></div>
+                                                            </div>
+
+                                                            <div>
+                                                                <div><label for="salary_endDate">終了日</label></div>
+                                                                <div><input class="modal_input" type="date" name="salary_endDate" required value=${compositeSalary[index].endDate}></div>
+                                                            </div>
+                                                        </div>`;
+                                    }
+                                    else{
+                                        salarySectionHTML+=`<div class="row center hideable" id="salary-row-1">
+                                                            
+                                                            <div>
+                                                                <div><label for="salary">給料<span class="reruired-field-marker">*</span></label></div>
+                                                                <input type="hidden" name="salaryID" value="${compositeSalary[index].salaryID}">
+                                                                <div class="row">
+                                                                    <button class="delete">-</button>
+
+                                                                    <input class="modal_input" type="number" name="salary" required value=${compositeSalary[index].salaryAmount}>
+                                                                </div>
+                                                            </div>
+                                                            
+
+                                                            <div>
+                                                                <div><label for="salary_startDate">開始日<span class="reruired-field-marker">*</span></label></div>
+                                                                <div><input class="modal_input" type="date"
+                                                                        name="salary_startDate" required value=${compositeSalary[index].startDate}></div>
+                                                            </div>
+
+                                                            <div>
+                                                                <div><label for="salary_endDate">終了日</label></div>
+                                                                <div><input class="modal_input" type="date" name="salary_endDate" required value=${compositeSalary[index].endDate}></div>
+                                                            </div>
+                                                        </div>`;
+                                                    
+                                    }
+                                    
+                        }
+                        if(salaryStatus=="less"){
+                            setTimeout(() => {
+                                hideSalary();    
+                            }, 100);
+                            
+                        }
+                        else{
+                            showSalary();
+                        }
                             
                     salarySectionHTML+=`</span>
                     <a id="toggleButton" href="javascript:void(0);">See More</a>
