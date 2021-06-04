@@ -58,7 +58,7 @@
                             <div class="custom-select">
                                 <select id="user_create_locationInput" required>
                                     @foreach (config('constants.Location') as $location => $value)
-                                    <option>{{ $location }}</option>
+                                        <option>{{ $location }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -76,7 +76,7 @@
                             <div class="custom-select">
                                 <select id="user_create_positionInput" required>
                                     @foreach (config('constants.Position') as $position => $value)
-                                    <option>{{ $position }}</option>
+                                        <option>{{ $position }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -96,7 +96,7 @@
                             <div class="custom-select">
                                 <select id="user_create_authorityInput" required>
                                     @foreach (config('constants.User_authority') as $authority => $value)
-                                    <option name="user_authority">{{ $authority }}</option>
+                                        <option name="user_authority">{{ $authority }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -115,59 +115,62 @@
 
 
 <script>
-function userRegisterModalHandler() {
-    event.preventDefault();
+    function userRegisterModalHandler() {
+        event.preventDefault();
 
-    showModal('user-create-modal');
-}
+        showModal('user-create-modal');
+    }
 
-function getRegFormData() {
-    return {
-        name: $('#user_create_nameInput').val(),
-        email: $('#user_create_emailInput').val(),
-        password: $('#user_create_passwordInput').val(),
-        tel: $('#user_create_telInput').val(),
-        position: $('#user_create_positionInput').val(),
-        location: $('#user_create_locationInput').val(),
-        admission_day: $('#user_create_admission_dayInput').val(),
-        unit_price: $('#user_create_salaryInput').val(),
-        user_authority: $('#user_create_authorityInput').val(),
-        _token: $('input[name=_token]').val()
-    };
-}
+    function getRegFormData() {
+        return {
+            name: $('#user_create_nameInput').val(),
+            email: $('#user_create_emailInput').val(),
+            password: $('#user_create_passwordInput').val(),
+            tel: $('#user_create_telInput').val(),
+            position: $('#user_create_positionInput').val(),
+            location: $('#user_create_locationInput').val(),
+            admission_day: $('#user_create_admission_dayInput').val(),
+            unit_price: $('#user_create_salaryInput').val(),
+            user_authority: $('#user_create_authorityInput').val(),
+            _token: $('input[name=_token]').val()
+        };
+    }
 
-function handleAJAXResponse(response) {
-    if (response["resultStatus"]["isSuccess"])
-        $('#message').html("Operation Succesful");
-    else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
-        $('#message').html("You are not authorized to make this change");
-    else
-        $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
-}
-
-
+    function handleAJAXResponse(response) {
+        if (response["resultStatus"]["isSuccess"])
+            $('#message').html("Operation Succesful");
+        else if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
+            $('#message').html("You are not authorized to make this change");
+        else
+            $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
+    }
 
 
-function createUser() {
-    event.preventDefault();
 
-    modalData = getRegFormData();
 
-    $.ajax({
-        type: "post",
-        url: "/API/createUser",
-        data: modalData,
-        cache: false,
-        success: function(response) {
-            if (response["resultStatus"]["isSuccess"]) {
-                updateUserTable(modalData);
-                closeModal('user-create-modal');
-            } else
-                handleAJAXResponse(response);
-        },
-        error: function(err) {
-            handleAJAXError(err);
-        }
-    });
-}
+    function createUser() {
+        event.preventDefault();
+
+        modalData = getRegFormData();
+
+        $.ajax({
+            type: "post",
+            url: "/API/createUser",
+            data: modalData,
+            cache: false,
+            success: function(response) {
+                if (response["resultStatus"]["isSuccess"]) {
+                    updateUserTable(modalData);
+                    closeModal('user-create-modal');
+                    fetchUserList_AJAX();
+
+                } else
+                    handleAJAXResponse(response);
+            },
+            error: function(err) {
+                handleAJAXError(err);
+            }
+        });
+    }
+
 </script>
