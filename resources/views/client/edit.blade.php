@@ -187,20 +187,21 @@ function deleteClient() {
     event.preventDefault();
     clientId = $('#id').val();
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: '本当ですか？',
+        text: "これを元に戻すことはできません!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085D6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: '削除します！',
+        cancelButtonText:'キャンセル'
     }).then((result) => {
         if (result.isConfirmed) {
             deleteClientComfirmation(clientId);
             Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
+                '削除された!',
+                'ファイルが削除されました.',
+                '成功した'
             )
         }
     })

@@ -37,8 +37,8 @@ class ClientUpsert extends FormRequest
     public function messages()
     {
         return [
-            'client_name.required' => 'Client name is required',
-            'user_id.required' => 'User is required',
+            'client_name.required' => 'クライアント名は必須です',
+            'user_id.required' => 'ユーザーは必須です',
         ];
     }
 }

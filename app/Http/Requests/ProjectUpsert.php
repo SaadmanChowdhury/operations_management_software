@@ -32,9 +32,9 @@ class ProjectUpsert extends FormRequest
             'orderStatus' => '',
             'businessSituation' => '',
             'developmentStage' => '',
-            'salesTotal' => 'integer|min:1',
-            'transferredAmount' => 'integer|min:1',
-            'budget' => 'required|integer|min:1',
+            'salesTotal' => 'integer',
+            'transferredAmount' => 'integer',
+            'budget' => 'required|integer',
         ];
     }
 
@@ -46,13 +46,13 @@ class ProjectUpsert extends FormRequest
     public function messages()
     {
         return [
-            'projectName.required' => 'Project name required',
-            'clientID.required' => 'Client is required',
-            'projectLeaderID.required' => 'Project Leader is required',
-            'budget.required' => 'Budget total is required',
-            'salesTotal.min:0' => 'salesTotal cannot be negative',
-            'transferredAmount.min:0' => 'salesTotal cannot be negative',
-            'budget.min:0' => 'budget cannot be negative',
-        ];
+            'projectName.required' => 'プロジェクト名は必須です',
+            'clientID.required' => 'クライアントは必須です',
+            'projectLeaderID.required' => 'プロジェクト担当は必須です',
+            'budget.required' => '予算の合計が必要です',
+            'budget.integer' => '予算を負にすることはできません',
+            'salesTotal.integer' => '売上高 に負の値は指定できません',
+            'transferredAmount.integer' => '振込金額は負の値にはできません',
+            ];
     }
 }

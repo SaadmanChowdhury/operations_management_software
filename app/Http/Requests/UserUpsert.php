@@ -67,16 +67,16 @@ class UserUpsert extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Name is required',
-            'email.required' => 'Email is required',
-            'email.email' => 'Has to be email',
-            'email.unique:users' => 'Has to be unique email',
-            'password.required' => 'Password is required',
-            'position.required' => 'Position is required',
+            'name.required' => '名前が必要です',
+            'email.required' => 'メールアドレスが必須です',
+            'email.email' => '不正なメールアドレスです。',
+            'email.unique:users' => '固有の電子メールである必要があります',
+            'password.required' => 'パスワードが必要です',
+            'position.required' => 'ポジションが必要です',
             'location.required' => 'Location is required',
-            'admission_day.required' => 'Admission day is required',
-            'unit_price.required' => 'Unit price is required',
-            'unit_price.min:1' => 'Unit price must be at least 1',
+            'admission_day.required' => '入場日が必要です',
+            'unit_price.required' => '原価が必要です',
+            // 'unit_price.min:1' => '原価は 1 以上である必要があります',
             // 'user_authority.required' => 'User authority is required',
         ];
     }

@@ -139,7 +139,7 @@ class ProjectService
             $om = Carbon::createFromFormat('Y-m-d',  $orderMonth);
             $im = Carbon::createFromFormat('Y-m-d',  $inspectionMonth);
             if ($om > $im) {
-                return 'Inspection Month cannot be greater than Oder Month';
+                return '検収月は受注月を超えることはできません!!';
             }
         }
 
@@ -149,18 +149,18 @@ class ProjectService
 
         // the monitory values cannot be negative
         if (intval($budget) < 0) {
-            return 'Budget cannot be negative';
+            return '予算を負の値にすることはできません';
         }
         if (intval($salesTotal) < 0) {
-            return 'salesTotal cannot be negative';
+            return '売上高 に負の値は指定できません';
         }
         if (intval($transferredAmount) < 0) {
-            return 'transferredAmount cannot be negative';
+            return '振込金額は負の値にはできません';
         }
 
         // transferredAmount cannot be greater than salesTotal
         if (intval($transferredAmount) > intval($salesTotal)) {
-            return 'Transferred Amount cannot be greater than Sales Total';
+            return '振込金額は売上高を超えることはできません';
         }
         return true;
     }
