@@ -2568,7 +2568,7 @@ td img {
         padding: 1px;
     }
 }
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 850px){
     .project-scrollx{
         overflow-x: scroll;  
     }
@@ -2581,10 +2581,6 @@ td img {
     }
     #table-nav._assign {
         width: 800px;
-    }
-    .wrapper{
-        /* margin-left: 0px;
-        margin-right: 0px; */
     }
     .table-header._assign {
         width: 800px;
@@ -2614,15 +2610,19 @@ td img {
 }
 
 
-@media only screen and (max-width: 650px){
+@media only screen and (max-width: 700px){
     .content-width {
         overflow-x: scroll; 
+        width:93vw;
     }
     .userlist-nav a li {
         padding:6px;
    }
    .list-icon{
        padding: 1px;
+   }
+   .responsive-scroll {
+    width:93vw;
    }
 }
 @media only screen and (min-width: 1350px){
@@ -2635,7 +2635,7 @@ td img {
         max-width: 57vw;
     }
 }
-@media only screen and (max-width: 900px){
+@media only screen and (max-width: 800px){
     #header_top{
         min-width: 40px;
     }
@@ -2647,9 +2647,7 @@ td img {
     left:40px;
     width: calc(100% - 40px);
     }
-    .row-content{
-    /* padding:1vw 5vw 1vw 1vw; */
-    }
+    
     #header_top:hover{
         min-width: 166px;
         
@@ -2664,5 +2662,34 @@ td img {
         padding: 10px;
         font-size: 16px;
         
+    }
+}
+@media only screen and (min-width: 1800px){
+    #header_top{
+        max-width: 70px;
+    }
+    #sidebar-svg{
+        width: 36px;
+        height:36px;
+    }
+    .page-container{
+    left:70px;
+    width: calc(100% - 70px);
+    }
+    
+    #header_top:hover{
+        max-width: 260px;
+        
+    }
+    .sidebar.label-text {
+        margin-left: 25px;
+    }
+   
+    #nav li a{
+        padding: 17px;
+        font-size: 12px; 
+    }
+    .label-text {
+        font-size: .66rem;
     }
 }

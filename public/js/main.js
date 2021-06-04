@@ -43,7 +43,6 @@ function sidebar_expand(sidebar) {
 }
 
 function sidebar_contract(sidebar) {
-
     var text = $(".label-text.sidebar");
 
     isMouseOnSideBar = false;
