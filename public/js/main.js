@@ -8,8 +8,8 @@ var menu = document.getElementById('header_top');
 var shade = document.getElementById('background-shade');
 var content = document.getElementsByClassName('page-container');
 
-const sidebarCloseWidth = "60px";
-const sidebarOpenWidth = "250px";
+const sidebarCloseWidth = "4.2vw";
+const sidebarOpenWidth = "17vw";
 const sidebarDuration = "0.5s";
 const sidebarOpenCurve = "cubic-bezier(0,0.7,0.3,1.3)";
 const sidebarCloseCurve = "cubic-bezier(0,.7,.3,1)";
@@ -25,7 +25,7 @@ function sidebar_expand(sidebar) {
 
     if (mainContainerFlexFlag) {
         content[0].style.left = sidebarOpenWidth;
-        content[0].style.width = "calc(100% - 250px)";
+        content[0].style.width = "calc(100% - 17vw)";
         content[0].style.transition = sidebarDuration + " " + sidebarOpenCurve;
     }
 
@@ -311,15 +311,21 @@ function dateDifference(endDate, startDate) {
         diffYear = ""
     }
     else {
-        diffYear = Math.floor(diffYear) + "年"
+        diffYear = Math.abs(Math.floor(diffYear)) + "年"
     }
 
     if (Math.floor(monthDiff) == 0) {
-        monthDiff = "";
+        if (Math.floor(diffYear) == 0) {
+            monthDiff = Math.abs(Math.floor(monthDiff)) + "月"
+        }
+        else {
+            monthDiff = "";
+        }
     }
     else {
-        monthDiff = Math.floor(monthDiff) + "月"
+        monthDiff = Math.abs(Math.floor(monthDiff)) + "月"
     }
+
 
     return diffYear + monthDiff;
 }
