@@ -31,6 +31,8 @@ function renderHTML(response) {
     var auth = document.getElementById('user-authority').value;
 
     var staffs = document.getElementsByClassName('table-body');
+    staffs[0].innerHTML = "";
+
     response["resultData"]["user"].forEach((row) => {
 
         var pos = row.position;
