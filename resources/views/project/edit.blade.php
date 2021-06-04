@@ -28,12 +28,12 @@
                         </button>
                     </div>
 
-                    @if ($loggedInUser->user_authority == ('システム管理者'))
-                    <div onclick="deleteProject()">
-                        <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
-                                aria-hidden="true"></i>
-                            削除</a>
-                    </div>
+                    @if ($loggedInUser->user_authority == 'システム管理者')
+                        <div onclick="deleteProject()">
+                            <a class="button delete-button" id="deleteButton"> <i class="fa fa-trash-o"
+                                    aria-hidden="true"></i>
+                                削除</a>
+                        </div>
                     @endif
                 </div>
 
@@ -68,7 +68,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_order_status_Input" required>
                                     @foreach (config('constants.Order_Status') as $status => $value)
-                                    <option>{{ $status }}</option>
+                                        <option>{{ $status }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -79,7 +79,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_business_situation_Input" required>
                                     @foreach (config('constants.Business_situation') as $situation => $value)
-                                    <option>{{ $situation }}</option>
+                                        <option>{{ $situation }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -90,7 +90,7 @@
                             <div class="custom-select">
                                 <select id="project_edit_development_stage_Input" required>
                                     @foreach (config('constants.Development_stage') as $stage => $value)
-                                    <option>{{ $stage }}</option>
+                                        <option>{{ $stage }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -106,7 +106,8 @@
                         </div>
 
                         <div class="_third">
-                            <div><label for="transferred_amount">振込金額<span class="reruired-field-marker">*</span></label></div>
+                            <div><label for="transferred_amount">振込金額<span
+                                        class="reruired-field-marker">*</span></label></div>
                             <div><input type="number" id="project_edit_transferred_amount_Input"
                                     name="transferred_amount" required></div>
                         </div>
@@ -120,8 +121,8 @@
                     <div class="modal-form-input-container">
                         <div class="_half">
                             <div><label for="order_month">受注月<span class="reruired-field-marker">*</span></label></div>
-                            <div><input type="date" id="project_edit_order_month_Input" name="order_month"
-                                    required></div>
+                            <div><input type="date" id="project_edit_order_month_Input" name="order_month" required>
+                            </div>
                         </div>
 
                         <div class="_half">
@@ -141,157 +142,161 @@
 
 
 <script>
-$(function() {
-    convertToSearchableDropDown("project_edit_managerID_Input", "USER");
-    convertToSearchableDropDown("project_edit_clientID_Input", "CLIENT");
-})
+    $(function() {
+        convertToSearchableDropDown("project_edit_managerID_Input", "USER");
+        convertToSearchableDropDown("project_edit_clientID_Input", "CLIENT");
+    })
 
 
-var project_edit_order_month_Input ;
-var project_edit_inspection_month_Input ;
+    var project_edit_order_month_Input;
+    var project_edit_inspection_month_Input;
 
-function projectEditModalHandler(projectID) {
-    event.preventDefault();
-    event.stopPropagation();
-    clearModalData('project-edit-modal');
-
-
-    showModal('project-edit-modal');
-
-    getProjectData(projectID);
-
-}
-
-function getProjectEditFormData() {
-    return {
-        projectID: $('#id').val(),
-        projectName: $('#project_edit_name_Input').val(),
-        clientID: $('#project_edit_clientID_Input').val(),
-        projectLeaderID: $('#project_edit_managerID_Input').val(),
-        orderStatus: $("#project_edit_order_status_Input").val(),
-        businessSituation: $('#project_edit_business_situation_Input').val(),
-        developmentStage: $("#project_edit_development_stage_Input").val(),
-        orderMonth: $('#project_edit_order_month_Input').val(),
-        inspectionMonth: $('#project_edit_inspection_month_Input').val(),
-        salesTotal: $('#project_edit_sales_total_Input').val(),
-        transferredAmount: $('#project_edit_transferred_amount_Input').val(),
-        budget: $('#project_edit_budget_Input').val(),
-        _token: $('input[name=_token]').val()
-    };
-}
-
-function handleAJAXResponse(response) {
-
-    // if (response["resultStatus"]["isSuccess"])
-    //     updateProjectTable();
-
-    //else
-     if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
-        $('#message').html("You are not authorized to make this change");
-
-    else
-        $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
-}
+    function projectEditModalHandler(projectID) {
+        event.preventDefault();
+        event.stopPropagation();
+        clearModalData('project-edit-modal');
 
 
-function updateProjectTable(updatedData) {
-    $.ajax({
-        type: "post",
-        url: "/API/readProjectDetails",
-        data: {
-            projectID: updatedData.projectID,
-            _token: $('input[name=_token]').val()
-        },
-        cache: false,
-        success: function(response) {
-            if (response["resultStatus"]["isSuccess"]) {
-                
-                let row = $("#project-row-" + updatedData.projectID);
-                row.replaceWith( new ProjectListRenderer().renderHTMLProjectList(response["resultData"]));
-            } else
-                handleAJAXResponse(response);
-        },
-        error: function(err) {
-            handleAJAXError(err);
-        }
-    }); 
-}
+        showModal('project-edit-modal');
 
-function updateProjectEditModalData(data) {
+        getProjectData(projectID);
 
-    for (let i = 0; i < data.length; i++) {
-        if (data[i] == null)
-            data[i] = "";
     }
 
-    $("#id").val(data.projectID)
-    $("#project_edit_name_Input").val(data.projectName)
-    $("#project_edit_clientID_Input").val(data.clientID)
-    $("#project_edit_managerID_Input").val(data.projectLeaderID)
-    $("#project_edit_order_month_Input").val(data.orderMonth)
-    $("#project_edit_inspection_month_Input").val(data.inspectionMonth)
-    $("#project_edit_order_status_Input").val(data.orderStatus)
-    $("#project_edit_business_situation_Input").val(data.businessSituation)
-    $("#project_edit_development_stage_Input").val(data.developmentStage)
-    $("#project_edit_sales_total_Input").val(data.salesTotal)
-    $("#project_edit_transferred_amount_Input").val(data.transferredAmount)
-    $("#project_edit_budget_Input").val(data.budget)
-}
-
-function getProjectData(projectID) {
-    $.ajax({
-        type: "post",
-        url: "/API/readProjectDetails",
-        data: {
-            projectID: projectID,
+    function getProjectEditFormData() {
+        return {
+            projectID: $('#id').val(),
+            projectName: $('#project_edit_name_Input').val(),
+            clientID: $('#project_edit_clientID_Input').val(),
+            projectLeaderID: $('#project_edit_managerID_Input').val(),
+            orderStatus: $("#project_edit_order_status_Input").val(),
+            businessSituation: $('#project_edit_business_situation_Input').val(),
+            developmentStage: $("#project_edit_development_stage_Input").val(),
+            orderMonth: $('#project_edit_order_month_Input').val(),
+            inspectionMonth: $('#project_edit_inspection_month_Input').val(),
+            salesTotal: $('#project_edit_sales_total_Input').val(),
+            transferredAmount: $('#project_edit_transferred_amount_Input').val(),
+            budget: $('#project_edit_budget_Input').val(),
             _token: $('input[name=_token]').val()
-        },
-        cache: false,
-        success: function(response) {
-            if (response["resultStatus"]["isSuccess"]) {
-                 console.log(response)
-                updateProjectEditModalData(response["resultData"]);
+        };
+    }
 
-                project_edit_order_month_Input = new Date (document.getElementById("project_edit_order_month_Input").value);
-                project_edit_inspection_month_Input = new Date (document.getElementById("project_edit_inspection_month_Input").value);
-            } else
-                handleAJAXResponse(response);
-        },
-        error: function(err) {
-            handleAJAXError(err);
+    function handleAJAXResponse(response) {
+
+        // if (response["resultStatus"]["isSuccess"])
+        //     updateProjectTable();
+
+        //else
+        if (response["resultStatus"]["errorMessage"] === "UNAUTHORIZED_ACTION")
+            $('#message').html("You are not authorized to make this change");
+
+        else
+            $('#message').html("Unhandled Status: " + response["resultStatus"]["errorMessage"]);
+    }
+
+
+    function updateProjectTable(updatedData) {
+        $.ajax({
+            type: "post",
+            url: "/API/readProjectDetails",
+            data: {
+                projectID: updatedData.projectID,
+                _token: $('input[name=_token]').val()
+            },
+            cache: false,
+            success: function(response) {
+                if (response["resultStatus"]["isSuccess"]) {
+
+                    response["resultData"]["profitPercentage"] = response["resultData"]["profit"];
+                    let row = $("#project-row-" + updatedData.projectID);
+                    row.replaceWith(new ProjectListRenderer().renderHTMLProjectList(response[
+                        "resultData"]));
+                } else
+                    handleAJAXResponse(response);
+            },
+            error: function(err) {
+                handleAJAXError(err);
+            }
+        });
+    }
+
+    function updateProjectEditModalData(data) {
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i] == null)
+                data[i] = "";
         }
-    });
-}
 
-function updateProject() {
-    event.preventDefault();
+        $("#id").val(data.projectID)
+        $("#project_edit_name_Input").val(data.projectName)
+        $("#project_edit_clientID_Input").val(data.clientID)
+        $("#project_edit_managerID_Input").val(data.projectLeaderID)
+        $("#project_edit_order_month_Input").val(data.orderMonth)
+        $("#project_edit_inspection_month_Input").val(data.inspectionMonth)
+        $("#project_edit_order_status_Input").val(data.orderStatus)
+        $("#project_edit_business_situation_Input").val(data.businessSituation)
+        $("#project_edit_development_stage_Input").val(data.developmentStage)
+        $("#project_edit_sales_total_Input").val(data.salesTotal)
+        $("#project_edit_transferred_amount_Input").val(data.transferredAmount)
+        $("#project_edit_budget_Input").val(data.budget)
+    }
 
-    modalData = getProjectEditFormData();
-    $.ajax({
-        type: "post",
-        url: "/API/upsertProjectDetails",
-        data: modalData,
-        cache: false,
-        success: function(response) {
-            if (response["resultStatus"]["isSuccess"]) {
-                updateProjectTable(modalData);
-                closeModal('project-edit-modal');
-            } else
-                handleAJAXResponse(response);
-        },
-        error: function(err) {
-            handleAJAXError(err);
-            updateProjectEditModalData(modalData);
-        }
-    });
-}
+    function getProjectData(projectID) {
+        $.ajax({
+            type: "post",
+            url: "/API/readProjectDetails",
+            data: {
+                projectID: projectID,
+                _token: $('input[name=_token]').val()
+            },
+            cache: false,
+            success: function(response) {
+                if (response["resultStatus"]["isSuccess"]) {
+                    console.log(response)
+                    updateProjectEditModalData(response["resultData"]);
+
+                    project_edit_order_month_Input = new Date(document.getElementById(
+                        "project_edit_order_month_Input").value);
+                    project_edit_inspection_month_Input = new Date(document.getElementById(
+                        "project_edit_inspection_month_Input").value);
+                } else
+                    handleAJAXResponse(response);
+            },
+            error: function(err) {
+                handleAJAXError(err);
+            }
+        });
+    }
+
+    function updateProject() {
+        event.preventDefault();
+
+        modalData = getProjectEditFormData();
+        $.ajax({
+            type: "post",
+            url: "/API/upsertProjectDetails",
+            data: modalData,
+            cache: false,
+            success: function(response) {
+                if (response["resultStatus"]["isSuccess"]) {
+                    updateProjectTable(modalData);
+                    closeModal('project-edit-modal');
+                } else
+                    handleAJAXResponse(response);
+            },
+            error: function(err) {
+                handleAJAXError(err);
+                updateProjectEditModalData(modalData);
+            }
+        });
+    }
 
 
 
-function deleteProject() {
-    event.preventDefault();
-    projectId = $('#id').val();
-    Swal.fire({
+    function deleteProject() {
+        event.preventDefault();
+        projectId = $('#id').val();
+        Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
@@ -301,7 +306,7 @@ function deleteProject() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                deleteComfirmed( projectId );
+                deleteComfirmed(projectId);
                 Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
@@ -309,27 +314,28 @@ function deleteProject() {
                 )
             }
         })
-}
+    }
 
-function  deleteComfirmed( projectId ){
-    $.ajax({
-        type: "post",
-        url: "/API/deleteProject",
-        data: {
-            id: $('#id').val(),
-            _token: $('input[name=_token]').val()
-        },
-        cache: false,
-        success: function(response) {
-            if (response["resultStatus"]["isSuccess"])
-                $("#project-row-" + projectId).remove();
-            else
-                handleAJAXResponse(response);
-            closeModal('project-edit-modal');
-        },
-        error: function(err) {
-            handleAJAXError(err);
-        }
-    });
-}
+    function deleteComfirmed(projectId) {
+        $.ajax({
+            type: "post",
+            url: "/API/deleteProject",
+            data: {
+                id: $('#id').val(),
+                _token: $('input[name=_token]').val()
+            },
+            cache: false,
+            success: function(response) {
+                if (response["resultStatus"]["isSuccess"])
+                    $("#project-row-" + projectId).remove();
+                else
+                    handleAJAXResponse(response);
+                closeModal('project-edit-modal');
+            },
+            error: function(err) {
+                handleAJAXError(err);
+            }
+        });
+    }
+
 </script>
