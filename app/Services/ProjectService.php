@@ -208,6 +208,7 @@ class ProjectService
 
             $assignModel->deleteAllAssignValuesOutsideProjectTimeline($orderYear, $orderMonth, $inspectionYear, $inspectionMonth, $projectID);
 
+
             return $projectModel->upsertProjectDetails($validatedData, $projectID);
         }
     }
