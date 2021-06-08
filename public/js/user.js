@@ -102,7 +102,7 @@ function renderHTML(response) {
         }
 
         if (isSystemAdmin()) {
-            unitPriceString = `<li>${unitPrice}</li>`;
+            unitPriceString = `<li class="salary">${unitPrice}</li>`;
         }
 
         if (isGeneralUser()) {
