@@ -767,7 +767,7 @@ function calcMonthDiff(orderMonth, inspectionMonth) {
     // To calculate the no. of days between two dates
     //var Difference_In_Month = Math.ceil(Difference_In_Time / (1000 * 3600 * 24 * 30));
     //return Difference_In_Month;
-    return Difference_Month <= 0 ? 0 : Difference_In_Month + 1;
+    return Difference_In_Month <= 0 ? 0 : Difference_In_Month + 1;
 }
 
 function calcTotalManMonth(mainTableArray) {
