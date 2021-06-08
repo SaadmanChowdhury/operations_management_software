@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PL', //PL
                 'admission_day' => '2019-01-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 350000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -57,7 +57,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'SE', //SE
                 'admission_day' => '2019-04-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 300000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -72,7 +72,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'SE', //SE
                 'admission_day' => '2019-04-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 280000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -87,7 +87,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2019-04-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 240000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -102,7 +102,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2019-04-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 240000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -117,7 +117,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2020-01-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -132,7 +132,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2020-01-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -147,7 +147,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2020-01-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -162,7 +162,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -177,7 +177,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -192,7 +192,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -207,7 +207,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -222,7 +222,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,
@@ -237,7 +237,7 @@ class UsersTableSeeder extends Seeder
                 'tel' => '0123456789',
                 'position' => 'PG', //PG
                 'admission_day' => '2020-04-01',
-                'exit_day' => '2021-06-30',
+                'exit_day' => '2021-12-30',
                 'unit_price' => 220000,
                 'user_authority' => '一般ユーザー',
                 'resign_day' => null,

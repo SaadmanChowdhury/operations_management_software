@@ -2149,6 +2149,10 @@ td img {
     min-width: 120px;
 }
 
+.assign-user-row .assign-user-sub-row li:nth-child(1) {
+    background-color: #bcb8b84d;
+}
+
 .assign-user-sub-row li:nth-child(2) {
     /* width: 180px; */
     width: 15vw;
