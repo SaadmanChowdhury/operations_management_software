@@ -187,7 +187,7 @@ function deleteClient() {
     event.preventDefault();
     clientId = $('#id').val();
     Swal.fire({
-        title: '本当ですか？',
+        title: 'よろしいでしょうか。',
         text: "これを元に戻すことはできません!",
         icon: 'warning',
         showCancelButton: true,
