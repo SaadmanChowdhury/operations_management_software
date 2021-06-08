@@ -14,27 +14,15 @@ function assignDisplay(x) {
   }
 }
 
-function year_inc(x) {
+function year_inc() {
   var year = document.getElementById('assign_year');
-  x = x + 1;
-  $assign_year = x;
-  year.innerText = x;
-
-  onYearChanged(x);
+  year.innerHTML = parseInt(year.innerHTML) + 1;
+  onYearChanged(parseInt(year.innerText));
 }
 
-function year_dec(x) {
+function year_dec() {
   var year = document.getElementById('assign_year');
-  x = x - 1;
-  $assign_year = x;
-  year.innerText = x;
-
-  onYearChanged(x);
+  year.innerHTML = parseInt(year.innerHTML) - 1;
+  onYearChanged(parseInt(year.innerText));
 }
 
-window.onload = function () {
-
-  var current_year = new Date().getFullYear();
-  document.getElementById('assign_year').innerHTML = current_year;
-  onYearChanged(current_year);
-}
