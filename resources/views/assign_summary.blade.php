@@ -831,7 +831,7 @@
 
                 else if (index > 1) {
 
-                    if (this.man_mon[(index - 2)] == 0) {
+                    if (cumCell == 0) {
                         sinCellList = `<li class="grey tooltip">${cumCell}</li>`;
 
                     } else if (cumCell < this.man_mon[(index - 2)]) {
