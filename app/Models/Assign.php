@@ -113,10 +113,21 @@ class Assign extends Model
         }
 
         $data = DB::table('assign')
-            // ->select('*')
-            ->orWhereNotIn('year', [$orderYear, $inspectionYear])
-            ->orWhereNotIn('month', [$orderMonth, $inspectionMonth])
+            ->select('*')
+            ->whereBetween('year', [$orderYear, $inspectionYear])
+            ->whereBetween('month', [$orderMonth, $inspectionMonth])
             ->where('project_id', $projectID)
+            ->get();
+
+        $newArray = [];
+        foreach ($data as $value) {
+            array_push($newArray, $value->assign_id);
+        }
+
+        $new = DB::table('assign')
+            // ->select('*')
+            ->where('project_id', $projectID)
+            ->whereNotIn('assign_id', $newArray)
             ->delete();
 
         // $data = DB::table('assign')
