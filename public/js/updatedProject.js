@@ -755,19 +755,19 @@ function generateMonths(orderMonth, totalMonths) {
 
 function calcMonthDiff(orderMonth, inspectionMonth) {
     orderMonth = "2021-01-10";
-    inspectionMonth = "2021-04-03";
+    inspectionMonth = "2022-04-03";
     var date1 = new Date(orderMonth);
     var date2 = new Date(inspectionMonth);
 
     // To calculate the time difference of two dates
-    var Difference_In_Time = (date2.getFullYear() - date1.getFullYear()) * 12;
-    Difference_In_Time -= date1.getMonth();
-    Difference_In_Time += date2.getMonth();
+    var Difference_In_Month = (date2.getFullYear() - date1.getFullYear()) * 12;
+    Difference_In_Month -= date1.getMonth();
+    Difference_In_Month += date2.getMonth();
 
     // To calculate the no. of days between two dates
     //var Difference_In_Month = Math.ceil(Difference_In_Time / (1000 * 3600 * 24 * 30));
     //return Difference_In_Month;
-    return Difference_In_Time <= 0 ? 0 : Difference_In_Time + 1;
+    return Difference_Month <= 0 ? 0 : Difference_In_Month + 1;
 }
 
 function calcTotalManMonth(mainTableArray) {
