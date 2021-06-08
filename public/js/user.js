@@ -76,7 +76,7 @@ function renderHTML(response) {
         var time_diff = dateDifference(today, date);
 
         //GENDER
-        var gender;
+        var gender = './img/pro_icon.png';
         switch (row.gender) {
             case 0:
                 gender = './img/pro_icon.png';
@@ -84,6 +84,7 @@ function renderHTML(response) {
             case 1:
                 gender = './img/pro_icon3.png';
                 break;
+
         }
         // console.log(gender);
 
