@@ -186,7 +186,7 @@ class UsersTableSeeder extends Seeder
                 'name' => '松本',
                 'email' => 'demoUser@gtmi.co.jp',
                 'email_verified_at' => now(),
-                'password' => bcrypt('password'), // password
+                'password' => bcrypt('demo1234'), // password
                 'gender' => 0, //male
                 'location' => '東京', //tokyo
                 'tel' => '0123456789',
