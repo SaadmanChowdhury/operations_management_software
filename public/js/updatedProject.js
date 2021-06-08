@@ -3,6 +3,7 @@ PROJECT_CARDS = [];
 
 ////====USER-LIST AJAX====////
 var users;
+
 function fetchUserList_AJAX() {
     $.ajax({
         type: "post",
@@ -11,13 +12,13 @@ function fetchUserList_AJAX() {
             _token: $('#csrf-token')[0].content,
         },
         cache: false,
-        success: function (response) {
+        success: function(response) {
             if (response["resultStatus"]["isSuccess"]) {
                 users = response["resultData"]["user"];
             } else
                 handleAJAXResponse(response);
         },
-        error: function (err) {
+        error: function(err) {
             handleAJAXError(err);
         }
     });
@@ -36,7 +37,7 @@ function readProjectAssign_AJAX(projectID) {
         },
         async: false,
         cache: true,
-        success: function (response02) {
+        success: function(response02) {
 
             if (response02["resultStatus"]["isSuccess"]) {
                 // setTimeout(function(){
@@ -47,7 +48,7 @@ function readProjectAssign_AJAX(projectID) {
             } else
                 handleAJAXResponse(response);
         },
-        error: function (err) {
+        error: function(err) {
             handleAJAXError(err);
         }
     });
@@ -65,7 +66,7 @@ function updateAssignData_AJAX(assignData, projectID) {
             assignments: assignData
         },
         cache: false,
-        success: function (response01) {
+        success: function(response01) {
 
             if (response01["resultStatus"]["isSuccess"]) {
 
@@ -74,7 +75,7 @@ function updateAssignData_AJAX(assignData, projectID) {
             } else
                 handleAJAXResponse(response01);
         },
-        error: function (err) {
+        error: function(err) {
             handleAJAXError(err);
             readAndRenderProjectAssignByProjectID(projectID)
         }
@@ -85,7 +86,7 @@ function updateAssignData_AJAX(assignData, projectID) {
 function readAndRenderProjectAssignByProjectID(projectID) {
     document.getElementById('row' + projectID).innerHTML = `<div class="loader" id="loader-${projectID}"></div>`;
     var response = readProjectAssign_AJAX(projectID);
-    setTimeout(function () {
+    setTimeout(function() {
         document.getElementById('row' + projectID).innerHTML = "";
         var project = response["resultData"]["project"];
         var data = convertToSimple2DArray(project);
@@ -118,36 +119,56 @@ class ProjectListRenderer {
 
     getOrderStatusHTML(data) {
         switch (data) {
-            case 'A': return "<li><div class='order-tag _red'>A</div></li>";
-            case 'B': return "<li><div class='order-tag _orange'>B</div></li>";
-            case 'C': return "<li><div class='order-tag _orange'>C</div></li>";
-            case 'Z': return "<li><div class='order-tag _gray'>Z</div></li>";
-            case '●': return "<li><div class='order-tag _green'>○</div></li>";
-            default: return "<li></li>";
+            case 'A':
+                return "<li><div class='order-tag _red'>A</div></li>";
+            case 'B':
+                return "<li><div class='order-tag _orange'>B</div></li>";
+            case 'C':
+                return "<li><div class='order-tag _orange'>C</div></li>";
+            case 'Z':
+                return "<li><div class='order-tag _gray'>Z</div></li>";
+            case '●':
+                return "<li><div class='order-tag _green'>○</div></li>";
+            default:
+                return "<li></li>";
         }
     }
 
     getBusinessSituationHTML(data) {
         switch (data) {
-            case '見積前': return "<li><div class='business-tag _green'>● 見積前</div></li>";
-            case '見積中': return "<li><div class='business-tag _green'>● 見積中</div></li>";
-            case '見積済': return "<li><div class='business-tag _green'>● 見積済</div></li>";
-            case '受注': return "<li><div class='business-tag _green'>● 受注</div></li>";
-            case '検収中': return "<li><div class='business-tag _green'>● 検収中</div></li>";
-            case '完了': return "<li><div class='business-tag _green'>● 完了</div></li>";
-            default: return "<li></li>";
+            case '見積前':
+                return "<li><div class='business-tag _green'>● 見積前</div></li>";
+            case '見積中':
+                return "<li><div class='business-tag _green'>● 見積中</div></li>";
+            case '見積済':
+                return "<li><div class='business-tag _green'>● 見積済</div></li>";
+            case '受注':
+                return "<li><div class='business-tag _green'>● 受注</div></li>";
+            case '検収中':
+                return "<li><div class='business-tag _green'>● 検収中</div></li>";
+            case '完了':
+                return "<li><div class='business-tag _green'>● 完了</div></li>";
+            default:
+                return "<li></li>";
         }
     }
 
     getDevelopmentStageHTML(data) {
         switch (data) {
-            case '受注前着手': return "<li><div class='development-tag _blue'>受注前着手</div></li>";
-            case '要件': return "<li><div class='development-tag _blue'>要件定義</div></li>";
-            case '設計': return "<li><div class='development-tag _blue'>設計</div></li>";
-            case '実装': return "<li><div class='development-tag _blue'>実装</div></li>";
-            case 'テスト': return "<li><div class='development-tag _blue'>テスト</div></li>";
-            case '開発完了': return "<li><div class='development-tag _blue'>開発完了</div></li>";
-            default: return "<li></li>";
+            case '受注前着手':
+                return "<li><div class='development-tag _blue'>受注前着手</div></li>";
+            case '要件':
+                return "<li><div class='development-tag _blue'>要件定義</div></li>";
+            case '設計':
+                return "<li><div class='development-tag _blue'>設計</div></li>";
+            case '実装':
+                return "<li><div class='development-tag _blue'>実装</div></li>";
+            case 'テスト':
+                return "<li><div class='development-tag _blue'>テスト</div></li>";
+            case '開発完了':
+                return "<li><div class='development-tag _blue'>開発完了</div></li>";
+            default:
+                return "<li></li>";
         }
     }
 
@@ -172,8 +193,7 @@ class ProjectListRenderer {
             <li class="right-align">${numberWithCommas(project.budget) + " 円"}</li>
             <li>${project.profitPercentage}%</li>`;
 
-        }
-        else {
+        } else {
             projectHtml += `<li class="right-align"></li>
             <li class="right-align"></li>
             <li></li>`;
@@ -185,8 +205,7 @@ class ProjectListRenderer {
             <span style="font-size: 11px; margin:6px;width:auto" class="fa fa-pencil"></span>編集
             </div>`
 
-        }
-        else {
+        } else {
 
         }
 
@@ -230,12 +249,12 @@ class ProjectListRenderer {
                 _token: $('#csrf-token')[0].content,
             },
             cache: false,
-            success: function (response01) {
+            success: function(response01) {
 
                 if (response01["resultStatus"]["isSuccess"]) {
 
                     if (response01["resultData"]["project"].length > 0) {
-                        setTimeout(function () {
+                        setTimeout(function() {
                             hideMainLoader()
                         }, 500);
                         projectRender();
@@ -243,20 +262,17 @@ class ProjectListRenderer {
                         function projectRender() {
 
 
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
                                     renderClass.renderProjectList(response01);
-                                }
-                                else projectRender();
+                                } else projectRender();
 
                                 let preference = document.getElementById("initial-preference");
                                 adjustRowHeightByState(preference, false);
                             }, 10)
                         }
 
-                    }
-
-                    else {
+                    } else {
 
                         showEmptyListInfromation("#accordian");
                     }
@@ -264,7 +280,7 @@ class ProjectListRenderer {
                 } else
                     handleAJAXResponse(response01);
             },
-            error: function (err) {
+            error: function(err) {
                 handleAJAXError(err);
             }
         });
@@ -283,25 +299,26 @@ function display(id) {
         document.getElementById('row' + id).innerHTML = `<div class="loader" id="loader-${id}"></div>`;
         var response = readProjectAssign_AJAX(id);
 
-        setTimeout(function () {
+        setTimeout(function() {
             var project = response["resultData"]["project"];
             var data = convertToSimple2DArray(project);
             renderEmptyAssignAccordion(data, project);
         }, 500);
 
 
-    }
-    else {
+    } else {
 
     }
 
 }
+
 function getProjectDuration(project) {
 
     var duration = project.minYear + "年" + project.minMonth + "月‐" + project.maxYear + "年" + project.maxMonth + "月";
     return duration;
 
 }
+
 function renderProjectManagementSummary(project) {
 
     var ProjectManagementSummaryTableHTML =
@@ -315,8 +332,7 @@ function renderProjectManagementSummary(project) {
         ProjectManagementSummaryTableHTML += `
                         <tr><td>予算</td><td>${numberWithCommas(project.budget)}円</td></tr>`;
 
-    }
-    else {
+    } else {
 
         ProjectManagementSummaryTableHTML += ``;
 
@@ -326,8 +342,7 @@ function renderProjectManagementSummary(project) {
         ProjectManagementSummaryTableHTML += `<tr>
                         <td>原価</td><td>${numberWithCommas(project.cost)}円</td></tr>`;
 
-    }
-    else {
+    } else {
 
         ProjectManagementSummaryTableHTML += ``;
 
@@ -344,8 +359,7 @@ function renderProjectManagementSummary(project) {
                             <td>粗利</td><td>${numberWithCommas(project.profit)}円</td>
                         </tr>`;
 
-    }
-    else {
+    } else {
 
         ProjectManagementSummaryTableHTML += ``;
 
@@ -358,8 +372,7 @@ function renderProjectManagementSummary(project) {
                             <td>${numberWithCommas(project.profitPercentage)}%</td>
                         </tr>`;
 
-    }
-    else {
+    } else {
 
         ProjectManagementSummaryTableHTML += ``;
 
@@ -394,8 +407,7 @@ function generateProjectDetailsBody_AssignedValues(assignData) {
 
             if (assignData[i][j] > 0) {
                 assignedValueHTML += `<td class="faded-yellow">${assignData[i][j]}</td>`;
-            }
-            else {
+            } else {
                 assignedValueHTML += `<td>${assignData[i][j]}</td>`;
             }
 
@@ -406,6 +418,7 @@ function generateProjectDetailsBody_AssignedValues(assignData) {
     return assignedValueHTML;
 
 }
+
 function generateProjectDetailsBody_colSum(assignData) {
     var assignedValueHTML = ``;
     assignedValueHTML += `<tr class=row-total>`;
@@ -429,14 +442,12 @@ function generateAssignedMembersHtML(assignData) {
                                     <td>${assignData[i][0]}</td>
                                     <td>${assignData[i][1]}</td>
                                 </tr>`;
-        }
-        else {
+        } else {
             assignedMemberHTML += `<tr class=editMode-input>`;
             if (i == 2) {
                 assignedMemberHTML += `<td><img src="img/pro_icon.png" class="leader">${convertUser_IDToName(assignData[i][0])}</td>
                                         <td>${assignData[i][1]}</td>`;
-            }
-            else {
+            } else {
                 assignedMemberHTML += `<td><button class="delete editMode">-</button><img src="img/pro_icon.png">${convertUser_IDToName(assignData[i][0])}</td>
                                         <td>${assignData[i][1]}</td>`;
             }
@@ -456,9 +467,10 @@ function getMembersID(assignData) {
     }
     return memberList;
 }
+
 function editModeOn(assignData, projectID) {
 
-    $('#project-row-' + projectID + ' .editMode').each(function (index) {
+    $('#project-row-' + projectID + ' .editMode').each(function(index) {
         this.style.display = "block";
         document.getElementById("edit-" + projectID).style.display = "none";
     });
@@ -468,7 +480,7 @@ function editModeOn(assignData, projectID) {
 
     var $dataTable = $('#tableRight-' + projectID).find('.editMode-input');
 
-    $dataTable.each(function (i) {
+    $dataTable.each(function(i) {
         for (var j = 2; j < assignData[0].length; j++) {
             if (j == 2)
                 $(this).html("<td><input type=\"number\" class=\"data-cell\"  min=\"0\" max=\"1\"  name=\"data-cell\"  value=\"" + assignData[i + 2][j] + "\"></td>");
@@ -481,8 +493,8 @@ function editModeOn(assignData, projectID) {
     //==CONVERTING ORANGE TABLE into INPUT FIELDS==//
     var membersID = getMembersID(assignData);
     var $dataTable2 = $('#tableLeft-' + projectID).find('.editMode-input');
-    $dataTable2.each(function (i) {
-        $(this).children('td').each(function (index) {
+    $dataTable2.each(function(i) {
+        $(this).children('td').each(function(index) {
 
             if (index % 2 == 0 && i != 0) {
 
@@ -590,7 +602,7 @@ function editModeOff(projectID, assignData) {
 
     //===DISAPPEARING EDITING PENCIL===//
     //#row1 > div > div.project-rhs > div.add-minus-holder.editMode
-    $('#row' + projectID + ' > div > div.project-rhs > .editMode').each(function (index, element) {
+    $('#row' + projectID + ' > div > div.project-rhs > .editMode').each(function(index, element) {
 
         this.style.display = "none";
         document.getElementById('edit-' + projectID).style.display = "block";
@@ -615,16 +627,16 @@ function editModeOff(projectID, assignData) {
 }
 
 function callActionListeners(projectID, assignData) {
-    document.getElementById("edit-" + projectID).onclick = function () {
+    document.getElementById("edit-" + projectID).onclick = function() {
         editModeOn(assignData, projectID);
     }
-    document.getElementById('save-' + projectID).onclick = function () {
+    document.getElementById('save-' + projectID).onclick = function() {
 
         editModeOff(projectID, assignData);
 
     };
 
-    document.getElementById('reset-' + projectID).onclick = function () {
+    document.getElementById('reset-' + projectID).onclick = function() {
 
 
         // resetActionCall(assignData,projectID);
@@ -636,14 +648,13 @@ function callActionListeners(projectID, assignData) {
             var data = convertToSimple2DArray(project);
             renderEmptyAssignAccordion(data, project);
             editModeOn(assignData, projectID);
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err);
         }
 
     };
 
-    document.getElementById('trash-' + projectID).onclick = function () {
+    document.getElementById('trash-' + projectID).onclick = function() {
 
         document.getElementById('row' + projectID).innerHTML = `<div class="loader" id="loader-${projectID}"></div>`;
         var response = readProjectAssign_AJAX(projectID);
@@ -652,8 +663,7 @@ function callActionListeners(projectID, assignData) {
             var project = response["resultData"]["project"];
             var data = convertToSimple2DArray(project);
             renderEmptyAssignAccordion(data, project);
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err);
         }
 
@@ -668,6 +678,7 @@ function getPojectLeaderAssignArrayIndex(mainTableArray, projectLeaderID) {
     }
     return mainTableArray.length;
 }
+
 function putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID) {
     var leaderIndex = getPojectLeaderAssignArrayIndex(mainTableArray, projectLeaderID);
     if (leaderIndex == mainTableArray.length) {
@@ -682,8 +693,7 @@ function putProjectLeaderAlwaysTop(mainTableArray, projectLeaderID) {
         //console.log(mainTableArray);
         mainTableArray[length][0] = projectLeaderID;
         leaderIndex = length;
-    }
-    else {
+    } else {
 
     }
     var tmpRow = mainTableArray[2];
@@ -705,6 +715,7 @@ function getAssignedValueByYearMonth(assign, date) {
     }
     return 0;
 }
+
 function convertToArrayAssign(assign, memberID, dateArray) {
 
     var assignArray = new Array(dateArray.length).fill(0);
@@ -712,11 +723,9 @@ function convertToArrayAssign(assign, memberID, dateArray) {
 
         if (i == 0) {
             assignArray[i] = memberID;
-        }
-        else if (i == 1) {
+        } else if (i == 1) {
             assignArray[i] = 0;
-        }
-        else {
+        } else {
 
             assignArray[i] = getAssignedValueByYearMonth(assign, dateArray[i]);
 
@@ -745,16 +754,20 @@ function generateMonths(orderMonth, totalMonths) {
 //=== CALCULATING PROJECT DURATION ===//
 
 function calcMonthDiff(orderMonth, inspectionMonth) {
-
+    orderMonth = "2021-01-10";
+    inspectionMonth = "2021-04-03";
     var date1 = new Date(orderMonth);
     var date2 = new Date(inspectionMonth);
 
     // To calculate the time difference of two dates
-    var Difference_In_Time = date2.getTime() - date1.getTime();
+    var Difference_In_Time = (date2.getFullYear() - date1.getFullYear()) * 12;
+    Difference_In_Time -= date1.getMonth();
+    Difference_In_Time += date2.getMonth();
 
     // To calculate the no. of days between two dates
-    var Difference_In_Month = Math.ceil(Difference_In_Time / (1000 * 3600 * 24 * 30));
-    return Difference_In_Month;
+    //var Difference_In_Month = Math.ceil(Difference_In_Time / (1000 * 3600 * 24 * 30));
+    //return Difference_In_Month;
+    return Difference_In_Time <= 0 ? 0 : Difference_In_Time + 1;
 }
 
 function calcTotalManMonth(mainTableArray) {
@@ -793,6 +806,7 @@ function calcSubTotalManMonthColumn(mainTableArray) {
     }
     return mainTableArray;
 }
+
 function convertToSimple2DArray(project) {
     var members = project.member;
     var projectLeaderID = project.projectLeaderID;
@@ -825,9 +839,7 @@ function convertToSimple2DArray(project) {
         mainTableArray[1][0] = members.length;
         mainTableArray[1] = calcTotalManMonth(mainTableArray[1]);
 
-    }
-
-    else {
+    } else {
         mainTableArray[0] = generateMonths(project.orderMonth, totalMonths);
         mainTableArray[1] = new Array(totalMonths + 2).fill(0);
         mainTableArray[2] = new Array(totalMonths + 2).fill(0);
@@ -864,15 +876,15 @@ function renderEmptyAssignAccordion(assignData, project) {
                         <tr>
                             <th class="mishti-orange">メンバー</th>
                             <th class="mishti-orange">工数合計</th>
-                        </tr>`
-        + generateAssignedMembersHtML(assignData) +
+                        </tr>` +
+        generateAssignedMembersHtML(assignData) +
         `</tbody>
                 </table>
                     <div class="table-des-container">
                         <table class="table-des" id="tableRight-${projectID}">
-                            `+ generateProjectDetailsHeader_AssignedDates(dates)
-        + generateProjectDetailsBody_colSum(assignData)
-        + generateProjectDetailsBody_AssignedValues(assignData) +
+                            ` + generateProjectDetailsHeader_AssignedDates(dates) +
+        generateProjectDetailsBody_colSum(assignData) +
+        generateProjectDetailsBody_AssignedValues(assignData) +
 
         `</table>
                     </div>
@@ -892,8 +904,7 @@ function renderEmptyAssignAccordion(assignData, project) {
                     </div>
                 </ul>
             </div>`
-    }
-    else {
+    } else {
 
     }
     accordionHTML += `</div>`;
@@ -903,8 +914,7 @@ function renderEmptyAssignAccordion(assignData, project) {
     projects.innerHTML = accordionHTML;
     if (isProjectEditable(project.projectLeaderID)) {
         callActionListeners(projectID, assignData);
-    }
-    else {
+    } else {
 
     }
 
@@ -928,7 +938,7 @@ function addRow(projectID, diff) {
 
 
     document.querySelector("#tableLeft-" + projectID + " > tbody").innerHTML += `<tr class="editMode-input">
-                                                `+ string + `
+                                                ` + string + `
                                                 <td>0</td>
                                             </tr>`;
 
@@ -938,7 +948,7 @@ function addRow(projectID, diff) {
 
     for (let i = 0; i < selects.length; i++) {
 
-        selects[i].onchange = function () {
+        selects[i].onchange = function() {
             selects[i].options[selects[i].selectedIndex].setAttribute("selected", "selected");
         }
     }
@@ -950,7 +960,7 @@ function addRow(projectID, diff) {
 
     }
     document.querySelector("#tableRight-" + projectID + " > tbody").innerHTML += `<tr class="editMode-input">
-                                            `+ string + `</tr>`;
+                                            ` + string + `</tr>`;
 
 
 
@@ -966,14 +976,14 @@ function addActionListenerForInputs(projectID) {
 
     for (let i = 0; i < selects.length; i++) {
 
-        selects[i].onchange = function () {
+        selects[i].onchange = function() {
             selects[i].options[selects[i].selectedIndex].setAttribute("selected", "selected");
         }
     }
 
     var ips = document.querySelector("#tableRight-" + projectID + " > tbody").getElementsByTagName("input");
     for (let i = 0; i < ips.length; i++) {
-        ips[i].onchange = function () {
+        ips[i].onchange = function() {
             ips[i].setAttribute("value", ips[i].value);
         }
     }
@@ -982,8 +992,8 @@ function addActionListenerForInputs(projectID) {
 function deleteRowActionListener(projectID) {
 
     var i = 0;
-    document.getElementById("project-row-" + projectID).querySelectorAll(".delete").forEach(function (obj, index) {
-        obj.addEventListener("click", function (event) {
+    document.getElementById("project-row-" + projectID).querySelectorAll(".delete").forEach(function(obj, index) {
+        obj.addEventListener("click", function(event) {
 
             if (i == 0) {
                 document.getElementById("tableLeft-" + projectID).deleteRow(index + 3);
@@ -1022,7 +1032,7 @@ function hideMainLoader() {
 pos = $('.userlist-nav a li');
 
 pos.off("click");
-pos.on("click", function () {
+pos.on("click", function() {
     event.preventDefault();
 
     clickedItem = $($(this)[0]).html();
@@ -1035,13 +1045,24 @@ pos.on("click", function () {
                 showCard(PROJECT_CARDS[i])
             }
             return;
-        case "A": case "B": case "C": case "○": case "Z":
+        case "A":
+        case "B":
+        case "C":
+        case "○":
+        case "Z":
             showHideProjectHandler("order-tag", clickedItem);
             return;
-        case "見積": case "受注": case "検収": case "完了":
+        case "見積":
+        case "受注":
+        case "検収":
+        case "完了":
             showHideProjectHandler("business-tag", clickedItem);
             return;
-        case "要件": case "設計": case "実装": case "テスト": case "開発完了":
+        case "要件":
+        case "設計":
+        case "実装":
+        case "テスト":
+        case "開発完了":
             showHideProjectHandler("development-tag", clickedItem);
             return;
     }
@@ -1061,8 +1082,7 @@ pos.on("click", function () {
 
             if (text.includes(itemName)) {
                 showCard(PROJECT_CARDS[i])
-            }
-            else {
+            } else {
                 hideCard(PROJECT_CARDS[i])
             }
 
@@ -1088,8 +1108,7 @@ function filterProject(e) {
                 for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PM") {
                         showCard(staffList[i])
-                    }
-                    else {
+                    } else {
                         hideCard(staffList[i])
                     }
                 }
@@ -1100,8 +1119,7 @@ function filterProject(e) {
                 for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "SE") {
                         showCard(staffList[i])
-                    }
-                    else {
+                    } else {
                         hideCard(staffList[i])
                     }
                 }
@@ -1112,8 +1130,7 @@ function filterProject(e) {
                 for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PG") {
                         showCard(staffList[i])
-                    }
-                    else {
+                    } else {
                         hideCard(staffList[i])
                     }
                 }
@@ -1125,8 +1142,7 @@ function filterProject(e) {
                     if (item[i].innerText == "PL") {
                         showCard(staffList[i])
                         console.log(staffList[i]);
-                    }
-                    else {
+                    } else {
                         hideCard(staffList[i])
                     }
                 }
@@ -1142,7 +1158,7 @@ function checkEditDates() {
     var orderInput = document.getElementById("project_edit_order_month_Input");
     var inspectionInput = document.getElementById("project_edit_inspection_month_Input");
 
-    orderInput.addEventListener("change", function () {
+    orderInput.addEventListener("change", function() {
         if (new Date(orderInput.value) > project_edit_order_month_Input) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -1155,8 +1171,7 @@ function checkEditDates() {
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                }
-                else {
+                } else {
                     orderInput.value = project_edit_order_month_Input.toISOString().substring(0, 10);
                 }
             })
@@ -1164,7 +1179,7 @@ function checkEditDates() {
     });
 
 
-    inspectionInput.addEventListener("change", function () {
+    inspectionInput.addEventListener("change", function() {
 
         if (new Date(inspectionInput.value) < project_edit_inspection_month_Input)
             Swal.fire({
@@ -1178,8 +1193,7 @@ function checkEditDates() {
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                }
-                else {
+                } else {
                     inspectionInput.value = project_edit_inspection_month_Input.toISOString().substring(0, 10);;
                 }
             })
