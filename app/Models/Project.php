@@ -69,7 +69,10 @@ class Project extends Model
             'transferred_amount' => $validatedData['transferred_amount'],
             'budget' => $validatedData['budget'],
         ]);
-        return ['projectID' => $project];
+        return [
+            'projectID' => $project,
+            'profit' => $this->getProjectProfitPercentage($project),
+        ];
     }
 
     public function convertOrderStatusToInt($sentStatus)

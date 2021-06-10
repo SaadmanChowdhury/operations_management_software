@@ -4,10 +4,8 @@ namespace App\Services;
 
 use App\Http\Utilities\JSONHandler;
 use App\Models\Assign;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class ProjectService
 {
@@ -91,7 +89,7 @@ class ProjectService
         // get the project ID
         $projectId = ($project->projectID);
         // get the project profit
-        $project->profit = $projectModel->getProjectProfit($projectId);
+        $project->profit = $projectModel->getProjectProfitPercentage($projectId);
 
         $loggedUser = auth()->user();
         //if admin or manager
