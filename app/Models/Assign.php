@@ -104,39 +104,36 @@ class Assign extends Model
         return $returnArray;
     }
 
-    public function deleteAllAssignValuesOutsideProjectTimeline($orderYear, $orderMonth,  $inspectionYear, $inspectionMonth, $projectID)
+    public function deleteAllAssignValuesOutsideProjectTimeline($projectID, $orderDate, $inspectionDate)
     {
 
-        if ($inspectionYear == null) {
-            $inspectionYear = 9999;
-            $inspectionMonth = 12;
+        if ($inspectionDate == null) {
+            $inspectionDate = '9999-12-01';
         }
 
+        $day = explode("-", $orderDate);
+        $day[2] = '01';
+        $orderDate = implode('-', $day);
+
+        $day = explode("-", $inspectionDate);
+        $day[2] = '01';
+        $inspectionDate = implode('-', $day);
+
         $data = DB::table('assign')
-            ->select('*')
-            ->whereBetween('year', [$orderYear, $inspectionYear])
-            ->whereBetween('month', [$orderMonth, $inspectionMonth])
+            ->select(DB::raw("assign_id, DATE_ADD(MAKEDATE(YEAR, 1), INTERVAL (MONTH)-1 MONTH) AS assign_date"))
             ->where('project_id', $projectID)
             ->get();
+
+        $data = $data->whereBetween('assign_date', [$orderDate, $inspectionDate])->toArray();
 
         $newArray = [];
         foreach ($data as $value) {
             array_push($newArray, $value->assign_id);
         }
 
-        $new = DB::table('assign')
-            // ->select('*')
+        DB::table('assign')
             ->where('project_id', $projectID)
             ->whereNotIn('assign_id', $newArray)
             ->delete();
-
-        // $data = DB::table('assign')
-
-        //     ->select('*')
-        //     ->WhereIn('year', [$orderYear, $inspectionYear])
-        //     ->WhereIn('month', [$orderMonth, $inspectionMonth])
-        //     ->where('project_id', $projectID)
-        //     ->get();
-
     }
 }

@@ -198,15 +198,15 @@ class ProjectService
             $orderYear = Carbon::parse($orderDate)->format('Y');
             $orderMonth = Carbon::parse($orderDate)->format('m');
 
-            $inspectionMonth = $validatedData['inspection_month'];
-            if ($inspectionMonth != null) {
-                $inspectionYear = Carbon::parse($inspectionMonth)->format('Y');
-                $inspectionMonth = Carbon::parse($inspectionMonth)->format('m');
+            $inspectionDate = $validatedData['inspection_month'];
+            if ($inspectionDate != null) {
+                $inspectionYear = Carbon::parse($inspectionDate)->format('Y');
+                $inspectionMonth = Carbon::parse($inspectionDate)->format('m');
             } else {
                 $inspectionYear = $inspectionMonth =  null;
             }
 
-            $assignModel->deleteAllAssignValuesOutsideProjectTimeline($orderYear, $orderMonth, $inspectionYear, $inspectionMonth, $projectID);
+            $assignModel->deleteAllAssignValuesOutsideProjectTimeline($projectID, $orderDate, $inspectionDate);
 
 
             return $projectModel->upsertProjectDetails($validatedData, $projectID);
