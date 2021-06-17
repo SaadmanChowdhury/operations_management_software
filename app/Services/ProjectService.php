@@ -129,6 +129,7 @@ class ProjectService
 
     private function logicForUpSertProject($validatedData)
     {
+        $projectModel = new Project();
         $orderMonth = $validatedData['order_month'];
         $inspectionMonth = $validatedData['inspection_month'];
 
@@ -160,6 +161,12 @@ class ProjectService
         if (intval($transferredAmount) > intval($salesTotal)) {
             return '振込金額は売上高を超えることはできません';
         }
+
+        $duplicate_flag = $projectModel->hasDuplicateProjectName($validatedData);
+        if ($duplicate_flag) {
+            return 'Duplicate name is not allowed for project.';
+        }
+
         return true;
     }
 
