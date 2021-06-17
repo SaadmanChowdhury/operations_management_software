@@ -1,4 +1,4 @@
-PROJECT_CARDS = [];
+var PROJECT_CARDS = [];
 
 
 ////====USER-LIST AJAX====////
@@ -12,13 +12,13 @@ function fetchUserList_AJAX() {
             _token: $('#csrf-token')[0].content,
         },
         cache: false,
-        success: function(response) {
+        success: function (response) {
             if (response["resultStatus"]["isSuccess"]) {
                 users = response["resultData"]["user"];
             } else
                 handleAJAXResponse(response);
         },
-        error: function(err) {
+        error: function (err) {
             handleAJAXError(err);
         }
     });
@@ -37,7 +37,7 @@ function readProjectAssign_AJAX(projectID) {
         },
         async: false,
         cache: true,
-        success: function(response02) {
+        success: function (response02) {
 
             if (response02["resultStatus"]["isSuccess"]) {
                 // setTimeout(function(){
@@ -48,7 +48,7 @@ function readProjectAssign_AJAX(projectID) {
             } else
                 handleAJAXResponse(response);
         },
-        error: function(err) {
+        error: function (err) {
             handleAJAXError(err);
         }
     });
@@ -66,7 +66,7 @@ function updateAssignData_AJAX(assignData, projectID) {
             assignments: assignData
         },
         cache: false,
-        success: function(response01) {
+        success: function (response01) {
 
             if (response01["resultStatus"]["isSuccess"]) {
 
@@ -75,7 +75,7 @@ function updateAssignData_AJAX(assignData, projectID) {
             } else
                 handleAJAXResponse(response01);
         },
-        error: function(err) {
+        error: function (err) {
             handleAJAXError(err);
             readAndRenderProjectAssignByProjectID(projectID)
         }
@@ -86,7 +86,7 @@ function updateAssignData_AJAX(assignData, projectID) {
 function readAndRenderProjectAssignByProjectID(projectID) {
     document.getElementById('row' + projectID).innerHTML = `<div class="loader" id="loader-${projectID}"></div>`;
     var response = readProjectAssign_AJAX(projectID);
-    setTimeout(function() {
+    setTimeout(function () {
         document.getElementById('row' + projectID).innerHTML = "";
         var project = response["resultData"]["project"];
         var data = convertToSimple2DArray(project);
@@ -249,12 +249,12 @@ class ProjectListRenderer {
                 _token: $('#csrf-token')[0].content,
             },
             cache: false,
-            success: function(response01) {
+            success: function (response01) {
 
                 if (response01["resultStatus"]["isSuccess"]) {
 
                     if (response01["resultData"]["project"].length > 0) {
-                        setTimeout(function() {
+                        setTimeout(function () {
                             hideMainLoader()
                         }, 500);
                         projectRender();
@@ -262,7 +262,7 @@ class ProjectListRenderer {
                         function projectRender() {
 
 
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 if (USER_LIST.length > 0 && CLIENT_LIST.length > 0) {
                                     renderClass.renderProjectList(response01);
                                 } else projectRender();
@@ -280,7 +280,7 @@ class ProjectListRenderer {
                 } else
                     handleAJAXResponse(response01);
             },
-            error: function(err) {
+            error: function (err) {
                 handleAJAXError(err);
             }
         });
@@ -299,7 +299,7 @@ function display(id) {
         document.getElementById('row' + id).innerHTML = `<div class="loader" id="loader-${id}"></div>`;
         var response = readProjectAssign_AJAX(id);
 
-        setTimeout(function() {
+        setTimeout(function () {
             var project = response["resultData"]["project"];
             var data = convertToSimple2DArray(project);
             renderEmptyAssignAccordion(data, project);
@@ -470,7 +470,7 @@ function getMembersID(assignData) {
 
 function editModeOn(assignData, projectID) {
 
-    $('#project-row-' + projectID + ' .editMode').each(function(index) {
+    $('#project-row-' + projectID + ' .editMode').each(function (index) {
         this.style.display = "block";
         document.getElementById("edit-" + projectID).style.display = "none";
     });
@@ -480,7 +480,7 @@ function editModeOn(assignData, projectID) {
 
     var $dataTable = $('#tableRight-' + projectID).find('.editMode-input');
 
-    $dataTable.each(function(i) {
+    $dataTable.each(function (i) {
         for (var j = 2; j < assignData[0].length; j++) {
             if (j == 2)
                 $(this).html("<td><input type=\"number\" class=\"data-cell\"  min=\"0\" max=\"1\"  name=\"data-cell\"  value=\"" + assignData[i + 2][j] + "\"></td>");
@@ -493,8 +493,8 @@ function editModeOn(assignData, projectID) {
     //==CONVERTING ORANGE TABLE into INPUT FIELDS==//
     var membersID = getMembersID(assignData);
     var $dataTable2 = $('#tableLeft-' + projectID).find('.editMode-input');
-    $dataTable2.each(function(i) {
-        $(this).children('td').each(function(index) {
+    $dataTable2.each(function (i) {
+        $(this).children('td').each(function (index) {
 
             if (index % 2 == 0 && i != 0) {
 
@@ -602,7 +602,7 @@ function editModeOff(projectID, assignData) {
 
     //===DISAPPEARING EDITING PENCIL===//
     //#row1 > div > div.project-rhs > div.add-minus-holder.editMode
-    $('#row' + projectID + ' > div > div.project-rhs > .editMode').each(function(index, element) {
+    $('#row' + projectID + ' > div > div.project-rhs > .editMode').each(function (index, element) {
 
         this.style.display = "none";
         document.getElementById('edit-' + projectID).style.display = "block";
@@ -627,16 +627,16 @@ function editModeOff(projectID, assignData) {
 }
 
 function callActionListeners(projectID, assignData) {
-    document.getElementById("edit-" + projectID).onclick = function() {
+    document.getElementById("edit-" + projectID).onclick = function () {
         editModeOn(assignData, projectID);
     }
-    document.getElementById('save-' + projectID).onclick = function() {
+    document.getElementById('save-' + projectID).onclick = function () {
 
         editModeOff(projectID, assignData);
 
     };
 
-    document.getElementById('reset-' + projectID).onclick = function() {
+    document.getElementById('reset-' + projectID).onclick = function () {
 
 
         // resetActionCall(assignData,projectID);
@@ -654,7 +654,7 @@ function callActionListeners(projectID, assignData) {
 
     };
 
-    document.getElementById('trash-' + projectID).onclick = function() {
+    document.getElementById('trash-' + projectID).onclick = function () {
 
         document.getElementById('row' + projectID).innerHTML = `<div class="loader" id="loader-${projectID}"></div>`;
         var response = readProjectAssign_AJAX(projectID);
@@ -947,7 +947,7 @@ function addRow(projectID, diff) {
 
     for (let i = 0; i < selects.length; i++) {
 
-        selects[i].onchange = function() {
+        selects[i].onchange = function () {
             selects[i].options[selects[i].selectedIndex].setAttribute("selected", "selected");
         }
     }
@@ -975,14 +975,14 @@ function addActionListenerForInputs(projectID) {
 
     for (let i = 0; i < selects.length; i++) {
 
-        selects[i].onchange = function() {
+        selects[i].onchange = function () {
             selects[i].options[selects[i].selectedIndex].setAttribute("selected", "selected");
         }
     }
 
     var ips = document.querySelector("#tableRight-" + projectID + " > tbody").getElementsByTagName("input");
     for (let i = 0; i < ips.length; i++) {
-        ips[i].onchange = function() {
+        ips[i].onchange = function () {
             ips[i].setAttribute("value", ips[i].value);
         }
     }
@@ -991,8 +991,8 @@ function addActionListenerForInputs(projectID) {
 function deleteRowActionListener(projectID) {
 
     var i = 0;
-    document.getElementById("project-row-" + projectID).querySelectorAll(".delete").forEach(function(obj, index) {
-        obj.addEventListener("click", function(event) {
+    document.getElementById("project-row-" + projectID).querySelectorAll(".delete").forEach(function (obj, index) {
+        obj.addEventListener("click", function (event) {
 
             if (i == 0) {
                 document.getElementById("tableLeft-" + projectID).deleteRow(index + 3);
@@ -1028,10 +1028,16 @@ function hideMainLoader() {
 
 ////====SORTING====////
 
+function refreshCards() {
+    PROJECT_CARDS = document.querySelectorAll('._project.card');
+}
+
 pos = $('.userlist-nav a li');
 
 pos.off("click");
-pos.on("click", function() {
+pos.on("click", function () {
+
+
     event.preventDefault();
 
     clickedItem = $($(this)[0]).html();
@@ -1040,6 +1046,7 @@ pos.on("click", function() {
 
     switch (clickedItem) {
         case "全て":
+            refreshCards();
             for (let i = 0; i < PROJECT_CARDS.length; i++) {
                 showCard(PROJECT_CARDS[i])
             }
@@ -1049,12 +1056,14 @@ pos.on("click", function() {
         case "C":
         case "○":
         case "Z":
+            refreshCards();
             showHideProjectHandler("order-tag", clickedItem);
             return;
         case "見積":
         case "受注":
         case "検収":
         case "完了":
+            refreshCards();
             showHideProjectHandler("business-tag", clickedItem);
             return;
         case "要件":
@@ -1062,17 +1071,18 @@ pos.on("click", function() {
         case "実装":
         case "テスト":
         case "開発完了":
+            refreshCards();
             showHideProjectHandler("development-tag", clickedItem);
             return;
     }
 
 
     function showHideProjectHandler(domType, itemName) {
-        console.log(PROJECT_CARDS);
+        // console.log(PROJECT_CARDS);
         for (let i = 0; i < PROJECT_CARDS.length; i++) {
 
             text = $(PROJECT_CARDS[i]).find("." + domType).html();
-            console.log(text);
+            //  console.log(text);
 
             if (text == null) {
                 hideCard(PROJECT_CARDS[i])
@@ -1080,6 +1090,9 @@ pos.on("click", function() {
             }
 
             if (text.includes(itemName)) {
+
+                console.log(text, PROJECT_CARDS[i]);
+
                 showCard(PROJECT_CARDS[i])
             } else {
                 hideCard(PROJECT_CARDS[i])
@@ -1096,6 +1109,7 @@ function filterProject(e) {
 
     switch (e.target.innerText) {
         case "全て":
+            refreshCards();
             {
                 for (let i = 0; i < item.length; i++) {
                     showCard(staffList[i])
@@ -1103,6 +1117,7 @@ function filterProject(e) {
                 break;
             }
         case "PM":
+            refreshCards();
             {
                 for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PM") {
@@ -1114,6 +1129,7 @@ function filterProject(e) {
                 break;
             }
         case "SE":
+            refreshCards();
             {
                 for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "SE") {
@@ -1125,6 +1141,7 @@ function filterProject(e) {
                 break;
             }
         case "PG":
+            refreshCards();
             {
                 for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PG") {
@@ -1136,6 +1153,7 @@ function filterProject(e) {
                 break;
             }
         case "PL":
+            refreshCards();
             {
                 for (let i = 0; i < item.length; i++) {
                     if (item[i].innerText == "PL") {
@@ -1157,7 +1175,7 @@ function checkEditDates() {
     var orderInput = document.getElementById("project_edit_order_month_Input");
     var inspectionInput = document.getElementById("project_edit_inspection_month_Input");
 
-    orderInput.addEventListener("change", function() {
+    orderInput.addEventListener("change", function () {
         if (new Date(orderInput.value) > project_edit_order_month_Input) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -1178,7 +1196,7 @@ function checkEditDates() {
     });
 
 
-    inspectionInput.addEventListener("change", function() {
+    inspectionInput.addEventListener("change", function () {
 
         if (new Date(inspectionInput.value) < project_edit_inspection_month_Input)
             Swal.fire({

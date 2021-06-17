@@ -345,11 +345,13 @@ function isCurrentUser(userId) {
     return userId == currentUserId.value ? true : false;
 }
 
+var emptyList = (Math.random() + "").replaceAll("0.", "");
+
 function showEmptyListInfromation(targetDomId) {
 
     $(targetDomId).html(`
     
-       <div style='text-align:center; line-height:100px; font-size: 2vw; color: red;  '>  表示できる項目が存在していません </div>
+       <div id="${emptyList}" style='text-align:center; line-height:100px; font-size: 2vw; color: red;  '>  表示できる項目が存在していません </div>
     
     `);
 
@@ -358,8 +360,10 @@ function showEmptyListInfromation(targetDomId) {
 
 function hideEmptyListInfromation(targetDomId) {
 
-    $(targetDomId).html(`
-    
-  `);
+    try {
+        document.getElementById(emptyList).style.display = "none";
+    }
+    catch (err) {
 
+    }
 }
