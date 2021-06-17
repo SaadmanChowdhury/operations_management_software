@@ -279,4 +279,14 @@ class Project extends Model
         $project = Project::where('project_id', $projectID)->first();
         return $project->manager_id;
     }
+
+    public function hasDuplicateProjectName($data)
+    {
+        $project_name = trim($data['project_name']);
+        $project_name_count = DB::table('projects')
+            ->where('project_name', $project_name)
+            ->count();
+
+        return $project_name_count > 0 ? true : false;
+    }
 }
