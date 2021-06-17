@@ -162,10 +162,10 @@ class ProjectService
             return '振込金額は売上高を超えることはできません';
         }
 
-        $duplicate_flag = $projectModel->hasDuplicateProjectName($validatedData);
-        if ($duplicate_flag) {
-            return 'Duplicate name is not allowed for project.';
-        }
+        // $duplicate_flag = $projectModel->hasDuplicateProjectName($validatedData);
+        // if ($duplicate_flag) {
+        //     return 'Duplicate name is not allowed for project.';
+        // }
 
         return true;
     }
