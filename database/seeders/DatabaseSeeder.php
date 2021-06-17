@@ -14,8 +14,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        //$this->makeDummySeeders();
-        $this->startFromScratchSeeders();
+        $limit =  $this->command->ask('Please select scratch mode(s) or dummy data(d):');
+
+        if ($limit == "s") {
+            $this->startFromScratchSeeders();
+        } else {
+            $this->makeDummySeeders();
+        }
     }
 
     public function makeDummySeeders()
