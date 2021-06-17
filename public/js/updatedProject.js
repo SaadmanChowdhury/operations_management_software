@@ -1178,13 +1178,14 @@ function checkEditDates() {
     orderInput.addEventListener("change", function () {
         if (new Date(orderInput.value) > project_edit_order_month_Input) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "The existing assigns before the current date might be deleted and you won't be able to revert it again",
+                title: 'よろしいでしょうか',
+                text: "この日付の前のアサインがなくなります",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085D6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, change it!'
+                confirmButtonText: 'はい',
+                cancelButtonText:'キャンセル'
             }).then((result) => {
                 if (result.isConfirmed) {
 
@@ -1200,13 +1201,14 @@ function checkEditDates() {
 
         if (new Date(inspectionInput.value) < project_edit_inspection_month_Input)
             Swal.fire({
-                title: 'Are you sure?',
-                text: "The existing assigns after the current date might be deleted and you won't be able to revert it again",
+                title: 'よろしいでしょうか',
+                text: "この日付の後のアサインがなくなります",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085D6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, change it!'
+                confirmButtonText: 'はい',
+                cancelButtonText:'キャンセル'
             }).then((result) => {
                 if (result.isConfirmed) {
 
