@@ -64,6 +64,11 @@
                         <div class="input">
                             <input type="password" id="password" name="password" placeholder="your password">
                             <p class="text-xs error-msg">Required!</p>
+                            @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                            <p style="color: yellow; font-weight: bold;">メールアドレスまたはログインパスワードが間違っています</p>
+                            @endforeach
+                            @endif
                         </div>
 
                         <div class="text-right mt mb">
@@ -100,10 +105,12 @@
         const myArray = []; // this array will be sent to make the toast.
         var message = "<?php echo $myError ?>";
         myArray.push(message);
-        if (message) {
+        if (message != '') {
             makeToast(myArray); // calling makeToast function
         }
     </script>
+    <div id="snackbar" class="snackbar-hide" onlclik="hideSnackBar(this)">Some text some message..</div>
+
 </body>
 
 </html>
