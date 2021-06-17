@@ -351,7 +351,7 @@ function showEmptyListInfromation(targetDomId) {
 
     $(targetDomId).html(`
     
-       <div id="${emptyList}" style='text-align:center; line-height:100px; font-size: 2vw; color: red;  '>  表示できる項目が存在していません </div>
+       <div id="${emptyList}" style='text-align:center; line-height:100px; font-size: 2vw; color: grey;  '>  表示できる項目が存在していません </div>
     
     `);
 
