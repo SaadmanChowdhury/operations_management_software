@@ -773,7 +773,7 @@ function calcTotalManMonth(mainTableArray) {
     var sum = 0;
     for (let i = 2; i < mainTableArray.length; i++) {
 
-        sum += mainTableArray[i];
+        sum += parseFloat(parseFloat(mainTableArray[i]).toFixed(2));
 
     }
     mainTableArray[1] = sum;
@@ -801,7 +801,7 @@ function calcSubTotalManMonthColumn(mainTableArray) {
 
             sum += mainTableArray[j][i];
         }
-        mainTableArray[1][i] = sum;
+        mainTableArray[1][i] = parseFloat(parseFloat(sum).toFixed(2));
     }
     return mainTableArray;
 }
