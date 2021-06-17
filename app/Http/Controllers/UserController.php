@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Utilities\JSONHandler;
+use App\Models\Assign;
 
 class UserController extends Controller
 {
@@ -118,7 +119,10 @@ class UserController extends Controller
         if ($loggedUser->user_authority == 'システム管理者') {
 
             $user = new User();
+            $assignModel = new Assign();
             $user->deleteUser($request->id);
+            $assignModel->deleteAllAssignValuesOfDeletedUser($request->id);
+
             return JSONHandler::emptySuccessfulJSONPackage();
         } else {
 
