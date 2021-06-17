@@ -354,3 +354,12 @@ function showEmptyListInfromation(targetDomId) {
     `);
 
 }
+
+
+function hideEmptyListInfromation(targetDomId) {
+
+    $(targetDomId).html(`
+    
+  `);
+
+}

@@ -13,11 +13,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        //$this->makeDummySeeders();
+        $this->startFromScratchSeeders();
+    }
+
+    public function makeDummySeeders()
+    {
+
         $this->call([
             UsersTableSeeder::class,
             ClientsTableSeeder::class,
             ProjectsTableSeeder::class,
             AssignTableSeeder::class
+        ]);
+    }
+
+
+    public function startFromScratchSeeders()
+    {
+
+        $this->call([
+            UserOneSeeder::class,
+            ClientOneSeeder::class,
+
         ]);
     }
 }

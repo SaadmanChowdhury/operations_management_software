@@ -183,12 +183,16 @@
             success: function(response) {
                 if (response["resultStatus"]["isSuccess"]) {
 
+                    hideEmptyListInfromation("#accordian");
+
                     modalData["projectID"] = response["resultData"]["projectID"];
                     modalData["profitPercentage"] = response["resultData"]["profit"];
 
                     let row = $("#accordian");
                     row.prepend(new ProjectListRenderer().renderHTMLProjectList(modalData));
                     closeModal('project-create-modal');
+
+                   
                 } else
                     handleAJAXResponse(response);
             },
