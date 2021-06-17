@@ -136,4 +136,11 @@ class Assign extends Model
             ->whereNotIn('assign_id', $newArray)
             ->delete();
     }
+
+    public function deleteAllAssignValuesOfDeletedUser($user_id)
+    {
+        DB::table('assign')
+            ->where('user_id', $user_id)
+            ->delete();
+    }
 }
