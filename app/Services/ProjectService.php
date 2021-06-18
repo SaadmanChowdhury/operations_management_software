@@ -114,9 +114,14 @@ class ProjectService
             $result = $this->logicForUpSertProject($validatedData);
             // dd($result);
 
+            $duplicate_flag = $projectModel->hasDuplicateProjectName($validatedData);
+            if ($duplicate_flag) {
+                return '案件はすでに同じ名前で存在しています';
+            }
+
             // has some logical error
             if ($result !== true) {
-                return JSONHandler::errorJSONPackage($result);
+                return $result;
             }
 
             // creating a project
@@ -196,6 +201,10 @@ class ProjectService
                 return $result;
             }
 
+            $duplicate_flag = $projectModel->hasDuplicateProjectNameForUpdate($request);
+            if ($duplicate_flag) {
+                return '案件はすでに同じ名前で存在しています';
+            }
             // need to hard delete any assign which are outside the new inspect/order date range
             // delete all the assign values before the order date if inspection date is null
 

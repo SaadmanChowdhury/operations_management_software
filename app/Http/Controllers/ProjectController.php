@@ -96,6 +96,9 @@ class ProjectController extends Controller
 
         if ($loggedUser->user_authority == 'システム管理者') {
             $data = $this->projectService->createProject($request);
+            if (gettype($data) == "string") {
+                return JSONHandler::customErrorJSONPackage($data);
+            }
             return JSONHandler::packagedJSONData($data);
         }
         return JSONHandler::errorJSONPackage("UNAUTHORIZED_ACTION");

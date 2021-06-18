@@ -289,4 +289,16 @@ class Project extends Model
 
         return $project_name_count > 0 ? true : false;
     }
+
+    public function hasDuplicateProjectNameForUpdate($request)
+    {
+        $project_id = $request->projectID;
+        $project_name = $request->projectName;
+
+        $project_name_count = DB::table('projects')
+            ->where('project_name', $project_name)
+            ->whereNotIn('project_id', [$project_id])
+            ->count();
+        return $project_name_count > 0 ? true : false;
+    }
 }
